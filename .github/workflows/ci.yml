@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  quality:
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+      - uses: astral-sh/setup-uv@v8.1.0
+        with:
+          enable-cache: true
+      - run: uv sync --locked --dev
+      - run: uv run ruff format --check .
+      - run: uv run ruff check .
+      - run: uv run pyright
+      - run: uv run pytest

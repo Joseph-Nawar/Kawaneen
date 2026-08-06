@@ -1,0 +1,62 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "kawaneen"
+version = "0.1.0"
+description = "Foundation for jurisdiction-aware Arabic legal and regulatory intelligence"
+readme = "README.md"
+requires-python = ">=3.11,<3.13"
+license = { file = "LICENSE" }
+authors = [{ name = "Kawaneen contributors" }]
+dependencies = [
+    "pydantic>=2.10,<3",
+    "pydantic-settings>=2.7,<3",
+    "structlog>=24.4,<26",
+]
+
+[project.scripts]
+kawaneen = "kawaneen.cli:main"
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.0,<5",
+    "pyright>=1.1.390,<2",
+    "pytest>=8.3,<9",
+    "pytest-cov>=6,<7",
+    "ruff>=0.9,<1",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/kawaneen"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = ["data"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "RUF"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.pytest.ini_options]
+addopts = "--cov=kawaneen --cov-branch --cov-report=term-missing --cov-fail-under=85"
+testpaths = ["tests"]
+
+[tool.coverage.run]
+branch = true
+source = ["kawaneen"]
+
+[tool.coverage.report]
+exclude_also = ["if __name__ == .__main__.:", "pragma: no cover"]
+
+[tool.pyright]
+include = ["src/kawaneen"]
+typeCheckingMode = "strict"
+pythonVersion = "3.11"
+venvPath = "."
+reportMissingTypeStubs = false

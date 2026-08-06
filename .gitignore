@@ -1,0 +1,26 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.pyright/
+.coverage
+coverage.xml
+htmlcov/
+dist/
+build/
+*.egg-info/
+.env
+.DS_Store
+
+# Data is local by default; only future metadata directories are versioned.
+data/raw/
+data/external/
+data/interim/
+data/processed/
+data/**/.DS_Store
+data/**/.gitkeep
+!data/manifests/
+!data/manifests/.gitkeep
+!data/evaluation/
+!data/evaluation/.gitkeep
