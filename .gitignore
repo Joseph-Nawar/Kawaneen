@@ -18,6 +18,9 @@ data/raw/
 data/external/
 data/interim/
 data/processed/
+artifacts/private/
+**/*.partial
+data/.cache/
 data/**/.DS_Store
 data/**/.gitkeep
 !data/manifests/

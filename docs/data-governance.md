@@ -25,3 +25,10 @@ Case-derived material is high privacy risk until a source-specific review docume
 ## Operational boundary
 
 Runtime validation is offline and reads only the local CSV. It never contacts source websites, follows URLs, downloads files, or creates directories. Manual review must resolve the registry action before any future source workflow is designed.
+## Saudi official-text rights evidence
+
+Saudi Copyright Law Article 4 is recorded as one evidence item for the underlying official-text layer: Saudi laws, judicial judgments, administrative decisions, international agreements, official documents, and official translations are excluded from Saudi copyright protection, subject to provisions concerning circulation.
+
+This provision is not blanket permission to scrape, mirror, or automatically acquire a government portal. Kawaneen keeps underlying official-text copyright status, circulation restrictions, portal terms, derived dataset or compilation licence, privacy, automated-access permission, and public-display permission separate. Non-commercial status does not override website terms or privacy rules.
+
+For statutory reconciliation, the Saudi Ministry of Justice Legal Portal, Saudi Bureau of Experts legislation portal, and Saudi National Platform rules catalogue are official manual authorities. No bulk scraping is authorized.
