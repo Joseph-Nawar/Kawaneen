@@ -1,0 +1,49 @@
+[
+  {
+    "schema_version": 1,
+    "source_id": "saudi-moj-derived",
+    "total_rows": 3185,
+    "unique_rows": 3185,
+    "unique_law_names": 71,
+    "law_type_counts": {
+      "آلية": 1,
+      "أدلة": 91,
+      "تنظيم": 40,
+      "دليل": 1,
+      "ضوابط": 23,
+      "قواعد": 53,
+      "لائحة": 958,
+      "نظام": 2018
+    },
+    "unique_article_labels": 124,
+    "missing_or_empty_fields": {
+      "article_number": 0,
+      "law_name": 0,
+      "law_type": 0,
+      "text": 0
+    },
+    "exact_duplicate_rows": 0,
+    "duplicate_law_article_keys": 1993,
+    "extremely_short_records": 0,
+    "extremely_long_records": 6,
+    "likely_malformed_or_reversed_arabic": 0,
+    "suspicious_character_sequences": 0,
+    "likely_merged_word_or_ocr_artifacts": 0,
+    "field_availability": {
+      "judgment_date": false,
+      "publication_date": false,
+      "effective_date": false,
+      "status": false,
+      "amendments": false,
+      "details_url": false,
+      "official_url": false
+    },
+    "schema_columns": [
+      "text",
+      "article_number",
+      "law_name",
+      "law_type",
+      "source"
+    ]
+  }
+]

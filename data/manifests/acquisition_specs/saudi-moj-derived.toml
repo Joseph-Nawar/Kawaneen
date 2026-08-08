@@ -1,0 +1,22 @@
+schema_version = 1
+source_id = "saudi-moj-derived"
+version = "8b55ef5a666ad773c81086051813582fd14eb466"
+revision = "8b55ef5a666ad773c81086051813582fd14eb466"
+provider = "huggingface"
+identifier = "WafaaFraih/saudi-legal-moj"
+licence = "CC BY 4.0"
+canonical_source = "Hugging Face Hub dataset repository"
+acquisition_method = "official Hub client at pinned revision"
+expected_records = 3185
+allowed_purposes = ["local_research", "integrity", "duplicate_analysis", "privacy_inspection", "local_parsing"]
+notes = "Derived local-research seed; source-text rights, training, and public display remain unresolved."
+
+[[files]]
+path = "README.md"
+format = "text"
+
+[[files]]
+path = "data/train-00000-of-00001.parquet"
+format = "parquet"
+expected_records = 3185
+expected_columns = ["text", "article_number", "law_name", "law_type", "source"]

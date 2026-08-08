@@ -1,0 +1,34 @@
+schema_version = 1
+source_id = "alarb"
+version = "e64bfdc867146294a65434c5ca16c2c4c5288ca2"
+revision = "e64bfdc867146294a65434c5ca16c2c4c5288ca2"
+provider = "huggingface"
+identifier = "THIQAH-RD/ALARB"
+licence = "Apache-2.0"
+canonical_source = "Hugging Face Hub dataset repository"
+acquisition_method = "official Hub client at pinned revision"
+expected_records = 13341
+allowed_purposes = ["evaluation", "local_parsing", "integrity", "duplicate_analysis", "privacy_inspection"]
+notes = "Official train/test splits are preserved. Acquisition is local inspection only."
+
+[expected_splits]
+train = 12012
+test = 1329
+
+[[files]]
+path = "README.md"
+format = "text"
+
+[[files]]
+path = "data/train-00000-of-00001.parquet"
+format = "parquet"
+expected_records = 12012
+expected_columns = ["case_facts", "court_reasoning", "applicable_laws", "verdict"]
+split = "train"
+
+[[files]]
+path = "data/test-00000-of-00001.parquet"
+format = "parquet"
+expected_records = 1329
+expected_columns = ["case_facts", "court_reasoning", "applicable_laws", "verdict"]
+split = "test"

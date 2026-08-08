@@ -1,0 +1,53 @@
+[
+  {
+    "acquisition_method": "official Hub client at pinned revision",
+    "canonical_source": "Hugging Face Hub dataset repository",
+    "modeling_split": "official",
+    "purpose": "integrity",
+    "record_count": 13341,
+    "schema_version": 1,
+    "source_id": "alarb",
+    "stage_eligibility": {
+      "authorized_for_evaluation": true,
+      "authorized_for_local_parsing": true,
+      "authorized_for_public_display": false,
+      "authorized_for_training": false,
+      "legal_clearance": false
+    },
+    "version": "e64bfdc867146294a65434c5ca16c2c4c5288ca2"
+  },
+  {
+    "acquisition_method": "authorized manual official download followed by local import",
+    "canonical_source": "Mendeley Data DOI 10.17632/np538c95yy.3, Version 3",
+    "modeling_split": "none_approved",
+    "purpose": "integrity",
+    "record_count": 12806,
+    "schema_version": 1,
+    "source_id": "arabiccr",
+    "stage_eligibility": {
+      "authorized_for_evaluation": true,
+      "authorized_for_local_parsing": true,
+      "authorized_for_public_display": false,
+      "authorized_for_training": false,
+      "legal_clearance": false
+    },
+    "version": "3"
+  },
+  {
+    "acquisition_method": "official Hub client at pinned revision",
+    "canonical_source": "Hugging Face Hub dataset repository",
+    "modeling_split": "none_approved",
+    "purpose": "integrity",
+    "record_count": 3185,
+    "schema_version": 1,
+    "source_id": "saudi-moj-derived",
+    "stage_eligibility": {
+      "authorized_for_evaluation": false,
+      "authorized_for_local_parsing": true,
+      "authorized_for_public_display": false,
+      "authorized_for_training": false,
+      "legal_clearance": false
+    },
+    "version": "8b55ef5a666ad773c81086051813582fd14eb466"
+  }
+]

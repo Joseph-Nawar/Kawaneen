@@ -1,0 +1,59 @@
+{
+  "schema_version": 2,
+  "sources": [
+    {
+      "acquisition_method": "official Hub client at pinned revision",
+      "canonical_source": "Hugging Face Hub dataset repository",
+      "files": [
+        {
+          "path": "README.md",
+          "sha256": "85c913413c6ca894b074e243933dc16aa04d898598ba205d2d56f67dc53c7fd6",
+          "size": 1834
+        },
+        {
+          "path": "data/test-00000-of-00001.parquet",
+          "sha256": "0bc425145417e8966345af3324bad9627c8bd0f469559684c1d9c8dda81dbae5",
+          "size": 2145231
+        },
+        {
+          "path": "data/train-00000-of-00001.parquet",
+          "sha256": "16a642aeff40e9c8d050ca99a81f7a1802cdbee64234778d6c5790d20750ae32",
+          "size": 19133223
+        }
+      ],
+      "source_id": "alarb",
+      "version": "e64bfdc867146294a65434c5ca16c2c4c5288ca2"
+    },
+    {
+      "acquisition_method": "authorized manual official download followed by local import",
+      "canonical_source": "Mendeley Data DOI 10.17632/np538c95yy.3, Version 3",
+      "files": [
+        {
+          "path": "ArabiCCR-dataset.csv",
+          "sha256": "1064ede6fd2e9d697be258cfaff0594559599d0ca8ba39bc0100017f12a0f9ef",
+          "size": 305354149
+        }
+      ],
+      "source_id": "arabiccr",
+      "version": "3"
+    },
+    {
+      "acquisition_method": "official Hub client at pinned revision",
+      "canonical_source": "Hugging Face Hub dataset repository",
+      "files": [
+        {
+          "path": "README.md",
+          "sha256": "3162fe8ddee605ab2a293239239031e7d80108bd7f051aa77f02cd9f78115520",
+          "size": 6041
+        },
+        {
+          "path": "data/train-00000-of-00001.parquet",
+          "sha256": "d1207f190afadb5baa24d3a8c0666f34f17b2d880b5319537e832abdefb75fae",
+          "size": 1350919
+        }
+      ],
+      "source_id": "saudi-moj-derived",
+      "version": "8b55ef5a666ad773c81086051813582fd14eb466"
+    }
+  ]
+}

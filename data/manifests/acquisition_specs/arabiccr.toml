@@ -1,0 +1,18 @@
+schema_version = 1
+source_id = "arabiccr"
+version = "3"
+revision = "3"
+provider = "mendeley_data"
+identifier = "10.17632/np538c95yy.3"
+licence = "CC BY 4.0"
+canonical_source = "Mendeley Data DOI 10.17632/np538c95yy.3, Version 3"
+acquisition_method = "authorized manual official download followed by local import"
+expected_records = 12806
+allowed_purposes = ["local_research", "local_parsing", "inspection", "integrity", "duplicate_analysis", "privacy_inspection"]
+no_modeling_split = true
+notes = "Canonical source: Mendeley Data DOI 10.17632/np538c95yy.3, Version 3. Acquisition method: authorized manual official download followed by local import of the exact CSV; do not create train/test splits."
+
+[[files]]
+path = "ArabiCCR-dataset.csv"
+format = "csv"
+expected_records = 12806

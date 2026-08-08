@@ -171,7 +171,7 @@ def test_registry_rejects_missing_file(tmp_path: Path) -> None:
 
 def test_real_registry_contains_requested_sources() -> None:
     records = load_registry()
-    assert len(records) == 12
+    assert len(records) == 13
     assert {record.source_id for record in records} >= {
         "alarb",
         "arablegaleval",
@@ -185,6 +185,7 @@ def test_real_registry_contains_requested_sources() -> None:
         "egypt-court-cassation",
         "egypt-official-legislation-candidates",
         "uae-legislation",
+        "saudi-moj-derived",
     }
 
 
@@ -261,6 +262,9 @@ def test_real_registry_records_corrected_release_facts() -> None:
         "https://huggingface.co/datasets/THIQAH-RD/ArabLegalEval"
     )
     assert records["arablegaleval"].size == "27032"
+    assert records["saudi-moj-derived"].decision.value == "local_research_only"
+    assert records["saudi-moj-derived"].dataset_licence.value == "yes"
+    assert records["saudi-moj-derived"].original_source_rights.value == "unknown"
 
 
 def test_missing_licence_cannot_assert_licence_derived_attribution() -> None:

@@ -1,0 +1,68 @@
+[
+  {
+    "affected_record_count": 2266,
+    "confirmed_pii_count": null,
+    "deterministic_review_sample_size": 100,
+    "findings_by_column": {
+      "case_facts": 2143,
+      "court_reasoning": 319,
+      "verdict": 70
+    },
+    "findings_by_detector": {
+      "phone": 2532
+    },
+    "likely_false_positive_count": null,
+    "manual_review_status": "pending_manual_review",
+    "schema_version": 1,
+    "source_id": "alarb",
+    "unresolved_categories": [
+      "phone"
+    ]
+  },
+  {
+    "affected_record_count": 12806,
+    "confirmed_pii_count": null,
+    "deterministic_review_sample_size": 100,
+    "findings_by_column": {
+      "EVENTS": 3977,
+      "REASONING": 1159,
+      "RULING": 510,
+      "case_number": 3721,
+      "case_text": 5420,
+      "judgment_date": 12806,
+      "judgment_number": 3721
+    },
+    "findings_by_detector": {
+      "email": 118,
+      "iban_like": 4,
+      "phone": 31192
+    },
+    "likely_false_positive_count": null,
+    "manual_review_status": "pending_manual_review",
+    "schema_version": 1,
+    "source_id": "arabiccr",
+    "unresolved_categories": [
+      "email",
+      "iban_like",
+      "phone"
+    ]
+  },
+  {
+    "affected_record_count": 11,
+    "confirmed_pii_count": null,
+    "deterministic_review_sample_size": 11,
+    "findings_by_column": {
+      "text": 11
+    },
+    "findings_by_detector": {
+      "phone": 11
+    },
+    "likely_false_positive_count": null,
+    "manual_review_status": "pending_manual_review",
+    "schema_version": 1,
+    "source_id": "saudi-moj-derived",
+    "unresolved_categories": [
+      "phone"
+    ]
+  }
+]
