@@ -1,0 +1,26 @@
+{
+  "accounting": {
+    "accounted_records": 13341,
+    "canonical_documents": 13341,
+    "canonical_units": 53364,
+    "error_records": 0,
+    "excluded_records": 0,
+    "expected_records": 13341,
+    "source_id": "alarb"
+  },
+  "files": [
+    {
+      "path": "data/interim/canonical/alarb/e64bfdc867146294a65434c5ca16c2c4c5288ca2/documents.parquet",
+      "sha256": "316bf3f2b3215f508d7e33ad164ecee18fff7dd17be73e0ea4079d4d2dff1656",
+      "size": 337140
+    },
+    {
+      "path": "data/interim/canonical/alarb/e64bfdc867146294a65434c5ca16c2c4c5288ca2/units.parquet",
+      "sha256": "3c340fb5bafe66fbbd716bd559e48e514f1c7d9ae1741330c0a40873c41ade6c",
+      "size": 16830007
+    }
+  ],
+  "schema_version": 1,
+  "source_id": "alarb",
+  "version": "e64bfdc867146294a65434c5ca16c2c4c5288ca2"
+}

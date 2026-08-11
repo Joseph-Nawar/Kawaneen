@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "accounted_records": 13341,
+      "canonical_documents": 13341,
+      "canonical_units": 53364,
+      "error_records": 0,
+      "excluded_records": 0,
+      "expected_records": 13341,
+      "source_id": "alarb"
+    },
+    {
+      "accounted_records": 12806,
+      "canonical_documents": 12806,
+      "canonical_units": 51224,
+      "error_records": 0,
+      "excluded_records": 0,
+      "expected_records": 12806,
+      "source_id": "arabiccr"
+    },
+    {
+      "accounted_records": 3185,
+      "canonical_documents": 71,
+      "canonical_units": 3185,
+      "error_records": 0,
+      "excluded_records": 0,
+      "expected_records": 3185,
+      "source_id": "saudi-moj-derived"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+[thresholds]
+image_only_max_text_chars = 5
+mixed_max_text_chars = 80
+
+[ocr]
+engine = "onnxruntime"
+ocr_version = "PP-OCRv5"
+language = "arabic"
+model_type = "mobile"
+detector_model = "ch_PP-OCRv5_det_mobile.onnx"
+recognizer_model = "arabic_PP-OCRv5_rec_mobile.onnx"
+classifier_model = "ch_PP-LCNet_x0_25_textline_ori_cls_mobile.onnx"
+detector_source_url = "https://www.modelscope.cn/models/RapidAI/RapidOCR/resolve/v3.9.2/onnx/PP-OCRv5/det/ch_PP-OCRv5_det_mobile.onnx"
+recognizer_source_url = "https://www.modelscope.cn/models/RapidAI/RapidOCR/resolve/v3.9.2/onnx/PP-OCRv5/rec/arabic_PP-OCRv5_rec_mobile.onnx"
+classifier_source_url = "https://www.modelscope.cn/models/RapidAI/RapidOCR/resolve/v3.9.2/onnx/PP-OCRv5/cls/ch_PP-LCNet_x0_25_textline_ori_cls_mobile.onnx"
+detector_sha256 = "4d97c44a20d30a81aad087d6a396b08f786c4635742afc391f6621f5c6ae78ae"
+recognizer_sha256 = "c1192e632d0baa9146ae5b756a0e635e3dc63c1733737ebfd1629e87144e9295"
+classifier_sha256 = "54379ae5174d026780215fc748a7f31910dee36818e63d49e17dc598ecc82df7"
+download_in_ci = false

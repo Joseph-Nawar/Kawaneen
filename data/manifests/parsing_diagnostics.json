@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "status": "passed_minimal_layout_diagnostic",
+  "input": "private one-page MOJ sample; path omitted from committed metadata",
+  "command": "python -m kawaneen parsing diagnose --path <one-page-pdf> --device <cpu|auto>",
+  "configuration": {
+    "ocr_enabled": false,
+    "table_structure_enabled": false,
+    "layout_pipeline": true,
+    "pdf_backend": "pypdfium2"
+  },
+  "runs": [
+    {
+      "device_requested": "cpu",
+      "device_used": "cpu",
+      "returncode": 0,
+      "signal": null,
+      "status": "passed",
+      "usable_structured_document": true,
+      "elapsed_seconds": 5.76,
+      "peak_memory_mb": null,
+      "docling": "2.118.1",
+      "docling_core": "2.91.0",
+      "pypdfium2": "5.12.1",
+      "model_artifact_check": "layout_only_options_created"
+    },
+    {
+      "device_requested": "auto",
+      "device_used": "cpu",
+      "returncode": 0,
+      "signal": null,
+      "status": "passed",
+      "usable_structured_document": true,
+      "elapsed_seconds": 5.705,
+      "peak_memory_mb": null,
+      "docling": "2.118.1",
+      "docling_core": "2.91.0",
+      "pypdfium2": "5.12.1",
+      "model_artifact_check": "layout_only_options_created"
+    }
+  ],
+  "interpretation": "The previous bare-converter termination was avoided by explicitly disabling OCR and table enrichment and using the pypdfium2 PDF backend. Auto selected CPU on this Apple Silicon host; no MPS conversion was exercised by the installed Docling pipeline."
+}

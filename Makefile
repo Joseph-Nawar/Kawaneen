@@ -1,4 +1,4 @@
-.PHONY: help install format lint typecheck test check doctor sources-validate sources-summary data-plan data-acquire-alarb data-import-arabiccr data-verify data-audit data-audit-statutory data-manifest data-status data-rebuild-auto data-rebuild clean
+.PHONY: help install format lint typecheck test check doctor sources-validate sources-summary data-plan data-acquire-alarb data-import-arabiccr data-verify data-audit data-audit-statutory data-manifest data-status data-rebuild-auto data-rebuild corpus-plan corpus-build corpus-validate corpus-inventory corpus-statutory-status corpus-duplicate-diagnostics corpus-gaps parsing-preflight parsing-benchmark parsing-diagnose clean
 
 help:
 	@printf '%s\n' 'Kawaneen development commands:'
@@ -21,6 +21,16 @@ help:
 	@printf '%s\n' '  make data-status       uv run kawaneen data status'
 	@printf '%s\n' '  make data-rebuild-auto uv run kawaneen data rebuild --auto'
 	@printf '%s\n' '  make data-rebuild      alias for data-rebuild-auto'
+	@printf '%s\n' '  make corpus-plan       uv run kawaneen corpus plan'
+	@printf '%s\n' '  make corpus-build      uv run kawaneen corpus build (local data; not CI)'
+	@printf '%s\n' '  make corpus-validate   uv run kawaneen corpus validate'
+	@printf '%s\n' '  make corpus-inventory  uv run kawaneen corpus inventory'
+	@printf '%s\n' '  make corpus-statutory-status  uv run kawaneen corpus statutory-status'
+	@printf '%s\n' '  make corpus-duplicate-diagnostics  uv run kawaneen corpus duplicate-diagnostics'
+	@printf '%s\n' '  make corpus-gaps       uv run kawaneen corpus gaps'
+	@printf '%s\n' '  make parsing-benchmark uv run kawaneen parsing benchmark (private pages required)'
+	@printf '%s\n' '  make parsing-preflight uv run kawaneen parsing preflight'
+	@printf '%s\n' '  make parsing-diagnose FILE=...  uv run kawaneen parsing diagnose --path FILE (optional dependencies)'
 	@printf '%s\n' '  make clean     remove safe local build and test artifacts'
 
 install:
@@ -82,6 +92,36 @@ data-rebuild-auto:
 	uv run kawaneen data rebuild --auto
 
 data-rebuild: data-rebuild-auto
+
+corpus-plan:
+	uv run kawaneen corpus plan
+
+corpus-build:
+	uv run kawaneen corpus build
+
+corpus-validate:
+	uv run kawaneen corpus validate
+
+corpus-inventory:
+	uv run kawaneen corpus inventory
+
+corpus-statutory-status:
+	uv run kawaneen corpus statutory-status
+
+corpus-duplicate-diagnostics:
+	uv run kawaneen corpus duplicate-diagnostics
+
+corpus-gaps:
+	uv run kawaneen corpus gaps
+
+parsing-benchmark:
+	uv run kawaneen parsing benchmark
+
+parsing-preflight:
+	uv run kawaneen parsing preflight
+
+parsing-diagnose:
+	uv run kawaneen parsing diagnose --path "$${FILE:?set FILE to a one-page PDF path}"
 
 clean:
 	find . -maxdepth 1 -type d \( -name .pytest_cache -o -name .ruff_cache -o -name htmlcov -o -name dist -o -name build \) -exec rm -rf {} +

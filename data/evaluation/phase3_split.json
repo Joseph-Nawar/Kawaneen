@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "status": "frozen_before_route_results",
+  "selection_manifest": "artifacts/private/parsing_benchmark/selection_manifest.json",
+  "stratification": {
+    "moj_legal_structure": {"development": ["moj_judicial_costs_exec__p01", "moj_judicial_costs_exec__p02"], "holdout": ["moj_judicial_costs_exec__p03"]},
+    "sama_legal_ocr": {"development": ["sama_bankruptcy_obligations__p01", "sama_bankruptcy_obligations__p02", "sama_bankruptcy_obligations__p03", "sama_bankruptcy_obligations__p04"], "holdout": ["sama_bankruptcy_obligations__p05", "sama_bankruptcy_obligations__p06", "sama_bankruptcy_obligations__p07"]},
+    "ummalqura_regulatory_layout": {"development": ["ummalqura_5171_2026-07-10__p01", "ummalqura_5171_2026-07-10__p02", "ummalqura_5171_2026-07-10__p03", "ummalqura_5171_2026-07-10__p04", "ummalqura_5171_2026-07-10__p05", "ummalqura_5171_2026-07-10__p06", "ummalqura_5171_2026-07-10__p08"], "holdout": ["ummalqura_5171_2026-07-10__p10", "ummalqura_5171_2026-07-10__p12", "ummalqura_5171_2026-07-10__p14"]},
+    "ummalqura_general_complex_layout": {"development": ["ummalqura_5171_2026-07-10__p16", "ummalqura_5171_2026-07-10__p18"], "holdout": ["ummalqura_5171_2026-07-10__p20"]},
+    "ummalqura_non_legal_complex_layout": {"development": ["ummalqura_5171_2026-07-10__p22", "ummalqura_5171_2026-07-10__p23", "ummalqura_5171_2026-07-10__p24", "ummalqura_5171_2026-07-10__p25", "ummalqura_5171_2026-07-10__p26"], "holdout": ["ummalqura_5171_2026-07-10__p27", "ummalqura_5171_2026-07-10__p28"]}
+  }
+}

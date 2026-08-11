@@ -22,6 +22,24 @@ from kawaneen.acquisition.orchestrator import (
     verify_source,
 )
 from kawaneen.acquisition.specs import load_specifications
+from kawaneen.corpus.orchestrator import build as build_corpus
+from kawaneen.corpus.orchestrator import (
+    gaps as corpus_gaps,
+)
+from kawaneen.corpus.orchestrator import (
+    inventory as corpus_inventory,
+)
+from kawaneen.corpus.orchestrator import (
+    plan as corpus_plan,
+)
+from kawaneen.corpus.orchestrator import (
+    statutory_status as corpus_statutory_status,
+)
+from kawaneen.corpus.orchestrator import (
+    validate as validate_corpus,
+)
+from kawaneen.parsing.benchmark import preflight_pdfs, qualification_status
+from kawaneen.parsing.diagnostics import diagnose_docling
 from kawaneen.sources.registry import (
     RegistryValidationError,
     format_summary,
@@ -72,6 +90,34 @@ def build_parser() -> argparse.ArgumentParser:
         "audit-statutory", help="run a sanitized statutory quality audit"
     )
     statutory_parser.add_argument("source")
+    corpus_parser = subparsers.add_parser("corpus", help="canonical corpus construction")
+    corpus_subparsers = corpus_parser.add_subparsers(dest="corpus_command", required=True)
+    corpus_subparsers.add_parser("plan", help="show canonicalization plan")
+    build_parser_command = corpus_subparsers.add_parser(
+        "build", help="build ignored canonical outputs"
+    )
+    build_parser_command.add_argument("--source", action="append")
+    corpus_subparsers.add_parser("validate", help="validate canonical outputs")
+    corpus_subparsers.add_parser("inventory", help="show sanitized canonical inventory")
+    corpus_subparsers.add_parser("statutory-status", help="show statutory reconstruction status")
+    corpus_subparsers.add_parser(
+        "duplicate-diagnostics", help="show sanitized collision diagnostics"
+    )
+    corpus_subparsers.add_parser("gaps", help="show statutory acquisition gaps")
+    parsing_parser = subparsers.add_parser("parsing", help="private parser qualification tools")
+    parsing_subparsers = parsing_parser.add_subparsers(dest="parsing_command", required=True)
+    preflight_parser = parsing_subparsers.add_parser(
+        "preflight", help="inspect private PDF metadata without extracting text"
+    )
+    preflight_parser.add_argument(
+        "--path", type=Path, default=Path("artifacts/private/parsing_benchmark/source_pdfs")
+    )
+    parsing_subparsers.add_parser("benchmark", help="show the sanitized parser benchmark gate")
+    diagnose_parser = parsing_subparsers.add_parser(
+        "diagnose", help="diagnose one-page Docling execution in a subprocess"
+    )
+    diagnose_parser.add_argument("--path", type=Path, required=True)
+    diagnose_parser.add_argument("--device", choices=("cpu", "auto"), default="cpu")
     return parser
 
 
@@ -149,6 +195,33 @@ def main(argv: list[str] | None = None) -> int:
         except (OSError, PermissionError, ValueError, RuntimeError) as exc:
             print(f"Data operation denied or failed: {exc}", file=sys.stderr)
             return 1
+    elif args.command == "corpus":
+        try:
+            if args.corpus_command == "plan":
+                print(json.dumps(corpus_plan(), ensure_ascii=False, indent=2, sort_keys=True))
+            elif args.corpus_command == "build":
+                print(json.dumps(build_corpus(args.source), ensure_ascii=False, sort_keys=True))
+            elif args.corpus_command == "validate":
+                print(json.dumps(validate_corpus(), ensure_ascii=False, sort_keys=True))
+            elif args.corpus_command == "inventory":
+                print(json.dumps(corpus_inventory(), ensure_ascii=False, sort_keys=True))
+            elif args.corpus_command == "statutory-status":
+                print(json.dumps(corpus_statutory_status(), ensure_ascii=False, sort_keys=True))
+            elif args.corpus_command == "duplicate-diagnostics":
+                path = Path("data/manifests/canonical/duplicate_diagnostics.json")
+                print(path.read_text(encoding="utf-8"))
+            elif args.corpus_command == "gaps":
+                print(json.dumps(corpus_gaps(), ensure_ascii=False, sort_keys=True))
+        except (OSError, PermissionError, ValueError, RuntimeError) as exc:
+            print(f"Corpus operation failed: {exc}", file=sys.stderr)
+            return 1
+    elif args.command == "parsing":
+        if args.parsing_command == "preflight":
+            print(json.dumps(preflight_pdfs(args.path), sort_keys=True))
+        elif args.parsing_command == "benchmark":
+            print(json.dumps(qualification_status(), sort_keys=True))
+        elif args.parsing_command == "diagnose":
+            print(json.dumps(diagnose_docling(args.path, device=args.device), sort_keys=True))
     else:
         build_parser().print_help()
     return 0

@@ -55,9 +55,12 @@ def test_reconciliation_template_is_sanitized_and_manual_reviewable() -> None:
     with path.open(newline="", encoding="utf-8") as handle:
         rows = list(csv.DictReader(handle))
     assert len(rows) == 12
+    assert all(row["eligible_for_kawaneen_v1_statutory_corpus"] == "not_eligible" for row in rows)
     assert all(
-        row["eligible_for_kawaneen_v1_statutory_corpus"] == "pending_manual_reconciliation"
-        for row in rows
+        row["reconciliation_status"] == "present_partial_reviewed_not_eligible" for row in rows
     )
-    assert all(not row["dataset_article_count"] for row in rows)
+    assert all(row["reviewer_type"] == "independent_ai_source_review" for row in rows)
+    assert all(row["human_verified"] == "false" for row in rows)
+    assert all(row["manual_review_notes"].strip() for row in rows)
+    assert all(row["dataset_article_count"].isdigit() for row in rows)
     assert "article text" not in path.read_text(encoding="utf-8").lower()
