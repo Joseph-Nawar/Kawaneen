@@ -21,6 +21,16 @@ dependencies = [
 [project.scripts]
 kawaneen = "kawaneen.cli:main"
 
+[project.optional-dependencies]
+parsing = [
+    "docling>=2.0,<3",
+    "onnxruntime>=1.18,<2",
+    "pypdf>=5,<6",
+    "pypdfium2>=5,<6",
+    "python-bidi>=0.4,<1",
+    "rapidocr>=3.5,<4",
+]
+
 [dependency-groups]
 dev = [
     "pre-commit>=4.0,<5",

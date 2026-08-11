@@ -1,0 +1,474 @@
+{
+  "ambiguous_continuation_candidates": 25,
+  "article_label_style_distribution": {
+    "explicit_part": 41,
+    "numeric_or_ordinal": 409
+  },
+  "duplicate_group_count": 450,
+  "duplicate_groups_consecutive_within_law": 25,
+  "explicit_part_marker_frequency": 41,
+  "genuine_conflict_candidates": 425,
+  "group_size_distribution": {
+    "10": 13,
+    "11": 3,
+    "12": 6,
+    "13": 10,
+    "14": 2,
+    "15": 3,
+    "16": 3,
+    "17": 2,
+    "18": 5,
+    "19": 9,
+    "2": 155,
+    "20": 3,
+    "21": 1,
+    "22": 3,
+    "23": 1,
+    "24": 2,
+    "3": 83,
+    "33": 1,
+    "36": 1,
+    "39": 2,
+    "4": 45,
+    "41": 1,
+    "43": 1,
+    "44": 1,
+    "47": 1,
+    "5": 24,
+    "6": 24,
+    "7": 12,
+    "8": 19,
+    "9": 14
+  },
+  "high_confidence_continuation_candidates": 0,
+  "law_level_collision_concentration": [
+    {
+      "duplicate_group_count": 26,
+      "law_name": "نظام المعاملات المدنية"
+    },
+    {
+      "duplicate_group_count": 23,
+      "law_name": "اللائحة التنفيذية لنظام المحاكم التجارية"
+    },
+    {
+      "duplicate_group_count": 22,
+      "law_name": "نظام الإجراءات الجزائية"
+    },
+    {
+      "duplicate_group_count": 19,
+      "law_name": "نظام المرافعات الشرعية"
+    },
+    {
+      "duplicate_group_count": 16,
+      "law_name": "نظام الإفلاس"
+    },
+    {
+      "duplicate_group_count": 15,
+      "law_name": "نظام الأحوال الشخصية"
+    },
+    {
+      "duplicate_group_count": 13,
+      "law_name": "اللائحة التنفيذية لنظام الإجراءات الجزائية"
+    },
+    {
+      "duplicate_group_count": 13,
+      "law_name": "نظام الإثبات"
+    },
+    {
+      "duplicate_group_count": 11,
+      "law_name": "نظام التنفيذ"
+    },
+    {
+      "duplicate_group_count": 10,
+      "law_name": "نظام مكافحة جرائم الإرهاب وتمويله"
+    },
+    {
+      "duplicate_group_count": 9,
+      "law_name": "الأدلة الإجرائية لنظام الإثبات"
+    },
+    {
+      "duplicate_group_count": 9,
+      "law_name": "اللائحة التنفيذية لنظام الإفلاس"
+    },
+    {
+      "duplicate_group_count": 9,
+      "law_name": "لائحة التفتيش القضائي"
+    },
+    {
+      "duplicate_group_count": 9,
+      "law_name": "نظام التحكيم"
+    },
+    {
+      "duplicate_group_count": 9,
+      "law_name": "نظام مكافحة غسل الأموال"
+    },
+    {
+      "duplicate_group_count": 8,
+      "law_name": "القواعد الخاصة بتنظيم شؤون الخبرة أمام المحاكم"
+    },
+    {
+      "duplicate_group_count": 8,
+      "law_name": "اللائحة التنفيذية لتنظيم الترخيص لمكاتب المحاماة الأجنبية"
+    },
+    {
+      "duplicate_group_count": 8,
+      "law_name": "اللائحة التنفيذية لطرق الاعتراض على الأحكام"
+    },
+    {
+      "duplicate_group_count": 8,
+      "law_name": "اللائحة التنفيذية لنظام التسجيل العيني للعقار."
+    },
+    {
+      "duplicate_group_count": 8,
+      "law_name": "اللائحة التنفيذية لنظام التوثيق"
+    },
+    {
+      "duplicate_group_count": 8,
+      "law_name": "اللائحة التنفيذية لنظام المحاماة ١٤٤٦هـ"
+    },
+    {
+      "duplicate_group_count": 8,
+      "law_name": "ضوابط إجراءات الإثبات إلكترونياً"
+    },
+    {
+      "duplicate_group_count": 8,
+      "law_name": "قواعد العمل في مكاتب المصالحة وإجراءاته"
+    },
+    {
+      "duplicate_group_count": 8,
+      "law_name": "لائحة التصرف بالعقارات البلدية"
+    },
+    {
+      "duplicate_group_count": 8,
+      "law_name": "لائحة نظام الأحوال الشخصية"
+    },
+    {
+      "duplicate_group_count": 8,
+      "law_name": "نظام التسجيل العيني للعقار"
+    },
+    {
+      "duplicate_group_count": 8,
+      "law_name": "نظام التسجيل العيني للعقار."
+    },
+    {
+      "duplicate_group_count": 8,
+      "law_name": "نظام التكاليف القضائية"
+    },
+    {
+      "duplicate_group_count": 8,
+      "law_name": "نظام التوثيق"
+    },
+    {
+      "duplicate_group_count": 8,
+      "law_name": "نظام الرهن العقاري المسجل"
+    },
+    {
+      "duplicate_group_count": 8,
+      "law_name": "نظام القضاء"
+    },
+    {
+      "duplicate_group_count": 8,
+      "law_name": "نظام المحاكم التجارية"
+    },
+    {
+      "duplicate_group_count": 8,
+      "law_name": "نظام المحاماة"
+    },
+    {
+      "duplicate_group_count": 8,
+      "law_name": "نظام حماية المبلغين والشهود والخبراء والضحايا"
+    },
+    {
+      "duplicate_group_count": 8,
+      "law_name": "نظام ملكية الوحدات العقارية وفرزها وإدارتها"
+    },
+    {
+      "duplicate_group_count": 7,
+      "law_name": "اللائحة التنفيذية لنظام ملكية الوحدات العقارية وفرزها وإدارتها."
+    },
+    {
+      "duplicate_group_count": 7,
+      "law_name": "لائحة قسمة الأموال المشتركة"
+    },
+    {
+      "duplicate_group_count": 7,
+      "law_name": "لائحة مقدمي خدمات التنفيذ"
+    },
+    {
+      "duplicate_group_count": 7,
+      "law_name": "نظام الأحداث"
+    },
+    {
+      "duplicate_group_count": 6,
+      "law_name": "قواعد تحديد أتعاب الخبراء والأمناء في نظام الإفلاس"
+    },
+    {
+      "duplicate_group_count": 6,
+      "law_name": "نظام نزع ملكية العقارات للمنفعة العامة ووضع اليد المؤقت على العقار"
+    },
+    {
+      "duplicate_group_count": 5,
+      "law_name": "القواعد المنظمة لإجراءات الإفلاس العابرة للحدود"
+    },
+    {
+      "duplicate_group_count": 5,
+      "law_name": "القواعد المنظمة لإجراءات قضايا الإفلاس في المحاكم التجارية"
+    },
+    {
+      "duplicate_group_count": 5,
+      "law_name": "اللائحة المنظمة لأعمال أعوان القضاء"
+    },
+    {
+      "duplicate_group_count": 5,
+      "law_name": "تنظيم مركز الاسناد والتصفية"
+    },
+    {
+      "duplicate_group_count": 4,
+      "law_name": "تنظيم صندوق النفقة"
+    },
+    {
+      "duplicate_group_count": 3,
+      "law_name": "نظام التمويل العقاري"
+    },
+    {
+      "duplicate_group_count": 2,
+      "law_name": "اللائحة التنفيذية لإجراءات الاستئناف"
+    },
+    {
+      "duplicate_group_count": 2,
+      "law_name": "اللائحة التنفيذية لنظام الأحداث"
+    },
+    {
+      "duplicate_group_count": 2,
+      "law_name": "لائحة التقارير الطبية"
+    },
+    {
+      "duplicate_group_count": 2,
+      "law_name": "نظام تملك غير السعوديين للعقار لعام ١٤٤٧هـ"
+    },
+    {
+      "duplicate_group_count": 1,
+      "law_name": "اللائحة التنفيذية لنظام التحكيم"
+    },
+    {
+      "duplicate_group_count": 1,
+      "law_name": "لائحة الوثائق القضائية"
+    }
+  ],
+  "merge_policy": "Only explicit structurally proven part series may be auto-merged.",
+  "review_sample": [
+    {
+      "consecutive_within_law": false,
+      "group_size": 2,
+      "law_name": "الأدلة الإجرائية لنظام الإثبات",
+      "reconstruction_status": "conflicting_duplicate",
+      "review_status": "genuine_conflict_candidate",
+      "sample_rank": 1
+    },
+    {
+      "consecutive_within_law": false,
+      "group_size": 10,
+      "law_name": "الأدلة الإجرائية لنظام الإثبات",
+      "reconstruction_status": "conflicting_duplicate",
+      "review_status": "genuine_conflict_candidate",
+      "sample_rank": 2
+    },
+    {
+      "consecutive_within_law": false,
+      "group_size": 11,
+      "law_name": "الأدلة الإجرائية لنظام الإثبات",
+      "reconstruction_status": "conflicting_duplicate",
+      "review_status": "genuine_conflict_candidate",
+      "sample_rank": 3
+    },
+    {
+      "consecutive_within_law": false,
+      "group_size": 10,
+      "law_name": "الأدلة الإجرائية لنظام الإثبات",
+      "reconstruction_status": "conflicting_duplicate",
+      "review_status": "genuine_conflict_candidate",
+      "sample_rank": 4
+    },
+    {
+      "consecutive_within_law": false,
+      "group_size": 10,
+      "law_name": "الأدلة الإجرائية لنظام الإثبات",
+      "reconstruction_status": "conflicting_duplicate",
+      "review_status": "genuine_conflict_candidate",
+      "sample_rank": 5
+    },
+    {
+      "consecutive_within_law": false,
+      "group_size": 8,
+      "law_name": "الأدلة الإجرائية لنظام الإثبات",
+      "reconstruction_status": "conflicting_duplicate",
+      "review_status": "genuine_conflict_candidate",
+      "sample_rank": 6
+    },
+    {
+      "consecutive_within_law": false,
+      "group_size": 11,
+      "law_name": "الأدلة الإجرائية لنظام الإثبات",
+      "reconstruction_status": "conflicting_duplicate",
+      "review_status": "genuine_conflict_candidate",
+      "sample_rank": 7
+    },
+    {
+      "consecutive_within_law": false,
+      "group_size": 7,
+      "law_name": "الأدلة الإجرائية لنظام الإثبات",
+      "reconstruction_status": "conflicting_duplicate",
+      "review_status": "genuine_conflict_candidate",
+      "sample_rank": 8
+    },
+    {
+      "consecutive_within_law": false,
+      "group_size": 7,
+      "law_name": "الأدلة الإجرائية لنظام الإثبات",
+      "reconstruction_status": "conflicting_duplicate",
+      "review_status": "genuine_conflict_candidate",
+      "sample_rank": 9
+    },
+    {
+      "consecutive_within_law": false,
+      "group_size": 4,
+      "law_name": "القواعد الخاصة بتنظيم شؤون الخبرة أمام المحاكم",
+      "reconstruction_status": "conflicting_duplicate",
+      "review_status": "genuine_conflict_candidate",
+      "sample_rank": 10
+    },
+    {
+      "consecutive_within_law": false,
+      "group_size": 3,
+      "law_name": "القواعد الخاصة بتنظيم شؤون الخبرة أمام المحاكم",
+      "reconstruction_status": "conflicting_duplicate",
+      "review_status": "genuine_conflict_candidate",
+      "sample_rank": 11
+    },
+    {
+      "consecutive_within_law": false,
+      "group_size": 3,
+      "law_name": "القواعد الخاصة بتنظيم شؤون الخبرة أمام المحاكم",
+      "reconstruction_status": "conflicting_duplicate",
+      "review_status": "genuine_conflict_candidate",
+      "sample_rank": 12
+    },
+    {
+      "consecutive_within_law": false,
+      "group_size": 3,
+      "law_name": "القواعد الخاصة بتنظيم شؤون الخبرة أمام المحاكم",
+      "reconstruction_status": "conflicting_duplicate",
+      "review_status": "genuine_conflict_candidate",
+      "sample_rank": 13
+    },
+    {
+      "consecutive_within_law": false,
+      "group_size": 3,
+      "law_name": "القواعد الخاصة بتنظيم شؤون الخبرة أمام المحاكم",
+      "reconstruction_status": "conflicting_duplicate",
+      "review_status": "genuine_conflict_candidate",
+      "sample_rank": 14
+    },
+    {
+      "consecutive_within_law": false,
+      "group_size": 2,
+      "law_name": "القواعد الخاصة بتنظيم شؤون الخبرة أمام المحاكم",
+      "reconstruction_status": "conflicting_duplicate",
+      "review_status": "genuine_conflict_candidate",
+      "sample_rank": 15
+    },
+    {
+      "consecutive_within_law": false,
+      "group_size": 2,
+      "law_name": "القواعد الخاصة بتنظيم شؤون الخبرة أمام المحاكم",
+      "reconstruction_status": "conflicting_duplicate",
+      "review_status": "genuine_conflict_candidate",
+      "sample_rank": 16
+    },
+    {
+      "consecutive_within_law": false,
+      "group_size": 3,
+      "law_name": "القواعد الخاصة بتنظيم شؤون الخبرة أمام المحاكم",
+      "reconstruction_status": "conflicting_duplicate",
+      "review_status": "genuine_conflict_candidate",
+      "sample_rank": 17
+    },
+    {
+      "consecutive_within_law": false,
+      "group_size": 3,
+      "law_name": "القواعد المنظمة لإجراءات الإفلاس العابرة للحدود",
+      "reconstruction_status": "conflicting_duplicate",
+      "review_status": "genuine_conflict_candidate",
+      "sample_rank": 18
+    },
+    {
+      "consecutive_within_law": false,
+      "group_size": 2,
+      "law_name": "القواعد المنظمة لإجراءات الإفلاس العابرة للحدود",
+      "reconstruction_status": "conflicting_duplicate",
+      "review_status": "genuine_conflict_candidate",
+      "sample_rank": 19
+    },
+    {
+      "consecutive_within_law": false,
+      "group_size": 3,
+      "law_name": "القواعد المنظمة لإجراءات الإفلاس العابرة للحدود",
+      "reconstruction_status": "conflicting_duplicate",
+      "review_status": "genuine_conflict_candidate",
+      "sample_rank": 20
+    },
+    {
+      "consecutive_within_law": false,
+      "group_size": 2,
+      "law_name": "القواعد المنظمة لإجراءات الإفلاس العابرة للحدود",
+      "reconstruction_status": "conflicting_duplicate",
+      "review_status": "genuine_conflict_candidate",
+      "sample_rank": 21
+    },
+    {
+      "consecutive_within_law": false,
+      "group_size": 2,
+      "law_name": "القواعد المنظمة لإجراءات الإفلاس العابرة للحدود",
+      "reconstruction_status": "conflicting_duplicate",
+      "review_status": "genuine_conflict_candidate",
+      "sample_rank": 22
+    },
+    {
+      "consecutive_within_law": false,
+      "group_size": 3,
+      "law_name": "القواعد المنظمة لإجراءات قضايا الإفلاس في المحاكم التجارية",
+      "reconstruction_status": "conflicting_duplicate",
+      "review_status": "genuine_conflict_candidate",
+      "sample_rank": 23
+    },
+    {
+      "consecutive_within_law": false,
+      "group_size": 3,
+      "law_name": "القواعد المنظمة لإجراءات قضايا الإفلاس في المحاكم التجارية",
+      "reconstruction_status": "conflicting_duplicate",
+      "review_status": "genuine_conflict_candidate",
+      "sample_rank": 24
+    },
+    {
+      "consecutive_within_law": false,
+      "group_size": 3,
+      "law_name": "القواعد المنظمة لإجراءات قضايا الإفلاس في المحاكم التجارية",
+      "reconstruction_status": "conflicting_duplicate",
+      "review_status": "genuine_conflict_candidate",
+      "sample_rank": 25
+    }
+  ],
+  "rows_in_duplicate_groups": 2686,
+  "schema_version": 2,
+  "source_row_contiguity_distribution": {
+    "consecutive": 25,
+    "non_consecutive": 425
+  },
+  "superseded_baseline": {
+    "duplicate_groups": 446,
+    "duplicate_key_situations": 2439,
+    "groups": 1192,
+    "reason": "partial substring and part-number parsing bug"
+  },
+  "total_group_count": 949
+}

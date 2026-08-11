@@ -1,0 +1,698 @@
+{
+  "raw_accounting": [
+    {
+      "accounted_records": 13341,
+      "canonical_documents": 13341,
+      "canonical_units": 53364,
+      "error_records": 0,
+      "excluded_records": 0,
+      "expected_records": 13341,
+      "source_id": "alarb"
+    },
+    {
+      "accounted_records": 12806,
+      "canonical_documents": 12806,
+      "canonical_units": 51224,
+      "error_records": 0,
+      "excluded_records": 0,
+      "expected_records": 12806,
+      "source_id": "arabiccr"
+    },
+    {
+      "accounted_records": 3185,
+      "canonical_documents": 71,
+      "canonical_units": 3185,
+      "error_records": 0,
+      "excluded_records": 0,
+      "expected_records": 3185,
+      "source_id": "saudi-moj-derived"
+    }
+  ],
+  "schema_version": 1,
+  "statutory": {
+    "duplicate_key_situations": 2236,
+    "fragment_count": 3185,
+    "groups": 949,
+    "high_confidence_parsed_labels": 3174,
+    "law_diagnostics": [
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 0,
+        "law_name": "آلية الاستعانة بمحام على نفقة الدولة للمتهم في الجرائم الكبيرة",
+        "part_marked_records": 0,
+        "raw_fragment_count": 1,
+        "unique_structural_article_ordinals": 0,
+        "unresolved_labels": 1
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 0,
+        "law_name": "آلية العمل التنفيذية لنظام القضاء ونظام ديوان المظالم",
+        "part_marked_records": 0,
+        "raw_fragment_count": 1,
+        "unique_structural_article_ordinals": 0,
+        "unresolved_labels": 1
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 1,
+        "high_confidence_parsed_labels": 91,
+        "law_name": "الأدلة الإجرائية لنظام الإثبات",
+        "part_marked_records": 10,
+        "raw_fragment_count": 91,
+        "unique_structural_article_ordinals": 23,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 0,
+        "law_name": "الدليل الإجرائي لخدمة التقاضي الإلكتروني",
+        "part_marked_records": 0,
+        "raw_fragment_count": 1,
+        "unique_structural_article_ordinals": 0,
+        "unresolved_labels": 1
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 0,
+        "law_name": "الدليل التنظيمي لمركز التدريب العدلي",
+        "part_marked_records": 0,
+        "raw_fragment_count": 1,
+        "unique_structural_article_ordinals": 0,
+        "unresolved_labels": 1
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 29,
+        "law_name": "القواعد الخاصة بتنظيم شؤون الخبرة أمام المحاكم",
+        "part_marked_records": 0,
+        "raw_fragment_count": 29,
+        "unique_structural_article_ordinals": 14,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 19,
+        "law_name": "القواعد المنظمة لإجراءات الإفلاس العابرة للحدود",
+        "part_marked_records": 2,
+        "raw_fragment_count": 19,
+        "unique_structural_article_ordinals": 12,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 21,
+        "law_name": "القواعد المنظمة لإجراءات قضايا الإفلاس في المحاكم التجارية",
+        "part_marked_records": 0,
+        "raw_fragment_count": 21,
+        "unique_structural_article_ordinals": 13,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 11,
+        "law_name": "اللائحة التنفيذية لإجراءات الاستئناف",
+        "part_marked_records": 5,
+        "raw_fragment_count": 11,
+        "unique_structural_article_ordinals": 6,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 22,
+        "law_name": "اللائحة التنفيذية لتنظيم الترخيص لمكاتب المحاماة الأجنبية",
+        "part_marked_records": 0,
+        "raw_fragment_count": 22,
+        "unique_structural_article_ordinals": 11,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 46,
+        "law_name": "اللائحة التنفيذية لطرق الاعتراض على الأحكام",
+        "part_marked_records": 2,
+        "raw_fragment_count": 46,
+        "unique_structural_article_ordinals": 18,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 13,
+        "law_name": "اللائحة التنفيذية لنظام الأحداث",
+        "part_marked_records": 0,
+        "raw_fragment_count": 13,
+        "unique_structural_article_ordinals": 11,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 112,
+        "law_name": "اللائحة التنفيذية لنظام الإجراءات الجزائية",
+        "part_marked_records": 30,
+        "raw_fragment_count": 112,
+        "unique_structural_article_ordinals": 24,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 1,
+        "high_confidence_parsed_labels": 85,
+        "law_name": "اللائحة التنفيذية لنظام الإفلاس",
+        "part_marked_records": 8,
+        "raw_fragment_count": 85,
+        "unique_structural_article_ordinals": 22,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 7,
+        "law_name": "اللائحة التنفيذية لنظام التحكيم",
+        "part_marked_records": 3,
+        "raw_fragment_count": 7,
+        "unique_structural_article_ordinals": 5,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 0,
+        "law_name": "اللائحة التنفيذية لنظام التسجيل العيني للعقار",
+        "part_marked_records": 0,
+        "raw_fragment_count": 1,
+        "unique_structural_article_ordinals": 0,
+        "unresolved_labels": 1
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 34,
+        "law_name": "اللائحة التنفيذية لنظام التسجيل العيني للعقار.",
+        "part_marked_records": 2,
+        "raw_fragment_count": 34,
+        "unique_structural_article_ordinals": 12,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 8,
+        "law_name": "اللائحة التنفيذية لنظام التكاليف القضائية",
+        "part_marked_records": 0,
+        "raw_fragment_count": 8,
+        "unique_structural_article_ordinals": 8,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 0,
+        "law_name": "اللائحة التنفيذية لنظام التنفيذ",
+        "part_marked_records": 0,
+        "raw_fragment_count": 1,
+        "unique_structural_article_ordinals": 0,
+        "unresolved_labels": 1
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 26,
+        "law_name": "اللائحة التنفيذية لنظام التوثيق",
+        "part_marked_records": 0,
+        "raw_fragment_count": 26,
+        "unique_structural_article_ordinals": 14,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 210,
+        "law_name": "اللائحة التنفيذية لنظام المحاكم التجارية",
+        "part_marked_records": 10,
+        "raw_fragment_count": 210,
+        "unique_structural_article_ordinals": 25,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 0,
+        "law_name": "اللائحة التنفيذية لنظام المحاماة",
+        "part_marked_records": 0,
+        "raw_fragment_count": 1,
+        "unique_structural_article_ordinals": 0,
+        "unresolved_labels": 1
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 73,
+        "law_name": "اللائحة التنفيذية لنظام المحاماة ١٤٤٦هـ",
+        "part_marked_records": 5,
+        "raw_fragment_count": 73,
+        "unique_structural_article_ordinals": 22,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 24,
+        "law_name": "اللائحة التنفيذية لنظام ملكية الوحدات العقارية وفرزها وإدارتها.",
+        "part_marked_records": 3,
+        "raw_fragment_count": 24,
+        "unique_structural_article_ordinals": 11,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 1,
+        "high_confidence_parsed_labels": 26,
+        "law_name": "اللائحة المنظمة لأعمال أعوان القضاء",
+        "part_marked_records": 11,
+        "raw_fragment_count": 26,
+        "unique_structural_article_ordinals": 11,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 0,
+        "law_name": "اللوائح التنفيذية لنظام المرافعات الشرعية",
+        "part_marked_records": 0,
+        "raw_fragment_count": 1,
+        "unique_structural_article_ordinals": 0,
+        "unresolved_labels": 1
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 6,
+        "law_name": "تنظيم تملك مواطني دول المجلس للعقار في الدول الأعضاء بمجلس التعاون لغرض السكن والاستثمار",
+        "part_marked_records": 0,
+        "raw_fragment_count": 6,
+        "unique_structural_article_ordinals": 6,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 15,
+        "law_name": "تنظيم صندوق النفقة",
+        "part_marked_records": 0,
+        "raw_fragment_count": 15,
+        "unique_structural_article_ordinals": 11,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 15,
+        "law_name": "تنظيم مركز الاسناد والتصفية",
+        "part_marked_records": 2,
+        "raw_fragment_count": 15,
+        "unique_structural_article_ordinals": 10,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 10,
+        "law_name": "تنظيم مركز المصالحة",
+        "part_marked_records": 0,
+        "raw_fragment_count": 10,
+        "unique_structural_article_ordinals": 10,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 23,
+        "law_name": "ضوابط إجراءات الإثبات إلكترونياً",
+        "part_marked_records": 0,
+        "raw_fragment_count": 23,
+        "unique_structural_article_ordinals": 13,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 0,
+        "law_name": "ضوابط تسلم المؤجر الأصول المنقولة",
+        "part_marked_records": 0,
+        "raw_fragment_count": 1,
+        "unique_structural_article_ordinals": 0,
+        "unresolved_labels": 1
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 4,
+        "law_name": "قواعد الحدّ من تعارض المصالح لمن سبق له العمل في السلك القضائي -ومن في حكمه-عند مزاولة مهنة المحاماة",
+        "part_marked_records": 0,
+        "raw_fragment_count": 4,
+        "unique_structural_article_ordinals": 4,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 0,
+        "law_name": "قواعد السلوك المهني للمحامين",
+        "part_marked_records": 0,
+        "raw_fragment_count": 1,
+        "unique_structural_article_ordinals": 0,
+        "unresolved_labels": 1
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 0,
+        "law_name": "قواعد الضبط ورفع الدعوى التأديبية ونظرها",
+        "part_marked_records": 0,
+        "raw_fragment_count": 1,
+        "unique_structural_article_ordinals": 0,
+        "unresolved_labels": 1
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 26,
+        "law_name": "قواعد العمل في مكاتب المصالحة وإجراءاته",
+        "part_marked_records": 0,
+        "raw_fragment_count": 26,
+        "unique_structural_article_ordinals": 13,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 17,
+        "law_name": "قواعد تحديد أتعاب الخبراء والأمناء في نظام الإفلاس",
+        "part_marked_records": 0,
+        "raw_fragment_count": 17,
+        "unique_structural_article_ordinals": 11,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 27,
+        "law_name": "لائحة التصرف بالعقارات البلدية",
+        "part_marked_records": 6,
+        "raw_fragment_count": 27,
+        "unique_structural_article_ordinals": 15,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 52,
+        "law_name": "لائحة التفتيش القضائي",
+        "part_marked_records": 7,
+        "raw_fragment_count": 52,
+        "unique_structural_article_ordinals": 20,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 13,
+        "law_name": "لائحة التقارير الطبية",
+        "part_marked_records": 0,
+        "raw_fragment_count": 13,
+        "unique_structural_article_ordinals": 11,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 15,
+        "law_name": "لائحة الوثائق القضائية",
+        "part_marked_records": 0,
+        "raw_fragment_count": 15,
+        "unique_structural_article_ordinals": 13,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 11,
+        "law_name": "لائحة زواج السعودي بغير سعودية والسعودية بغير سعودي",
+        "part_marked_records": 0,
+        "raw_fragment_count": 11,
+        "unique_structural_article_ordinals": 11,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 30,
+        "law_name": "لائحة قسمة الأموال المشتركة",
+        "part_marked_records": 0,
+        "raw_fragment_count": 30,
+        "unique_structural_article_ordinals": 14,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 18,
+        "law_name": "لائحة مقدمي خدمات التنفيذ",
+        "part_marked_records": 0,
+        "raw_fragment_count": 18,
+        "unique_structural_article_ordinals": 11,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 1,
+        "high_confidence_parsed_labels": 23,
+        "law_name": "لائحة نظام الأحوال الشخصية",
+        "part_marked_records": 4,
+        "raw_fragment_count": 23,
+        "unique_structural_article_ordinals": 13,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 20,
+        "law_name": "نظام الأحداث",
+        "part_marked_records": 0,
+        "raw_fragment_count": 20,
+        "unique_structural_article_ordinals": 13,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 140,
+        "law_name": "نظام الأحوال الشخصية",
+        "part_marked_records": 12,
+        "raw_fragment_count": 140,
+        "unique_structural_article_ordinals": 26,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 127,
+        "law_name": "نظام الإثبات",
+        "part_marked_records": 0,
+        "raw_fragment_count": 127,
+        "unique_structural_article_ordinals": 28,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 188,
+        "law_name": "نظام الإجراءات الجزائية",
+        "part_marked_records": 10,
+        "raw_fragment_count": 188,
+        "unique_structural_article_ordinals": 28,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 152,
+        "law_name": "نظام الإفلاس",
+        "part_marked_records": 35,
+        "raw_fragment_count": 152,
+        "unique_structural_article_ordinals": 25,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 45,
+        "law_name": "نظام التحكيم",
+        "part_marked_records": 7,
+        "raw_fragment_count": 45,
+        "unique_structural_article_ordinals": 18,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 75,
+        "law_name": "نظام التسجيل العيني للعقار",
+        "part_marked_records": 0,
+        "raw_fragment_count": 75,
+        "unique_structural_article_ordinals": 23,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 39,
+        "law_name": "نظام التسجيل العيني للعقار.",
+        "part_marked_records": 0,
+        "raw_fragment_count": 39,
+        "unique_structural_article_ordinals": 16,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 6,
+        "law_name": "نظام التصرف في العقارات البلدية",
+        "part_marked_records": 0,
+        "raw_fragment_count": 6,
+        "unique_structural_article_ordinals": 6,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 22,
+        "law_name": "نظام التكاليف القضائية",
+        "part_marked_records": 0,
+        "raw_fragment_count": 22,
+        "unique_structural_article_ordinals": 13,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 13,
+        "law_name": "نظام التمويل العقاري",
+        "part_marked_records": 0,
+        "raw_fragment_count": 13,
+        "unique_structural_article_ordinals": 10,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 70,
+        "law_name": "نظام التنفيذ",
+        "part_marked_records": 11,
+        "raw_fragment_count": 70,
+        "unique_structural_article_ordinals": 23,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 52,
+        "law_name": "نظام التوثيق",
+        "part_marked_records": 0,
+        "raw_fragment_count": 52,
+        "unique_structural_article_ordinals": 18,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 21,
+        "law_name": "نظام الرهن العقاري المسجل",
+        "part_marked_records": 5,
+        "raw_fragment_count": 21,
+        "unique_structural_article_ordinals": 11,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 75,
+        "law_name": "نظام القضاء",
+        "part_marked_records": 0,
+        "raw_fragment_count": 75,
+        "unique_structural_article_ordinals": 24,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 95,
+        "law_name": "نظام المحاكم التجارية",
+        "part_marked_records": 0,
+        "raw_fragment_count": 95,
+        "unique_structural_article_ordinals": 27,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 48,
+        "law_name": "نظام المحاماة",
+        "part_marked_records": 0,
+        "raw_fragment_count": 48,
+        "unique_structural_article_ordinals": 18,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 2,
+        "high_confidence_parsed_labels": 189,
+        "law_name": "نظام المرافعات الشرعية",
+        "part_marked_records": 18,
+        "raw_fragment_count": 189,
+        "unique_structural_article_ordinals": 26,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 399,
+        "law_name": "نظام المعاملات المدنية",
+        "part_marked_records": 115,
+        "raw_fragment_count": 399,
+        "unique_structural_article_ordinals": 28,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 13,
+        "law_name": "نظام تملك غير السعوديين للعقار لعام ١٤٤٧هـ",
+        "part_marked_records": 0,
+        "raw_fragment_count": 13,
+        "unique_structural_article_ordinals": 11,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 9,
+        "law_name": "نظام تملك غير السعوديين للعقار واستثماره",
+        "part_marked_records": 0,
+        "raw_fragment_count": 9,
+        "unique_structural_article_ordinals": 9,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 32,
+        "law_name": "نظام حماية المبلغين والشهود والخبراء والضحايا",
+        "part_marked_records": 0,
+        "raw_fragment_count": 32,
+        "unique_structural_article_ordinals": 15,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 87,
+        "law_name": "نظام مكافحة جرائم الإرهاب وتمويله",
+        "part_marked_records": 7,
+        "raw_fragment_count": 87,
+        "unique_structural_article_ordinals": 26,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 50,
+        "law_name": "نظام مكافحة غسل الأموال",
+        "part_marked_records": 5,
+        "raw_fragment_count": 50,
+        "unique_structural_article_ordinals": 19,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 27,
+        "law_name": "نظام ملكية الوحدات العقارية وفرزها وإدارتها",
+        "part_marked_records": 3,
+        "raw_fragment_count": 27,
+        "unique_structural_article_ordinals": 12,
+        "unresolved_labels": 0
+      },
+      {
+        "genuine_duplicate_ordinal_groups": 0,
+        "high_confidence_parsed_labels": 18,
+        "law_name": "نظام نزع ملكية العقارات للمنفعة العامة ووضع اليد المؤقت على العقار",
+        "part_marked_records": 6,
+        "raw_fragment_count": 18,
+        "unique_structural_article_ordinals": 11,
+        "unresolved_labels": 0
+      }
+    ],
+    "part_marked_records": 344,
+    "phase4_status": "private_parsing_seed_only",
+    "reconstruction_counts": {
+      "conflicting_duplicate": 427,
+      "continuation_candidate": 0,
+      "explicit_fragment_series": 23,
+      "unique": 499,
+      "unresolved": 0
+    },
+    "schema_version": 2,
+    "source_id": "saudi-moj-derived",
+    "superseded_baseline": {
+      "duplicate_groups": 446,
+      "duplicate_key_situations": 2439,
+      "groups": 1192,
+      "reason": "partial substring and part-number parsing bug"
+    },
+    "unique_structural_article_ordinals": 28,
+    "unresolved_labels": 11
+  }
+}

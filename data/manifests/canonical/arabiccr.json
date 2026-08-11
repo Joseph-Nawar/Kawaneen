@@ -1,0 +1,26 @@
+{
+  "accounting": {
+    "accounted_records": 12806,
+    "canonical_documents": 12806,
+    "canonical_units": 51224,
+    "error_records": 0,
+    "excluded_records": 0,
+    "expected_records": 12806,
+    "source_id": "arabiccr"
+  },
+  "files": [
+    {
+      "path": "data/interim/canonical/arabiccr/3/documents.parquet",
+      "sha256": "14fd13e90d00e71621f2e9b8ba066e272982c337d21c26c4116001fdbc1aa75d",
+      "size": 1232147
+    },
+    {
+      "path": "data/interim/canonical/arabiccr/3/units.parquet",
+      "sha256": "746cf1dab0634238a20764e626ad77c72a4187f3c65de0bc577d10c68d6a016d",
+      "size": 76786263
+    }
+  ],
+  "schema_version": 1,
+  "source_id": "arabiccr",
+  "version": "3"
+}

@@ -1,0 +1,378 @@
+{
+  "schema_version": 3,
+  "status": "geometry_benchmark_validated_routes_measured",
+  "source_pdf_count": 3,
+  "source_page_count": 38,
+  "selected_real_page_count": 30,
+  "page_categories": {
+    "born_digital": 23,
+    "image_only_scan": 7,
+    "likely_complex_layout": 4,
+    "likely_table_or_structured_box": 1
+  },
+  "controlled_variant_page_count": 9,
+  "controlled_variant_count": 45,
+  "controlled_variant_execution": {
+    "status": "completed_bounded_diagnostic",
+    "checkpoint": "artifacts/private/parsing_benchmark/controlled_variant_checkpoint.jsonl",
+    "summary": "artifacts/private/parsing_benchmark/controlled_variant_summary.json",
+    "timeout_seconds_per_variant": 30,
+    "status_counts": {
+      "passed_nonempty": 45,
+      "timeout": 0,
+      "failed": 0
+    },
+    "arabic_output_variants": 45,
+    "mean_seconds_per_variant": 2.427,
+    "qualification": "not_scored_without_independent_gold"
+  },
+  "gold_status": "anchored_v2_externally_source_verified_ai_not_human_verified",
+  "human_verified_gold_page_count": 0,
+  "source_pdfs": [
+    {
+      "filename": "moj_judicial_costs_exec.pdf",
+      "sha256": "bc823d71f8f4f222b800c2aca1ac2b539ec062a1a901f11d39c414c6eb0aa594",
+      "size": 721129,
+      "page_count": 3,
+      "embedded_text_pages": 3,
+      "image_pages": 0
+    },
+    {
+      "filename": "sama_bankruptcy_obligations.pdf",
+      "sha256": "14a69ecf87ce1f610dec287393c6f4e8d6c4dad6a93d67c9f7779f168306f295",
+      "size": 1259292,
+      "page_count": 7,
+      "embedded_text_pages": 0,
+      "image_pages": 7
+    },
+    {
+      "filename": "ummalqura_5171_2026-07-10.pdf",
+      "sha256": "e20bab5ae5997919ae934029cacd40df1e1f16ead5a781bda4907194e1d79887",
+      "size": 4812718,
+      "page_count": 28,
+      "embedded_text_pages": 28,
+      "image_pages": 4
+    }
+  ],
+  "installed_versions": {
+    "pypdf": "5.9.0",
+    "docling": "2.118.1",
+    "docling_core": "2.91.0",
+    "rapidocr": "3.9.2",
+    "onnxruntime": "1.28.0",
+    "python_bidi": "0.6.11",
+    "pypdfium2": "5.12.1"
+  },
+  "rapidocr_model": {
+    "engine": "onnxruntime",
+    "ocr_version": "PP-OCRv5",
+    "language": "arabic",
+    "model_type": "mobile",
+    "arabic_capable": true,
+    "source_url": "https://www.modelscope.cn/models/RapidAI/RapidOCR/resolve/v3.9.2/",
+    "licence_status": "RapidOCR runtime Apache-2.0; PP-OCR model-weight terms remain separately unresolved",
+    "files": [
+      {
+        "filename": "ch_PP-OCRv5_det_mobile.onnx",
+        "sha256": "4d97c44a20d30a81aad087d6a396b08f786c4635742afc391f6621f5c6ae78ae",
+        "size": 4819576
+      },
+      {
+        "filename": "arabic_PP-OCRv5_rec_mobile.onnx",
+        "sha256": "c1192e632d0baa9146ae5b756a0e635e3dc63c1733737ebfd1629e87144e9295",
+        "size": 8023828
+      },
+      {
+        "filename": "ch_PP-LCNet_x0_25_textline_ori_cls_mobile.onnx",
+        "sha256": "54379ae5174d026780215fc748a7f31910dee36818e63d49e17dc598ecc82df7",
+        "size": 1018508
+      }
+    ]
+  },
+  "docling_execution": {
+    "status": "passed_minimal_layout_diagnostic",
+    "diagnostic_manifest": "data/manifests/parsing_diagnostics.json",
+    "metrics": {
+      "cpu_seconds": 5.76,
+      "auto_seconds": 5.705
+    },
+    "diagnosis": "Explicit OCR-off, table-off pypdfium2 layout conversion returned a usable one-page structured document on CPU and auto/CPU."
+  },
+  "rapidocr_execution": {
+    "status": "externally_verified_diagnostic",
+    "candidate_gold_independent": true,
+    "metrics_scope": "30 frozen pages and 102 externally adjudicated regions; scoped results recorded below; 45 controlled variants remain non-scored diagnostics",
+    "clean_page_smoke": {
+      "regions": 36,
+      "arabic_regions": 36,
+      "seconds": 1.383
+    },
+    "born_digital_and_complex": {
+      "page_count": 23,
+      "cer": 0.650644,
+      "wer": 0.631021,
+      "exact_article_number_accuracy": 0.0,
+      "semantic_article_number_accuracy": 0.0,
+      "reading_order_accuracy": 0.29162,
+      "page_reference_preservation": 1.0,
+      "seconds_per_page": 3.394241,
+      "critical_article_number_failures": 0,
+      "status": "historical_pre_external_gold_diagnostic",
+      "superseded_by": "external_benchmark_results"
+    },
+    "image_only_scan": {
+      "page_count": 7,
+      "dpi": 150,
+      "mean_seconds": 0.907,
+      "mean_regions": 20.714,
+      "pages_with_arabic_output": 7,
+      "status": "historical_smoke_diagnostic",
+      "superseded_by": "external_benchmark_results"
+    },
+    "controlled_variants": {
+      "status": "completed_bounded_diagnostic",
+      "variant_count": 45,
+      "timeout_seconds_per_variant": 30,
+      "passed_nonempty": 45,
+      "timeouts": 0,
+      "failures": 0,
+      "qualification": "not_scored_without_independent_gold"
+    }
+  },
+  "qualification": {
+    "pdf_health": "passed",
+    "layout_parser": "not_qualified",
+    "ocr": "not_qualified",
+    "reason": "Historical scores concatenated unmatched page regions. The repaired evaluator requires gold-to-prediction identity or geometry, which the supplied external gold does not contain; no route may be qualified from those scores."
+  },
+  "metric_scopes": {
+    "legal_structure": {
+      "page_ids": [
+        "moj_judicial_costs_exec__p01",
+        "moj_judicial_costs_exec__p02",
+        "moj_judicial_costs_exec__p03"
+      ],
+      "article_label_denominator": "verified article-heading regions only"
+    },
+    "legal_ocr": {
+      "page_ids": [
+        "sama_bankruptcy_obligations__p01",
+        "sama_bankruptcy_obligations__p02",
+        "sama_bankruptcy_obligations__p03",
+        "sama_bankruptcy_obligations__p04",
+        "sama_bankruptcy_obligations__p05",
+        "sama_bankruptcy_obligations__p06",
+        "sama_bankruptcy_obligations__p07"
+      ],
+      "article_label_denominator": "verified article-heading regions only"
+    },
+    "legal_regulatory_layout": {
+      "page_ids": [
+        "ummalqura_5171_2026-07-10__p01",
+        "ummalqura_5171_2026-07-10__p02",
+        "ummalqura_5171_2026-07-10__p03",
+        "ummalqura_5171_2026-07-10__p04",
+        "ummalqura_5171_2026-07-10__p05",
+        "ummalqura_5171_2026-07-10__p06",
+        "ummalqura_5171_2026-07-10__p08",
+        "ummalqura_5171_2026-07-10__p10",
+        "ummalqura_5171_2026-07-10__p12",
+        "ummalqura_5171_2026-07-10__p14"
+      ],
+      "article_label_denominator": "verified article-heading regions only"
+    },
+    "general_complex_layout": {
+      "page_ids": [
+        "ummalqura_5171_2026-07-10__p16",
+        "ummalqura_5171_2026-07-10__p18",
+        "ummalqura_5171_2026-07-10__p20"
+      ],
+      "article_label_denominator": "excluded"
+    },
+    "non_legal_complex_layout": {
+      "page_ids": [
+        "ummalqura_5171_2026-07-10__p22",
+        "ummalqura_5171_2026-07-10__p23",
+        "ummalqura_5171_2026-07-10__p24",
+        "ummalqura_5171_2026-07-10__p25",
+        "ummalqura_5171_2026-07-10__p26",
+        "ummalqura_5171_2026-07-10__p27",
+        "ummalqura_5171_2026-07-10__p28"
+      ],
+      "article_label_denominator": "excluded"
+    }
+  },
+  "external_gold_integration": {
+    "status": "externally_source_verified_pending_human_review",
+    "external_directory": "artifacts/private/handoff/phase3-independent-review/external/",
+    "expected_files": [
+      "phase3_independent_review_report.md",
+      "phase3_independent_statutory_adjudication.json",
+      "phase3_independent_gold_adjudication.jsonl"
+    ],
+    "expected_pages": 30,
+    "expected_regions": 102,
+    "reviewer_type_if_supplied": "independent_ai_visual_review",
+    "missing_files": [
+      "phase3_independent_statutory_adjudication.json"
+    ],
+    "human_verified": false,
+    "source_artifact": "artifacts/private/handoff/phase3-independent-review/external/phase3_independent_gold_adjudication.jsonl",
+    "source_artifact_sha256": "e1f8812b81afd550cbaefae351a4ed8ba089645ab1c900792c8d824deea4099c",
+    "regions": 102,
+    "external_visual_transcriptions": 21,
+    "candidate_history_preserved": true,
+    "scope_validation": "passed",
+    "reason": "All 30 frozen page IDs and source-PDF hashes match; reviewer is independent AI visual/source review, not human verification."
+  },
+  "external_benchmark_results": {
+    "status": "externally_verified_diagnostic_pending_human_review",
+    "artifact": "artifacts/private/parsing_benchmark/external_benchmark_results.json",
+    "artifact_sha256": "141b497d127f737cb3a92ae9d170c01e33a7f0373c53531d0939ab6e45e8c04d",
+    "runtime": {
+      "rapidocr": "3.9.2",
+      "onnxruntime": "1.28.0",
+      "ocr_model": "arabic_PP-OCRv5_rec_mobile.onnx"
+    },
+    "scope_corrections_applied": true,
+    "scope_correction_count": 27,
+    "overall": {
+      "page_count": 30,
+      "region_count": 102,
+      "cer": 0.19182,
+      "wer": 0.408032,
+      "heading_f1": 0.351111,
+      "exact_article_label_accuracy": 0.272727,
+      "semantic_article_number_accuracy": 0.545455,
+      "reading_order_accuracy": 0.755556,
+      "page_reference_preservation": 1.0,
+      "critical_article_number_failures": 0,
+      "seconds_per_page": 1.664433,
+      "timeout_count": 0,
+      "failure_count": 0
+    },
+    "diagnosis": "Canonical scope corrections move Umm Al-Qura p01-p03 into legal_regulatory_layout and p16/p18/p20 into general_complex_layout. Healthy embedded-text pages pass CER/WER and article-number gates; OCR and complex-layout scopes fail CER/WER/heading gates. Heading scores use a text-shape heuristic because typed layout blocks are not emitted by the current OCR adapter."
+  },
+  "scoped_metrics": {
+    "status": "superseded_unmatched_full_page_diagnostic",
+    "scopes": {
+      "legal_structure": {
+        "page_count": 3,
+        "region_count": 11,
+        "cer": 0.007184,
+        "wer": 0.016667,
+        "heading_f1": 0.333333,
+        "exact_article_label_accuracy": 1.0,
+        "semantic_article_number_accuracy": 1.0,
+        "reading_order_accuracy": 1.0,
+        "page_reference_preservation": 1.0,
+        "critical_article_number_failures": 0,
+        "seconds_per_page": 0.935,
+        "timeout_count": 0,
+        "failure_count": 0
+      },
+      "legal_ocr": {
+        "page_count": 7,
+        "region_count": 21,
+        "cer": 0.095346,
+        "wer": 0.275107,
+        "heading_f1": 0.661905,
+        "article_label_accuracy": null,
+        "semantic_article_number_accuracy": null,
+        "reading_order_accuracy": 1.0,
+        "page_reference_preservation": 1.0,
+        "critical_article_number_failures": 0,
+        "seconds_per_page": 0.640857,
+        "timeout_count": 0,
+        "failure_count": 0
+      },
+      "legal_regulatory_layout": {
+        "page_count": 10,
+        "region_count": 37,
+        "cer": 0.18688,
+        "wer": 0.379804,
+        "heading_f1": 0.35,
+        "exact_article_label_accuracy": 0.0,
+        "semantic_article_number_accuracy": 0.2,
+        "reading_order_accuracy": 0.716667,
+        "page_reference_preservation": 1.0,
+        "critical_article_number_failures": 0,
+        "seconds_per_page": 2.1589,
+        "timeout_count": 0,
+        "failure_count": 0
+      },
+      "general_complex_layout": {
+        "page_count": 3,
+        "region_count": 12,
+        "diagnostic_only": true,
+        "cer": 0.033525,
+        "wer": 0.170139,
+        "heading_f1": 0.466667,
+        "exact_article_label_accuracy": 0.0,
+        "semantic_article_number_accuracy": 0.666667,
+        "reading_order_accuracy": 0.666667,
+        "page_reference_preservation": 1.0,
+        "seconds_per_page": 2.656
+      },
+      "non_legal_complex_layout": {
+        "page_count": 7,
+        "region_count": 21,
+        "diagnostic_only": true,
+        "cer": 0.442321,
+        "wer": 0.850964,
+        "heading_f1": 0.0,
+        "reading_order_accuracy": 0.5,
+        "page_reference_preservation": 1.0,
+        "seconds_per_page": 2.082857
+      }
+    },
+    "routes": {
+      "healthy_embedded_text": {
+        "page_count": 3,
+        "cer": 0.007184,
+        "wer": 0.016667,
+        "heading_f1": 0.333333,
+        "exact_article_label_accuracy": 1.0,
+        "semantic_article_number_accuracy": 1.0,
+        "reading_order_accuracy": 1.0,
+        "page_reference_preservation": 1.0,
+        "seconds_per_page": 0.937667
+      },
+      "full_page_ocr": {
+        "page_count": 27,
+        "cer": 0.212335,
+        "wer": 0.451517,
+        "heading_f1": 0.353086,
+        "exact_article_label_accuracy": 0.0,
+        "semantic_article_number_accuracy": 0.375,
+        "reading_order_accuracy": 0.728395,
+        "page_reference_preservation": 1.0,
+        "seconds_per_page": 1.745185,
+        "timeout_count": 0,
+        "failure_count": 0
+      }
+    },
+    "qualification": "not_valid_for_route_selection_or_threshold_gating",
+    "reason": "External gold retains stable region IDs and adjudicated text but has no region geometry or predicted-block identity map. Full-page concatenation is prohibited by the repaired evaluator."
+  },
+  "closure_evaluation": {
+    "evaluator": "anchored gold geometry assignment; predicted text similarity never establishes correspondence",
+    "historical_full_page_scores": "retained_diagnostic_only",
+    "gold_region_geometry_available": true,
+    "prediction_region_identity_available": false,
+    "bounded_sama_selection": "completed_on_development_pages",
+    "bounded_ummalqura_selection": "completed_on_development_pages",
+    "supported_automated_route": "none",
+    "fail_closed_behavior": "manual_review_or_abstain for every measured route that misses a gate",
+    "anchored_gold_v2": {
+      "private_artifact": "artifacts/private/parsing_benchmark/anchored_gold_v2.jsonl",
+      "page_count": 30,
+      "region_count": 102,
+      "non_empty_valid_boxes": 102,
+      "coordinate_system": "canonical_top_left_points",
+      "contact_sheet": "artifacts/private/parsing_benchmark/contact_sheet_v2.png"
+    },
+    "qualification_results": "artifacts/private/parsing_benchmark/phase3_qualification_results.json",
+    "holdout_evaluation_count_per_route": 1
+  }
+}

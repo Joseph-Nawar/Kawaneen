@@ -1,0 +1,36 @@
+{
+  "accounting": {
+    "accounted_records": 3185,
+    "canonical_documents": 71,
+    "canonical_units": 3185,
+    "error_records": 0,
+    "excluded_records": 0,
+    "expected_records": 3185,
+    "source_id": "saudi-moj-derived"
+  },
+  "files": [
+    {
+      "path": "data/interim/canonical/saudi-moj-derived/8b55ef5a666ad773c81086051813582fd14eb466/documents.parquet",
+      "sha256": "167d7be4a8fdd8fafbc45666efa348e73d2f8e516c97a1e7dde01ff4addb9fc1",
+      "size": 7396
+    },
+    {
+      "path": "data/interim/canonical/saudi-moj-derived/8b55ef5a666ad773c81086051813582fd14eb466/fragments.parquet",
+      "sha256": "ec9846976d667b8a92171703d7ef78f94a64f3c8e116510971c03e40403f4acb",
+      "size": 1003530
+    },
+    {
+      "path": "data/interim/canonical/saudi-moj-derived/8b55ef5a666ad773c81086051813582fd14eb466/reconstruction.parquet",
+      "sha256": "4365bc2984375e87ff70c680e99c4d01c62a335d7887a4b6c69fbe91f5884228",
+      "size": 76173
+    },
+    {
+      "path": "data/interim/canonical/saudi-moj-derived/8b55ef5a666ad773c81086051813582fd14eb466/units.parquet",
+      "sha256": "4272f2522f433a9b0fc1e039a1ad148bfb2c6079056f231f79a10995110c619e",
+      "size": 974240
+    }
+  ],
+  "schema_version": 1,
+  "source_id": "saudi-moj-derived",
+  "version": "8b55ef5a666ad773c81086051813582fd14eb466"
+}
