@@ -38,6 +38,11 @@ from kawaneen.corpus.orchestrator import (
 from kawaneen.corpus.orchestrator import (
     validate as validate_corpus,
 )
+from kawaneen.normalization.orchestrator import (
+    normalization_plan,
+    run_phase4_experiment,
+)
+from kawaneen.normalization.sensitivity import run_sensitivity_validation
 from kawaneen.parsing.benchmark import preflight_pdfs, qualification_status
 from kawaneen.parsing.diagnostics import diagnose_docling
 from kawaneen.sources.registry import (
@@ -118,6 +123,18 @@ def build_parser() -> argparse.ArgumentParser:
     )
     diagnose_parser.add_argument("--path", type=Path, required=True)
     diagnose_parser.add_argument("--device", choices=("cpu", "auto"), default="cpu")
+    normalization_parser = subparsers.add_parser(
+        "normalization", help="private Phase 4 Arabic normalization experiments"
+    )
+    normalization_subparsers = normalization_parser.add_subparsers(
+        dest="normalization_command", required=True
+    )
+    normalization_subparsers.add_parser("plan", help="show versioned normalization policies")
+    normalization_subparsers.add_parser("run", help="run the private Phase 4 ablation")
+    normalization_subparsers.add_parser("validate", help="validate sanitized Phase 4 artifacts")
+    normalization_subparsers.add_parser(
+        "sensitivity", help="run bounded Phase 4 sensitivity validation"
+    )
     return parser
 
 
@@ -222,6 +239,32 @@ def main(argv: list[str] | None = None) -> int:
             print(json.dumps(qualification_status(), sort_keys=True))
         elif args.parsing_command == "diagnose":
             print(json.dumps(diagnose_docling(args.path, device=args.device), sort_keys=True))
+    elif args.command == "normalization":
+        try:
+            if args.normalization_command == "plan":
+                print(json.dumps(normalization_plan(), ensure_ascii=False, sort_keys=True))
+            elif args.normalization_command == "run":
+                result = run_phase4_experiment()
+                print(json.dumps(result, ensure_ascii=False, sort_keys=True))
+            elif args.normalization_command == "validate":
+                manifest = Path("data/manifests/normalization/phase4_manifest.json")
+                metrics = Path("data/evaluation/phase4_normalization_metrics.json")
+                if not manifest.is_file() or not metrics.is_file():
+                    raise ValueError("Phase 4 sanitized artifacts are missing")
+                print(
+                    json.dumps(
+                        {
+                            "valid": True,
+                            "manifest": manifest.as_posix(),
+                            "metrics": metrics.as_posix(),
+                        }
+                    )
+                )
+            elif args.normalization_command == "sensitivity":
+                print(json.dumps(run_sensitivity_validation(), ensure_ascii=False, sort_keys=True))
+        except (OSError, PermissionError, ValueError, RuntimeError) as exc:
+            print(f"Normalization operation failed: {exc}", file=sys.stderr)
+            return 1
     else:
         build_parser().print_help()
     return 0
