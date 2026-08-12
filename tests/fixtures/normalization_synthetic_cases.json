@@ -1,0 +1,13 @@
+[
+  {"case": "unchanged_control", "text": "هذا نص قانوني ثابت"},
+  {"case": "alef_forms", "text": "ألف وإقرار"},
+  {"case": "diacritics", "text": "حُكم"},
+  {"case": "tatweel", "text": "حـكم"},
+  {"case": "digit_variants", "text": "المادة 12/2024"},
+  {"case": "ya_maqsura", "text": "في القضية"},
+  {"case": "ta_marbuta", "text": "المادة"},
+  {"case": "punctuation_identifiers", "text": "مرجع 12, 2024"},
+  {"case": "combined_variation", "text": "ألف في قضية 12"},
+  {"case": "collision_risk", "text": "مادة ة"},
+  {"case": "collision_risk_parallel", "text": "مادة ه"}
+]

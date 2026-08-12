@@ -1,0 +1,330 @@
+{
+  "candidate_count": 12000,
+  "challenge_query_count": 150,
+  "paired_confidence_intervals": {
+    "arabic-light-v1__vs__arabic-aggressive-v1__mrr_at_10": {
+      "estimate": 0.0,
+      "lower": 0.0,
+      "replicates": 2000,
+      "seed": 20260811,
+      "upper": 0.0
+    },
+    "arabic-light-v1__vs__arabic-aggressive-v1__ndcg_at_10": {
+      "estimate": 0.0,
+      "lower": 0.0,
+      "replicates": 2000,
+      "seed": 20260811,
+      "upper": 0.0
+    },
+    "arabic-light-v1__vs__arabic-aggressive-v1__recall_at_10": {
+      "estimate": 0.0,
+      "lower": 0.0,
+      "replicates": 2000,
+      "seed": 20260811,
+      "upper": 0.0
+    },
+    "arabic-raw-v1__vs__arabic-aggressive-v1__mrr_at_10": {
+      "estimate": 0.0,
+      "lower": 0.0,
+      "replicates": 2000,
+      "seed": 20260811,
+      "upper": 0.0
+    },
+    "arabic-raw-v1__vs__arabic-aggressive-v1__ndcg_at_10": {
+      "estimate": 0.0,
+      "lower": 0.0,
+      "replicates": 2000,
+      "seed": 20260811,
+      "upper": 0.0
+    },
+    "arabic-raw-v1__vs__arabic-aggressive-v1__recall_at_10": {
+      "estimate": 0.0,
+      "lower": 0.0,
+      "replicates": 2000,
+      "seed": 20260811,
+      "upper": 0.0
+    },
+    "arabic-raw-v1__vs__arabic-light-v1__mrr_at_10": {
+      "estimate": 0.0,
+      "lower": 0.0,
+      "replicates": 2000,
+      "seed": 20260811,
+      "upper": 0.0
+    },
+    "arabic-raw-v1__vs__arabic-light-v1__ndcg_at_10": {
+      "estimate": 0.0,
+      "lower": 0.0,
+      "replicates": 2000,
+      "seed": 20260811,
+      "upper": 0.0
+    },
+    "arabic-raw-v1__vs__arabic-light-v1__recall_at_10": {
+      "estimate": 0.0,
+      "lower": 0.0,
+      "replicates": 2000,
+      "seed": 20260811,
+      "upper": 0.0
+    }
+  },
+  "pairwise_wins_ties_losses": {
+    "arabic-light-v1__vs__arabic-aggressive-v1": {
+      "losses": 0,
+      "ties": 150,
+      "wins": 0
+    },
+    "arabic-raw-v1__vs__arabic-aggressive-v1": {
+      "losses": 0,
+      "ties": 150,
+      "wins": 0
+    },
+    "arabic-raw-v1__vs__arabic-light-v1": {
+      "losses": 0,
+      "ties": 150,
+      "wins": 0
+    }
+  },
+  "policy_metrics": {
+    "arabic-aggressive-v1": {
+      "mrr_at_10": 0.9715555555555555,
+      "ndcg_at_10": 0.976550679927873,
+      "recall_at_1": 0.8729620009620009,
+      "recall_at_10": 0.9659077886882765,
+      "recall_at_5": 0.9447715482349628
+    },
+    "arabic-light-v1": {
+      "mrr_at_10": 0.9715555555555555,
+      "ndcg_at_10": 0.976550679927873,
+      "recall_at_1": 0.8729620009620009,
+      "recall_at_10": 0.9659077886882765,
+      "recall_at_5": 0.9447715482349628
+    },
+    "arabic-raw-v1": {
+      "mrr_at_10": 0.9715555555555555,
+      "ndcg_at_10": 0.976550679927873,
+      "recall_at_1": 0.8729620009620009,
+      "recall_at_10": 0.9659077886882765,
+      "recall_at_5": 0.9447715482349628
+    }
+  },
+  "schema_version": 1,
+  "selected_policy_id": "arabic-raw-v1",
+  "slice_metrics": {
+    "arabic-aggressive-v1": {
+      "alef_forms": {
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 1.0,
+        "recall_at_1": 1.0,
+        "recall_at_10": 1.0,
+        "recall_at_5": 1.0
+      },
+      "collision_risk": {
+        "mrr_at_10": 0.8555555555555556,
+        "ndcg_at_10": 0.8702450172868074,
+        "recall_at_1": 0.2525156325156325,
+        "recall_at_10": 0.8221933621933621,
+        "recall_at_5": 0.7092448292448292
+      },
+      "combined_variation": {
+        "mrr_at_10": 0.9666666666666667,
+        "ndcg_at_10": 0.9704335763506194,
+        "recall_at_1": 0.9333333333333333,
+        "recall_at_10": 0.9777777777777777,
+        "recall_at_5": 0.9481481481481481
+      },
+      "diacritics": {
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 1.0,
+        "recall_at_1": 0.95,
+        "recall_at_10": 1.0,
+        "recall_at_5": 1.0
+      },
+      "digit_variants": {
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 1.0,
+        "recall_at_1": 0.9,
+        "recall_at_10": 1.0,
+        "recall_at_5": 1.0
+      },
+      "punctuation_identifiers": {
+        "mrr_at_10": 0.9466666666666667,
+        "ndcg_at_10": 0.9624141028206517,
+        "recall_at_1": 0.9333333333333333,
+        "recall_at_10": 0.9523809523809524,
+        "recall_at_5": 0.9365079365079365
+      },
+      "ta_marbuta": {
+        "mrr_at_10": 0.9466666666666667,
+        "ndcg_at_10": 0.9624141028206517,
+        "recall_at_1": 0.8104377104377104,
+        "recall_at_10": 0.9067257945306726,
+        "recall_at_5": 0.8538145684487148
+      },
+      "tatweel": {
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 1.0,
+        "recall_at_1": 0.95,
+        "recall_at_10": 1.0,
+        "recall_at_5": 1.0
+      },
+      "unchanged_control": {
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 1.0,
+        "recall_at_1": 1.0,
+        "recall_at_10": 1.0,
+        "recall_at_5": 1.0
+      },
+      "ya_maqsura": {
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 1.0,
+        "recall_at_1": 1.0,
+        "recall_at_10": 1.0,
+        "recall_at_5": 1.0
+      }
+    },
+    "arabic-light-v1": {
+      "alef_forms": {
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 1.0,
+        "recall_at_1": 1.0,
+        "recall_at_10": 1.0,
+        "recall_at_5": 1.0
+      },
+      "collision_risk": {
+        "mrr_at_10": 0.8555555555555556,
+        "ndcg_at_10": 0.8702450172868074,
+        "recall_at_1": 0.2525156325156325,
+        "recall_at_10": 0.8221933621933621,
+        "recall_at_5": 0.7092448292448292
+      },
+      "combined_variation": {
+        "mrr_at_10": 0.9666666666666667,
+        "ndcg_at_10": 0.9704335763506194,
+        "recall_at_1": 0.9333333333333333,
+        "recall_at_10": 0.9777777777777777,
+        "recall_at_5": 0.9481481481481481
+      },
+      "diacritics": {
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 1.0,
+        "recall_at_1": 0.95,
+        "recall_at_10": 1.0,
+        "recall_at_5": 1.0
+      },
+      "digit_variants": {
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 1.0,
+        "recall_at_1": 0.9,
+        "recall_at_10": 1.0,
+        "recall_at_5": 1.0
+      },
+      "punctuation_identifiers": {
+        "mrr_at_10": 0.9466666666666667,
+        "ndcg_at_10": 0.9624141028206517,
+        "recall_at_1": 0.9333333333333333,
+        "recall_at_10": 0.9523809523809524,
+        "recall_at_5": 0.9365079365079365
+      },
+      "ta_marbuta": {
+        "mrr_at_10": 0.9466666666666667,
+        "ndcg_at_10": 0.9624141028206517,
+        "recall_at_1": 0.8104377104377104,
+        "recall_at_10": 0.9067257945306726,
+        "recall_at_5": 0.8538145684487148
+      },
+      "tatweel": {
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 1.0,
+        "recall_at_1": 0.95,
+        "recall_at_10": 1.0,
+        "recall_at_5": 1.0
+      },
+      "unchanged_control": {
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 1.0,
+        "recall_at_1": 1.0,
+        "recall_at_10": 1.0,
+        "recall_at_5": 1.0
+      },
+      "ya_maqsura": {
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 1.0,
+        "recall_at_1": 1.0,
+        "recall_at_10": 1.0,
+        "recall_at_5": 1.0
+      }
+    },
+    "arabic-raw-v1": {
+      "alef_forms": {
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 1.0,
+        "recall_at_1": 1.0,
+        "recall_at_10": 1.0,
+        "recall_at_5": 1.0
+      },
+      "collision_risk": {
+        "mrr_at_10": 0.8555555555555556,
+        "ndcg_at_10": 0.8702450172868074,
+        "recall_at_1": 0.2525156325156325,
+        "recall_at_10": 0.8221933621933621,
+        "recall_at_5": 0.7092448292448292
+      },
+      "combined_variation": {
+        "mrr_at_10": 0.9666666666666667,
+        "ndcg_at_10": 0.9704335763506194,
+        "recall_at_1": 0.9333333333333333,
+        "recall_at_10": 0.9777777777777777,
+        "recall_at_5": 0.9481481481481481
+      },
+      "diacritics": {
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 1.0,
+        "recall_at_1": 0.95,
+        "recall_at_10": 1.0,
+        "recall_at_5": 1.0
+      },
+      "digit_variants": {
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 1.0,
+        "recall_at_1": 0.9,
+        "recall_at_10": 1.0,
+        "recall_at_5": 1.0
+      },
+      "punctuation_identifiers": {
+        "mrr_at_10": 0.9466666666666667,
+        "ndcg_at_10": 0.9624141028206517,
+        "recall_at_1": 0.9333333333333333,
+        "recall_at_10": 0.9523809523809524,
+        "recall_at_5": 0.9365079365079365
+      },
+      "ta_marbuta": {
+        "mrr_at_10": 0.9466666666666667,
+        "ndcg_at_10": 0.9624141028206517,
+        "recall_at_1": 0.8104377104377104,
+        "recall_at_10": 0.9067257945306726,
+        "recall_at_5": 0.8538145684487148
+      },
+      "tatweel": {
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 1.0,
+        "recall_at_1": 0.95,
+        "recall_at_10": 1.0,
+        "recall_at_5": 1.0
+      },
+      "unchanged_control": {
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 1.0,
+        "recall_at_1": 1.0,
+        "recall_at_10": 1.0,
+        "recall_at_5": 1.0
+      },
+      "ya_maqsura": {
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 1.0,
+        "recall_at_1": 1.0,
+        "recall_at_10": 1.0,
+        "recall_at_5": 1.0
+      }
+    }
+  },
+  "status": "phase4_experiment_complete"
+}

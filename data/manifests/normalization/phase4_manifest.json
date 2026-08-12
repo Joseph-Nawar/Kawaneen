@@ -1,0 +1,256 @@
+{
+  "candidate_policy": {
+    "candidate_count": 12000,
+    "candidate_ids_hash": "f820cb99e52cab6af05b1529fa21c3bc77f223b9410ad949a53a1da67e72474d",
+    "exclusion_rules": [
+      "include only content-bearing canonical unit types",
+      "exclude empty or whitespace-only text",
+      "exclude OCR-derived text and metadata fields"
+    ],
+    "included_unit_types": [
+      "applicable_laws",
+      "case_text",
+      "court_reasoning",
+      "events",
+      "facts",
+      "reasoning",
+      "ruling",
+      "verdict"
+    ],
+    "manifest_hash": "ee98d53fb57ea81a84cd4f3176b5537ba096c03624985c11ede05d986bce078e",
+    "schema_version": 1,
+    "source_counts": {
+      "alarb": 6000,
+      "arabiccr": 6000
+    },
+    "source_versions": {
+      "alarb": "e64bfdc867146294a65434c5ca16c2c4c5288ca2",
+      "arabiccr": "3"
+    },
+    "sources": [
+      "alarb",
+      "arabiccr"
+    ],
+    "unit_type_counts": {
+      "applicable_laws": 1500,
+      "case_text": 1500,
+      "court_reasoning": 1500,
+      "events": 1500,
+      "facts": 1500,
+      "reasoning": 1500,
+      "ruling": 1500,
+      "verdict": 1500
+    }
+  },
+  "canonical_hashes": {
+    "data/interim/canonical/alarb/e64bfdc867146294a65434c5ca16c2c4c5288ca2/documents.parquet": "316bf3f2b3215f508d7e33ad164ecee18fff7dd17be73e0ea4079d4d2dff1656",
+    "data/interim/canonical/alarb/e64bfdc867146294a65434c5ca16c2c4c5288ca2/units.parquet": "3c340fb5bafe66fbbd716bd559e48e514f1c7d9ae1741330c0a40873c41ade6c",
+    "data/interim/canonical/arabiccr/3/documents.parquet": "14fd13e90d00e71621f2e9b8ba066e272982c337d21c26c4116001fdbc1aa75d",
+    "data/interim/canonical/arabiccr/3/units.parquet": "746cf1dab0634238a20764e626ad77c72a4187f3c65de0bc577d10c68d6a016d",
+    "data/interim/canonical/saudi-moj-derived/8b55ef5a666ad773c81086051813582fd14eb466/documents.parquet": "167d7be4a8fdd8fafbc45666efa348e73d2f8e516c97a1e7dde01ff4addb9fc1",
+    "data/interim/canonical/saudi-moj-derived/8b55ef5a666ad773c81086051813582fd14eb466/fragments.parquet": "ec9846976d667b8a92171703d7ef78f94a64f3c8e116510971c03e40403f4acb",
+    "data/interim/canonical/saudi-moj-derived/8b55ef5a666ad773c81086051813582fd14eb466/reconstruction.parquet": "4365bc2984375e87ff70c680e99c4d01c62a335d7887a4b6c69fbe91f5884228",
+    "data/interim/canonical/saudi-moj-derived/8b55ef5a666ad773c81086051813582fd14eb466/units.parquet": "4272f2522f433a9b0fc1e039a1ad148bfb2c6079056f231f79a10995110c619e"
+  },
+  "challenge": {
+    "construction_version": "phase4-challenge-v1",
+    "multi_relevant_qrel_count": 24,
+    "phenomenon_counts": {
+      "alef_forms": 15,
+      "collision_risk": 15,
+      "combined_variation": 15,
+      "diacritics": 15,
+      "digit_variants": 15,
+      "punctuation_identifiers": 15,
+      "ta_marbuta": 15,
+      "tatweel": 15,
+      "unchanged_control": 15,
+      "ya_maqsura": 15
+    },
+    "private_artifact_root": "artifacts/private/phase4_normalization",
+    "query_count": 150,
+    "seed": 20260811
+  },
+  "full_eligible_candidate_count": 104588,
+  "policies": {
+    "arabic-aggressive-v1": {
+      "diagnostics": {
+        "character_change_rate": 0.6285850515898677,
+        "collision_group_count": 5,
+        "collision_groups": [
+          {
+            "distinct_source_form_count": 3,
+            "normalized_text_sha256": "26a0e6b5211fee0d03ceae9e6ac172a8e5dcd61aa6c934a5cfc09b63b13a9fef",
+            "unit_count": 3,
+            "unit_ids_sha256": "cb689ec6edffe8611813024c34bfaee9b6bb94c51f6a406a0a92eaa629b41509"
+          },
+          {
+            "distinct_source_form_count": 2,
+            "normalized_text_sha256": "1f361a210489daa509451fdb5a3c84903e5249d1e9bb769ced57400c2718835b",
+            "unit_count": 2,
+            "unit_ids_sha256": "e44083f04b56e03106b64b6f218674128503d6207697822d3373f169370b7558"
+          },
+          {
+            "distinct_source_form_count": 2,
+            "normalized_text_sha256": "469b3628a5ab8dffdcd3394b5d215426def72477086689e9e4474e87dff65ef6",
+            "unit_count": 2,
+            "unit_ids_sha256": "5a1a800871a36c639201972fd10b5a57c0eb13c58d56a44a3c5426224d7f839d"
+          },
+          {
+            "distinct_source_form_count": 2,
+            "normalized_text_sha256": "6e9d8ea72d9bc0c4522b48d0e33882bfe4dbdc4dcdc7ad037c5b9771bed4b0bc",
+            "unit_count": 2,
+            "unit_ids_sha256": "6a251ff49fce103abf1c144e8b40b84912f3a8261fed7a7f7ec2d9d3afaa6b5b"
+          },
+          {
+            "distinct_source_form_count": 2,
+            "normalized_text_sha256": "b201ef4e0dcef632025ac5d81ce9b79c91a890642b89c1d0e0d5a5aa541b4c22",
+            "unit_count": 2,
+            "unit_ids_sha256": "7de21fdb111e029f7114a9d507d868efbcb7e9004759c1b26a739b6e8720c9c7"
+          }
+        ],
+        "distinct_form_collision_rate": 0.0004453152832205201,
+        "policy_hash": "6f9d6e001f948b03b3541ee5df099968c80231f5455959341d8e290aa2f2c3bd",
+        "policy_id": "arabic-aggressive-v1",
+        "token_change_rate": 0.5933488524247185,
+        "transformation_frequencies": {
+          "alef_folded": 461148,
+          "allowlisted_punctuation_folded": 189057,
+          "arabic_digits_folded": 213295,
+          "diacritics_removed": 108154,
+          "nfc_changed": 1817,
+          "ta_marbuta_folded_experimental": 584573,
+          "tatweel_removed": 26285,
+          "whitespace_collapsed": 23744,
+          "whitespace_mapped": 2303124,
+          "ya_maqsura_folded": 243455
+        },
+        "unit_collision_rate": 0.0009166666666666666,
+        "unit_count": 12000,
+        "vocabulary_compression_rate": 0.10587715422006183
+      },
+      "gate_status": {
+        "determinism_failures": 0,
+        "distinct_form_collision_rate": 0.0004453152832205201,
+        "eligible": true,
+        "failures": [],
+        "idempotency_failures": 0,
+        "identifier_safety_failures": 0,
+        "preservation_checked": 12000,
+        "unit_collision_rate": 0.0009166666666666666
+      },
+      "policy_hash": "6f9d6e001f948b03b3541ee5df099968c80231f5455959341d8e290aa2f2c3bd"
+    },
+    "arabic-light-v1": {
+      "diagnostics": {
+        "character_change_rate": 0.612302899022893,
+        "collision_group_count": 4,
+        "collision_groups": [
+          {
+            "distinct_source_form_count": 3,
+            "normalized_text_sha256": "bc1190a169ce02ae7782de7a93c278669b4a16bec5dc5f5db970d6f91a3f0ac3",
+            "unit_count": 3,
+            "unit_ids_sha256": "cb689ec6edffe8611813024c34bfaee9b6bb94c51f6a406a0a92eaa629b41509"
+          },
+          {
+            "distinct_source_form_count": 2,
+            "normalized_text_sha256": "03d94ea212c9bc2503031fafe003d34e75e7a69e019db38a61ac851bab5073d8",
+            "unit_count": 2,
+            "unit_ids_sha256": "5a1a800871a36c639201972fd10b5a57c0eb13c58d56a44a3c5426224d7f839d"
+          },
+          {
+            "distinct_source_form_count": 2,
+            "normalized_text_sha256": "4758b0bb832f95bb3cd6c3f2cef4a1ed35bcbea48df2b73c2c9087ea4c8fc5eb",
+            "unit_count": 2,
+            "unit_ids_sha256": "e44083f04b56e03106b64b6f218674128503d6207697822d3373f169370b7558"
+          },
+          {
+            "distinct_source_form_count": 2,
+            "normalized_text_sha256": "bb7f9984c5eb17ed9c521182325b5eb6e7bbca82eaff7c2b68baee2017c44626",
+            "unit_count": 2,
+            "unit_ids_sha256": "7de21fdb111e029f7114a9d507d868efbcb7e9004759c1b26a739b6e8720c9c7"
+          }
+        ],
+        "distinct_form_collision_rate": 0.00035622050048980317,
+        "policy_hash": "78e262b833d1de1229d5f1c8618d91ba8d3d0916929386e3fbbdaed7352b5120",
+        "policy_id": "arabic-light-v1",
+        "token_change_rate": 0.577346097791215,
+        "transformation_frequencies": {
+          "alef_folded": 461148,
+          "diacritics_removed": 108154,
+          "nfc_changed": 1817,
+          "tatweel_removed": 26285,
+          "whitespace_collapsed": 23744,
+          "whitespace_mapped": 2303124
+        },
+        "unit_collision_rate": 0.00075,
+        "unit_count": 12000,
+        "vocabulary_compression_rate": 0.05916293163310393
+      },
+      "gate_status": {
+        "determinism_failures": 0,
+        "distinct_form_collision_rate": 0.00035622050048980317,
+        "eligible": true,
+        "failures": [],
+        "idempotency_failures": 0,
+        "identifier_safety_failures": 0,
+        "preservation_checked": 12000,
+        "unit_collision_rate": 0.00075
+      },
+      "policy_hash": "78e262b833d1de1229d5f1c8618d91ba8d3d0916929386e3fbbdaed7352b5120"
+    },
+    "arabic-raw-v1": {
+      "diagnostics": {
+        "character_change_rate": 0.15027258683954173,
+        "collision_group_count": 0,
+        "collision_groups": [],
+        "distinct_form_collision_rate": 0.0,
+        "policy_hash": "1a9976c5a2fb6cad72f7622b508ac02485fbb9d25e8b2c6c7d2b41b65edae8da",
+        "policy_id": "arabic-raw-v1",
+        "token_change_rate": 0.000524864796282965,
+        "transformation_frequencies": {
+          "nfc_changed": 1817,
+          "whitespace_collapsed": 23744,
+          "whitespace_mapped": 2138183
+        },
+        "unit_collision_rate": 0.0,
+        "unit_count": 12000,
+        "vocabulary_compression_rate": 5.0501862256191465e-05
+      },
+      "gate_status": {
+        "determinism_failures": 0,
+        "distinct_form_collision_rate": 0.0,
+        "eligible": true,
+        "failures": [],
+        "idempotency_failures": 0,
+        "identifier_safety_failures": 0,
+        "preservation_checked": 12000,
+        "unit_collision_rate": 0.0
+      },
+      "policy_hash": "1a9976c5a2fb6cad72f7622b508ac02485fbb9d25e8b2c6c7d2b41b65edae8da"
+    }
+  },
+  "retrieval_scope": {
+    "bm25": {
+      "b": 0.75,
+      "k1": 1.2
+    },
+    "candidate_count": 12000,
+    "seed": 20260811,
+    "tokenizer": "unicode-word-or-single-punctuation-v1"
+  },
+  "revalidation_required": "Phase 7 human evaluation set",
+  "schema_version": 1,
+  "scope_note": "deterministic balanced subset selected before results because full local corpus was impractical",
+  "selection": {
+    "eligible_policies": [
+      "arabic-raw-v1",
+      "arabic-light-v1",
+      "arabic-aggressive-v1"
+    ],
+    "rationale": "Selected the least destructive policy passing all hard gates; more destructive policies were promoted only for meaningful paired retrieval improvement without control/collision regression.",
+    "rejected_policies": {},
+    "selected_policy_id": "arabic-raw-v1"
+  },
+  "status": "phase4_experiment_complete"
+}

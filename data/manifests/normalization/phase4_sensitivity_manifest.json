@@ -1,0 +1,76 @@
+{
+  "candidate_policy": {
+    "candidate_count": 12000,
+    "candidate_ids_hash": "f820cb99e52cab6af05b1529fa21c3bc77f223b9410ad949a53a1da67e72474d",
+    "exclusion_rules": [
+      "include only content-bearing canonical unit types",
+      "exclude empty or whitespace-only text",
+      "exclude OCR-derived text and metadata fields"
+    ],
+    "included_unit_types": [
+      "applicable_laws",
+      "case_text",
+      "court_reasoning",
+      "events",
+      "facts",
+      "reasoning",
+      "ruling",
+      "verdict"
+    ],
+    "manifest_hash": "ee98d53fb57ea81a84cd4f3176b5537ba096c03624985c11ede05d986bce078e",
+    "schema_version": 1,
+    "source_counts": {
+      "alarb": 6000,
+      "arabiccr": 6000
+    },
+    "source_versions": {
+      "alarb": "e64bfdc867146294a65434c5ca16c2c4c5288ca2",
+      "arabiccr": "3"
+    },
+    "sources": [
+      "alarb",
+      "arabiccr"
+    ],
+    "unit_type_counts": {
+      "applicable_laws": 1500,
+      "case_text": 1500,
+      "court_reasoning": 1500,
+      "events": 1500,
+      "facts": 1500,
+      "reasoning": 1500,
+      "ruling": 1500,
+      "verdict": 1500
+    }
+  },
+  "decision": {
+    "phase7_revalidation_required": true,
+    "primary_selected_policy_id": "arabic-raw-v1",
+    "rationale": "Light showed a meaningful paired probe gain without control/collision regression.",
+    "validation_selected_policy_id": "arabic-light-v1"
+  },
+  "primary_artifact_hashes": {
+    "challenge_items.jsonl": "a649f053b73e6084589d2b2f7057aabe82e80e65ad3b1546c1dc0272702a2531",
+    "qrels.json": "9cb6b57233545658ea23695602a14d3423830052231815a761457c367c9dcd02"
+  },
+  "primary_challenge_version": "phase4-primary-challenge-v1",
+  "private_artifact_root": "artifacts/private/phase4_normalization/sensitivity_validation",
+  "probe": {
+    "construction_version": "phase4-sensitivity-probe-v1",
+    "query_count": 60,
+    "seed": 20260812,
+    "slice_counts": {
+      "alef_forms": 6,
+      "collision_risk": 6,
+      "combined_variation": 6,
+      "diacritics": 6,
+      "digit_variants": 6,
+      "punctuation_identifiers": 6,
+      "ta_marbuta": 6,
+      "tatweel": 6,
+      "unchanged_control": 6,
+      "ya_maqsura": 6
+    }
+  },
+  "schema_version": 1,
+  "status": "phase4_sensitivity_validation_complete"
+}

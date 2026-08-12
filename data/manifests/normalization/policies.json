@@ -1,0 +1,128 @@
+{
+  "policies": [
+    {
+      "config": {
+        "policy_id": "arabic-raw-v1",
+        "safe_format_chars": [
+          "U+FEFF"
+        ],
+        "schema_version": 1,
+        "transforms": [
+          "nfc",
+          "bom_remove",
+          "retrieval_whitespace"
+        ],
+        "version": 1
+      },
+      "policy_hash": "1a9976c5a2fb6cad72f7622b508ac02485fbb9d25e8b2c6c7d2b41b65edae8da",
+      "policy_id": "arabic-raw-v1",
+      "transforms": [
+        "nfc",
+        "bom_remove",
+        "retrieval_whitespace"
+      ],
+      "version": 1
+    },
+    {
+      "config": {
+        "alef_variants": [
+          "أ",
+          "إ",
+          "آ",
+          "ٱ"
+        ],
+        "diacritic_ranges": [
+          "U+0610-U+061A",
+          "U+064B-U+065F",
+          "U+0670",
+          "U+06D6-U+06ED"
+        ],
+        "policy_id": "arabic-light-v1",
+        "safe_format_chars": [
+          "U+FEFF"
+        ],
+        "schema_version": 1,
+        "transforms": [
+          "nfc",
+          "bom_remove",
+          "retrieval_whitespace",
+          "tatweel_remove",
+          "arabic_diacritics_remove",
+          "alef_fold"
+        ],
+        "version": 1
+      },
+      "policy_hash": "78e262b833d1de1229d5f1c8618d91ba8d3d0916929386e3fbbdaed7352b5120",
+      "policy_id": "arabic-light-v1",
+      "transforms": [
+        "nfc",
+        "bom_remove",
+        "retrieval_whitespace",
+        "tatweel_remove",
+        "arabic_diacritics_remove",
+        "alef_fold"
+      ],
+      "version": 1
+    },
+    {
+      "config": {
+        "alef_variants": [
+          "أ",
+          "إ",
+          "آ",
+          "ٱ"
+        ],
+        "diacritic_ranges": [
+          "U+0610-U+061A",
+          "U+064B-U+065F",
+          "U+0670",
+          "U+06D6-U+06ED"
+        ],
+        "policy_id": "arabic-aggressive-v1",
+        "punctuation_allowlist": [
+          "U+060C->U+002C",
+          "U+061B->U+003B",
+          "U+061F->U+003F",
+          "U+066B->U+002E",
+          "U+066C->U+002C",
+          "U+2013->U+002D",
+          "U+2014->U+002D",
+          "U+2212->U+002D"
+        ],
+        "safe_format_chars": [
+          "U+FEFF"
+        ],
+        "schema_version": 1,
+        "transforms": [
+          "nfc",
+          "bom_remove",
+          "retrieval_whitespace",
+          "tatweel_remove",
+          "arabic_diacritics_remove",
+          "alef_fold",
+          "ya_maqsura_fold",
+          "ta_marbuta_fold_experimental",
+          "arabic_digit_fold",
+          "allowlisted_punctuation_fold"
+        ],
+        "version": 1
+      },
+      "policy_hash": "6f9d6e001f948b03b3541ee5df099968c80231f5455959341d8e290aa2f2c3bd",
+      "policy_id": "arabic-aggressive-v1",
+      "transforms": [
+        "nfc",
+        "bom_remove",
+        "retrieval_whitespace",
+        "tatweel_remove",
+        "arabic_diacritics_remove",
+        "alef_fold",
+        "ya_maqsura_fold",
+        "ta_marbuta_fold_experimental",
+        "arabic_digit_fold",
+        "allowlisted_punctuation_fold"
+      ],
+      "version": 1
+    }
+  ],
+  "schema_version": 1
+}

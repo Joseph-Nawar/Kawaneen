@@ -1,0 +1,24 @@
+schema_version = 1
+
+[[policies]]
+policy_id = "arabic-raw-v1"
+version = 1
+transforms = ["nfc", "bom_remove", "retrieval_whitespace"]
+safe_format_chars = ["U+FEFF"]
+
+[[policies]]
+policy_id = "arabic-light-v1"
+version = 1
+transforms = ["nfc", "bom_remove", "retrieval_whitespace", "tatweel_remove", "arabic_diacritics_remove", "alef_fold"]
+safe_format_chars = ["U+FEFF"]
+diacritic_ranges = ["U+0610-U+061A", "U+064B-U+065F", "U+0670", "U+06D6-U+06ED"]
+alef_variants = ["أ", "إ", "آ", "ٱ"]
+
+[[policies]]
+policy_id = "arabic-aggressive-v1"
+version = 1
+transforms = ["nfc", "bom_remove", "retrieval_whitespace", "tatweel_remove", "arabic_diacritics_remove", "alef_fold", "ya_maqsura_fold", "ta_marbuta_fold_experimental", "arabic_digit_fold", "allowlisted_punctuation_fold"]
+safe_format_chars = ["U+FEFF"]
+diacritic_ranges = ["U+0610-U+061A", "U+064B-U+065F", "U+0670", "U+06D6-U+06ED"]
+alef_variants = ["أ", "إ", "آ", "ٱ"]
+punctuation_allowlist = ["U+060C->U+002C", "U+061B->U+003B", "U+061F->U+003F", "U+066B->U+002E", "U+066C->U+002C", "U+2013->U+002D", "U+2014->U+002D", "U+2212->U+002D"]
