@@ -1,0 +1,29 @@
+{
+  "canonical_hashes": {
+    "data/interim/canonical/alarb/e64bfdc867146294a65434c5ca16c2c4c5288ca2/documents.parquet": "316bf3f2b3215f508d7e33ad164ecee18fff7dd17be73e0ea4079d4d2dff1656",
+    "data/interim/canonical/alarb/e64bfdc867146294a65434c5ca16c2c4c5288ca2/units.parquet": "3c340fb5bafe66fbbd716bd559e48e514f1c7d9ae1741330c0a40873c41ade6c",
+    "data/interim/canonical/arabiccr/3/documents.parquet": "14fd13e90d00e71621f2e9b8ba066e272982c337d21c26c4116001fdbc1aa75d",
+    "data/interim/canonical/arabiccr/3/units.parquet": "746cf1dab0634238a20764e626ad77c72a4187f3c65de0bc577d10c68d6a016d",
+    "data/interim/canonical/saudi-moj-derived/8b55ef5a666ad773c81086051813582fd14eb466/documents.parquet": "167d7be4a8fdd8fafbc45666efa348e73d2f8e516c97a1e7dde01ff4addb9fc1",
+    "data/interim/canonical/saudi-moj-derived/8b55ef5a666ad773c81086051813582fd14eb466/fragments.parquet": "ec9846976d667b8a92171703d7ef78f94a64f3c8e116510971c03e40403f4acb",
+    "data/interim/canonical/saudi-moj-derived/8b55ef5a666ad773c81086051813582fd14eb466/reconstruction.parquet": "4365bc2984375e87ff70c680e99c4d01c62a335d7887a4b6c69fbe91f5884228",
+    "data/interim/canonical/saudi-moj-derived/8b55ef5a666ad773c81086051813582fd14eb466/units.parquet": "4272f2522f433a9b0fc1e039a1ad148bfb2c6079056f231f79a10995110c619e"
+  },
+  "document_count": 3000,
+  "document_count_by_source": {
+    "alarb": 1500,
+    "arabiccr": 1500
+  },
+  "document_ids_hash": "3bf9e32d62b1555962363f38fe0e82b7cd7e23471d0c45141290ef2c5222a621",
+  "moj_retrieval_gold": false,
+  "ocr_included": false,
+  "schema_version": 1,
+  "scope_hash": "1898dc9bcae8d685f8731587b0ca7e91b918875c749f3b27faffa1bbb141bb49",
+  "scope_version": "phase5-document-scope-v1",
+  "source_versions": {
+    "alarb": "e64bfdc867146294a65434c5ca16c2c4c5288ca2",
+    "arabiccr": "3"
+  },
+  "status": "phase5_corpus_frozen",
+  "unit_count": 12000
+}

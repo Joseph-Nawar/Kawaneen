@@ -1,0 +1,108 @@
+{
+  "corpus_manifest": "data/manifests/chunking/phase5_corpus_manifest.json",
+  "decision": {
+    "best_fixed_baseline": "fixed-256-v1",
+    "eligible_policies": [
+      "fixed-256-v1",
+      "fixed-512-v1",
+      "legal-parent-child-v1",
+      "legal-structure-neighbor-v1",
+      "legal-structure-v1"
+    ],
+    "rationale": "Selected legal-structure-v1: retrieval stayed within tolerance and citation quality improved over fixed-256-v1.",
+    "rejected_policies": {},
+    "selected_policy_id": "legal-structure-v1"
+  },
+  "metrics": "data/evaluation/phase5_chunking_metrics.json",
+  "normalization_policy_id": "arabic-light-v1",
+  "phase": "phase-05-legal-structure-and-chunking",
+  "private_artifact_root": "artifacts/private/phase5_chunking",
+  "private_root": "artifacts/private/phase5_chunking",
+  "schema_version": 1,
+  "scope_exclusions": [
+    "embeddings",
+    "dense_retrieval",
+    "reranking",
+    "RAG",
+    "Qdrant",
+    "APIs",
+    "Phase 6 human evaluation"
+  ],
+  "status": "phase5_chunking_experiment_complete",
+  "strategies": [
+    {
+      "config": {
+        "overlap": 32,
+        "policy_id": "fixed-256-v1",
+        "strategy": "fixed_window",
+        "token_maximum": 256,
+        "token_target": 256,
+        "version": 1
+      },
+      "policy_hash": "caf5cf8e0847c94d5fb3d7216ed76e73084ca748fb6833049f6f4d09b3691323",
+      "policy_id": "fixed-256-v1",
+      "version": 1
+    },
+    {
+      "config": {
+        "overlap": 64,
+        "policy_id": "fixed-512-v1",
+        "strategy": "fixed_window",
+        "token_maximum": 512,
+        "token_target": 512,
+        "version": 1
+      },
+      "policy_hash": "2735ee4a6a9f807ff41757200577d068240bc44218abb25fbb337f955e969add",
+      "policy_id": "fixed-512-v1",
+      "version": 1
+    },
+    {
+      "config": {
+        "overlap": 0,
+        "policy_id": "legal-structure-v1",
+        "strategy": "legal_structure",
+        "token_maximum": 512,
+        "token_target": 384,
+        "version": 1
+      },
+      "policy_hash": "93fe26c1f2482456101d8803f74c4c369d7643b063689756e16d52439acca46f",
+      "policy_id": "legal-structure-v1",
+      "version": 1
+    },
+    {
+      "config": {
+        "neighbor_scope": "same_parent_previous_current_next",
+        "overlap": 0,
+        "policy_id": "legal-structure-neighbor-v1",
+        "strategy": "legal_structure_neighbor",
+        "token_maximum": 512,
+        "token_target": 384,
+        "version": 1
+      },
+      "policy_hash": "df377a600dfcb13ee5c4ecf38d0902654c2f84561b1a1d56aff9dfdcba4ba704",
+      "policy_id": "legal-structure-neighbor-v1",
+      "version": 1
+    },
+    {
+      "config": {
+        "aggregation": "max_child_score",
+        "overlap": 0,
+        "policy_id": "legal-parent-child-v1",
+        "strategy": "legal_parent_child",
+        "token_maximum": 512,
+        "token_target": 384,
+        "version": 1
+      },
+      "policy_hash": "6903623310c8e5e46f4fbb9214870b9f85d1530132f8d83ffc196778f43f3bda",
+      "policy_id": "legal-parent-child-v1",
+      "version": 1
+    }
+  ],
+  "strategy_policy_hashes": {
+    "fixed-256-v1": "caf5cf8e0847c94d5fb3d7216ed76e73084ca748fb6833049f6f4d09b3691323",
+    "fixed-512-v1": "2735ee4a6a9f807ff41757200577d068240bc44218abb25fbb337f955e969add",
+    "legal-parent-child-v1": "6903623310c8e5e46f4fbb9214870b9f85d1530132f8d83ffc196778f43f3bda",
+    "legal-structure-neighbor-v1": "df377a600dfcb13ee5c4ecf38d0902654c2f84561b1a1d56aff9dfdcba4ba704",
+    "legal-structure-v1": "93fe26c1f2482456101d8803f74c4c369d7643b063689756e16d52439acca46f"
+  }
+}

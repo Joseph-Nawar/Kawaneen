@@ -1,0 +1,43 @@
+schema_version = 1
+
+[[policies]]
+policy_id = "fixed-256-v1"
+version = 1
+strategy = "fixed_window"
+token_target = 256
+token_maximum = 256
+overlap = 32
+
+[[policies]]
+policy_id = "fixed-512-v1"
+version = 1
+strategy = "fixed_window"
+token_target = 512
+token_maximum = 512
+overlap = 64
+
+[[policies]]
+policy_id = "legal-structure-v1"
+version = 1
+strategy = "legal_structure"
+token_target = 384
+token_maximum = 512
+overlap = 0
+
+[[policies]]
+policy_id = "legal-structure-neighbor-v1"
+version = 1
+strategy = "legal_structure_neighbor"
+token_target = 384
+token_maximum = 512
+overlap = 0
+neighbor_scope = "same_parent_previous_current_next"
+
+[[policies]]
+policy_id = "legal-parent-child-v1"
+version = 1
+strategy = "legal_parent_child"
+token_target = 384
+token_maximum = 512
+overlap = 0
+aggregation = "max_child_score"

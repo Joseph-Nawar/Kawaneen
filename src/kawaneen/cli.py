@@ -22,6 +22,11 @@ from kawaneen.acquisition.orchestrator import (
     verify_source,
 )
 from kawaneen.acquisition.specs import load_specifications
+from kawaneen.chunking.orchestrator import (
+    chunking_plan,
+    run_phase5_chunking,
+    validate_phase5_chunking,
+)
 from kawaneen.corpus.orchestrator import build as build_corpus
 from kawaneen.corpus.orchestrator import (
     gaps as corpus_gaps,
@@ -135,6 +140,14 @@ def build_parser() -> argparse.ArgumentParser:
     normalization_subparsers.add_parser(
         "sensitivity", help="run bounded Phase 4 sensitivity validation"
     )
+    chunking_parser = subparsers.add_parser(
+        "chunking", help="private Phase 5 legal structure and chunking experiments"
+    )
+    chunking_subparsers = chunking_parser.add_subparsers(dest="chunking_command", required=True)
+    chunking_subparsers.add_parser("plan", help="show versioned chunking policies")
+    chunking_subparsers.add_parser("build", help="build private chunk views")
+    chunking_subparsers.add_parser("experiment", help="run the private chunking ablation")
+    chunking_subparsers.add_parser("validate", help="validate sanitized Phase 5 artifacts")
     return parser
 
 
@@ -264,6 +277,17 @@ def main(argv: list[str] | None = None) -> int:
                 print(json.dumps(run_sensitivity_validation(), ensure_ascii=False, sort_keys=True))
         except (OSError, PermissionError, ValueError, RuntimeError) as exc:
             print(f"Normalization operation failed: {exc}", file=sys.stderr)
+            return 1
+    elif args.command == "chunking":
+        try:
+            if args.chunking_command == "plan":
+                print(json.dumps(chunking_plan(), ensure_ascii=False, sort_keys=True))
+            elif args.chunking_command in {"build", "experiment"}:
+                print(json.dumps(run_phase5_chunking(), ensure_ascii=False, sort_keys=True))
+            elif args.chunking_command == "validate":
+                print(json.dumps(validate_phase5_chunking(), ensure_ascii=False, sort_keys=True))
+        except (OSError, PermissionError, ValueError, RuntimeError) as exc:
+            print(f"Chunking operation failed: {exc}", file=sys.stderr)
             return 1
     else:
         build_parser().print_help()

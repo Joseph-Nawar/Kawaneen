@@ -1,4 +1,4 @@
-.PHONY: help install format lint typecheck test check doctor sources-validate sources-summary data-plan data-acquire-alarb data-import-arabiccr data-verify data-audit data-audit-statutory data-manifest data-status data-rebuild-auto data-rebuild corpus-plan corpus-build corpus-validate corpus-inventory corpus-statutory-status corpus-duplicate-diagnostics corpus-gaps parsing-preflight parsing-benchmark parsing-diagnose normalization-plan normalization-run normalization-validate normalization-sensitivity clean
+.PHONY: help install format lint typecheck test check doctor sources-validate sources-summary data-plan data-acquire-alarb data-import-arabiccr data-verify data-audit data-audit-statutory data-manifest data-status data-rebuild-auto data-rebuild corpus-plan corpus-build corpus-validate corpus-inventory corpus-statutory-status corpus-duplicate-diagnostics corpus-gaps parsing-preflight parsing-benchmark parsing-diagnose normalization-plan normalization-run normalization-validate normalization-sensitivity chunking-plan chunking-build chunking-experiment chunking-validate clean
 
 help:
 	@printf '%s\n' 'Kawaneen development commands:'
@@ -35,6 +35,10 @@ help:
 	@printf '%s\n' '  make normalization-run    uv run kawaneen normalization run (private local corpus)'
 	@printf '%s\n' '  make normalization-validate  uv run kawaneen normalization validate'
 	@printf '%s\n' '  make normalization-sensitivity  uv run kawaneen normalization sensitivity'
+	@printf '%s\n' '  make chunking-plan             uv run kawaneen chunking plan'
+	@printf '%s\n' '  make chunking-build            uv run kawaneen chunking build (private local corpus)'
+	@printf '%s\n' '  make chunking-experiment       uv run kawaneen chunking experiment (private local corpus)'
+	@printf '%s\n' '  make chunking-validate         uv run kawaneen chunking validate'
 	@printf '%s\n' '  make clean     remove safe local build and test artifacts'
 
 install:
@@ -138,6 +142,18 @@ normalization-validate:
 
 normalization-sensitivity:
 	uv run kawaneen normalization sensitivity
+
+chunking-plan:
+	uv run kawaneen chunking plan
+
+chunking-build:
+	uv run kawaneen chunking build
+
+chunking-experiment:
+	uv run kawaneen chunking experiment
+
+chunking-validate:
+	uv run kawaneen chunking validate
 
 clean:
 	find . -maxdepth 1 -type d \( -name .pytest_cache -o -name .ruff_cache -o -name htmlcov -o -name dist -o -name build \) -exec rm -rf {} +

@@ -1,0 +1,9 @@
+[
+  {"label": "Article 4", "text": "المادة 4: حكم مستقل."},
+  {"label": "Article 14", "text": "المادة 14: حكم مستقل."},
+  {"label": "Article 24", "text": "المادة 24: حكم مستقل."},
+  {"label": "Article 60 Part 2", "text": "المادة 60 الجزء الثاني: نص مستقل."},
+  {"label": "Article 60 Part 3", "text": "المادة 60 الجزء الثالث: نص مستقل."},
+  {"label": "Missing hierarchy", "text": "نص بلا فصل أو باب، مع فقرة واحدة."},
+  {"label": "Optional page", "text": "نص اختباري بلا رقم صفحة مستنتج."}
+]
