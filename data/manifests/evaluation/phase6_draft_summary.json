@@ -1,0 +1,182 @@
+{
+  "base_candidate_count": 360,
+  "base_category_counts": {
+    "authority": 20,
+    "case_holding": 25,
+    "conditions": 30,
+    "deadline": 20,
+    "definition": 25,
+    "exact_provision": 30,
+    "multi_evidence": 25,
+    "unanswerable": 25
+  },
+  "base_category_source_counts": {
+    "authority:alarb": 12,
+    "authority:arabiccr": 8,
+    "case_holding:alarb": 13,
+    "case_holding:arabiccr": 12,
+    "conditions:alarb": 17,
+    "conditions:arabiccr": 13,
+    "deadline:alarb": 9,
+    "deadline:arabiccr": 11,
+    "definition:alarb": 9,
+    "definition:arabiccr": 16,
+    "exact_provision:alarb": 20,
+    "exact_provision:arabiccr": 10,
+    "multi_evidence:alarb": 13,
+    "multi_evidence:arabiccr": 12,
+    "unanswerable:alarb": 13,
+    "unanswerable:arabiccr": 12
+  },
+  "base_intent_count": 200,
+  "base_source_counts": {
+    "alarb": 106,
+    "arabiccr": 94
+  },
+  "benchmark_source_status": "unavailable_document_derived_only",
+  "category_counts": {
+    "authority": 24,
+    "case_holding": 29,
+    "conditions": 34,
+    "deadline": 24,
+    "definition": 33,
+    "exact_provision": 38,
+    "multi_evidence": 29,
+    "unanswerable": 29
+  },
+  "corpus_hash": "290d7a91e5f435778e782b76284a9797fb7f5ae261380f0a923b56224e530daa",
+  "dataset_version": "phase6-retrieval-eval-draft-v2",
+  "handoff": {
+    "context": {
+      "path": "artifacts/private/phase6_evaluation/handoff/phase6_review_source_context.jsonl",
+      "row_count": 315,
+      "sha256": "6179bbfacf6cf982ef7fddaf17bc8cf9791411365df8c276afe632df176233a8",
+      "size_bytes": 1169983
+    },
+    "manifest": "artifacts/private/phase6_evaluation/handoff/canonical_review_manifest.json",
+    "shards": [
+      {
+        "name": "canonical_review_0001.jsonl",
+        "row_count": 14699,
+        "sha256": "10ded1c711f6af45951b56f3676c9a846e6d33d2d64cd72c3798872ca1a99500",
+        "size_bytes": 24116857
+      },
+      {
+        "name": "canonical_review_0002.jsonl",
+        "row_count": 14707,
+        "sha256": "5169410b6c5cef3db5a509c188715e20cb41ec2fd33d155f48c83364c63858f4",
+        "size_bytes": 24116052
+      },
+      {
+        "name": "canonical_review_0003.jsonl",
+        "row_count": 14658,
+        "sha256": "2ac7b726b0e7a53d389527874da718dadff24c4da88de91bac5eac4f4b7ac5a3",
+        "size_bytes": 24114737
+      },
+      {
+        "name": "canonical_review_0004.jsonl",
+        "row_count": 11506,
+        "sha256": "3a69f5954adc2b48769d283611ef5759bc59bf2ff3bd7e895411f24c6612bba0",
+        "size_bytes": 24115606
+      },
+      {
+        "name": "canonical_review_0005.jsonl",
+        "row_count": 5875,
+        "sha256": "5abc28575138d3818d996eb74c746aef6e1ddde38be49fa53939731751154802",
+        "size_bytes": 24112905
+      },
+      {
+        "name": "canonical_review_0006.jsonl",
+        "row_count": 6044,
+        "sha256": "25f9d993211958d2b3c6f4adeb384dbe5f94c26cf07de9ee6192c27bc2f68baa",
+        "size_bytes": 24114330
+      },
+      {
+        "name": "canonical_review_0007.jsonl",
+        "row_count": 5935,
+        "sha256": "c7aca4067f98580a0ea437c0404176d7738a4e8b7aadfc1f322b2861839c4c51",
+        "size_bytes": 24112456
+      },
+      {
+        "name": "canonical_review_0008.jsonl",
+        "row_count": 5993,
+        "sha256": "30d879ac9e4e024554349ec054444f66c79cf24146e2c5647f29cc3a58d5f731",
+        "size_bytes": 24112626
+      },
+      {
+        "name": "canonical_review_0009.jsonl",
+        "row_count": 6143,
+        "sha256": "e45b925e1a25132cdddd925ebae140a0e1e59f6322d32062938f3d756cd74029",
+        "size_bytes": 24113620
+      },
+      {
+        "name": "canonical_review_0010.jsonl",
+        "row_count": 5991,
+        "sha256": "5d514bea467a6cc23677bc731b082dd6c67b6e5cc3552a49e0159737ece270cc",
+        "size_bytes": 24076904
+      },
+      {
+        "name": "canonical_review_0011.jsonl",
+        "row_count": 231,
+        "sha256": "624da5a33affcca1ded6698d3e16e7e956ba6ef6dabcd4265702f8738015e19c",
+        "size_bytes": 1023724
+      }
+    ]
+  },
+  "item_count": 240,
+  "language_counts": {
+    "ar": 220,
+    "ar-en": 10,
+    "en": 10
+  },
+  "private_artifacts": {
+    "corpus_snapshot": "artifacts/private/phase6_evaluation/corpus/canonical_units.json",
+    "handoff_context": "artifacts/private/phase6_evaluation/handoff/phase6_review_source_context.jsonl",
+    "handoff_manifest": "artifacts/private/phase6_evaluation/handoff/canonical_review_manifest.json",
+    "items": "artifacts/private/phase6_evaluation/draft/selected_and_variants.jsonl",
+    "review_diagnostics": "artifacts/private/phase6_evaluation/review/review_diagnostics.jsonl",
+    "review_packet": "artifacts/private/phase6_evaluation/review/review_packet.jsonl"
+  },
+  "review": {
+    "draft": 240,
+    "human_verified": 0,
+    "item_count": 240,
+    "primary_reviewed": 0,
+    "secondary_reviewed": 0,
+    "unresolved_disagreements": 0
+  },
+  "schema_version": 1,
+  "source_counts": {
+    "alarb": 122,
+    "arabiccr": 118
+  },
+  "split_diagnostics": {
+    "cross_split_document_count": 0,
+    "cross_split_intent_count": 0,
+    "dev_count": 160,
+    "duplicate_query_count": 0,
+    "holdout_count": 80,
+    "smoke_count": 20
+  },
+  "status": "phase6_draft_built_pending_human_review",
+  "validation": {
+    "answerability_error_count": 0,
+    "direct_leakage_count": 0,
+    "duplicate_query_count": 0,
+    "implementation_text_count": 0,
+    "invalid_evidence_group_count": 0,
+    "invalid_span_count": 0,
+    "item_count": 240,
+    "lexical_overlap_count": 12,
+    "missing_chunk_mapping_count": 0,
+    "near_duplicate_query_count": 0,
+    "privacy_finding_count": 0,
+    "valid": true
+  },
+  "variant_count": 40,
+  "variant_language_counts": {
+    "ar": 20,
+    "ar-en": 10,
+    "en": 10
+  }
+}

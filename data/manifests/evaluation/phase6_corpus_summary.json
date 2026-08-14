@@ -1,0 +1,40 @@
+{
+  "canonical_hashes": {
+    "data/interim/canonical/alarb/e64bfdc867146294a65434c5ca16c2c4c5288ca2/documents.parquet": "316bf3f2b3215f508d7e33ad164ecee18fff7dd17be73e0ea4079d4d2dff1656",
+    "data/interim/canonical/alarb/e64bfdc867146294a65434c5ca16c2c4c5288ca2/units.parquet": "3c340fb5bafe66fbbd716bd559e48e514f1c7d9ae1741330c0a40873c41ade6c",
+    "data/interim/canonical/arabiccr/3/documents.parquet": "14fd13e90d00e71621f2e9b8ba066e272982c337d21c26c4116001fdbc1aa75d",
+    "data/interim/canonical/arabiccr/3/units.parquet": "746cf1dab0634238a20764e626ad77c72a4187f3c65de0bc577d10c68d6a016d"
+  },
+  "content_policy_hash": "2e3addbf1d305e668c530e1f19fd8c8c07ea05601359f4d6c890a6a350516e44",
+  "content_policy_version": "phase5-source-content-policy-v1",
+  "corpus_hash": "290d7a91e5f435778e782b76284a9797fb7f5ae261380f0a923b56224e530daa",
+  "document_count": 26147,
+  "document_count_by_source": {
+    "alarb": 13341,
+    "arabiccr": 12806
+  },
+  "document_ids_hash": "df48ce39133e60c280698238853256dcc7462c56ec3dd1174c4d63f41510a23f",
+  "moj_retrieval_gold": false,
+  "ocr_included": false,
+  "schema_version": 1,
+  "source_versions": {
+    "alarb": "e64bfdc867146294a65434c5ca16c2c4c5288ca2",
+    "arabiccr": "3"
+  },
+  "status": "phase6_corpus_scope_frozen_before_candidate_generation",
+  "unit_count": 91782,
+  "unit_count_by_source": {
+    "alarb": 53364,
+    "arabiccr": 38418
+  },
+  "unit_ids_hash": "4044e1346d5e7dfb7a102439b6411d66108385b84bb03ad2073fbea5512aab9d",
+  "unit_type_counts": {
+    "applicable_laws": 13341,
+    "court_reasoning": 13341,
+    "events": 12806,
+    "facts": 13341,
+    "reasoning": 12806,
+    "ruling": 12806,
+    "verdict": 13341
+  }
+}

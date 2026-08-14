@@ -1,0 +1,126 @@
+{
+  "base_category_counts": {
+    "authority": 20,
+    "case_holding": 25,
+    "conditions": 30,
+    "deadline": 20,
+    "definition": 25,
+    "exact_provision": 30,
+    "multi_evidence": 25,
+    "unanswerable": 25
+  },
+  "base_category_source_counts": {
+    "authority:alarb": 13,
+    "authority:arabiccr": 7,
+    "case_holding:alarb": 19,
+    "case_holding:arabiccr": 6,
+    "conditions:alarb": 5,
+    "conditions:arabiccr": 25,
+    "deadline:alarb": 3,
+    "deadline:arabiccr": 17,
+    "definition:alarb": 3,
+    "definition:arabiccr": 22,
+    "exact_provision:alarb": 15,
+    "exact_provision:arabiccr": 15,
+    "multi_evidence:alarb": 17,
+    "multi_evidence:arabiccr": 8,
+    "unanswerable:alarb": 13,
+    "unanswerable:arabiccr": 12
+  },
+  "base_intent_count": 200,
+  "base_source_counts": {
+    "alarb": 88,
+    "arabiccr": 112
+  },
+  "content_review_status": "independent_ai_source_review_closed",
+  "corpus_hash": "290d7a91e5f435778e782b76284a9797fb7f5ae261380f0a923b56224e530daa",
+  "corpus_hash_unchanged": true,
+  "dataset_version": "phase6-retrieval-eval-final-candidate-v1",
+  "freeze_gate": {
+    "all_records_draft": true,
+    "formal_human_review_required": true,
+    "freeze_called": false,
+    "human_verified_count": 0
+  },
+  "item_count": 240,
+  "patch_conformance": {
+    "applied_counts": {
+      "accept_unchanged": 25,
+      "edit_preserve_evidence": 167,
+      "replace_with_candidate": 8,
+      "variant_rewrite": 40
+    },
+    "evidence_preservation_mismatches": 0,
+    "mismatches": 0,
+    "near_duplicate_pairs": [],
+    "patch_sha256": "e326aa996b52f9584734a4d1dfd77c450f0e0df9be901acd23815bf3b1c391b2",
+    "replacement_candidate_mismatches": 0,
+    "variant_parent_mismatches": 0
+  },
+  "patch_sha256": "e326aa996b52f9584734a4d1dfd77c450f0e0df9be901acd23815bf3b1c391b2",
+  "private_artifacts": {
+    "conformance": "artifacts/private/phase6_evaluation/final-candidate-v1/review/literal_patch_conformance.json",
+    "items": "artifacts/private/phase6_evaluation/final-candidate-v1/draft/selected_and_variants.jsonl",
+    "mapping": "artifacts/private/phase6_evaluation/final-candidate-v1/review/v5_literal_patch_application.jsonl",
+    "review_diagnostics": "artifacts/private/phase6_evaluation/final-candidate-v1/review/review_diagnostics.jsonl",
+    "review_packet": "artifacts/private/phase6_evaluation/final-candidate-v1/review/review_packet.jsonl",
+    "source_context": "artifacts/private/phase6_evaluation/final-candidate-v1/handoff/phase6_review_source_context.jsonl"
+  },
+  "review": {
+    "draft": 240,
+    "human_verified": 0,
+    "item_count": 240,
+    "primary_reviewed": 0,
+    "secondary_reviewed": 0,
+    "unresolved_disagreements": 0
+  },
+  "schema_version": 1,
+  "split_diagnostics": {
+    "cross_split_document_count": 0,
+    "cross_split_intent_count": 0,
+    "dev_count": 160,
+    "duplicate_query_count": 0,
+    "holdout_count": 80,
+    "smoke_count": 20
+  },
+  "status": "phase6_final_candidate_v1_pending_formal_human_review",
+  "validation": {
+    "answerability_error_count": 0,
+    "base_category_counts": {
+      "authority": 20,
+      "case_holding": 25,
+      "conditions": 30,
+      "deadline": 20,
+      "definition": 25,
+      "exact_provision": 30,
+      "multi_evidence": 25,
+      "unanswerable": 25
+    },
+    "base_intent_count": 200,
+    "corpus_hash": "290d7a91e5f435778e782b76284a9797fb7f5ae261380f0a923b56224e530daa",
+    "corpus_hash_unchanged": true,
+    "cross_intent_near_duplicate_count": 0,
+    "direct_leakage_count": 0,
+    "exact_duplicate_count": 0,
+    "implementation_text_count": 0,
+    "invalid_evidence_group_count": 0,
+    "invalid_span_count": 0,
+    "item_count": 240,
+    "missing_chunk_mapping_count": 0,
+    "near_duplicate_count": 0,
+    "near_duplicate_pairs": [],
+    "privacy_finding_count": 0,
+    "split_diagnostics": {
+      "cross_split_document_count": 0,
+      "cross_split_intent_count": 0,
+      "dev_count": 160,
+      "duplicate_query_count": 0,
+      "holdout_count": 80,
+      "smoke_count": 20
+    },
+    "unanswerable_count": 25,
+    "valid": true,
+    "variant_count": 40
+  },
+  "variant_count": 40
+}

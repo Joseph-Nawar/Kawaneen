@@ -1,0 +1,210 @@
+{
+  "accepted_base_unanswerables_preserved": 25,
+  "adjudication_counts_applied": {
+    "accept": 25,
+    "correct": 118,
+    "regenerate_variant": 40,
+    "replace": 57
+  },
+  "base_candidate_count": 435,
+  "base_category_counts": {
+    "authority": 20,
+    "case_holding": 25,
+    "conditions": 30,
+    "deadline": 20,
+    "definition": 25,
+    "exact_provision": 30,
+    "multi_evidence": 25,
+    "unanswerable": 25
+  },
+  "base_category_source_counts": {
+    "authority:alarb": 14,
+    "authority:arabiccr": 6,
+    "case_holding:alarb": 18,
+    "case_holding:arabiccr": 7,
+    "conditions:alarb": 5,
+    "conditions:arabiccr": 25,
+    "deadline:alarb": 3,
+    "deadline:arabiccr": 17,
+    "definition:alarb": 3,
+    "definition:arabiccr": 22,
+    "exact_provision:alarb": 15,
+    "exact_provision:arabiccr": 15,
+    "multi_evidence:alarb": 10,
+    "multi_evidence:arabiccr": 15,
+    "unanswerable:alarb": 13,
+    "unanswerable:arabiccr": 12
+  },
+  "base_intent_count": 200,
+  "base_source_counts": {
+    "alarb": 81,
+    "arabiccr": 119
+  },
+  "benchmark_source_status": {
+    "fabricated_from_metadata": false,
+    "reason": "no permitted benchmark query/relevance instances are present",
+    "status": "unavailable"
+  },
+  "category_counts": {
+    "authority": 24,
+    "case_holding": 29,
+    "conditions": 34,
+    "deadline": 28,
+    "definition": 33,
+    "exact_provision": 38,
+    "multi_evidence": 29,
+    "unanswerable": 25
+  },
+  "corpus_hash": "290d7a91e5f435778e782b76284a9797fb7f5ae261380f0a923b56224e530daa",
+  "corpus_inventory_hash": "290d7a91e5f435778e782b76284a9797fb7f5ae261380f0a923b56224e530daa",
+  "corrected_base_count": 118,
+  "dataset_version": "phase6-retrieval-eval-draft-v4",
+  "evidence_statistics": {
+    "answerable_count": 215,
+    "evidence_span_count": 273,
+    "legitimate_start_zero_span_count": 86,
+    "valid_span_count": 273
+  },
+  "exact_duplicate_groups_all_240": 0,
+  "hashes": {
+    "dev_ids": "8c51d52190a6065f3983f22d8256dce6877aba081f8baebc9c2facaaf60a0de6",
+    "evidence_and_qrels": "d0fae4154fed4ebdb43023c01a6018f412acdd4879143fff4da32b2daecb3446",
+    "holdout_ids": "2749c54b61f3670cdcc09387f119332fb1f92966b523d54eaf4fe68c4a247c17",
+    "item_set": "f47874f301e76424cfbf426ff9152653b460d6e72b2b296b24521fb95fc2fdca",
+    "policy_versions": "b4c1d2ac4777ece6c34d55a2a046124a9d9eba060fe90e4479ec4c846b4a2e6e",
+    "review_state": "1e7dd98e048ed1ee5d93e3c9f8e6d5aa931230ce762797e7eeaf0764984083f6"
+  },
+  "item_count": 240,
+  "multi_evidence_source_audit": {
+    "attempts_by_source": {
+      "arabiccr": 12806
+    },
+    "qualified_by_source": {
+      "arabiccr": 10459
+    },
+    "rejection_reasons_by_source": {
+      "arabiccr": {
+        "structured_units_not_jointly_entailed": 2347
+      }
+    },
+    "retrieval_scores_used": false,
+    "selected_replacement_multi_by_source": {
+      "alarb": 10,
+      "arabiccr": 15
+    }
+  },
+  "pool_category_counts": {
+    "authority": 50,
+    "case_holding": 50,
+    "conditions": 60,
+    "deadline": 50,
+    "definition": 50,
+    "exact_provision": 60,
+    "multi_evidence": 90,
+    "unanswerable": 25
+  },
+  "private_artifacts": {
+    "adjudication_application": "artifacts/private/phase6_evaluation/draft-v4/review/v3_adjudication_application.jsonl",
+    "base_candidates": "artifacts/private/phase6_evaluation/draft-v4/draft/base_candidates.jsonl",
+    "corpus_snapshot": "artifacts/private/phase6_evaluation/draft-v4/corpus/canonical_units.json",
+    "items": "artifacts/private/phase6_evaluation/draft-v4/draft/selected_and_variants.jsonl",
+    "review_diagnostics": "artifacts/private/phase6_evaluation/draft-v4/review/review_diagnostics.jsonl",
+    "review_packet": "artifacts/private/phase6_evaluation/draft-v4/review/review_packet.jsonl",
+    "source_context": "artifacts/private/phase6_evaluation/draft-v4/handoff/phase6_review_source_context.jsonl"
+  },
+  "regenerated_variant_count": 40,
+  "replacement_base_count": 57,
+  "replacement_rejection_reasons": [
+    {
+      "category": "definition",
+      "query_id": "query-e4749176ab48cdef1591e1e7",
+      "reason": "category_specific_semantic_extraction_failed",
+      "source": "arabiccr"
+    },
+    {
+      "category": "definition",
+      "query_id": "query-0a3f805cb4dea46b65bcbbcc",
+      "reason": "category_specific_semantic_extraction_failed",
+      "source": "arabiccr"
+    },
+    {
+      "category": "deadline",
+      "query_id": "query-2ba19a70edb10749335fb916",
+      "reason": "category_specific_semantic_extraction_failed",
+      "source": "arabiccr"
+    },
+    {
+      "category": "deadline",
+      "query_id": "query-903b6844b037929ca1863d9d",
+      "reason": "category_specific_semantic_extraction_failed",
+      "source": "arabiccr"
+    },
+    {
+      "category": "deadline",
+      "query_id": "query-b410ec1efff88dbd69051075",
+      "reason": "category_specific_semantic_extraction_failed",
+      "source": "arabiccr"
+    },
+    {
+      "category": "deadline",
+      "query_id": "query-0b3dc4d4eba43155e4908ccd",
+      "reason": "category_specific_semantic_extraction_failed",
+      "source": "arabiccr"
+    },
+    {
+      "category": "deadline",
+      "query_id": "query-c7ba0c9a67c842ce5339450b",
+      "reason": "category_specific_semantic_extraction_failed",
+      "source": "arabiccr"
+    },
+    {
+      "category": "authority",
+      "query_id": "query-070e482713a9ce72d0de1253",
+      "reason": "category_specific_semantic_extraction_failed",
+      "source": "arabiccr"
+    }
+  ],
+  "review": {
+    "draft": 240,
+    "human_verified": 0,
+    "item_count": 240,
+    "primary_reviewed": 0,
+    "secondary_reviewed": 0,
+    "unresolved_disagreements": 0
+  },
+  "review_gate": {
+    "freeze_called": false,
+    "human_verified_count": 0,
+    "ready_for_final_external_source_review": true
+  },
+  "schema_version": 1,
+  "source_counts": {
+    "alarb": 97,
+    "arabiccr": 143
+  },
+  "split_diagnostics": {
+    "cross_split_document_count": 0,
+    "cross_split_intent_count": 0,
+    "dev_count": 160,
+    "duplicate_query_count": 0,
+    "holdout_count": 80,
+    "smoke_count": 20
+  },
+  "status": "phase6_draft_v4_built_pending_final_external_source_review",
+  "validation": {
+    "answerability_error_count": 0,
+    "direct_leakage_count": 0,
+    "duplicate_query_count": 0,
+    "implementation_text_count": 0,
+    "invalid_evidence_group_count": 0,
+    "invalid_span_count": 0,
+    "item_count": 240,
+    "lexical_overlap_count": 124,
+    "missing_chunk_mapping_count": 0,
+    "near_duplicate_query_count": 1,
+    "privacy_finding_count": 0,
+    "semantic_target_error_count": 0,
+    "valid": true
+  },
+  "variant_count": 40
+}
