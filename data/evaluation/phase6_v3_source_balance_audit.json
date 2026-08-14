@@ -1,0 +1,589 @@
+{
+  "audit_scope": "bounded pre-review source-balance audit",
+  "base_candidate_count": 395,
+  "corpus_hash": "290d7a91e5f435778e782b76284a9797fb7f5ae261380f0a923b56224e530daa",
+  "finding": {
+    "cause": "source_sorted_candidate_cap",
+    "corrected": true,
+    "equal_split_forced": false,
+    "selection_basis": "measured eligible opportunity share"
+  },
+  "heuristic_diagnostics": {
+    "authority": {
+      "alarb": {
+        "eligible_unit_count": 53364,
+        "opportunity_count": 22662,
+        "opportunity_rate": 0.424668,
+        "selection_rule": "same category heuristic; opportunity-proportional source ordering"
+      },
+      "arabiccr": {
+        "eligible_unit_count": 38418,
+        "opportunity_count": 14087,
+        "opportunity_rate": 0.366677,
+        "selection_rule": "same category heuristic; opportunity-proportional source ordering"
+      }
+    },
+    "case_holding": {
+      "alarb": {
+        "eligible_unit_count": 53364,
+        "opportunity_count": 12451,
+        "opportunity_rate": 0.233322,
+        "selection_rule": "same category heuristic; opportunity-proportional source ordering"
+      },
+      "arabiccr": {
+        "eligible_unit_count": 38418,
+        "opportunity_count": 11746,
+        "opportunity_rate": 0.305742,
+        "selection_rule": "same category heuristic; opportunity-proportional source ordering"
+      }
+    },
+    "conditions": {
+      "alarb": {
+        "eligible_unit_count": 53364,
+        "opportunity_count": 8215,
+        "opportunity_rate": 0.153943,
+        "selection_rule": "same category heuristic; opportunity-proportional source ordering"
+      },
+      "arabiccr": {
+        "eligible_unit_count": 38418,
+        "opportunity_count": 5898,
+        "opportunity_rate": 0.153522,
+        "selection_rule": "same category heuristic; opportunity-proportional source ordering"
+      }
+    },
+    "deadline": {
+      "alarb": {
+        "eligible_unit_count": 53364,
+        "opportunity_count": 11684,
+        "opportunity_rate": 0.218949,
+        "selection_rule": "same category heuristic; opportunity-proportional source ordering"
+      },
+      "arabiccr": {
+        "eligible_unit_count": 38418,
+        "opportunity_count": 14921,
+        "opportunity_rate": 0.388386,
+        "selection_rule": "same category heuristic; opportunity-proportional source ordering"
+      }
+    },
+    "definition": {
+      "alarb": {
+        "eligible_unit_count": 53364,
+        "opportunity_count": 472,
+        "opportunity_rate": 0.008845,
+        "selection_rule": "same category heuristic; opportunity-proportional source ordering"
+      },
+      "arabiccr": {
+        "eligible_unit_count": 38418,
+        "opportunity_count": 859,
+        "opportunity_rate": 0.022359,
+        "selection_rule": "same category heuristic; opportunity-proportional source ordering"
+      }
+    },
+    "exact_provision": {
+      "alarb": {
+        "eligible_unit_count": 53364,
+        "opportunity_count": 12699,
+        "opportunity_rate": 0.237969,
+        "selection_rule": "same category heuristic; opportunity-proportional source ordering"
+      },
+      "arabiccr": {
+        "eligible_unit_count": 38418,
+        "opportunity_count": 5891,
+        "opportunity_rate": 0.15334,
+        "selection_rule": "same category heuristic; opportunity-proportional source ordering"
+      }
+    },
+    "multi_evidence": {
+      "alarb": {
+        "eligible_unit_count": 53364,
+        "opportunity_count": 13341,
+        "opportunity_rate": 0.25,
+        "selection_rule": "same category heuristic; opportunity-proportional source ordering"
+      },
+      "arabiccr": {
+        "eligible_unit_count": 38418,
+        "opportunity_count": 12806,
+        "opportunity_rate": 0.333333,
+        "selection_rule": "same category heuristic; opportunity-proportional source ordering"
+      }
+    },
+    "unanswerable": {
+      "alarb": {
+        "eligible_unit_count": 53364,
+        "opportunity_count": 13341,
+        "opportunity_rate": 0.25,
+        "selection_rule": "same category heuristic; opportunity-proportional source ordering"
+      },
+      "arabiccr": {
+        "eligible_unit_count": 38418,
+        "opportunity_count": 12806,
+        "opportunity_rate": 0.333333,
+        "selection_rule": "same category heuristic; opportunity-proportional source ordering"
+      }
+    }
+  },
+  "post_audit_source_proportional_generated": {
+    "authority": {
+      "alarb": 33,
+      "arabiccr": 17
+    },
+    "case_holding": {
+      "alarb": 36,
+      "arabiccr": 14
+    },
+    "conditions": {
+      "alarb": 10,
+      "arabiccr": 50
+    },
+    "deadline": {
+      "alarb": 13,
+      "arabiccr": 37
+    },
+    "definition": {
+      "alarb": 6,
+      "arabiccr": 44
+    },
+    "exact_provision": {
+      "alarb": 30,
+      "arabiccr": 30
+    },
+    "multi_evidence": {
+      "alarb": 50
+    },
+    "unanswerable": {
+      "alarb": 13,
+      "arabiccr": 12
+    }
+  },
+  "pre_audit_source_first_generated": {
+    "authority": {
+      "alarb": 40
+    },
+    "case_holding": {
+      "alarb": 45
+    },
+    "conditions": {
+      "alarb": 50
+    },
+    "deadline": {
+      "alarb": 40
+    },
+    "definition": {
+      "alarb": 40
+    },
+    "exact_provision": {
+      "alarb": 45
+    },
+    "multi_evidence": {
+      "alarb": 28,
+      "arabiccr": 22
+    },
+    "unanswerable": {
+      "alarb": 28,
+      "arabiccr": 22
+    }
+  },
+  "rejection_counts": {
+    "authority": {
+      "alarb": {
+        "generated_not_selected_after_base_cap": 20,
+        "not_generated_after_opportunity_cap": 22629,
+        "sanitized_reasons": [
+          "category_target_capacity",
+          "base_intent_target_capacity"
+        ]
+      },
+      "arabiccr": {
+        "generated_not_selected_after_base_cap": 10,
+        "not_generated_after_opportunity_cap": 14070,
+        "sanitized_reasons": [
+          "category_target_capacity",
+          "base_intent_target_capacity"
+        ]
+      }
+    },
+    "case_holding": {
+      "alarb": {
+        "generated_not_selected_after_base_cap": 18,
+        "not_generated_after_opportunity_cap": 12415,
+        "sanitized_reasons": [
+          "category_target_capacity",
+          "base_intent_target_capacity"
+        ]
+      },
+      "arabiccr": {
+        "generated_not_selected_after_base_cap": 7,
+        "not_generated_after_opportunity_cap": 11732,
+        "sanitized_reasons": [
+          "category_target_capacity",
+          "base_intent_target_capacity"
+        ]
+      }
+    },
+    "conditions": {
+      "alarb": {
+        "generated_not_selected_after_base_cap": 5,
+        "not_generated_after_opportunity_cap": 8205,
+        "sanitized_reasons": [
+          "category_target_capacity",
+          "base_intent_target_capacity"
+        ]
+      },
+      "arabiccr": {
+        "generated_not_selected_after_base_cap": 25,
+        "not_generated_after_opportunity_cap": 5848,
+        "sanitized_reasons": [
+          "category_target_capacity",
+          "base_intent_target_capacity"
+        ]
+      }
+    },
+    "deadline": {
+      "alarb": {
+        "generated_not_selected_after_base_cap": 8,
+        "not_generated_after_opportunity_cap": 11671,
+        "sanitized_reasons": [
+          "category_target_capacity",
+          "base_intent_target_capacity"
+        ]
+      },
+      "arabiccr": {
+        "generated_not_selected_after_base_cap": 22,
+        "not_generated_after_opportunity_cap": 14884,
+        "sanitized_reasons": [
+          "category_target_capacity",
+          "base_intent_target_capacity"
+        ]
+      }
+    },
+    "definition": {
+      "alarb": {
+        "generated_not_selected_after_base_cap": 3,
+        "not_generated_after_opportunity_cap": 466,
+        "sanitized_reasons": [
+          "category_target_capacity",
+          "base_intent_target_capacity"
+        ]
+      },
+      "arabiccr": {
+        "generated_not_selected_after_base_cap": 22,
+        "not_generated_after_opportunity_cap": 815,
+        "sanitized_reasons": [
+          "category_target_capacity",
+          "base_intent_target_capacity"
+        ]
+      }
+    },
+    "exact_provision": {
+      "alarb": {
+        "generated_not_selected_after_base_cap": 15,
+        "not_generated_after_opportunity_cap": 12669,
+        "sanitized_reasons": [
+          "category_target_capacity",
+          "base_intent_target_capacity"
+        ]
+      },
+      "arabiccr": {
+        "generated_not_selected_after_base_cap": 15,
+        "not_generated_after_opportunity_cap": 5861,
+        "sanitized_reasons": [
+          "category_target_capacity",
+          "base_intent_target_capacity"
+        ]
+      }
+    },
+    "multi_evidence": {
+      "alarb": {
+        "generated_not_selected_after_base_cap": 25,
+        "not_generated_after_opportunity_cap": 13291,
+        "sanitized_reasons": [
+          "category_target_capacity",
+          "base_intent_target_capacity"
+        ]
+      },
+      "arabiccr": {
+        "generated_not_selected_after_base_cap": 0,
+        "not_generated_after_opportunity_cap": 12806,
+        "sanitized_reasons": [
+          "category_target_capacity",
+          "base_intent_target_capacity"
+        ]
+      }
+    },
+    "unanswerable": {
+      "alarb": {
+        "generated_not_selected_after_base_cap": 0,
+        "not_generated_after_opportunity_cap": 13328,
+        "sanitized_reasons": [
+          "category_target_capacity",
+          "base_intent_target_capacity"
+        ]
+      },
+      "arabiccr": {
+        "generated_not_selected_after_base_cap": 0,
+        "not_generated_after_opportunity_cap": 12794,
+        "sanitized_reasons": [
+          "category_target_capacity",
+          "base_intent_target_capacity"
+        ]
+      }
+    }
+  },
+  "retrieval_scores_used": false,
+  "schema_version": 1,
+  "section_parity": {
+    "court_reasoning_reasoning": {
+      "left": {
+        "opportunity_counts": {
+          "authority": 5638,
+          "case_holding": 0,
+          "conditions": 626,
+          "deadline": 1055,
+          "definition": 100,
+          "exact_provision": 9864,
+          "multi_evidence": 0,
+          "unanswerable": 0
+        },
+        "opportunity_rates": {
+          "authority": 0.422607,
+          "case_holding": 0.0,
+          "conditions": 0.046923,
+          "deadline": 0.07908,
+          "definition": 0.007496,
+          "exact_provision": 0.739375,
+          "multi_evidence": 0.0,
+          "unanswerable": 0.0
+        },
+        "unit_count": 13341,
+        "unit_type": "court_reasoning"
+      },
+      "right": {
+        "opportunity_counts": {
+          "authority": 6463,
+          "case_holding": 0,
+          "conditions": 3329,
+          "deadline": 3586,
+          "definition": 209,
+          "exact_provision": 5891,
+          "multi_evidence": 0,
+          "unanswerable": 0
+        },
+        "opportunity_rates": {
+          "authority": 0.504685,
+          "case_holding": 0.0,
+          "conditions": 0.259956,
+          "deadline": 0.280025,
+          "definition": 0.01632,
+          "exact_provision": 0.460019,
+          "multi_evidence": 0.0,
+          "unanswerable": 0.0
+        },
+        "unit_count": 12806,
+        "unit_type": "reasoning"
+      }
+    },
+    "facts_events": {
+      "left": {
+        "opportunity_counts": {
+          "authority": 6007,
+          "case_holding": 0,
+          "conditions": 809,
+          "deadline": 8132,
+          "definition": 33,
+          "exact_provision": 0,
+          "multi_evidence": 0,
+          "unanswerable": 0
+        },
+        "opportunity_rates": {
+          "authority": 0.450266,
+          "case_holding": 0.0,
+          "conditions": 0.06064,
+          "deadline": 0.60955,
+          "definition": 0.002474,
+          "exact_provision": 0.0,
+          "multi_evidence": 0.0,
+          "unanswerable": 0.0
+        },
+        "unit_count": 13341,
+        "unit_type": "facts"
+      },
+      "right": {
+        "opportunity_counts": {
+          "authority": 6905,
+          "case_holding": 0,
+          "conditions": 2445,
+          "deadline": 11180,
+          "definition": 639,
+          "exact_provision": 0,
+          "multi_evidence": 0,
+          "unanswerable": 0
+        },
+        "opportunity_rates": {
+          "authority": 0.5392,
+          "case_holding": 0.0,
+          "conditions": 0.190926,
+          "deadline": 0.873028,
+          "definition": 0.049898,
+          "exact_provision": 0.0,
+          "multi_evidence": 0.0,
+          "unanswerable": 0.0
+        },
+        "unit_count": 12806,
+        "unit_type": "events"
+      }
+    },
+    "verdict_ruling": {
+      "left": {
+        "opportunity_counts": {
+          "authority": 3194,
+          "case_holding": 12451,
+          "conditions": 0,
+          "deadline": 15,
+          "definition": 0,
+          "exact_provision": 0,
+          "multi_evidence": 0,
+          "unanswerable": 0
+        },
+        "opportunity_rates": {
+          "authority": 0.239412,
+          "case_holding": 0.933288,
+          "conditions": 0.0,
+          "deadline": 0.001124,
+          "definition": 0.0,
+          "exact_provision": 0.0,
+          "multi_evidence": 0.0,
+          "unanswerable": 0.0
+        },
+        "unit_count": 13341,
+        "unit_type": "verdict"
+      },
+      "right": {
+        "opportunity_counts": {
+          "authority": 719,
+          "case_holding": 11746,
+          "conditions": 124,
+          "deadline": 155,
+          "definition": 11,
+          "exact_provision": 0,
+          "multi_evidence": 0,
+          "unanswerable": 0
+        },
+        "opportunity_rates": {
+          "authority": 0.056146,
+          "case_holding": 0.917226,
+          "conditions": 0.009683,
+          "deadline": 0.012104,
+          "definition": 0.000859,
+          "exact_provision": 0.0,
+          "multi_evidence": 0.0,
+          "unanswerable": 0.0
+        },
+        "unit_count": 12806,
+        "unit_type": "ruling"
+      }
+    }
+  },
+  "selected_base_intent_count": 200,
+  "source_flow": {
+    "authority": {
+      "alarb": {
+        "eligible_opportunities": 22662,
+        "generated_candidates": 33,
+        "selected_base_intents": 13
+      },
+      "arabiccr": {
+        "eligible_opportunities": 14087,
+        "generated_candidates": 17,
+        "selected_base_intents": 7
+      }
+    },
+    "case_holding": {
+      "alarb": {
+        "eligible_opportunities": 12451,
+        "generated_candidates": 36,
+        "selected_base_intents": 18
+      },
+      "arabiccr": {
+        "eligible_opportunities": 11746,
+        "generated_candidates": 14,
+        "selected_base_intents": 7
+      }
+    },
+    "conditions": {
+      "alarb": {
+        "eligible_opportunities": 8215,
+        "generated_candidates": 10,
+        "selected_base_intents": 5
+      },
+      "arabiccr": {
+        "eligible_opportunities": 5898,
+        "generated_candidates": 50,
+        "selected_base_intents": 25
+      }
+    },
+    "deadline": {
+      "alarb": {
+        "eligible_opportunities": 11684,
+        "generated_candidates": 13,
+        "selected_base_intents": 5
+      },
+      "arabiccr": {
+        "eligible_opportunities": 14921,
+        "generated_candidates": 37,
+        "selected_base_intents": 15
+      }
+    },
+    "definition": {
+      "alarb": {
+        "eligible_opportunities": 472,
+        "generated_candidates": 6,
+        "selected_base_intents": 3
+      },
+      "arabiccr": {
+        "eligible_opportunities": 859,
+        "generated_candidates": 44,
+        "selected_base_intents": 22
+      }
+    },
+    "exact_provision": {
+      "alarb": {
+        "eligible_opportunities": 12699,
+        "generated_candidates": 30,
+        "selected_base_intents": 15
+      },
+      "arabiccr": {
+        "eligible_opportunities": 5891,
+        "generated_candidates": 30,
+        "selected_base_intents": 15
+      }
+    },
+    "multi_evidence": {
+      "alarb": {
+        "eligible_opportunities": 13341,
+        "generated_candidates": 50,
+        "selected_base_intents": 25
+      },
+      "arabiccr": {
+        "eligible_opportunities": 12806,
+        "generated_candidates": 0,
+        "selected_base_intents": 0
+      }
+    },
+    "unanswerable": {
+      "alarb": {
+        "eligible_opportunities": 13341,
+        "generated_candidates": 13,
+        "selected_base_intents": 13
+      },
+      "arabiccr": {
+        "eligible_opportunities": 12806,
+        "generated_candidates": 12,
+        "selected_base_intents": 12
+      }
+    }
+  },
+  "source_names": {
+    "alarb": "ALARB",
+    "arabiccr": "ArabiCCR"
+  }
+}

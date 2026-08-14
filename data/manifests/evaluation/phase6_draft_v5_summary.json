@@ -1,0 +1,156 @@
+{
+  "accepted_base_unanswerables_preserved": 25,
+  "adjudication_counts_applied": {
+    "accept": 25,
+    "correct": 138,
+    "regenerate_variant": 40,
+    "replace": 37
+  },
+  "base_candidate_count": 435,
+  "base_category_counts": {
+    "authority": 20,
+    "case_holding": 25,
+    "conditions": 30,
+    "deadline": 20,
+    "definition": 25,
+    "exact_provision": 30,
+    "multi_evidence": 25,
+    "unanswerable": 25
+  },
+  "base_category_source_counts": {
+    "authority:alarb": 14,
+    "authority:arabiccr": 6,
+    "case_holding:alarb": 18,
+    "case_holding:arabiccr": 7,
+    "conditions:alarb": 5,
+    "conditions:arabiccr": 25,
+    "deadline:alarb": 3,
+    "deadline:arabiccr": 17,
+    "definition:alarb": 3,
+    "definition:arabiccr": 22,
+    "exact_provision:alarb": 15,
+    "exact_provision:arabiccr": 15,
+    "multi_evidence:alarb": 14,
+    "multi_evidence:arabiccr": 11,
+    "unanswerable:alarb": 13,
+    "unanswerable:arabiccr": 12
+  },
+  "base_intent_count": 200,
+  "base_source_counts": {
+    "alarb": 85,
+    "arabiccr": 115
+  },
+  "benchmark_source_status": {
+    "fabricated_from_metadata": false,
+    "reason": "no permitted benchmark query/relevance instances are present",
+    "status": "unavailable"
+  },
+  "corpus_hash": "290d7a91e5f435778e782b76284a9797fb7f5ae261380f0a923b56224e530daa",
+  "corpus_hash_unchanged_from_v4": true,
+  "corrected_base_count": 138,
+  "dataset_version": "phase6-retrieval-eval-draft-v5",
+  "evidence_statistics": {
+    "answerable_count": 215,
+    "evidence_span_count": 244,
+    "invalid_span_count": 0,
+    "legitimate_start_zero_span_count": 64,
+    "missing_chunk_mapping_count": 0
+  },
+  "exact_duplicate_groups_all_240": 0,
+  "hashes": {
+    "dev_ids": "c5eb9dfe27491d1b862f4ccd9283a00fa5f614e12e2a05a32aac37ef13fe97da",
+    "evidence_and_qrels": "6ceb3b1c807c8db7a6b54bbfa8a47783fa46292e40ac3bdc048143af88b38e7c",
+    "holdout_ids": "ca7e6dd8bbfca08b5b648bde747a6d9ea2bd2323772a517de01e3380363d9c01",
+    "item_set": "99f7225367acc2583263cf9c8c39e7000dfdaf53fa1a4546c3cc8cf704692e49",
+    "policy_versions": "b4c1d2ac4777ece6c34d55a2a046124a9d9eba060fe90e4479ec4c846b4a2e6e",
+    "review_state": "3ff97299fb70030e0dcba951a496a15747874cde4f80db7706d873d21b0cba86"
+  },
+  "item_count": 240,
+  "multi_evidence_source_audit": {
+    "attempts_by_source": {
+      "alarb": 15,
+      "arabiccr": 11
+    },
+    "qualified_by_source": {
+      "alarb": 14,
+      "arabiccr": 11
+    },
+    "retrieval_scores_used": false
+  },
+  "near_duplicate_pairs_all_240": 4,
+  "pool_category_counts": {
+    "authority": 50,
+    "case_holding": 50,
+    "conditions": 60,
+    "deadline": 50,
+    "definition": 50,
+    "exact_provision": 60,
+    "multi_evidence": 90,
+    "unanswerable": 25
+  },
+  "private_artifacts": {
+    "adjudication_application": "artifacts/private/phase6_evaluation/draft-v5/review/v4_adjudication_application.jsonl",
+    "base_candidates": "artifacts/private/phase6_evaluation/draft-v5/draft/base_candidates.jsonl",
+    "changed_review_packet": "artifacts/private/phase6_evaluation/draft-v5/review/changed_review_packet.jsonl",
+    "corpus_snapshot": "artifacts/private/phase6_evaluation/draft-v5/corpus/canonical_units.json",
+    "items": "artifacts/private/phase6_evaluation/draft-v5/draft/selected_and_variants.jsonl",
+    "review_diagnostics": "artifacts/private/phase6_evaluation/draft-v5/review/review_diagnostics.jsonl",
+    "review_packet": "artifacts/private/phase6_evaluation/draft-v5/review/review_packet.jsonl",
+    "source_context": "artifacts/private/phase6_evaluation/draft-v5/handoff/phase6_review_source_context.jsonl"
+  },
+  "regenerated_variant_count": 40,
+  "replacement_base_count": 37,
+  "replacement_by_category_source": {
+    "authority:alarb": 5,
+    "authority:arabiccr": 3,
+    "definition:arabiccr": 4,
+    "multi_evidence:alarb": 14,
+    "multi_evidence:arabiccr": 11
+  },
+  "review": {
+    "draft": 240,
+    "human_verified": 0,
+    "item_count": 240,
+    "primary_reviewed": 0,
+    "secondary_reviewed": 0,
+    "unresolved_disagreements": 0
+  },
+  "review_gate": {
+    "all_records_draft": true,
+    "freeze_called": false,
+    "human_verified_count": 0,
+    "ready_for_changed_record_external_review": true
+  },
+  "same_unit_extension_count": 3,
+  "schema_version": 1,
+  "split_diagnostics": {
+    "cross_split_document_count": 0,
+    "cross_split_intent_count": 0,
+    "dev_count": 160,
+    "duplicate_query_count": 0,
+    "holdout_count": 80,
+    "smoke_count": 20
+  },
+  "status": "phase6_draft_v5_built_pending_changed_record_external_source_review",
+  "validation": {
+    "answerability_error_count": 0,
+    "direct_leakage_count": 0,
+    "duplicate_query_count": 0,
+    "implementation_text_count": 0,
+    "invalid_evidence_group_count": 0,
+    "invalid_span_count": 0,
+    "item_count": 240,
+    "lexical_overlap_count": 138,
+    "missing_chunk_mapping_count": 0,
+    "near_duplicate_query_count": 3,
+    "privacy_finding_count": 0,
+    "semantic_target_error_count": 0,
+    "valid": true
+  },
+  "variant_count": 40,
+  "variant_language_counts": {
+    "ar": 20,
+    "ar-en": 10,
+    "en": 10
+  }
+}

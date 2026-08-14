@@ -1,4 +1,4 @@
-.PHONY: help install format lint typecheck test check doctor sources-validate sources-summary data-plan data-acquire-alarb data-import-arabiccr data-verify data-audit data-audit-statutory data-manifest data-status data-rebuild-auto data-rebuild corpus-plan corpus-build corpus-validate corpus-inventory corpus-statutory-status corpus-duplicate-diagnostics corpus-gaps parsing-preflight parsing-benchmark parsing-diagnose normalization-plan normalization-run normalization-validate normalization-sensitivity chunking-plan chunking-build chunking-experiment chunking-validate clean
+.PHONY: help install format lint typecheck test check doctor sources-validate sources-summary data-plan data-acquire-alarb data-import-arabiccr data-verify data-audit data-audit-statutory data-manifest data-status data-rebuild-auto data-rebuild corpus-plan corpus-build corpus-validate corpus-inventory corpus-statutory-status corpus-duplicate-diagnostics corpus-gaps parsing-preflight parsing-benchmark parsing-diagnose normalization-plan normalization-run normalization-validate normalization-sensitivity chunking-plan chunking-build chunking-experiment chunking-validate evaluation-plan evaluation-build-draft evaluation-build-draft-v3 evaluation-build-draft-v4 evaluation-build-draft-v5 evaluation-build-final-candidate evaluation-export-review evaluation-import-review evaluation-validate evaluation-freeze evaluation-freeze-ai-reviewed evaluation-stats clean
 
 help:
 	@printf '%s\n' 'Kawaneen development commands:'
@@ -39,6 +39,18 @@ help:
 	@printf '%s\n' '  make chunking-build            uv run kawaneen chunking build (private local corpus)'
 	@printf '%s\n' '  make chunking-experiment       uv run kawaneen chunking experiment (private local corpus)'
 	@printf '%s\n' '  make chunking-validate         uv run kawaneen chunking validate'
+	@printf '%s\n' '  make evaluation-plan           uv run kawaneen evaluation plan'
+	@printf '%s\n' '  make evaluation-build-draft    uv run kawaneen evaluation build-draft (private)'
+	@printf '%s\n' '  make evaluation-build-draft-v3 FILE=...  uv run kawaneen evaluation build-draft-v3 --review-file FILE (private)'
+	@printf '%s\n' '  make evaluation-build-draft-v4 FILE=...  uv run kawaneen evaluation build-draft-v4 --review-file FILE (private)'
+	@printf '%s\n' '  make evaluation-build-draft-v5 FILE=...  uv run kawaneen evaluation build-draft-v5 --review-file FILE (private)'
+	@printf '%s\n' '  make evaluation-build-final-candidate FILE=...  uv run kawaneen evaluation build-final-candidate --patch-file FILE (private)'
+	@printf '%s\n' '  make evaluation-export-review  uv run kawaneen evaluation export-review (private)'
+	@printf '%s\n' '  make evaluation-import-review  uv run kawaneen evaluation import-review FILE=... (private)'
+	@printf '%s\n' '  make evaluation-validate       uv run kawaneen evaluation validate'
+	@printf '%s\n' '  make evaluation-freeze         uv run kawaneen evaluation freeze (review-gated)'
+	@printf '%s\n' '  make evaluation-freeze-ai-reviewed  uv run kawaneen evaluation freeze-ai-reviewed'
+	@printf '%s\n' '  make evaluation-stats          uv run kawaneen evaluation stats'
 	@printf '%s\n' '  make clean     remove safe local build and test artifacts'
 
 install:
@@ -154,6 +166,42 @@ chunking-experiment:
 
 chunking-validate:
 	uv run kawaneen chunking validate
+
+evaluation-plan:
+	uv run kawaneen evaluation plan
+
+evaluation-build-draft:
+	uv run kawaneen evaluation build-draft
+
+evaluation-build-draft-v3:
+	uv run kawaneen evaluation build-draft-v3 --review-file "$${FILE:?set FILE to the external source-review JSONL path}"
+
+evaluation-build-draft-v4:
+	uv run kawaneen evaluation build-draft-v4 --review-file "$${FILE:?set FILE to the external v3 adjudication JSONL path}"
+
+evaluation-build-draft-v5:
+	uv run kawaneen evaluation build-draft-v5 --review-file "$${FILE:?set FILE to the final v4 adjudication JSONL path}"
+
+evaluation-build-final-candidate:
+	uv run kawaneen evaluation build-final-candidate --patch-file "$${FILE:?set FILE to the final literal patch JSONL path}"
+
+evaluation-export-review:
+	uv run kawaneen evaluation export-review
+
+evaluation-import-review:
+	uv run kawaneen evaluation import-review --file "$${FILE:?set FILE to a review packet path}"
+
+evaluation-validate:
+	uv run kawaneen evaluation validate
+
+evaluation-freeze:
+	uv run kawaneen evaluation freeze
+
+evaluation-freeze-ai-reviewed:
+	uv run kawaneen evaluation freeze-ai-reviewed
+
+evaluation-stats:
+	uv run kawaneen evaluation stats
 
 clean:
 	find . -maxdepth 1 -type d \( -name .pytest_cache -o -name .ruff_cache -o -name htmlcov -o -name dist -o -name build \) -exec rm -rf {} +

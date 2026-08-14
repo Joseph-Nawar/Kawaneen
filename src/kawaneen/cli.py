@@ -43,6 +43,21 @@ from kawaneen.corpus.orchestrator import (
 from kawaneen.corpus.orchestrator import (
     validate as validate_corpus,
 )
+from kawaneen.evaluation.orchestrator import (
+    evaluation_plan,
+    evaluation_stats,
+    export_review,
+    freeze_ai_reviewed_release,
+    freeze_evaluation,
+    import_review,
+    run_build_draft,
+    run_build_draft_v3,
+    run_build_draft_v4,
+    run_build_draft_v5,
+    run_build_final_candidate,
+    run_source_balance_audit,
+    validate_evaluation,
+)
 from kawaneen.normalization.orchestrator import (
     normalization_plan,
     run_phase4_experiment,
@@ -148,6 +163,45 @@ def build_parser() -> argparse.ArgumentParser:
     chunking_subparsers.add_parser("build", help="build private chunk views")
     chunking_subparsers.add_parser("experiment", help="run the private chunking ablation")
     chunking_subparsers.add_parser("validate", help="validate sanitized Phase 5 artifacts")
+    evaluation_parser = subparsers.add_parser(
+        "evaluation", help="private Phase 6 retrieval evaluation dataset workflow"
+    )
+    evaluation_subparsers = evaluation_parser.add_subparsers(
+        dest="evaluation_command", required=True
+    )
+    evaluation_subparsers.add_parser("plan", help="show Phase 6 scope and review gates")
+    evaluation_subparsers.add_parser("build-draft", help="build the private draft candidate pool")
+    v3_parser = evaluation_subparsers.add_parser(
+        "build-draft-v3", help="regenerate the private semantic-target draft-v3"
+    )
+    v3_parser.add_argument("--review-file", type=Path, required=True)
+    v4_parser = evaluation_subparsers.add_parser(
+        "build-draft-v4", help="apply the bounded external review to private draft-v3"
+    )
+    v4_parser.add_argument("--review-file", type=Path, required=True)
+    v5_parser = evaluation_subparsers.add_parser(
+        "build-draft-v5", help="apply the final bounded external review to private draft-v4"
+    )
+    v5_parser.add_argument("--review-file", type=Path, required=True)
+    final_parser = evaluation_subparsers.add_parser(
+        "build-final-candidate", help="apply the final literal external patch to private v5"
+    )
+    final_parser.add_argument("--patch-file", type=Path, required=True)
+    evaluation_subparsers.add_parser(
+        "balance-audit", help="run the bounded pre-review source-balance audit"
+    )
+    evaluation_subparsers.add_parser("export-review", help="export the private review packet")
+    import_parser = evaluation_subparsers.add_parser(
+        "import-review", help="import private review decisions"
+    )
+    import_parser.add_argument("--file", type=Path, required=True)
+    evaluation_subparsers.add_parser("validate", help="run non-retrieval evaluation validation")
+    evaluation_subparsers.add_parser("freeze", help="freeze v1 only after human review gates pass")
+    evaluation_subparsers.add_parser(
+        "freeze-ai-reviewed",
+        help="freeze the externally AI-reviewed engineering release without human attestations",
+    )
+    evaluation_subparsers.add_parser("stats", help="show sanitized draft/review statistics")
     return parser
 
 
@@ -288,6 +342,61 @@ def main(argv: list[str] | None = None) -> int:
                 print(json.dumps(validate_phase5_chunking(), ensure_ascii=False, sort_keys=True))
         except (OSError, PermissionError, ValueError, RuntimeError) as exc:
             print(f"Chunking operation failed: {exc}", file=sys.stderr)
+            return 1
+    elif args.command == "evaluation":
+        try:
+            if args.evaluation_command == "plan":
+                print(json.dumps(evaluation_plan(), ensure_ascii=False, sort_keys=True))
+            elif args.evaluation_command == "build-draft":
+                print(json.dumps(run_build_draft(), ensure_ascii=False, sort_keys=True))
+            elif args.evaluation_command == "build-draft-v3":
+                print(
+                    json.dumps(
+                        run_build_draft_v3(review_file=args.review_file),
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                )
+            elif args.evaluation_command == "build-draft-v4":
+                print(
+                    json.dumps(
+                        run_build_draft_v4(review_file=args.review_file),
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                )
+            elif args.evaluation_command == "build-draft-v5":
+                print(
+                    json.dumps(
+                        run_build_draft_v5(review_file=args.review_file),
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                )
+            elif args.evaluation_command == "build-final-candidate":
+                print(
+                    json.dumps(
+                        run_build_final_candidate(patch_file=args.patch_file),
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                )
+            elif args.evaluation_command == "balance-audit":
+                print(json.dumps(run_source_balance_audit(), ensure_ascii=False, sort_keys=True))
+            elif args.evaluation_command == "export-review":
+                print(json.dumps(export_review(), ensure_ascii=False, sort_keys=True))
+            elif args.evaluation_command == "import-review":
+                print(json.dumps(import_review(args.file), ensure_ascii=False, sort_keys=True))
+            elif args.evaluation_command == "validate":
+                print(json.dumps(validate_evaluation(), ensure_ascii=False, sort_keys=True))
+            elif args.evaluation_command == "freeze":
+                print(json.dumps(freeze_evaluation(), ensure_ascii=False, sort_keys=True))
+            elif args.evaluation_command == "freeze-ai-reviewed":
+                print(json.dumps(freeze_ai_reviewed_release(), ensure_ascii=False, sort_keys=True))
+            elif args.evaluation_command == "stats":
+                print(json.dumps(evaluation_stats(), ensure_ascii=False, sort_keys=True))
+        except (OSError, PermissionError, ValueError, RuntimeError) as exc:
+            print(f"Evaluation operation failed: {exc}", file=sys.stderr)
             return 1
     else:
         build_parser().print_help()
