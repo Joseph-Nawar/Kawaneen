@@ -1,0 +1,138 @@
+{
+  "bge_raw_matches_selected_dense_policy": true,
+  "bm25_parameters": {
+    "b": 0.75,
+    "k1": 1.2
+  },
+  "bootstrap_confidence": 0.95,
+  "bootstrap_replicates": 2000,
+  "bootstrap_seed": 20260815,
+  "cache_fingerprints": {
+    "arabic-light-v1": "574c5928c1eddd1868bd535609158b314f2397180c83bd5f8a32b311e48618ee",
+    "arabic-raw-v1": "81e287f4ef1ba766059aa03886341136fdef926ec0124bceb39dc3d61a28830c",
+    "bge": "797830a20035acb251f33f9048725353c77fff417e8b58bab5f72252e6d7230b"
+  },
+  "config_hash": "cd9b5e0daebd93b63be1f1c08d069f52085ac2e0352a36d3f8c4813dc9bd1926",
+  "corpus_hash": "290d7a91e5f435778e782b76284a9797fb7f5ae261380f0a923b56224e530daa",
+  "dataset_version": "phase6-retrieval-eval-ai-reviewed-v1",
+  "dev_metrics_hash": "9f49b5dfad5955eb26979bb6f70061b02e970f9507c4eea5bbcb7077b8d766e6",
+  "latency_protocol": {
+    "dense_query_batch_size": 1,
+    "measurement": "per-query end-to-end search; report nearest-rank p50 and p95",
+    "query_population": "frozen DEV items",
+    "retrieval_top_k": 10,
+    "warmup_count": 3
+  },
+  "metric_definitions": {
+    "binary_relevance": "qrel grade > 0",
+    "complete_evidence": "every required evidence group represented in top-k",
+    "ndcg_gain": "2**rel - 1"
+  },
+  "model_ids": [
+    "intfloat/multilingual-e5-small",
+    "BAAI/bge-m3"
+  ],
+  "model_lock_hash": "3dea339cd508811ebc75ee4852f40d598a6067efae5a9bedc2b302810dd195f9",
+  "model_revisions": {
+    "BAAI/bge-m3": "5617a9f61b028005a4858fdac845db406aefb181",
+    "intfloat/multilingual-e5-small": "614241f622f53c4eeff9890bdc4f31cfecc418b3"
+  },
+  "normalization_evidence": {
+    "bm25": {
+      "absolute_ndcg10_difference": 0.00596619885388458,
+      "light": {
+        "CompleteEvidenceRecall@10": 0.2127659574468085,
+        "CompleteEvidenceRecall@5": 0.16312056737588654,
+        "MRR@10": 0.125,
+        "Precision@5": 0.03262411347517731,
+        "Recall@1": 0.07446808510638298,
+        "Recall@10": 0.20567375886524822,
+        "Recall@5": 0.1524822695035461,
+        "nDCG@10": 0.1385309486290192
+      },
+      "raw": {
+        "CompleteEvidenceRecall@10": 0.2127659574468085,
+        "CompleteEvidenceRecall@5": 0.16312056737588654,
+        "MRR@10": 0.11591804570527975,
+        "Precision@5": 0.03262411347517731,
+        "Recall@1": 0.06028368794326241,
+        "Recall@10": 0.20921985815602837,
+        "Recall@5": 0.1524822695035461,
+        "nDCG@10": 0.13256474977513463
+      },
+      "recall10_difference_selected_minus_other": -0.003546099290780147,
+      "selected": "arabic-light-v1"
+    },
+    "e5": {
+      "absolute_ndcg10_difference": 0.010017540369887307,
+      "light": {
+        "CompleteEvidenceRecall@10": 0.07801418439716312,
+        "CompleteEvidenceRecall@5": 0.0425531914893617,
+        "MRR@10": 0.022329168073848923,
+        "Precision@5": 0.009929078014184398,
+        "Recall@1": 0.0070921985815602835,
+        "Recall@10": 0.07801418439716312,
+        "Recall@5": 0.0425531914893617,
+        "nDCG@10": 0.03455737680094846
+      },
+      "raw": {
+        "CompleteEvidenceRecall@10": 0.09219858156028368,
+        "CompleteEvidenceRecall@5": 0.06382978723404255,
+        "MRR@10": 0.03071315996847912,
+        "Precision@5": 0.014184397163120567,
+        "Recall@1": 0.0070921985815602835,
+        "Recall@10": 0.09219858156028368,
+        "Recall@5": 0.06382978723404255,
+        "nDCG@10": 0.04457491717083577
+      },
+      "recall10_difference_selected_minus_other": 0.01418439716312056,
+      "selected": "arabic-raw-v1"
+    },
+    "keyword": {
+      "absolute_ndcg10_difference": 0.0021349645082551875,
+      "light": {
+        "CompleteEvidenceRecall@10": 0.028368794326241134,
+        "CompleteEvidenceRecall@5": 0.02127659574468085,
+        "MRR@10": 0.018518518518518517,
+        "Precision@5": 0.004255319148936171,
+        "Recall@1": 0.014184397163120567,
+        "Recall@10": 0.028368794326241134,
+        "Recall@5": 0.02127659574468085,
+        "nDCG@10": 0.020794040774719424
+      },
+      "raw": {
+        "CompleteEvidenceRecall@10": 0.02127659574468085,
+        "CompleteEvidenceRecall@5": 0.02127659574468085,
+        "MRR@10": 0.01773049645390071,
+        "Precision@5": 0.004255319148936171,
+        "Recall@1": 0.014184397163120567,
+        "Recall@10": 0.02127659574468085,
+        "Recall@5": 0.02127659574468085,
+        "nDCG@10": 0.018659076266464236
+      },
+      "recall10_difference_selected_minus_other": -0.0070921985815602835,
+      "selected": "arabic-raw-v1"
+    }
+  },
+  "normalization_selection_rule": {
+    "material_recall10_regression": 0.02,
+    "near_tie_absolute_difference": 0.005,
+    "primary": "dev nDCG@10"
+  },
+  "query_length_bins": {
+    "medium_max": 17,
+    "short_max": 12
+  },
+  "query_length_thresholds": {
+    "medium_max": 17,
+    "short_max": 12
+  },
+  "release_hash": "87bfb6641c13859425855488fb0ccea27495f82e47d68bf80f0d802029ab1727",
+  "schema_version": 1,
+  "selection": {
+    "bm25": "arabic-light-v1",
+    "dense": "arabic-raw-v1",
+    "keyword": "arabic-raw-v1"
+  },
+  "status": "dev_selection_frozen"
+}

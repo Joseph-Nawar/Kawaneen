@@ -30,6 +30,11 @@ parsing = [
     "python-bidi>=0.4,<1",
     "rapidocr>=3.5,<4",
 ]
+retrieval = [
+    "bm25s>=0.2,<1",
+    "faiss-cpu>=1.9,<2; platform_machine != 'arm64' or sys_platform != 'darwin'",
+    "sentence-transformers>=3.3,<6",
+]
 
 [dependency-groups]
 dev = [

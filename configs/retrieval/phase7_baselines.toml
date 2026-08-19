@@ -1,0 +1,22 @@
+[experiment]
+dataset_version = "phase6-retrieval-eval-ai-reviewed-v1"
+chunk_policy_id = "legal-structure-v1"
+normalization_policy_ids = ["arabic-raw-v1", "arabic-light-v1"]
+bm25_k1 = 1.2
+bm25_b = 0.75
+bootstrap_seed = 20260815
+bootstrap_replicates = 2000
+bootstrap_confidence = 0.95
+
+[dense]
+model_ids = ["intfloat/multilingual-e5-small", "BAAI/bge-m3"]
+e5_max_length = 512
+bge_max_length = 1536
+e5_batch_size = 32
+bge_batch_size = 4
+device = "cpu"
+
+[paths]
+private_root = "artifacts/private/phase7_retrieval"
+tracked_manifest_root = "data/manifests/retrieval"
+tracked_evaluation_root = "data/evaluation"

@@ -1,0 +1,23 @@
+{
+  "bootstrap": {
+    "confidence": 0.95,
+    "replicates": 2000,
+    "seed": 20260815
+  },
+  "config_hash": "6d485408333b478c7417ff956a16cc1200f0a60b2f73b754a5344f3113ade24a",
+  "corpus_hash": "290d7a91e5f435778e782b76284a9797fb7f5ae261380f0a923b56224e530daa",
+  "corpus_manifest_hash": "47833374a31503f69baec40cccf010737beca506ac4f064991170432cdece57b",
+  "dataset_version": "phase6-retrieval-eval-ai-reviewed-v1",
+  "dev_selection_hash": "b0500e0e3498e09c0cc55e775e3a945584f5d3be5a06f656bbd596251b6283a9",
+  "metric_definition": "binary grade>0; graded nDCG gain=2**rel-1",
+  "model_lock_hash": "3dea339cd508811ebc75ee4852f40d598a6067efae5a9bedc2b302810dd195f9",
+  "release_hash": "87bfb6641c13859425855488fb0ccea27495f82e47d68bf80f0d802029ab1727",
+  "schema_version": 1,
+  "status": "phase7_experiment_complete",
+  "tracked_artifact_hashes": {
+    "data/evaluation/phase7_baseline_comparison.json": "06f7a3d8144c805ec583c02babafb4861932cda94cf4d2de04b092a9f54f1adc",
+    "data/evaluation/phase7_dev_metrics.json": "9f49b5dfad5955eb26979bb6f70061b02e970f9507c4eea5bbcb7077b8d766e6",
+    "data/evaluation/phase7_holdout_metrics.json": "ed16c735ac85028f0a4d516fb9a5c840cf91e91e9673234556c7aca912078877",
+    "data/evaluation/phase7_holdout_replay.json": "126daf0177dbab0a76c4c5219eea66db5b367b4385ec15db5f556ef57fa3e315"
+  }
+}

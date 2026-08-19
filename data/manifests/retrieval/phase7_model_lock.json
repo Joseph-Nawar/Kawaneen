@@ -1,0 +1,26 @@
+{
+  "contracts": {
+    "BAAI/bge-m3": {
+      "batch_size": 4,
+      "embedding_dimension": 1024,
+      "formatting": "plain text; dense output only",
+      "max_length": 1536
+    },
+    "intfloat/multilingual-e5-small": {
+      "batch_size": 32,
+      "embedding_dimension": 384,
+      "formatting": "query: {text} / passage: {text}",
+      "max_length": 512
+    }
+  },
+  "model_ids": [
+    "intfloat/multilingual-e5-small",
+    "BAAI/bge-m3"
+  ],
+  "revisions": {
+    "BAAI/bge-m3": "5617a9f61b028005a4858fdac845db406aefb181",
+    "intfloat/multilingual-e5-small": "614241f622f53c4eeff9890bdc4f31cfecc418b3"
+  },
+  "schema_version": 1,
+  "status": "immutable_model_revisions_locked"
+}
