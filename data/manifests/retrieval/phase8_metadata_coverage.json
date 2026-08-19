@@ -1,0 +1,49 @@
+{
+  "document_count": 26147,
+  "fields": {
+    "document_type": {
+      "distinct_value_count": 0,
+      "distinct_values": [],
+      "null_count": 26147,
+      "populated_count": 0,
+      "populated_percentage": 0.0
+    },
+    "issuing_authority": {
+      "distinct_value_count": 0,
+      "distinct_values": [],
+      "null_count": 26147,
+      "populated_count": 0,
+      "populated_percentage": 0.0
+    },
+    "jurisdiction": {
+      "distinct_value_count": 0,
+      "distinct_values": [],
+      "null_count": 26147,
+      "populated_count": 0,
+      "populated_percentage": 0.0
+    },
+    "legal_status": {
+      "distinct_value_count": 0,
+      "distinct_values": [],
+      "null_count": 26147,
+      "populated_count": 0,
+      "populated_percentage": 0.0
+    },
+    "publication_date": {
+      "distinct_value_count": 0,
+      "distinct_values": [],
+      "null_count": 26147,
+      "populated_count": 0,
+      "populated_percentage": 0.0
+    },
+    "regulation_name": {
+      "distinct_value_count": 0,
+      "distinct_values": [],
+      "null_count": 26147,
+      "populated_count": 0,
+      "populated_percentage": 0.0
+    }
+  },
+  "schema_version": 1,
+  "status": "structured_metadata_not_present_in_phase7_release"
+}

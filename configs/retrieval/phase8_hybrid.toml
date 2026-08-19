@@ -1,0 +1,32 @@
+[experiment]
+phase = 8
+dataset_version = "phase6-retrieval-eval-ai-reviewed-v1"
+phase7_selection_sha256 = "bb9c58833f30ca9f4066bbb55339e2f74663fcaeae1a623892b6ce441b3a5fae"
+primary_metric = "nDCG@10"
+bootstrap_seed = 20260815
+bootstrap_replicates = 2000
+bootstrap_confidence = 0.95
+
+[fusion]
+rrf_k = 60
+sparse_top_k = 50
+dense_top_k = 50
+candidate_k = 20
+sparse_weights = [1.0]
+dense_weights = [0.25, 0.50, 0.75, 1.00]
+
+[reranker]
+model_id = "BAAI/bge-reranker-v2-m3"
+model_revision = "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e"
+max_length = 1024
+candidate_count = 20
+batch_size = 4
+device = "cpu"
+evaluation_depth = 10
+serving_depth = 8
+scoring_contract = "raw-logit-v1"
+
+[paths]
+private_root = "artifacts/private/phase8_retrieval"
+tracked_manifest_root = "data/manifests/retrieval"
+tracked_evaluation_root = "data/evaluation"

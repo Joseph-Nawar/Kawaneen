@@ -1,0 +1,4703 @@
+{
+  "bootstrap": {
+    "comparisons": {
+      "bm25_vs_rrf": {
+        "CompleteEvidenceRecall@10": {
+          "ci95_high": 0.03546099290780142,
+          "ci95_low": -0.02127659574468085,
+          "estimate_left_minus_right": 0.0070921985815602835,
+          "losses": 2,
+          "replicates": 2000,
+          "seed": 20260815,
+          "ties": 136,
+          "wins": 3
+        },
+        "MRR@10": {
+          "ci95_high": 0.014206912079252504,
+          "ci95_low": -0.04786952606101542,
+          "estimate_left_minus_right": -0.016033434650455928,
+          "losses": 8,
+          "replicates": 2000,
+          "seed": 20260815,
+          "ties": 125,
+          "wins": 8
+        },
+        "Recall@10": {
+          "ci95_high": 0.03546099290780142,
+          "ci95_low": -0.028368794326241134,
+          "estimate_left_minus_right": 0.0035460992907801418,
+          "losses": 3,
+          "replicates": 2000,
+          "seed": 20260815,
+          "ties": 135,
+          "wins": 3
+        },
+        "nDCG@10": {
+          "ci95_high": 0.01661942772247234,
+          "ci95_low": -0.03580071291855342,
+          "estimate_left_minus_right": -0.009532600186933363,
+          "losses": 8,
+          "replicates": 2000,
+          "seed": 20260815,
+          "ties": 125,
+          "wins": 8
+        }
+      },
+      "bm25_vs_rrf_reranked": {
+        "CompleteEvidenceRecall@10": {
+          "ci95_high": -0.0070921985815602835,
+          "ci95_low": -0.09929078014184398,
+          "estimate_left_minus_right": -0.04964539007092199,
+          "losses": 9,
+          "replicates": 2000,
+          "seed": 20260815,
+          "ties": 130,
+          "wins": 2
+        },
+        "MRR@10": {
+          "ci95_high": -0.03522177192389958,
+          "ci95_low": -0.13299560959135429,
+          "estimate_left_minus_right": -0.08198243836541709,
+          "losses": 24,
+          "replicates": 2000,
+          "seed": 20260815,
+          "ties": 110,
+          "wins": 7
+        },
+        "Recall@10": {
+          "ci95_high": -0.0070921985815602835,
+          "ci95_low": -0.10283687943262411,
+          "estimate_left_minus_right": -0.05319148936170213,
+          "losses": 10,
+          "replicates": 2000,
+          "seed": 20260815,
+          "ties": 129,
+          "wins": 2
+        },
+        "nDCG@10": {
+          "ci95_high": -0.03405820311762379,
+          "ci95_low": -0.11971122694839781,
+          "estimate_left_minus_right": -0.07470990010516275,
+          "losses": 24,
+          "replicates": 2000,
+          "seed": 20260815,
+          "ties": 110,
+          "wins": 7
+        }
+      },
+      "rrf_vs_rrf_reranked": {
+        "CompleteEvidenceRecall@10": {
+          "ci95_high": -0.0070921985815602835,
+          "ci95_low": -0.10638297872340426,
+          "estimate_left_minus_right": -0.05673758865248227,
+          "losses": 10,
+          "replicates": 2000,
+          "seed": 20260815,
+          "ties": 129,
+          "wins": 2
+        },
+        "MRR@10": {
+          "ci95_high": -0.023649105032083756,
+          "ci95_low": -0.11365248226950353,
+          "estimate_left_minus_right": -0.06594900371496117,
+          "losses": 22,
+          "replicates": 2000,
+          "seed": 20260815,
+          "ties": 113,
+          "wins": 6
+        },
+        "Recall@10": {
+          "ci95_high": -0.0070921985815602835,
+          "ci95_low": -0.10638297872340426,
+          "estimate_left_minus_right": -0.05673758865248227,
+          "losses": 10,
+          "replicates": 2000,
+          "seed": 20260815,
+          "ties": 129,
+          "wins": 2
+        },
+        "nDCG@10": {
+          "ci95_high": -0.026291895623681096,
+          "ci95_low": -0.10844686431470796,
+          "estimate_left_minus_right": -0.06517729991822939,
+          "losses": 22,
+          "replicates": 2000,
+          "seed": 20260815,
+          "ties": 113,
+          "wins": 6
+        }
+      }
+    },
+    "confidence": 0.95,
+    "replicates": 2000,
+    "seed": 20260815
+  },
+  "candidate_invariant": {
+    "candidate_set_unchanged_after_reranking": true,
+    "rrf": {
+      "CandidateCompleteEvidenceRecall@20": 0.28368794326241137,
+      "CandidateRecall@20": 0.2801418439716312
+    },
+    "rrf_reranked": {
+      "CandidateCompleteEvidenceRecall@20": 0.28368794326241137,
+      "CandidateRecall@20": 0.2801418439716312
+    }
+  },
+  "corpus_hash": "290d7a91e5f435778e782b76284a9797fb7f5ae261380f0a923b56224e530daa",
+  "metadata": {
+    "document_count": 26147,
+    "fields": {
+      "document_type": {
+        "distinct_value_count": 0,
+        "distinct_values": [],
+        "null_count": 26147,
+        "populated_count": 0,
+        "populated_percentage": 0.0
+      },
+      "issuing_authority": {
+        "distinct_value_count": 0,
+        "distinct_values": [],
+        "null_count": 26147,
+        "populated_count": 0,
+        "populated_percentage": 0.0
+      },
+      "jurisdiction": {
+        "distinct_value_count": 0,
+        "distinct_values": [],
+        "null_count": 26147,
+        "populated_count": 0,
+        "populated_percentage": 0.0
+      },
+      "legal_status": {
+        "distinct_value_count": 0,
+        "distinct_values": [],
+        "null_count": 26147,
+        "populated_count": 0,
+        "populated_percentage": 0.0
+      },
+      "publication_date": {
+        "distinct_value_count": 0,
+        "distinct_values": [],
+        "null_count": 26147,
+        "populated_count": 0,
+        "populated_percentage": 0.0
+      },
+      "regulation_name": {
+        "distinct_value_count": 0,
+        "distinct_values": [],
+        "null_count": 26147,
+        "populated_count": 0,
+        "populated_percentage": 0.0
+      }
+    },
+    "limitation": "all six structured filter fields have 0% population; no metadata relevance experiment"
+  },
+  "methods": {
+    "bge": {
+      "CandidateCompleteEvidenceRecall@20": 0.16312056737588654,
+      "CandidateRecall@20": 0.1595744680851064,
+      "metrics": {
+        "CompleteEvidenceRecall@10": 0.09929078014184398,
+        "CompleteEvidenceRecall@5": 0.0851063829787234,
+        "MRR@10": 0.061955420466058765,
+        "Precision@5": 0.01843971631205674,
+        "Recall@1": 0.03900709219858156,
+        "Recall@10": 0.09574468085106383,
+        "Recall@5": 0.08156028368794327,
+        "nDCG@10": 0.06713099780908378
+      },
+      "sample_count": 141,
+      "slices": {
+        "base_vs_variant": {
+          "base": {
+            "CompleteEvidenceRecall@10": 0.08547008547008547,
+            "CompleteEvidenceRecall@5": 0.07692307692307693,
+            "MRR@10": 0.06674806674806674,
+            "Precision@5": 0.017094017094017096,
+            "Recall@1": 0.04700854700854701,
+            "Recall@10": 0.08547008547008547,
+            "Recall@5": 0.07692307692307693,
+            "nDCG@10": 0.06807062467439992,
+            "sample_count": 117
+          },
+          "variant": {
+            "CompleteEvidenceRecall@10": 0.16666666666666666,
+            "CompleteEvidenceRecall@5": 0.125,
+            "MRR@10": 0.03859126984126984,
+            "Precision@5": 0.025000000000000005,
+            "Recall@1": 0.0,
+            "Recall@10": 0.14583333333333334,
+            "Recall@5": 0.10416666666666667,
+            "nDCG@10": 0.06255031684066761,
+            "sample_count": 24
+          }
+        },
+        "category": {
+          "authority": {
+            "CompleteEvidenceRecall@10": 0.06666666666666667,
+            "CompleteEvidenceRecall@5": 0.06666666666666667,
+            "MRR@10": 0.06666666666666667,
+            "Precision@5": 0.013333333333333334,
+            "Recall@1": 0.06666666666666667,
+            "Recall@10": 0.06666666666666667,
+            "Recall@5": 0.06666666666666667,
+            "nDCG@10": 0.06666666666666667,
+            "sample_count": 15
+          },
+          "case_holding": {
+            "CompleteEvidenceRecall@10": 0.045454545454545456,
+            "CompleteEvidenceRecall@5": 0.045454545454545456,
+            "MRR@10": 0.01515151515151515,
+            "Precision@5": 0.009090909090909092,
+            "Recall@1": 0.0,
+            "Recall@10": 0.045454545454545456,
+            "Recall@5": 0.045454545454545456,
+            "nDCG@10": 0.022727272727272728,
+            "sample_count": 22
+          },
+          "conditions": {
+            "CompleteEvidenceRecall@10": 0.1111111111111111,
+            "CompleteEvidenceRecall@5": 0.05555555555555555,
+            "MRR@10": 0.03571428571428571,
+            "Precision@5": 0.011111111111111112,
+            "Recall@1": 0.0,
+            "Recall@10": 0.08333333333333333,
+            "Recall@5": 0.027777777777777776,
+            "nDCG@10": 0.040010341142659715,
+            "sample_count": 18
+          },
+          "deadline": {
+            "CompleteEvidenceRecall@10": 0.21052631578947367,
+            "CompleteEvidenceRecall@5": 0.15789473684210525,
+            "MRR@10": 0.06453634085213034,
+            "Precision@5": 0.03157894736842106,
+            "Recall@1": 0.0,
+            "Recall@10": 0.21052631578947367,
+            "Recall@5": 0.15789473684210525,
+            "nDCG@10": 0.09973366552516758,
+            "sample_count": 19
+          },
+          "definition": {
+            "CompleteEvidenceRecall@10": 0.22727272727272727,
+            "CompleteEvidenceRecall@5": 0.22727272727272727,
+            "MRR@10": 0.19696969696969696,
+            "Precision@5": 0.045454545454545456,
+            "Recall@1": 0.18181818181818182,
+            "Recall@10": 0.22727272727272727,
+            "Recall@5": 0.22727272727272727,
+            "nDCG@10": 0.20454545454545456,
+            "sample_count": 22
+          },
+          "exact_provision": {
+            "CompleteEvidenceRecall@10": 0.038461538461538464,
+            "CompleteEvidenceRecall@5": 0.038461538461538464,
+            "MRR@10": 0.007692307692307693,
+            "Precision@5": 0.007692307692307693,
+            "Recall@1": 0.0,
+            "Recall@10": 0.019230769230769232,
+            "Recall@5": 0.019230769230769232,
+            "nDCG@10": 0.009122988952665239,
+            "sample_count": 26
+          },
+          "multi_evidence": {
+            "CompleteEvidenceRecall@10": 0.0,
+            "CompleteEvidenceRecall@5": 0.0,
+            "MRR@10": 0.05263157894736842,
+            "Precision@5": 0.010526315789473684,
+            "Recall@1": 0.02631578947368421,
+            "Recall@10": 0.02631578947368421,
+            "Recall@5": 0.02631578947368421,
+            "nDCG@10": 0.032270904882392544,
+            "sample_count": 19
+          }
+        },
+        "difficulty": {
+          "hard": {
+            "CompleteEvidenceRecall@10": 0.0,
+            "CompleteEvidenceRecall@5": 0.0,
+            "MRR@10": 0.05263157894736842,
+            "Precision@5": 0.010526315789473684,
+            "Recall@1": 0.02631578947368421,
+            "Recall@10": 0.02631578947368421,
+            "Recall@5": 0.02631578947368421,
+            "nDCG@10": 0.032270904882392544,
+            "sample_count": 19
+          },
+          "medium": {
+            "CompleteEvidenceRecall@10": 0.11475409836065574,
+            "CompleteEvidenceRecall@5": 0.09836065573770492,
+            "MRR@10": 0.06340749414519907,
+            "Precision@5": 0.019672131147540985,
+            "Recall@1": 0.040983606557377046,
+            "Recall@10": 0.10655737704918032,
+            "Recall@5": 0.09016393442622951,
+            "nDCG@10": 0.07256002867471603,
+            "sample_count": 122
+          }
+        },
+        "document_type": {
+          "applicable_laws": {
+            "CompleteEvidenceRecall@10": 0.16666666666666666,
+            "CompleteEvidenceRecall@5": 0.0,
+            "MRR@10": 0.023809523809523808,
+            "Precision@5": 0.0,
+            "Recall@1": 0.0,
+            "Recall@10": 0.16666666666666666,
+            "Recall@5": 0.0,
+            "nDCG@10": 0.05555555555555555,
+            "sample_count": 6
+          },
+          "facts/events": {
+            "CompleteEvidenceRecall@10": 0.17391304347826086,
+            "CompleteEvidenceRecall@5": 0.15217391304347827,
+            "MRR@10": 0.1027432712215321,
+            "Precision@5": 0.030434782608695653,
+            "Recall@1": 0.06521739130434782,
+            "Recall@10": 0.16304347826086957,
+            "Recall@5": 0.14130434782608695,
+            "nDCG@10": 0.11482157504810273,
+            "sample_count": 46
+          },
+          "mixed": {
+            "CompleteEvidenceRecall@10": 0.0,
+            "CompleteEvidenceRecall@5": 0.0,
+            "MRR@10": 0.027777777777777776,
+            "Precision@5": 0.005555555555555556,
+            "Recall@1": 0.013888888888888888,
+            "Recall@10": 0.013888888888888888,
+            "Recall@5": 0.013888888888888888,
+            "nDCG@10": 0.017031866465707177,
+            "sample_count": 36
+          },
+          "reasoning": {
+            "CompleteEvidenceRecall@10": 0.12903225806451613,
+            "CompleteEvidenceRecall@5": 0.12903225806451613,
+            "MRR@10": 0.08172043010752687,
+            "Precision@5": 0.025806451612903226,
+            "Recall@1": 0.06451612903225806,
+            "Recall@10": 0.11290322580645161,
+            "Recall@5": 0.11290322580645161,
+            "nDCG@10": 0.08829670041191277,
+            "sample_count": 31
+          },
+          "ruling/verdict": {
+            "CompleteEvidenceRecall@10": 0.045454545454545456,
+            "CompleteEvidenceRecall@5": 0.045454545454545456,
+            "MRR@10": 0.01515151515151515,
+            "Precision@5": 0.009090909090909092,
+            "Recall@1": 0.0,
+            "Recall@10": 0.045454545454545456,
+            "Recall@5": 0.045454545454545456,
+            "nDCG@10": 0.022727272727272728,
+            "sample_count": 22
+          }
+        },
+        "gold_evidence_type": {
+          "applicable_laws": {
+            "CompleteEvidenceRecall@10": 0.16666666666666666,
+            "CompleteEvidenceRecall@5": 0.0,
+            "MRR@10": 0.023809523809523808,
+            "Precision@5": 0.0,
+            "Recall@1": 0.0,
+            "Recall@10": 0.16666666666666666,
+            "Recall@5": 0.0,
+            "nDCG@10": 0.05555555555555555,
+            "sample_count": 6
+          },
+          "facts/events": {
+            "CompleteEvidenceRecall@10": 0.17391304347826086,
+            "CompleteEvidenceRecall@5": 0.15217391304347827,
+            "MRR@10": 0.1027432712215321,
+            "Precision@5": 0.030434782608695653,
+            "Recall@1": 0.06521739130434782,
+            "Recall@10": 0.16304347826086957,
+            "Recall@5": 0.14130434782608695,
+            "nDCG@10": 0.11482157504810273,
+            "sample_count": 46
+          },
+          "mixed": {
+            "CompleteEvidenceRecall@10": 0.0,
+            "CompleteEvidenceRecall@5": 0.0,
+            "MRR@10": 0.027777777777777776,
+            "Precision@5": 0.005555555555555556,
+            "Recall@1": 0.013888888888888888,
+            "Recall@10": 0.013888888888888888,
+            "Recall@5": 0.013888888888888888,
+            "nDCG@10": 0.017031866465707177,
+            "sample_count": 36
+          },
+          "reasoning": {
+            "CompleteEvidenceRecall@10": 0.12903225806451613,
+            "CompleteEvidenceRecall@5": 0.12903225806451613,
+            "MRR@10": 0.08172043010752687,
+            "Precision@5": 0.025806451612903226,
+            "Recall@1": 0.06451612903225806,
+            "Recall@10": 0.11290322580645161,
+            "Recall@5": 0.11290322580645161,
+            "nDCG@10": 0.08829670041191277,
+            "sample_count": 31
+          },
+          "ruling/verdict": {
+            "CompleteEvidenceRecall@10": 0.045454545454545456,
+            "CompleteEvidenceRecall@5": 0.045454545454545456,
+            "MRR@10": 0.01515151515151515,
+            "Precision@5": 0.009090909090909092,
+            "Recall@1": 0.0,
+            "Recall@10": 0.045454545454545456,
+            "Recall@5": 0.045454545454545456,
+            "nDCG@10": 0.022727272727272728,
+            "sample_count": 22
+          }
+        },
+        "jurisdiction": {
+          "Saudi Arabia": {
+            "CompleteEvidenceRecall@10": 0.09929078014184398,
+            "CompleteEvidenceRecall@5": 0.0851063829787234,
+            "MRR@10": 0.061955420466058765,
+            "Precision@5": 0.01843971631205674,
+            "Recall@1": 0.03900709219858156,
+            "Recall@10": 0.09574468085106383,
+            "Recall@5": 0.08156028368794327,
+            "nDCG@10": 0.06713099780908378,
+            "sample_count": 141
+          }
+        },
+        "language": {
+          "ar": {
+            "CompleteEvidenceRecall@10": 0.10077519379844961,
+            "CompleteEvidenceRecall@5": 0.09302325581395349,
+            "MRR@10": 0.06661129568106312,
+            "Precision@5": 0.020155038759689922,
+            "Recall@1": 0.04263565891472868,
+            "Recall@10": 0.09689922480620156,
+            "Recall@5": 0.08914728682170543,
+            "nDCG@10": 0.07079176246315876,
+            "sample_count": 129
+          },
+          "ar-en": {
+            "CompleteEvidenceRecall@10": 0.0,
+            "CompleteEvidenceRecall@5": 0.0,
+            "MRR@10": 0.0,
+            "Precision@5": 0.0,
+            "Recall@1": 0.0,
+            "Recall@10": 0.0,
+            "Recall@5": 0.0,
+            "nDCG@10": 0.0,
+            "sample_count": 6
+          },
+          "en": {
+            "CompleteEvidenceRecall@10": 0.16666666666666666,
+            "CompleteEvidenceRecall@5": 0.0,
+            "MRR@10": 0.023809523809523808,
+            "Precision@5": 0.0,
+            "Recall@1": 0.0,
+            "Recall@10": 0.16666666666666666,
+            "Recall@5": 0.0,
+            "nDCG@10": 0.05555555555555555,
+            "sample_count": 6
+          }
+        },
+        "query_length": {
+          "long": {
+            "CompleteEvidenceRecall@10": 0.023809523809523808,
+            "CompleteEvidenceRecall@5": 0.023809523809523808,
+            "MRR@10": 0.02857142857142857,
+            "Precision@5": 0.009523809523809525,
+            "Recall@1": 0.011904761904761904,
+            "Recall@10": 0.023809523809523808,
+            "Recall@5": 0.023809523809523808,
+            "nDCG@10": 0.020246307274637016,
+            "sample_count": 42
+          },
+          "medium": {
+            "CompleteEvidenceRecall@10": 0.11538461538461539,
+            "CompleteEvidenceRecall@5": 0.09615384615384616,
+            "MRR@10": 0.06364468864468864,
+            "Precision@5": 0.019230769230769232,
+            "Recall@1": 0.038461538461538464,
+            "Recall@10": 0.10576923076923077,
+            "Recall@5": 0.08653846153846154,
+            "nDCG@10": 0.07154204116476683,
+            "sample_count": 52
+          },
+          "short": {
+            "CompleteEvidenceRecall@10": 0.14893617021276595,
+            "CompleteEvidenceRecall@5": 0.1276595744680851,
+            "MRR@10": 0.08991894630192503,
+            "Precision@5": 0.025531914893617023,
+            "Recall@1": 0.06382978723404255,
+            "Recall@10": 0.14893617021276595,
+            "Recall@5": 0.1276595744680851,
+            "nDCG@10": 0.10414765202081241,
+            "sample_count": 47
+          }
+        },
+        "question_type": {
+          "conditions_exceptions": {
+            "CompleteEvidenceRecall@10": 0.1111111111111111,
+            "CompleteEvidenceRecall@5": 0.05555555555555555,
+            "MRR@10": 0.03571428571428571,
+            "Precision@5": 0.011111111111111112,
+            "Recall@1": 0.0,
+            "Recall@10": 0.08333333333333333,
+            "Recall@5": 0.027777777777777776,
+            "nDCG@10": 0.040010341142659715,
+            "sample_count": 18
+          },
+          "holding_outcome_remedy": {
+            "CompleteEvidenceRecall@10": 0.045454545454545456,
+            "CompleteEvidenceRecall@5": 0.045454545454545456,
+            "MRR@10": 0.01515151515151515,
+            "Precision@5": 0.009090909090909092,
+            "Recall@1": 0.0,
+            "Recall@10": 0.045454545454545456,
+            "Recall@5": 0.045454545454545456,
+            "nDCG@10": 0.022727272727272728,
+            "sample_count": 22
+          },
+          "legal_concept": {
+            "CompleteEvidenceRecall@10": 0.22727272727272727,
+            "CompleteEvidenceRecall@5": 0.22727272727272727,
+            "MRR@10": 0.19696969696969696,
+            "Precision@5": 0.045454545454545456,
+            "Recall@1": 0.18181818181818182,
+            "Recall@10": 0.22727272727272727,
+            "Recall@5": 0.22727272727272727,
+            "nDCG@10": 0.20454545454545456,
+            "sample_count": 22
+          },
+          "procedure": {
+            "CompleteEvidenceRecall@10": 0.21052631578947367,
+            "CompleteEvidenceRecall@5": 0.15789473684210525,
+            "MRR@10": 0.06453634085213034,
+            "Precision@5": 0.03157894736842106,
+            "Recall@1": 0.0,
+            "Recall@10": 0.21052631578947367,
+            "Recall@5": 0.15789473684210525,
+            "nDCG@10": 0.09973366552516758,
+            "sample_count": 19
+          },
+          "reasoning": {
+            "CompleteEvidenceRecall@10": 0.0,
+            "CompleteEvidenceRecall@5": 0.0,
+            "MRR@10": 0.05263157894736842,
+            "Precision@5": 0.010526315789473684,
+            "Recall@1": 0.02631578947368421,
+            "Recall@10": 0.02631578947368421,
+            "Recall@5": 0.02631578947368421,
+            "nDCG@10": 0.032270904882392544,
+            "sample_count": 19
+          },
+          "reference_lookup": {
+            "CompleteEvidenceRecall@10": 0.038461538461538464,
+            "CompleteEvidenceRecall@5": 0.038461538461538464,
+            "MRR@10": 0.007692307692307693,
+            "Precision@5": 0.007692307692307693,
+            "Recall@1": 0.0,
+            "Recall@10": 0.019230769230769232,
+            "Recall@5": 0.019230769230769232,
+            "nDCG@10": 0.009122988952665239,
+            "sample_count": 26
+          },
+          "responsibility": {
+            "CompleteEvidenceRecall@10": 0.06666666666666667,
+            "CompleteEvidenceRecall@5": 0.06666666666666667,
+            "MRR@10": 0.06666666666666667,
+            "Precision@5": 0.013333333333333334,
+            "Recall@1": 0.06666666666666667,
+            "Recall@10": 0.06666666666666667,
+            "Recall@5": 0.06666666666666667,
+            "nDCG@10": 0.06666666666666667,
+            "sample_count": 15
+          }
+        },
+        "register": {
+          "egyptian": {
+            "CompleteEvidenceRecall@10": 0.16666666666666666,
+            "CompleteEvidenceRecall@5": 0.16666666666666666,
+            "MRR@10": 0.05555555555555555,
+            "Precision@5": 0.03333333333333333,
+            "Recall@1": 0.0,
+            "Recall@10": 0.16666666666666666,
+            "Recall@5": 0.16666666666666666,
+            "nDCG@10": 0.08333333333333333,
+            "sample_count": 6
+          },
+          "formal": {
+            "CompleteEvidenceRecall@10": 0.08547008547008547,
+            "CompleteEvidenceRecall@5": 0.07692307692307693,
+            "MRR@10": 0.06674806674806674,
+            "Precision@5": 0.017094017094017096,
+            "Recall@1": 0.04700854700854701,
+            "Recall@10": 0.08547008547008547,
+            "Recall@5": 0.07692307692307693,
+            "nDCG@10": 0.06807062467439992,
+            "sample_count": 117
+          },
+          "professional": {
+            "CompleteEvidenceRecall@10": 0.08333333333333333,
+            "CompleteEvidenceRecall@5": 0.0,
+            "MRR@10": 0.011904761904761904,
+            "Precision@5": 0.0,
+            "Recall@1": 0.0,
+            "Recall@10": 0.08333333333333333,
+            "Recall@5": 0.0,
+            "nDCG@10": 0.027777777777777776,
+            "sample_count": 12
+          },
+          "simple": {
+            "CompleteEvidenceRecall@10": 0.3333333333333333,
+            "CompleteEvidenceRecall@5": 0.3333333333333333,
+            "MRR@10": 0.075,
+            "Precision@5": 0.06666666666666667,
+            "Recall@1": 0.0,
+            "Recall@10": 0.25,
+            "Recall@5": 0.25,
+            "nDCG@10": 0.11131237847378156,
+            "sample_count": 6
+          }
+        },
+        "source": {
+          "alarb": {
+            "CompleteEvidenceRecall@10": 0.03389830508474576,
+            "CompleteEvidenceRecall@5": 0.01694915254237288,
+            "MRR@10": 0.025020177562550445,
+            "Precision@5": 0.006779661016949153,
+            "Recall@1": 0.00847457627118644,
+            "Recall@10": 0.0423728813559322,
+            "Recall@5": 0.025423728813559324,
+            "nDCG@10": 0.024516619086420197,
+            "sample_count": 59
+          },
+          "arabiccr": {
+            "CompleteEvidenceRecall@10": 0.14634146341463414,
+            "CompleteEvidenceRecall@5": 0.13414634146341464,
+            "MRR@10": 0.08853077816492451,
+            "Precision@5": 0.02682926829268293,
+            "Recall@1": 0.06097560975609756,
+            "Recall@10": 0.13414634146341464,
+            "Recall@5": 0.12195121951219512,
+            "nDCG@10": 0.09779256298758562,
+            "sample_count": 82
+          }
+        }
+      },
+      "unanswerable_count": 19
+    },
+    "bm25": {
+      "CandidateCompleteEvidenceRecall@20": 0.2695035460992908,
+      "CandidateRecall@20": 0.26595744680851063,
+      "metrics": {
+        "CompleteEvidenceRecall@10": 0.2127659574468085,
+        "CompleteEvidenceRecall@5": 0.16312056737588654,
+        "MRR@10": 0.125,
+        "Precision@5": 0.03262411347517731,
+        "Recall@1": 0.07446808510638298,
+        "Recall@10": 0.20567375886524822,
+        "Recall@5": 0.1524822695035461,
+        "nDCG@10": 0.1385309486290192
+      },
+      "sample_count": 141,
+      "slices": {
+        "base_vs_variant": {
+          "base": {
+            "CompleteEvidenceRecall@10": 0.21367521367521367,
+            "CompleteEvidenceRecall@5": 0.15384615384615385,
+            "MRR@10": 0.11858974358974358,
+            "Precision@5": 0.03076923076923077,
+            "Recall@1": 0.07264957264957266,
+            "Recall@10": 0.2094017094017094,
+            "Recall@5": 0.14957264957264957,
+            "nDCG@10": 0.1373309724165119,
+            "sample_count": 117
+          },
+          "variant": {
+            "CompleteEvidenceRecall@10": 0.20833333333333334,
+            "CompleteEvidenceRecall@5": 0.20833333333333334,
+            "MRR@10": 0.15625,
+            "Precision@5": 0.041666666666666664,
+            "Recall@1": 0.08333333333333333,
+            "Recall@10": 0.1875,
+            "Recall@5": 0.16666666666666666,
+            "nDCG@10": 0.1443808326649923,
+            "sample_count": 24
+          }
+        },
+        "category": {
+          "authority": {
+            "CompleteEvidenceRecall@10": 0.13333333333333333,
+            "CompleteEvidenceRecall@5": 0.06666666666666667,
+            "MRR@10": 0.040740740740740744,
+            "Precision@5": 0.013333333333333334,
+            "Recall@1": 0.0,
+            "Recall@10": 0.13333333333333333,
+            "Recall@5": 0.06666666666666667,
+            "nDCG@10": 0.06213064994902924,
+            "sample_count": 15
+          },
+          "case_holding": {
+            "CompleteEvidenceRecall@10": 0.09090909090909091,
+            "CompleteEvidenceRecall@5": 0.09090909090909091,
+            "MRR@10": 0.06818181818181818,
+            "Precision@5": 0.018181818181818184,
+            "Recall@1": 0.045454545454545456,
+            "Recall@10": 0.09090909090909091,
+            "Recall@5": 0.09090909090909091,
+            "nDCG@10": 0.07413317061688442,
+            "sample_count": 22
+          },
+          "conditions": {
+            "CompleteEvidenceRecall@10": 0.3333333333333333,
+            "CompleteEvidenceRecall@5": 0.2777777777777778,
+            "MRR@10": 0.20601851851851852,
+            "Precision@5": 0.05555555555555555,
+            "Recall@1": 0.1388888888888889,
+            "Recall@10": 0.3055555555555556,
+            "Recall@5": 0.25,
+            "nDCG@10": 0.2144049237569211,
+            "sample_count": 18
+          },
+          "deadline": {
+            "CompleteEvidenceRecall@10": 0.05263157894736842,
+            "CompleteEvidenceRecall@5": 0.05263157894736842,
+            "MRR@10": 0.02631578947368421,
+            "Precision@5": 0.010526315789473684,
+            "Recall@1": 0.0,
+            "Recall@10": 0.05263157894736842,
+            "Recall@5": 0.05263157894736842,
+            "nDCG@10": 0.033206829135339865,
+            "sample_count": 19
+          },
+          "definition": {
+            "CompleteEvidenceRecall@10": 0.4090909090909091,
+            "CompleteEvidenceRecall@5": 0.3181818181818182,
+            "MRR@10": 0.24936868686868685,
+            "Precision@5": 0.06363636363636364,
+            "Recall@1": 0.18181818181818182,
+            "Recall@10": 0.4090909090909091,
+            "Recall@5": 0.3181818181818182,
+            "nDCG@10": 0.28677413353027353,
+            "sample_count": 22
+          },
+          "exact_provision": {
+            "CompleteEvidenceRecall@10": 0.38461538461538464,
+            "CompleteEvidenceRecall@5": 0.2692307692307692,
+            "MRR@10": 0.21741452991452992,
+            "Precision@5": 0.05384615384615385,
+            "Recall@1": 0.11538461538461539,
+            "Recall@10": 0.34615384615384615,
+            "Recall@5": 0.23076923076923078,
+            "nDCG@10": 0.22893528839248428,
+            "sample_count": 26
+          },
+          "multi_evidence": {
+            "CompleteEvidenceRecall@10": 0.0,
+            "CompleteEvidenceRecall@5": 0.0,
+            "MRR@10": 0.008771929824561403,
+            "Precision@5": 0.0,
+            "Recall@1": 0.0,
+            "Recall@10": 0.02631578947368421,
+            "Recall@5": 0.0,
+            "nDCG@10": 0.011495128253587589,
+            "sample_count": 19
+          }
+        },
+        "difficulty": {
+          "hard": {
+            "CompleteEvidenceRecall@10": 0.0,
+            "CompleteEvidenceRecall@5": 0.0,
+            "MRR@10": 0.008771929824561403,
+            "Precision@5": 0.0,
+            "Recall@1": 0.0,
+            "Recall@10": 0.02631578947368421,
+            "Recall@5": 0.0,
+            "nDCG@10": 0.011495128253587589,
+            "sample_count": 19
+          },
+          "medium": {
+            "CompleteEvidenceRecall@10": 0.2459016393442623,
+            "CompleteEvidenceRecall@5": 0.1885245901639344,
+            "MRR@10": 0.14310109289617484,
+            "Precision@5": 0.03770491803278689,
+            "Recall@1": 0.0860655737704918,
+            "Recall@10": 0.2336065573770492,
+            "Recall@5": 0.1762295081967213,
+            "nDCG@10": 0.15831521573666837,
+            "sample_count": 122
+          }
+        },
+        "document_type": {
+          "applicable_laws": {
+            "CompleteEvidenceRecall@10": 0.0,
+            "CompleteEvidenceRecall@5": 0.0,
+            "MRR@10": 0.0,
+            "Precision@5": 0.0,
+            "Recall@1": 0.0,
+            "Recall@10": 0.0,
+            "Recall@5": 0.0,
+            "nDCG@10": 0.0,
+            "sample_count": 6
+          },
+          "facts/events": {
+            "CompleteEvidenceRecall@10": 0.2608695652173913,
+            "CompleteEvidenceRecall@5": 0.21739130434782608,
+            "MRR@10": 0.16998792270531402,
+            "Precision@5": 0.043478260869565216,
+            "Recall@1": 0.11956521739130435,
+            "Recall@10": 0.25,
+            "Recall@5": 0.20652173913043478,
+            "nDCG@10": 0.1830908289224234,
+            "sample_count": 46
+          },
+          "mixed": {
+            "CompleteEvidenceRecall@10": 0.19444444444444445,
+            "CompleteEvidenceRecall@5": 0.16666666666666666,
+            "MRR@10": 0.11226851851851853,
+            "Precision@5": 0.03333333333333334,
+            "Recall@1": 0.05555555555555555,
+            "Recall@10": 0.20833333333333334,
+            "Recall@5": 0.16666666666666666,
+            "nDCG@10": 0.1349260592331016,
+            "sample_count": 36
+          },
+          "reasoning": {
+            "CompleteEvidenceRecall@10": 0.2903225806451613,
+            "CompleteEvidenceRecall@5": 0.16129032258064516,
+            "MRR@10": 0.13754480286738352,
+            "Precision@5": 0.03225806451612903,
+            "Recall@1": 0.06451612903225806,
+            "Recall@10": 0.25806451612903225,
+            "Recall@5": 0.12903225806451613,
+            "nDCG@10": 0.14911024968700373,
+            "sample_count": 31
+          },
+          "ruling/verdict": {
+            "CompleteEvidenceRecall@10": 0.09090909090909091,
+            "CompleteEvidenceRecall@5": 0.09090909090909091,
+            "MRR@10": 0.06818181818181818,
+            "Precision@5": 0.018181818181818184,
+            "Recall@1": 0.045454545454545456,
+            "Recall@10": 0.09090909090909091,
+            "Recall@5": 0.09090909090909091,
+            "nDCG@10": 0.07413317061688442,
+            "sample_count": 22
+          }
+        },
+        "gold_evidence_type": {
+          "applicable_laws": {
+            "CompleteEvidenceRecall@10": 0.0,
+            "CompleteEvidenceRecall@5": 0.0,
+            "MRR@10": 0.0,
+            "Precision@5": 0.0,
+            "Recall@1": 0.0,
+            "Recall@10": 0.0,
+            "Recall@5": 0.0,
+            "nDCG@10": 0.0,
+            "sample_count": 6
+          },
+          "facts/events": {
+            "CompleteEvidenceRecall@10": 0.2608695652173913,
+            "CompleteEvidenceRecall@5": 0.21739130434782608,
+            "MRR@10": 0.16998792270531402,
+            "Precision@5": 0.043478260869565216,
+            "Recall@1": 0.11956521739130435,
+            "Recall@10": 0.25,
+            "Recall@5": 0.20652173913043478,
+            "nDCG@10": 0.1830908289224234,
+            "sample_count": 46
+          },
+          "mixed": {
+            "CompleteEvidenceRecall@10": 0.19444444444444445,
+            "CompleteEvidenceRecall@5": 0.16666666666666666,
+            "MRR@10": 0.11226851851851853,
+            "Precision@5": 0.03333333333333334,
+            "Recall@1": 0.05555555555555555,
+            "Recall@10": 0.20833333333333334,
+            "Recall@5": 0.16666666666666666,
+            "nDCG@10": 0.1349260592331016,
+            "sample_count": 36
+          },
+          "reasoning": {
+            "CompleteEvidenceRecall@10": 0.2903225806451613,
+            "CompleteEvidenceRecall@5": 0.16129032258064516,
+            "MRR@10": 0.13754480286738352,
+            "Precision@5": 0.03225806451612903,
+            "Recall@1": 0.06451612903225806,
+            "Recall@10": 0.25806451612903225,
+            "Recall@5": 0.12903225806451613,
+            "nDCG@10": 0.14911024968700373,
+            "sample_count": 31
+          },
+          "ruling/verdict": {
+            "CompleteEvidenceRecall@10": 0.09090909090909091,
+            "CompleteEvidenceRecall@5": 0.09090909090909091,
+            "MRR@10": 0.06818181818181818,
+            "Precision@5": 0.018181818181818184,
+            "Recall@1": 0.045454545454545456,
+            "Recall@10": 0.09090909090909091,
+            "Recall@5": 0.09090909090909091,
+            "nDCG@10": 0.07413317061688442,
+            "sample_count": 22
+          }
+        },
+        "jurisdiction": {
+          "Saudi Arabia": {
+            "CompleteEvidenceRecall@10": 0.2127659574468085,
+            "CompleteEvidenceRecall@5": 0.16312056737588654,
+            "MRR@10": 0.125,
+            "Precision@5": 0.03262411347517731,
+            "Recall@1": 0.07446808510638298,
+            "Recall@10": 0.20567375886524822,
+            "Recall@5": 0.1524822695035461,
+            "nDCG@10": 0.1385309486290192,
+            "sample_count": 141
+          }
+        },
+        "language": {
+          "ar": {
+            "CompleteEvidenceRecall@10": 0.2248062015503876,
+            "CompleteEvidenceRecall@5": 0.17054263565891473,
+            "MRR@10": 0.12887596899224807,
+            "Precision@5": 0.034108527131782945,
+            "Recall@1": 0.07364341085271318,
+            "Recall@10": 0.21705426356589147,
+            "Recall@5": 0.15891472868217055,
+            "nDCG@10": 0.14366561051698998,
+            "sample_count": 129
+          },
+          "ar-en": {
+            "CompleteEvidenceRecall@10": 0.16666666666666666,
+            "CompleteEvidenceRecall@5": 0.16666666666666666,
+            "MRR@10": 0.16666666666666666,
+            "Precision@5": 0.03333333333333333,
+            "Recall@1": 0.16666666666666666,
+            "Recall@10": 0.16666666666666666,
+            "Recall@5": 0.16666666666666666,
+            "nDCG@10": 0.16666666666666666,
+            "sample_count": 6
+          },
+          "en": {
+            "CompleteEvidenceRecall@10": 0.0,
+            "CompleteEvidenceRecall@5": 0.0,
+            "MRR@10": 0.0,
+            "Precision@5": 0.0,
+            "Recall@1": 0.0,
+            "Recall@10": 0.0,
+            "Recall@5": 0.0,
+            "nDCG@10": 0.0,
+            "sample_count": 6
+          }
+        },
+        "query_length": {
+          "long": {
+            "CompleteEvidenceRecall@10": 0.23809523809523808,
+            "CompleteEvidenceRecall@5": 0.19047619047619047,
+            "MRR@10": 0.14781746031746032,
+            "Precision@5": 0.0380952380952381,
+            "Recall@1": 0.07142857142857142,
+            "Recall@10": 0.23809523809523808,
+            "Recall@5": 0.16666666666666666,
+            "nDCG@10": 0.1575494998051106,
+            "sample_count": 42
+          },
+          "medium": {
+            "CompleteEvidenceRecall@10": 0.19230769230769232,
+            "CompleteEvidenceRecall@5": 0.17307692307692307,
+            "MRR@10": 0.11752136752136752,
+            "Precision@5": 0.03461538461538462,
+            "Recall@1": 0.0673076923076923,
+            "Recall@10": 0.17307692307692307,
+            "Recall@5": 0.16346153846153846,
+            "nDCG@10": 0.12599740896934972,
+            "sample_count": 52
+          },
+          "short": {
+            "CompleteEvidenceRecall@10": 0.2127659574468085,
+            "CompleteEvidenceRecall@5": 0.1276595744680851,
+            "MRR@10": 0.11288416075650118,
+            "Precision@5": 0.025531914893617023,
+            "Recall@1": 0.0851063829787234,
+            "Recall@10": 0.2127659574468085,
+            "Recall@5": 0.1276595744680851,
+            "nDCG@10": 0.13540254252065695,
+            "sample_count": 47
+          }
+        },
+        "question_type": {
+          "conditions_exceptions": {
+            "CompleteEvidenceRecall@10": 0.3333333333333333,
+            "CompleteEvidenceRecall@5": 0.2777777777777778,
+            "MRR@10": 0.20601851851851852,
+            "Precision@5": 0.05555555555555555,
+            "Recall@1": 0.1388888888888889,
+            "Recall@10": 0.3055555555555556,
+            "Recall@5": 0.25,
+            "nDCG@10": 0.2144049237569211,
+            "sample_count": 18
+          },
+          "holding_outcome_remedy": {
+            "CompleteEvidenceRecall@10": 0.09090909090909091,
+            "CompleteEvidenceRecall@5": 0.09090909090909091,
+            "MRR@10": 0.06818181818181818,
+            "Precision@5": 0.018181818181818184,
+            "Recall@1": 0.045454545454545456,
+            "Recall@10": 0.09090909090909091,
+            "Recall@5": 0.09090909090909091,
+            "nDCG@10": 0.07413317061688442,
+            "sample_count": 22
+          },
+          "legal_concept": {
+            "CompleteEvidenceRecall@10": 0.4090909090909091,
+            "CompleteEvidenceRecall@5": 0.3181818181818182,
+            "MRR@10": 0.24936868686868685,
+            "Precision@5": 0.06363636363636364,
+            "Recall@1": 0.18181818181818182,
+            "Recall@10": 0.4090909090909091,
+            "Recall@5": 0.3181818181818182,
+            "nDCG@10": 0.28677413353027353,
+            "sample_count": 22
+          },
+          "procedure": {
+            "CompleteEvidenceRecall@10": 0.05263157894736842,
+            "CompleteEvidenceRecall@5": 0.05263157894736842,
+            "MRR@10": 0.02631578947368421,
+            "Precision@5": 0.010526315789473684,
+            "Recall@1": 0.0,
+            "Recall@10": 0.05263157894736842,
+            "Recall@5": 0.05263157894736842,
+            "nDCG@10": 0.033206829135339865,
+            "sample_count": 19
+          },
+          "reasoning": {
+            "CompleteEvidenceRecall@10": 0.0,
+            "CompleteEvidenceRecall@5": 0.0,
+            "MRR@10": 0.008771929824561403,
+            "Precision@5": 0.0,
+            "Recall@1": 0.0,
+            "Recall@10": 0.02631578947368421,
+            "Recall@5": 0.0,
+            "nDCG@10": 0.011495128253587589,
+            "sample_count": 19
+          },
+          "reference_lookup": {
+            "CompleteEvidenceRecall@10": 0.38461538461538464,
+            "CompleteEvidenceRecall@5": 0.2692307692307692,
+            "MRR@10": 0.21741452991452992,
+            "Precision@5": 0.05384615384615385,
+            "Recall@1": 0.11538461538461539,
+            "Recall@10": 0.34615384615384615,
+            "Recall@5": 0.23076923076923078,
+            "nDCG@10": 0.22893528839248428,
+            "sample_count": 26
+          },
+          "responsibility": {
+            "CompleteEvidenceRecall@10": 0.13333333333333333,
+            "CompleteEvidenceRecall@5": 0.06666666666666667,
+            "MRR@10": 0.040740740740740744,
+            "Precision@5": 0.013333333333333334,
+            "Recall@1": 0.0,
+            "Recall@10": 0.13333333333333333,
+            "Recall@5": 0.06666666666666667,
+            "nDCG@10": 0.06213064994902924,
+            "sample_count": 15
+          }
+        },
+        "register": {
+          "egyptian": {
+            "CompleteEvidenceRecall@10": 0.3333333333333333,
+            "CompleteEvidenceRecall@5": 0.3333333333333333,
+            "MRR@10": 0.20833333333333334,
+            "Precision@5": 0.06666666666666667,
+            "Recall@1": 0.08333333333333333,
+            "Recall@10": 0.3333333333333333,
+            "Recall@5": 0.25,
+            "nDCG@10": 0.2035105062704832,
+            "sample_count": 6
+          },
+          "formal": {
+            "CompleteEvidenceRecall@10": 0.21367521367521367,
+            "CompleteEvidenceRecall@5": 0.15384615384615385,
+            "MRR@10": 0.11858974358974358,
+            "Precision@5": 0.03076923076923077,
+            "Recall@1": 0.07264957264957266,
+            "Recall@10": 0.2094017094017094,
+            "Recall@5": 0.14957264957264957,
+            "nDCG@10": 0.1373309724165119,
+            "sample_count": 117
+          },
+          "professional": {
+            "CompleteEvidenceRecall@10": 0.08333333333333333,
+            "CompleteEvidenceRecall@5": 0.08333333333333333,
+            "MRR@10": 0.08333333333333333,
+            "Precision@5": 0.016666666666666666,
+            "Recall@1": 0.08333333333333333,
+            "Recall@10": 0.08333333333333333,
+            "Recall@5": 0.08333333333333333,
+            "nDCG@10": 0.08333333333333333,
+            "sample_count": 12
+          },
+          "simple": {
+            "CompleteEvidenceRecall@10": 0.3333333333333333,
+            "CompleteEvidenceRecall@5": 0.3333333333333333,
+            "MRR@10": 0.25,
+            "Precision@5": 0.06666666666666667,
+            "Recall@1": 0.08333333333333333,
+            "Recall@10": 0.25,
+            "Recall@5": 0.25,
+            "nDCG@10": 0.20734615772281928,
+            "sample_count": 6
+          }
+        },
+        "source": {
+          "alarb": {
+            "CompleteEvidenceRecall@10": 0.1694915254237288,
+            "CompleteEvidenceRecall@5": 0.15254237288135594,
+            "MRR@10": 0.10805084745762712,
+            "Precision@5": 0.030508474576271188,
+            "Recall@1": 0.06779661016949153,
+            "Recall@10": 0.1694915254237288,
+            "Recall@5": 0.15254237288135594,
+            "nDCG@10": 0.12321797371432122,
+            "sample_count": 59
+          },
+          "arabiccr": {
+            "CompleteEvidenceRecall@10": 0.24390243902439024,
+            "CompleteEvidenceRecall@5": 0.17073170731707318,
+            "MRR@10": 0.13719512195121952,
+            "Precision@5": 0.03414634146341464,
+            "Recall@1": 0.07926829268292683,
+            "Recall@10": 0.23170731707317074,
+            "Recall@5": 0.1524390243902439,
+            "nDCG@10": 0.1495488208237409,
+            "sample_count": 82
+          }
+        }
+      },
+      "unanswerable_count": 19
+    },
+    "rrf": {
+      "CandidateCompleteEvidenceRecall@20": 0.28368794326241137,
+      "CandidateRecall@20": 0.2801418439716312,
+      "metrics": {
+        "CompleteEvidenceRecall@10": 0.20567375886524822,
+        "CompleteEvidenceRecall@5": 0.1702127659574468,
+        "MRR@10": 0.14103343465045592,
+        "Precision@5": 0.03546099290780142,
+        "Recall@1": 0.09929078014184398,
+        "Recall@10": 0.20212765957446807,
+        "Recall@5": 0.16312056737588654,
+        "nDCG@10": 0.14806354881595257
+      },
+      "sample_count": 141,
+      "slices": {
+        "base_vs_variant": {
+          "base": {
+            "CompleteEvidenceRecall@10": 0.21367521367521367,
+            "CompleteEvidenceRecall@5": 0.17094017094017094,
+            "MRR@10": 0.1357753357753358,
+            "Precision@5": 0.0358974358974359,
+            "Recall@1": 0.09401709401709402,
+            "Recall@10": 0.21367521367521367,
+            "Recall@5": 0.17094017094017094,
+            "nDCG@10": 0.14934552744217391,
+            "sample_count": 117
+          },
+          "variant": {
+            "CompleteEvidenceRecall@10": 0.16666666666666666,
+            "CompleteEvidenceRecall@5": 0.16666666666666666,
+            "MRR@10": 0.16666666666666666,
+            "Precision@5": 0.03333333333333333,
+            "Recall@1": 0.125,
+            "Recall@10": 0.14583333333333334,
+            "Recall@5": 0.125,
+            "nDCG@10": 0.14181390301312352,
+            "sample_count": 24
+          }
+        },
+        "category": {
+          "authority": {
+            "CompleteEvidenceRecall@10": 0.06666666666666667,
+            "CompleteEvidenceRecall@5": 0.06666666666666667,
+            "MRR@10": 0.06666666666666667,
+            "Precision@5": 0.013333333333333334,
+            "Recall@1": 0.06666666666666667,
+            "Recall@10": 0.06666666666666667,
+            "Recall@5": 0.06666666666666667,
+            "nDCG@10": 0.06666666666666667,
+            "sample_count": 15
+          },
+          "case_holding": {
+            "CompleteEvidenceRecall@10": 0.13636363636363635,
+            "CompleteEvidenceRecall@5": 0.045454545454545456,
+            "MRR@10": 0.05844155844155843,
+            "Precision@5": 0.009090909090909092,
+            "Recall@1": 0.045454545454545456,
+            "Recall@10": 0.13636363636363635,
+            "Recall@5": 0.045454545454545456,
+            "nDCG@10": 0.07575757575757575,
+            "sample_count": 22
+          },
+          "conditions": {
+            "CompleteEvidenceRecall@10": 0.3333333333333333,
+            "CompleteEvidenceRecall@5": 0.2777777777777778,
+            "MRR@10": 0.20601851851851852,
+            "Precision@5": 0.05555555555555555,
+            "Recall@1": 0.1388888888888889,
+            "Recall@10": 0.3055555555555556,
+            "Recall@5": 0.25,
+            "nDCG@10": 0.2144049237569211,
+            "sample_count": 18
+          },
+          "deadline": {
+            "CompleteEvidenceRecall@10": 0.05263157894736842,
+            "CompleteEvidenceRecall@5": 0.05263157894736842,
+            "MRR@10": 0.02631578947368421,
+            "Precision@5": 0.010526315789473684,
+            "Recall@1": 0.0,
+            "Recall@10": 0.05263157894736842,
+            "Recall@5": 0.05263157894736842,
+            "nDCG@10": 0.033206829135339865,
+            "sample_count": 19
+          },
+          "definition": {
+            "CompleteEvidenceRecall@10": 0.45454545454545453,
+            "CompleteEvidenceRecall@5": 0.4090909090909091,
+            "MRR@10": 0.32765151515151514,
+            "Precision@5": 0.08181818181818182,
+            "Recall@1": 0.2727272727272727,
+            "Recall@10": 0.45454545454545453,
+            "Recall@5": 0.4090909090909091,
+            "nDCG@10": 0.35804869038320813,
+            "sample_count": 22
+          },
+          "exact_provision": {
+            "CompleteEvidenceRecall@10": 0.3076923076923077,
+            "CompleteEvidenceRecall@5": 0.2692307692307692,
+            "MRR@10": 0.19294871794871796,
+            "Precision@5": 0.05384615384615385,
+            "Recall@1": 0.11538461538461539,
+            "Recall@10": 0.2692307692307692,
+            "Recall@5": 0.23076923076923078,
+            "nDCG@10": 0.1927480583527848,
+            "sample_count": 26
+          },
+          "multi_evidence": {
+            "CompleteEvidenceRecall@10": 0.0,
+            "CompleteEvidenceRecall@5": 0.0,
+            "MRR@10": 0.06140350877192983,
+            "Precision@5": 0.010526315789473684,
+            "Recall@1": 0.02631578947368421,
+            "Recall@10": 0.05263157894736842,
+            "Recall@5": 0.02631578947368421,
+            "nDCG@10": 0.04376603313598013,
+            "sample_count": 19
+          }
+        },
+        "difficulty": {
+          "hard": {
+            "CompleteEvidenceRecall@10": 0.0,
+            "CompleteEvidenceRecall@5": 0.0,
+            "MRR@10": 0.06140350877192983,
+            "Precision@5": 0.010526315789473684,
+            "Recall@1": 0.02631578947368421,
+            "Recall@10": 0.05263157894736842,
+            "Recall@5": 0.02631578947368421,
+            "nDCG@10": 0.04376603313598013,
+            "sample_count": 19
+          },
+          "medium": {
+            "CompleteEvidenceRecall@10": 0.23770491803278687,
+            "CompleteEvidenceRecall@5": 0.19672131147540983,
+            "MRR@10": 0.15343481654957064,
+            "Precision@5": 0.03934426229508197,
+            "Recall@1": 0.11065573770491803,
+            "Recall@10": 0.22540983606557377,
+            "Recall@5": 0.18442622950819673,
+            "nDCG@10": 0.164306604536604,
+            "sample_count": 122
+          }
+        },
+        "document_type": {
+          "applicable_laws": {
+            "CompleteEvidenceRecall@10": 0.0,
+            "CompleteEvidenceRecall@5": 0.0,
+            "MRR@10": 0.0,
+            "Precision@5": 0.0,
+            "Recall@1": 0.0,
+            "Recall@10": 0.0,
+            "Recall@5": 0.0,
+            "nDCG@10": 0.0,
+            "sample_count": 6
+          },
+          "facts/events": {
+            "CompleteEvidenceRecall@10": 0.2608695652173913,
+            "CompleteEvidenceRecall@5": 0.2391304347826087,
+            "MRR@10": 0.17481884057971014,
+            "Precision@5": 0.04782608695652174,
+            "Recall@1": 0.11956521739130435,
+            "Recall@10": 0.25,
+            "Recall@5": 0.22826086956521738,
+            "nDCG@10": 0.18741626379929335,
+            "sample_count": 46
+          },
+          "mixed": {
+            "CompleteEvidenceRecall@10": 0.16666666666666666,
+            "CompleteEvidenceRecall@5": 0.16666666666666666,
+            "MRR@10": 0.1412037037037037,
+            "Precision@5": 0.03888888888888889,
+            "Recall@1": 0.09722222222222222,
+            "Recall@10": 0.19444444444444445,
+            "Recall@5": 0.18055555555555555,
+            "nDCG@10": 0.14617308854602823,
+            "sample_count": 36
+          },
+          "reasoning": {
+            "CompleteEvidenceRecall@10": 0.25806451612903225,
+            "CompleteEvidenceRecall@5": 0.1935483870967742,
+            "MRR@10": 0.17661290322580644,
+            "Precision@5": 0.03870967741935485,
+            "Recall@1": 0.12903225806451613,
+            "Recall@10": 0.22580645161290322,
+            "Recall@5": 0.16129032258064516,
+            "nDCG@10": 0.17183594819219788,
+            "sample_count": 31
+          },
+          "ruling/verdict": {
+            "CompleteEvidenceRecall@10": 0.13636363636363635,
+            "CompleteEvidenceRecall@5": 0.045454545454545456,
+            "MRR@10": 0.05844155844155843,
+            "Precision@5": 0.009090909090909092,
+            "Recall@1": 0.045454545454545456,
+            "Recall@10": 0.13636363636363635,
+            "Recall@5": 0.045454545454545456,
+            "nDCG@10": 0.07575757575757575,
+            "sample_count": 22
+          }
+        },
+        "gold_evidence_type": {
+          "applicable_laws": {
+            "CompleteEvidenceRecall@10": 0.0,
+            "CompleteEvidenceRecall@5": 0.0,
+            "MRR@10": 0.0,
+            "Precision@5": 0.0,
+            "Recall@1": 0.0,
+            "Recall@10": 0.0,
+            "Recall@5": 0.0,
+            "nDCG@10": 0.0,
+            "sample_count": 6
+          },
+          "facts/events": {
+            "CompleteEvidenceRecall@10": 0.2608695652173913,
+            "CompleteEvidenceRecall@5": 0.2391304347826087,
+            "MRR@10": 0.17481884057971014,
+            "Precision@5": 0.04782608695652174,
+            "Recall@1": 0.11956521739130435,
+            "Recall@10": 0.25,
+            "Recall@5": 0.22826086956521738,
+            "nDCG@10": 0.18741626379929335,
+            "sample_count": 46
+          },
+          "mixed": {
+            "CompleteEvidenceRecall@10": 0.16666666666666666,
+            "CompleteEvidenceRecall@5": 0.16666666666666666,
+            "MRR@10": 0.1412037037037037,
+            "Precision@5": 0.03888888888888889,
+            "Recall@1": 0.09722222222222222,
+            "Recall@10": 0.19444444444444445,
+            "Recall@5": 0.18055555555555555,
+            "nDCG@10": 0.14617308854602823,
+            "sample_count": 36
+          },
+          "reasoning": {
+            "CompleteEvidenceRecall@10": 0.25806451612903225,
+            "CompleteEvidenceRecall@5": 0.1935483870967742,
+            "MRR@10": 0.17661290322580644,
+            "Precision@5": 0.03870967741935485,
+            "Recall@1": 0.12903225806451613,
+            "Recall@10": 0.22580645161290322,
+            "Recall@5": 0.16129032258064516,
+            "nDCG@10": 0.17183594819219788,
+            "sample_count": 31
+          },
+          "ruling/verdict": {
+            "CompleteEvidenceRecall@10": 0.13636363636363635,
+            "CompleteEvidenceRecall@5": 0.045454545454545456,
+            "MRR@10": 0.05844155844155843,
+            "Precision@5": 0.009090909090909092,
+            "Recall@1": 0.045454545454545456,
+            "Recall@10": 0.13636363636363635,
+            "Recall@5": 0.045454545454545456,
+            "nDCG@10": 0.07575757575757575,
+            "sample_count": 22
+          }
+        },
+        "jurisdiction": {
+          "Saudi Arabia": {
+            "CompleteEvidenceRecall@10": 0.20567375886524822,
+            "CompleteEvidenceRecall@5": 0.1702127659574468,
+            "MRR@10": 0.14103343465045592,
+            "Precision@5": 0.03546099290780142,
+            "Recall@1": 0.09929078014184398,
+            "Recall@10": 0.20212765957446807,
+            "Recall@5": 0.16312056737588654,
+            "nDCG@10": 0.14806354881595257,
+            "sample_count": 141
+          }
+        },
+        "language": {
+          "ar": {
+            "CompleteEvidenceRecall@10": 0.21705426356589147,
+            "CompleteEvidenceRecall@5": 0.17829457364341086,
+            "MRR@10": 0.14640088593576966,
+            "Precision@5": 0.0372093023255814,
+            "Recall@1": 0.10077519379844961,
+            "Recall@10": 0.2131782945736434,
+            "Recall@5": 0.17054263565891473,
+            "nDCG@10": 0.1540849642096846,
+            "sample_count": 129
+          },
+          "ar-en": {
+            "CompleteEvidenceRecall@10": 0.16666666666666666,
+            "CompleteEvidenceRecall@5": 0.16666666666666666,
+            "MRR@10": 0.16666666666666666,
+            "Precision@5": 0.03333333333333333,
+            "Recall@1": 0.16666666666666666,
+            "Recall@10": 0.16666666666666666,
+            "Recall@5": 0.16666666666666666,
+            "nDCG@10": 0.16666666666666666,
+            "sample_count": 6
+          },
+          "en": {
+            "CompleteEvidenceRecall@10": 0.0,
+            "CompleteEvidenceRecall@5": 0.0,
+            "MRR@10": 0.0,
+            "Precision@5": 0.0,
+            "Recall@1": 0.0,
+            "Recall@10": 0.0,
+            "Recall@5": 0.0,
+            "nDCG@10": 0.0,
+            "sample_count": 6
+          }
+        },
+        "query_length": {
+          "long": {
+            "CompleteEvidenceRecall@10": 0.21428571428571427,
+            "CompleteEvidenceRecall@5": 0.16666666666666666,
+            "MRR@10": 0.1516439909297052,
+            "Precision@5": 0.0380952380952381,
+            "Recall@1": 0.08333333333333333,
+            "Recall@10": 0.2261904761904762,
+            "Recall@5": 0.15476190476190477,
+            "nDCG@10": 0.15077217920568206,
+            "sample_count": 42
+          },
+          "medium": {
+            "CompleteEvidenceRecall@10": 0.19230769230769232,
+            "CompleteEvidenceRecall@5": 0.17307692307692307,
+            "MRR@10": 0.13653846153846153,
+            "Precision@5": 0.03461538461538462,
+            "Recall@1": 0.10576923076923077,
+            "Recall@10": 0.17307692307692307,
+            "Recall@5": 0.16346153846153846,
+            "nDCG@10": 0.14005133363976444,
+            "sample_count": 52
+          },
+          "short": {
+            "CompleteEvidenceRecall@10": 0.2127659574468085,
+            "CompleteEvidenceRecall@5": 0.1702127659574468,
+            "MRR@10": 0.13652482269503546,
+            "Precision@5": 0.03404255319148936,
+            "Recall@1": 0.10638297872340426,
+            "Recall@10": 0.2127659574468085,
+            "Recall@5": 0.1702127659574468,
+            "nDCG@10": 0.15450764908814713,
+            "sample_count": 47
+          }
+        },
+        "question_type": {
+          "conditions_exceptions": {
+            "CompleteEvidenceRecall@10": 0.3333333333333333,
+            "CompleteEvidenceRecall@5": 0.2777777777777778,
+            "MRR@10": 0.20601851851851852,
+            "Precision@5": 0.05555555555555555,
+            "Recall@1": 0.1388888888888889,
+            "Recall@10": 0.3055555555555556,
+            "Recall@5": 0.25,
+            "nDCG@10": 0.2144049237569211,
+            "sample_count": 18
+          },
+          "holding_outcome_remedy": {
+            "CompleteEvidenceRecall@10": 0.13636363636363635,
+            "CompleteEvidenceRecall@5": 0.045454545454545456,
+            "MRR@10": 0.05844155844155843,
+            "Precision@5": 0.009090909090909092,
+            "Recall@1": 0.045454545454545456,
+            "Recall@10": 0.13636363636363635,
+            "Recall@5": 0.045454545454545456,
+            "nDCG@10": 0.07575757575757575,
+            "sample_count": 22
+          },
+          "legal_concept": {
+            "CompleteEvidenceRecall@10": 0.45454545454545453,
+            "CompleteEvidenceRecall@5": 0.4090909090909091,
+            "MRR@10": 0.32765151515151514,
+            "Precision@5": 0.08181818181818182,
+            "Recall@1": 0.2727272727272727,
+            "Recall@10": 0.45454545454545453,
+            "Recall@5": 0.4090909090909091,
+            "nDCG@10": 0.35804869038320813,
+            "sample_count": 22
+          },
+          "procedure": {
+            "CompleteEvidenceRecall@10": 0.05263157894736842,
+            "CompleteEvidenceRecall@5": 0.05263157894736842,
+            "MRR@10": 0.02631578947368421,
+            "Precision@5": 0.010526315789473684,
+            "Recall@1": 0.0,
+            "Recall@10": 0.05263157894736842,
+            "Recall@5": 0.05263157894736842,
+            "nDCG@10": 0.033206829135339865,
+            "sample_count": 19
+          },
+          "reasoning": {
+            "CompleteEvidenceRecall@10": 0.0,
+            "CompleteEvidenceRecall@5": 0.0,
+            "MRR@10": 0.06140350877192983,
+            "Precision@5": 0.010526315789473684,
+            "Recall@1": 0.02631578947368421,
+            "Recall@10": 0.05263157894736842,
+            "Recall@5": 0.02631578947368421,
+            "nDCG@10": 0.04376603313598013,
+            "sample_count": 19
+          },
+          "reference_lookup": {
+            "CompleteEvidenceRecall@10": 0.3076923076923077,
+            "CompleteEvidenceRecall@5": 0.2692307692307692,
+            "MRR@10": 0.19294871794871796,
+            "Precision@5": 0.05384615384615385,
+            "Recall@1": 0.11538461538461539,
+            "Recall@10": 0.2692307692307692,
+            "Recall@5": 0.23076923076923078,
+            "nDCG@10": 0.1927480583527848,
+            "sample_count": 26
+          },
+          "responsibility": {
+            "CompleteEvidenceRecall@10": 0.06666666666666667,
+            "CompleteEvidenceRecall@5": 0.06666666666666667,
+            "MRR@10": 0.06666666666666667,
+            "Precision@5": 0.013333333333333334,
+            "Recall@1": 0.06666666666666667,
+            "Recall@10": 0.06666666666666667,
+            "Recall@5": 0.06666666666666667,
+            "nDCG@10": 0.06666666666666667,
+            "sample_count": 15
+          }
+        },
+        "register": {
+          "egyptian": {
+            "CompleteEvidenceRecall@10": 0.16666666666666666,
+            "CompleteEvidenceRecall@5": 0.16666666666666666,
+            "MRR@10": 0.16666666666666666,
+            "Precision@5": 0.03333333333333333,
+            "Recall@1": 0.08333333333333333,
+            "Recall@10": 0.16666666666666666,
+            "Recall@5": 0.08333333333333333,
+            "nDCG@10": 0.1317310799249177,
+            "sample_count": 6
+          },
+          "formal": {
+            "CompleteEvidenceRecall@10": 0.21367521367521367,
+            "CompleteEvidenceRecall@5": 0.17094017094017094,
+            "MRR@10": 0.1357753357753358,
+            "Precision@5": 0.0358974358974359,
+            "Recall@1": 0.09401709401709402,
+            "Recall@10": 0.21367521367521367,
+            "Recall@5": 0.17094017094017094,
+            "nDCG@10": 0.14934552744217391,
+            "sample_count": 117
+          },
+          "professional": {
+            "CompleteEvidenceRecall@10": 0.08333333333333333,
+            "CompleteEvidenceRecall@5": 0.08333333333333333,
+            "MRR@10": 0.08333333333333333,
+            "Precision@5": 0.016666666666666666,
+            "Recall@1": 0.08333333333333333,
+            "Recall@10": 0.08333333333333333,
+            "Recall@5": 0.08333333333333333,
+            "nDCG@10": 0.08333333333333333,
+            "sample_count": 12
+          },
+          "simple": {
+            "CompleteEvidenceRecall@10": 0.3333333333333333,
+            "CompleteEvidenceRecall@5": 0.3333333333333333,
+            "MRR@10": 0.3333333333333333,
+            "Precision@5": 0.06666666666666667,
+            "Recall@1": 0.25,
+            "Recall@10": 0.25,
+            "Recall@5": 0.25,
+            "nDCG@10": 0.26885786546090973,
+            "sample_count": 6
+          }
+        },
+        "source": {
+          "alarb": {
+            "CompleteEvidenceRecall@10": 0.1694915254237288,
+            "CompleteEvidenceRecall@5": 0.13559322033898305,
+            "MRR@10": 0.11077481840193705,
+            "Precision@5": 0.030508474576271188,
+            "Recall@1": 0.07627118644067797,
+            "Recall@10": 0.17796610169491525,
+            "Recall@5": 0.1440677966101695,
+            "nDCG@10": 0.12221170199161896,
+            "sample_count": 59
+          },
+          "arabiccr": {
+            "CompleteEvidenceRecall@10": 0.23170731707317074,
+            "CompleteEvidenceRecall@5": 0.1951219512195122,
+            "MRR@10": 0.1628048780487805,
+            "Precision@5": 0.03902439024390244,
+            "Recall@1": 0.11585365853658537,
+            "Recall@10": 0.21951219512195122,
+            "Recall@5": 0.17682926829268292,
+            "nDCG@10": 0.16666426787248528,
+            "sample_count": 82
+          }
+        }
+      },
+      "unanswerable_count": 19
+    },
+    "rrf_reranked": {
+      "CandidateCompleteEvidenceRecall@20": 0.28368794326241137,
+      "CandidateRecall@20": 0.2801418439716312,
+      "metrics": {
+        "CompleteEvidenceRecall@10": 0.2624113475177305,
+        "CompleteEvidenceRecall@5": 0.24113475177304963,
+        "MRR@10": 0.2069824383654171,
+        "Precision@5": 0.0524822695035461,
+        "Recall@1": 0.1595744680851064,
+        "Recall@10": 0.25886524822695034,
+        "Recall@5": 0.2375886524822695,
+        "nDCG@10": 0.21324084873418195
+      },
+      "sample_count": 141,
+      "slices": {
+        "base_vs_variant": {
+          "base": {
+            "CompleteEvidenceRecall@10": 0.27350427350427353,
+            "CompleteEvidenceRecall@5": 0.24786324786324787,
+            "MRR@10": 0.21952584452584453,
+            "Precision@5": 0.05299145299145299,
+            "Recall@1": 0.1752136752136752,
+            "Recall@10": 0.27350427350427353,
+            "Recall@5": 0.24786324786324787,
+            "nDCG@10": 0.2252628265563794,
+            "sample_count": 117
+          },
+          "variant": {
+            "CompleteEvidenceRecall@10": 0.20833333333333334,
+            "CompleteEvidenceRecall@5": 0.20833333333333334,
+            "MRR@10": 0.14583333333333334,
+            "Precision@5": 0.05000000000000001,
+            "Recall@1": 0.08333333333333333,
+            "Recall@10": 0.1875,
+            "Recall@5": 0.1875,
+            "nDCG@10": 0.15463370685096958,
+            "sample_count": 24
+          }
+        },
+        "category": {
+          "authority": {
+            "CompleteEvidenceRecall@10": 0.2,
+            "CompleteEvidenceRecall@5": 0.13333333333333333,
+            "MRR@10": 0.09555555555555556,
+            "Precision@5": 0.02666666666666667,
+            "Recall@1": 0.06666666666666667,
+            "Recall@10": 0.2,
+            "Recall@5": 0.13333333333333333,
+            "nDCG@10": 0.11927098842119252,
+            "sample_count": 15
+          },
+          "case_holding": {
+            "CompleteEvidenceRecall@10": 0.045454545454545456,
+            "CompleteEvidenceRecall@5": 0.045454545454545456,
+            "MRR@10": 0.009090909090909092,
+            "Precision@5": 0.009090909090909092,
+            "Recall@1": 0.0,
+            "Recall@10": 0.045454545454545456,
+            "Recall@5": 0.045454545454545456,
+            "nDCG@10": 0.017584218510660984,
+            "sample_count": 22
+          },
+          "conditions": {
+            "CompleteEvidenceRecall@10": 0.5,
+            "CompleteEvidenceRecall@5": 0.4444444444444444,
+            "MRR@10": 0.38293650793650796,
+            "Precision@5": 0.08888888888888889,
+            "Recall@1": 0.3055555555555556,
+            "Recall@10": 0.4722222222222222,
+            "Recall@5": 0.4166666666666667,
+            "nDCG@10": 0.3893381576524246,
+            "sample_count": 18
+          },
+          "deadline": {
+            "CompleteEvidenceRecall@10": 0.10526315789473684,
+            "CompleteEvidenceRecall@5": 0.10526315789473684,
+            "MRR@10": 0.07017543859649122,
+            "Precision@5": 0.021052631578947368,
+            "Recall@1": 0.05263157894736842,
+            "Recall@10": 0.10526315789473684,
+            "Recall@5": 0.10526315789473684,
+            "nDCG@10": 0.07894736842105263,
+            "sample_count": 19
+          },
+          "definition": {
+            "CompleteEvidenceRecall@10": 0.5,
+            "CompleteEvidenceRecall@5": 0.5,
+            "MRR@10": 0.4772727272727273,
+            "Precision@5": 0.1,
+            "Recall@1": 0.45454545454545453,
+            "Recall@10": 0.5,
+            "Recall@5": 0.5,
+            "nDCG@10": 0.4832240797077935,
+            "sample_count": 22
+          },
+          "exact_provision": {
+            "CompleteEvidenceRecall@10": 0.4230769230769231,
+            "CompleteEvidenceRecall@5": 0.38461538461538464,
+            "MRR@10": 0.2932692307692308,
+            "Precision@5": 0.08461538461538462,
+            "Recall@1": 0.17307692307692307,
+            "Recall@10": 0.38461538461538464,
+            "Recall@5": 0.34615384615384615,
+            "nDCG@10": 0.30391079004297583,
+            "sample_count": 26
+          },
+          "multi_evidence": {
+            "CompleteEvidenceRecall@10": 0.0,
+            "CompleteEvidenceRecall@5": 0.0,
+            "MRR@10": 0.06315789473684211,
+            "Precision@5": 0.021052631578947368,
+            "Recall@1": 0.02631578947368421,
+            "Recall@10": 0.05263157894736842,
+            "Recall@5": 0.05263157894736842,
+            "nDCG@10": 0.04475499502814498,
+            "sample_count": 19
+          }
+        },
+        "difficulty": {
+          "hard": {
+            "CompleteEvidenceRecall@10": 0.0,
+            "CompleteEvidenceRecall@5": 0.0,
+            "MRR@10": 0.06315789473684211,
+            "Precision@5": 0.021052631578947368,
+            "Recall@1": 0.02631578947368421,
+            "Recall@10": 0.05263157894736842,
+            "Recall@5": 0.05263157894736842,
+            "nDCG@10": 0.04475499502814498,
+            "sample_count": 19
+          },
+          "medium": {
+            "CompleteEvidenceRecall@10": 0.30327868852459017,
+            "CompleteEvidenceRecall@5": 0.2786885245901639,
+            "MRR@10": 0.22938134270101485,
+            "Precision@5": 0.05737704918032787,
+            "Recall@1": 0.18032786885245902,
+            "Recall@10": 0.29098360655737704,
+            "Recall@5": 0.26639344262295084,
+            "nDCG@10": 0.23948044890151557,
+            "sample_count": 122
+          }
+        },
+        "document_type": {
+          "applicable_laws": {
+            "CompleteEvidenceRecall@10": 0.0,
+            "CompleteEvidenceRecall@5": 0.0,
+            "MRR@10": 0.0,
+            "Precision@5": 0.0,
+            "Recall@1": 0.0,
+            "Recall@10": 0.0,
+            "Recall@5": 0.0,
+            "nDCG@10": 0.0,
+            "sample_count": 6
+          },
+          "facts/events": {
+            "CompleteEvidenceRecall@10": 0.34782608695652173,
+            "CompleteEvidenceRecall@5": 0.32608695652173914,
+            "MRR@10": 0.2784679089026915,
+            "Precision@5": 0.06521739130434782,
+            "Recall@1": 0.22826086956521738,
+            "Recall@10": 0.33695652173913043,
+            "Recall@5": 0.31521739130434784,
+            "nDCG@10": 0.2871378268096023,
+            "sample_count": 46
+          },
+          "mixed": {
+            "CompleteEvidenceRecall@10": 0.19444444444444445,
+            "CompleteEvidenceRecall@5": 0.16666666666666666,
+            "MRR@10": 0.17569444444444446,
+            "Precision@5": 0.044444444444444446,
+            "Recall@1": 0.125,
+            "Recall@10": 0.2222222222222222,
+            "Recall@5": 0.19444444444444445,
+            "nDCG@10": 0.17854636915176106,
+            "sample_count": 36
+          },
+          "reasoning": {
+            "CompleteEvidenceRecall@10": 0.41935483870967744,
+            "CompleteEvidenceRecall@5": 0.3870967741935484,
+            "MRR@10": 0.317741935483871,
+            "Precision@5": 0.08387096774193549,
+            "Recall@1": 0.24193548387096775,
+            "Recall@10": 0.3870967741935484,
+            "Recall@5": 0.3548387096774194,
+            "nDCG@10": 0.3240031465025809,
+            "sample_count": 31
+          },
+          "ruling/verdict": {
+            "CompleteEvidenceRecall@10": 0.045454545454545456,
+            "CompleteEvidenceRecall@5": 0.045454545454545456,
+            "MRR@10": 0.009090909090909092,
+            "Precision@5": 0.009090909090909092,
+            "Recall@1": 0.0,
+            "Recall@10": 0.045454545454545456,
+            "Recall@5": 0.045454545454545456,
+            "nDCG@10": 0.017584218510660984,
+            "sample_count": 22
+          }
+        },
+        "gold_evidence_type": {
+          "applicable_laws": {
+            "CompleteEvidenceRecall@10": 0.0,
+            "CompleteEvidenceRecall@5": 0.0,
+            "MRR@10": 0.0,
+            "Precision@5": 0.0,
+            "Recall@1": 0.0,
+            "Recall@10": 0.0,
+            "Recall@5": 0.0,
+            "nDCG@10": 0.0,
+            "sample_count": 6
+          },
+          "facts/events": {
+            "CompleteEvidenceRecall@10": 0.34782608695652173,
+            "CompleteEvidenceRecall@5": 0.32608695652173914,
+            "MRR@10": 0.2784679089026915,
+            "Precision@5": 0.06521739130434782,
+            "Recall@1": 0.22826086956521738,
+            "Recall@10": 0.33695652173913043,
+            "Recall@5": 0.31521739130434784,
+            "nDCG@10": 0.2871378268096023,
+            "sample_count": 46
+          },
+          "mixed": {
+            "CompleteEvidenceRecall@10": 0.19444444444444445,
+            "CompleteEvidenceRecall@5": 0.16666666666666666,
+            "MRR@10": 0.17569444444444446,
+            "Precision@5": 0.044444444444444446,
+            "Recall@1": 0.125,
+            "Recall@10": 0.2222222222222222,
+            "Recall@5": 0.19444444444444445,
+            "nDCG@10": 0.17854636915176106,
+            "sample_count": 36
+          },
+          "reasoning": {
+            "CompleteEvidenceRecall@10": 0.41935483870967744,
+            "CompleteEvidenceRecall@5": 0.3870967741935484,
+            "MRR@10": 0.317741935483871,
+            "Precision@5": 0.08387096774193549,
+            "Recall@1": 0.24193548387096775,
+            "Recall@10": 0.3870967741935484,
+            "Recall@5": 0.3548387096774194,
+            "nDCG@10": 0.3240031465025809,
+            "sample_count": 31
+          },
+          "ruling/verdict": {
+            "CompleteEvidenceRecall@10": 0.045454545454545456,
+            "CompleteEvidenceRecall@5": 0.045454545454545456,
+            "MRR@10": 0.009090909090909092,
+            "Precision@5": 0.009090909090909092,
+            "Recall@1": 0.0,
+            "Recall@10": 0.045454545454545456,
+            "Recall@5": 0.045454545454545456,
+            "nDCG@10": 0.017584218510660984,
+            "sample_count": 22
+          }
+        },
+        "jurisdiction": {
+          "Saudi Arabia": {
+            "CompleteEvidenceRecall@10": 0.2624113475177305,
+            "CompleteEvidenceRecall@5": 0.24113475177304963,
+            "MRR@10": 0.2069824383654171,
+            "Precision@5": 0.0524822695035461,
+            "Recall@1": 0.1595744680851064,
+            "Recall@10": 0.25886524822695034,
+            "Recall@5": 0.2375886524822695,
+            "nDCG@10": 0.21324084873418195,
+            "sample_count": 141
+          }
+        },
+        "language": {
+          "ar": {
+            "CompleteEvidenceRecall@10": 0.27906976744186046,
+            "CompleteEvidenceRecall@5": 0.2558139534883721,
+            "MRR@10": 0.21848468069398302,
+            "Precision@5": 0.05581395348837209,
+            "Recall@1": 0.16666666666666666,
+            "Recall@10": 0.2751937984496124,
+            "Recall@5": 0.25193798449612403,
+            "nDCG@10": 0.2253252687714702,
+            "sample_count": 129
+          },
+          "ar-en": {
+            "CompleteEvidenceRecall@10": 0.16666666666666666,
+            "CompleteEvidenceRecall@5": 0.16666666666666666,
+            "MRR@10": 0.16666666666666666,
+            "Precision@5": 0.03333333333333333,
+            "Recall@1": 0.16666666666666666,
+            "Recall@10": 0.16666666666666666,
+            "Recall@5": 0.16666666666666666,
+            "nDCG@10": 0.16666666666666666,
+            "sample_count": 6
+          },
+          "en": {
+            "CompleteEvidenceRecall@10": 0.0,
+            "CompleteEvidenceRecall@5": 0.0,
+            "MRR@10": 0.0,
+            "Precision@5": 0.0,
+            "Recall@1": 0.0,
+            "Recall@10": 0.0,
+            "Recall@5": 0.0,
+            "nDCG@10": 0.0,
+            "sample_count": 6
+          }
+        },
+        "query_length": {
+          "long": {
+            "CompleteEvidenceRecall@10": 0.2619047619047619,
+            "CompleteEvidenceRecall@5": 0.23809523809523808,
+            "MRR@10": 0.1910714285714286,
+            "Precision@5": 0.06190476190476191,
+            "Recall@1": 0.10714285714285714,
+            "Recall@10": 0.27380952380952384,
+            "Recall@5": 0.25,
+            "nDCG@10": 0.20299359669336214,
+            "sample_count": 42
+          },
+          "medium": {
+            "CompleteEvidenceRecall@10": 0.19230769230769232,
+            "CompleteEvidenceRecall@5": 0.19230769230769232,
+            "MRR@10": 0.16987179487179488,
+            "Precision@5": 0.038461538461538464,
+            "Recall@1": 0.1346153846153846,
+            "Recall@10": 0.17307692307692307,
+            "Recall@5": 0.17307692307692307,
+            "nDCG@10": 0.1607158488288918,
+            "sample_count": 52
+          },
+          "short": {
+            "CompleteEvidenceRecall@10": 0.3404255319148936,
+            "CompleteEvidenceRecall@5": 0.2978723404255319,
+            "MRR@10": 0.2622593718338399,
+            "Precision@5": 0.059574468085106386,
+            "Recall@1": 0.23404255319148937,
+            "Recall@10": 0.3404255319148936,
+            "Recall@5": 0.2978723404255319,
+            "nDCG@10": 0.2805107334318313,
+            "sample_count": 47
+          }
+        },
+        "question_type": {
+          "conditions_exceptions": {
+            "CompleteEvidenceRecall@10": 0.5,
+            "CompleteEvidenceRecall@5": 0.4444444444444444,
+            "MRR@10": 0.38293650793650796,
+            "Precision@5": 0.08888888888888889,
+            "Recall@1": 0.3055555555555556,
+            "Recall@10": 0.4722222222222222,
+            "Recall@5": 0.4166666666666667,
+            "nDCG@10": 0.3893381576524246,
+            "sample_count": 18
+          },
+          "holding_outcome_remedy": {
+            "CompleteEvidenceRecall@10": 0.045454545454545456,
+            "CompleteEvidenceRecall@5": 0.045454545454545456,
+            "MRR@10": 0.009090909090909092,
+            "Precision@5": 0.009090909090909092,
+            "Recall@1": 0.0,
+            "Recall@10": 0.045454545454545456,
+            "Recall@5": 0.045454545454545456,
+            "nDCG@10": 0.017584218510660984,
+            "sample_count": 22
+          },
+          "legal_concept": {
+            "CompleteEvidenceRecall@10": 0.5,
+            "CompleteEvidenceRecall@5": 0.5,
+            "MRR@10": 0.4772727272727273,
+            "Precision@5": 0.1,
+            "Recall@1": 0.45454545454545453,
+            "Recall@10": 0.5,
+            "Recall@5": 0.5,
+            "nDCG@10": 0.4832240797077935,
+            "sample_count": 22
+          },
+          "procedure": {
+            "CompleteEvidenceRecall@10": 0.10526315789473684,
+            "CompleteEvidenceRecall@5": 0.10526315789473684,
+            "MRR@10": 0.07017543859649122,
+            "Precision@5": 0.021052631578947368,
+            "Recall@1": 0.05263157894736842,
+            "Recall@10": 0.10526315789473684,
+            "Recall@5": 0.10526315789473684,
+            "nDCG@10": 0.07894736842105263,
+            "sample_count": 19
+          },
+          "reasoning": {
+            "CompleteEvidenceRecall@10": 0.0,
+            "CompleteEvidenceRecall@5": 0.0,
+            "MRR@10": 0.06315789473684211,
+            "Precision@5": 0.021052631578947368,
+            "Recall@1": 0.02631578947368421,
+            "Recall@10": 0.05263157894736842,
+            "Recall@5": 0.05263157894736842,
+            "nDCG@10": 0.04475499502814498,
+            "sample_count": 19
+          },
+          "reference_lookup": {
+            "CompleteEvidenceRecall@10": 0.4230769230769231,
+            "CompleteEvidenceRecall@5": 0.38461538461538464,
+            "MRR@10": 0.2932692307692308,
+            "Precision@5": 0.08461538461538462,
+            "Recall@1": 0.17307692307692307,
+            "Recall@10": 0.38461538461538464,
+            "Recall@5": 0.34615384615384615,
+            "nDCG@10": 0.30391079004297583,
+            "sample_count": 26
+          },
+          "responsibility": {
+            "CompleteEvidenceRecall@10": 0.2,
+            "CompleteEvidenceRecall@5": 0.13333333333333333,
+            "MRR@10": 0.09555555555555556,
+            "Precision@5": 0.02666666666666667,
+            "Recall@1": 0.06666666666666667,
+            "Recall@10": 0.2,
+            "Recall@5": 0.13333333333333333,
+            "nDCG@10": 0.11927098842119252,
+            "sample_count": 15
+          }
+        },
+        "register": {
+          "egyptian": {
+            "CompleteEvidenceRecall@10": 0.3333333333333333,
+            "CompleteEvidenceRecall@5": 0.3333333333333333,
+            "MRR@10": 0.25,
+            "Precision@5": 0.10000000000000002,
+            "Recall@1": 0.16666666666666666,
+            "Recall@10": 0.3333333333333333,
+            "Recall@5": 0.3333333333333333,
+            "nDCG@10": 0.2822377339362118,
+            "sample_count": 6
+          },
+          "formal": {
+            "CompleteEvidenceRecall@10": 0.27350427350427353,
+            "CompleteEvidenceRecall@5": 0.24786324786324787,
+            "MRR@10": 0.21952584452584453,
+            "Precision@5": 0.05299145299145299,
+            "Recall@1": 0.1752136752136752,
+            "Recall@10": 0.27350427350427353,
+            "Recall@5": 0.24786324786324787,
+            "nDCG@10": 0.2252628265563794,
+            "sample_count": 117
+          },
+          "professional": {
+            "CompleteEvidenceRecall@10": 0.08333333333333333,
+            "CompleteEvidenceRecall@5": 0.08333333333333333,
+            "MRR@10": 0.08333333333333333,
+            "Precision@5": 0.016666666666666666,
+            "Recall@1": 0.08333333333333333,
+            "Recall@10": 0.08333333333333333,
+            "Recall@5": 0.08333333333333333,
+            "nDCG@10": 0.08333333333333333,
+            "sample_count": 12
+          },
+          "simple": {
+            "CompleteEvidenceRecall@10": 0.3333333333333333,
+            "CompleteEvidenceRecall@5": 0.3333333333333333,
+            "MRR@10": 0.16666666666666666,
+            "Precision@5": 0.06666666666666667,
+            "Recall@1": 0.0,
+            "Recall@10": 0.25,
+            "Recall@5": 0.25,
+            "nDCG@10": 0.16963042680099982,
+            "sample_count": 6
+          }
+        },
+        "source": {
+          "alarb": {
+            "CompleteEvidenceRecall@10": 0.1694915254237288,
+            "CompleteEvidenceRecall@5": 0.15254237288135594,
+            "MRR@10": 0.12980225988700564,
+            "Precision@5": 0.03389830508474576,
+            "Recall@1": 0.09322033898305085,
+            "Recall@10": 0.17796610169491525,
+            "Recall@5": 0.16101694915254236,
+            "nDCG@10": 0.13690380311743466,
+            "sample_count": 59
+          },
+          "arabiccr": {
+            "CompleteEvidenceRecall@10": 0.32926829268292684,
+            "CompleteEvidenceRecall@5": 0.3048780487804878,
+            "MRR@10": 0.2625145180023229,
+            "Precision@5": 0.06585365853658537,
+            "Recall@1": 0.2073170731707317,
+            "Recall@10": 0.3170731707317073,
+            "Recall@5": 0.2926829268292683,
+            "nDCG@10": 0.2681662839950123,
+            "sample_count": 82
+          }
+        }
+      },
+      "unanswerable_count": 19
+    }
+  },
+  "phase7_selection_sha256": "bb9c58833f30ca9f4066bbb55339e2f74663fcaeae1a623892b6ce441b3a5fae",
+  "provenance_analysis": {
+    "candidate_fraction": {
+      "both": 0.1365625,
+      "dense-only": 0.0,
+      "sparse-only": 0.8634375
+    },
+    "relevant_top10": {
+      "rrf": {
+        "query_count": {
+          "both": 17,
+          "dense-only": 0,
+          "sparse-only": 15
+        },
+        "relevant_hit_count": {
+          "both": 17,
+          "dense-only": 0,
+          "sparse-only": 15
+        }
+      },
+      "rrf_reranked": {
+        "query_count": {
+          "both": 18,
+          "dense-only": 0,
+          "sparse-only": 22
+        },
+        "relevant_hit_count": {
+          "both": 18,
+          "dense-only": 0,
+          "sparse-only": 22
+        }
+      }
+    }
+  },
+  "qrel_hash": "257596ac0444f8765b4e7059d11394a470209969b98ccc991e06edfbd1c6354a",
+  "release_hash": "87bfb6641c13859425855488fb0ccea27495f82e47d68bf80f0d802029ab1727",
+  "reranker_diagnostics": {
+    "checkpoint_reuse": {
+      "completed_queries": 160,
+      "recomputed_by_this_evaluation": 0,
+      "valid_queries": 160
+    },
+    "latency": {
+      "download_time_excluded": true,
+      "p50_ms": null,
+      "p95_ms": null,
+      "recorded": false,
+      "total_inference_ms": null
+    },
+    "model_artifact_cache_size_bytes": null,
+    "model_revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+    "token_lengths": {
+      "max": 829,
+      "p50": 460,
+      "p90": 660,
+      "p95": 694,
+      "p99": 762
+    },
+    "total_query_passage_pairs": 3200,
+    "truncated_count": 0,
+    "truncated_fraction": 0.0
+  },
+  "rescue_damage": {
+    "fusion_relative_to_bm25": {
+      "damaged": 3,
+      "rescued": 3
+    },
+    "reranker_relative_to_rrf": {
+      "damaged": 2,
+      "rescued": 10
+    }
+  },
+  "robustness_parent_to_variant": {
+    "bge": {
+      "arabic_english_code_switch": {
+        "parent": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.0,
+          "Precision@5": 0.0,
+          "Recall@1": 0.0,
+          "Recall@10": 0.0,
+          "Recall@5": 0.0,
+          "nDCG@10": 0.0
+        },
+        "sample_count": 6,
+        "small_sample_warning": true,
+        "variant": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.0,
+          "Precision@5": 0.0,
+          "Recall@1": 0.0,
+          "Recall@10": 0.0,
+          "Recall@5": 0.0,
+          "nDCG@10": 0.0
+        },
+        "variant_minus_parent": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.0,
+          "Precision@5": 0.0,
+          "Recall@1": 0.0,
+          "Recall@10": 0.0,
+          "Recall@5": 0.0,
+          "nDCG@10": 0.0
+        }
+      },
+      "egyptian_arabic": {
+        "parent": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.0,
+          "Precision@5": 0.0,
+          "Recall@1": 0.0,
+          "Recall@10": 0.0,
+          "Recall@5": 0.0,
+          "nDCG@10": 0.0
+        },
+        "sample_count": 6,
+        "small_sample_warning": true,
+        "variant": {
+          "CompleteEvidenceRecall@10": 0.16666666666666666,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.05555555555555555,
+          "Precision@5": 0.03333333333333333,
+          "Recall@1": 0.0,
+          "Recall@10": 0.16666666666666666,
+          "Recall@5": 0.16666666666666666,
+          "nDCG@10": 0.08333333333333333
+        },
+        "variant_minus_parent": {
+          "CompleteEvidenceRecall@10": 0.16666666666666666,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.05555555555555555,
+          "Precision@5": 0.03333333333333333,
+          "Recall@1": 0.0,
+          "Recall@10": 0.16666666666666666,
+          "Recall@5": 0.16666666666666666,
+          "nDCG@10": 0.08333333333333333
+        }
+      },
+      "english": {
+        "parent": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.0,
+          "Precision@5": 0.0,
+          "Recall@1": 0.0,
+          "Recall@10": 0.0,
+          "Recall@5": 0.0,
+          "nDCG@10": 0.0
+        },
+        "sample_count": 6,
+        "small_sample_warning": true,
+        "variant": {
+          "CompleteEvidenceRecall@10": 0.16666666666666666,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.023809523809523808,
+          "Precision@5": 0.0,
+          "Recall@1": 0.0,
+          "Recall@10": 0.16666666666666666,
+          "Recall@5": 0.0,
+          "nDCG@10": 0.05555555555555555
+        },
+        "variant_minus_parent": {
+          "CompleteEvidenceRecall@10": 0.16666666666666666,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.023809523809523808,
+          "Precision@5": 0.0,
+          "Recall@1": 0.0,
+          "Recall@10": 0.16666666666666666,
+          "Recall@5": 0.0,
+          "nDCG@10": 0.05555555555555555
+        }
+      },
+      "simple_arabic": {
+        "parent": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.0,
+          "Precision@5": 0.0,
+          "Recall@1": 0.0,
+          "Recall@10": 0.0,
+          "Recall@5": 0.0,
+          "nDCG@10": 0.0
+        },
+        "sample_count": 6,
+        "small_sample_warning": true,
+        "variant": {
+          "CompleteEvidenceRecall@10": 0.3333333333333333,
+          "CompleteEvidenceRecall@5": 0.3333333333333333,
+          "MRR@10": 0.075,
+          "Precision@5": 0.06666666666666667,
+          "Recall@1": 0.0,
+          "Recall@10": 0.25,
+          "Recall@5": 0.25,
+          "nDCG@10": 0.11131237847378156
+        },
+        "variant_minus_parent": {
+          "CompleteEvidenceRecall@10": 0.3333333333333333,
+          "CompleteEvidenceRecall@5": 0.3333333333333333,
+          "MRR@10": 0.075,
+          "Precision@5": 0.06666666666666667,
+          "Recall@1": 0.0,
+          "Recall@10": 0.25,
+          "Recall@5": 0.25,
+          "nDCG@10": 0.11131237847378156
+        }
+      }
+    },
+    "bm25": {
+      "arabic_english_code_switch": {
+        "parent": {
+          "CompleteEvidenceRecall@10": 0.3333333333333333,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.10185185185185186,
+          "Precision@5": 0.03333333333333333,
+          "Recall@1": 0.0,
+          "Recall@10": 0.25,
+          "Recall@5": 0.16666666666666666,
+          "nDCG@10": 0.13591757505850427
+        },
+        "sample_count": 6,
+        "small_sample_warning": true,
+        "variant": {
+          "CompleteEvidenceRecall@10": 0.16666666666666666,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.16666666666666666,
+          "Precision@5": 0.03333333333333333,
+          "Recall@1": 0.16666666666666666,
+          "Recall@10": 0.16666666666666666,
+          "Recall@5": 0.16666666666666666,
+          "nDCG@10": 0.16666666666666666
+        },
+        "variant_minus_parent": {
+          "CompleteEvidenceRecall@10": -0.16666666666666666,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.0648148148148148,
+          "Precision@5": 0.0,
+          "Recall@1": 0.16666666666666666,
+          "Recall@10": -0.08333333333333334,
+          "Recall@5": 0.0,
+          "nDCG@10": 0.030749091608162388
+        }
+      },
+      "egyptian_arabic": {
+        "parent": {
+          "CompleteEvidenceRecall@10": 0.3333333333333333,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.10185185185185186,
+          "Precision@5": 0.03333333333333333,
+          "Recall@1": 0.0,
+          "Recall@10": 0.25,
+          "Recall@5": 0.16666666666666666,
+          "nDCG@10": 0.13591757505850427
+        },
+        "sample_count": 6,
+        "small_sample_warning": true,
+        "variant": {
+          "CompleteEvidenceRecall@10": 0.3333333333333333,
+          "CompleteEvidenceRecall@5": 0.3333333333333333,
+          "MRR@10": 0.20833333333333334,
+          "Precision@5": 0.06666666666666667,
+          "Recall@1": 0.08333333333333333,
+          "Recall@10": 0.3333333333333333,
+          "Recall@5": 0.25,
+          "nDCG@10": 0.2035105062704832
+        },
+        "variant_minus_parent": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.10648148148148148,
+          "Precision@5": 0.03333333333333333,
+          "Recall@1": 0.08333333333333333,
+          "Recall@10": 0.08333333333333331,
+          "Recall@5": 0.08333333333333334,
+          "nDCG@10": 0.06759293121197893
+        }
+      },
+      "english": {
+        "parent": {
+          "CompleteEvidenceRecall@10": 0.3333333333333333,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.10185185185185186,
+          "Precision@5": 0.03333333333333333,
+          "Recall@1": 0.0,
+          "Recall@10": 0.25,
+          "Recall@5": 0.16666666666666666,
+          "nDCG@10": 0.13591757505850427
+        },
+        "sample_count": 6,
+        "small_sample_warning": true,
+        "variant": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.0,
+          "Precision@5": 0.0,
+          "Recall@1": 0.0,
+          "Recall@10": 0.0,
+          "Recall@5": 0.0,
+          "nDCG@10": 0.0
+        },
+        "variant_minus_parent": {
+          "CompleteEvidenceRecall@10": -0.3333333333333333,
+          "CompleteEvidenceRecall@5": -0.16666666666666666,
+          "MRR@10": -0.10185185185185186,
+          "Precision@5": -0.03333333333333333,
+          "Recall@1": 0.0,
+          "Recall@10": -0.25,
+          "Recall@5": -0.16666666666666666,
+          "nDCG@10": -0.13591757505850427
+        }
+      },
+      "simple_arabic": {
+        "parent": {
+          "CompleteEvidenceRecall@10": 0.3333333333333333,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.10185185185185186,
+          "Precision@5": 0.03333333333333333,
+          "Recall@1": 0.0,
+          "Recall@10": 0.25,
+          "Recall@5": 0.16666666666666666,
+          "nDCG@10": 0.13591757505850427
+        },
+        "sample_count": 6,
+        "small_sample_warning": true,
+        "variant": {
+          "CompleteEvidenceRecall@10": 0.3333333333333333,
+          "CompleteEvidenceRecall@5": 0.3333333333333333,
+          "MRR@10": 0.25,
+          "Precision@5": 0.06666666666666667,
+          "Recall@1": 0.08333333333333333,
+          "Recall@10": 0.25,
+          "Recall@5": 0.25,
+          "nDCG@10": 0.20734615772281928
+        },
+        "variant_minus_parent": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.14814814814814814,
+          "Precision@5": 0.03333333333333333,
+          "Recall@1": 0.08333333333333333,
+          "Recall@10": 0.0,
+          "Recall@5": 0.08333333333333334,
+          "nDCG@10": 0.07142858266431501
+        }
+      }
+    },
+    "rrf": {
+      "arabic_english_code_switch": {
+        "parent": {
+          "CompleteEvidenceRecall@10": 0.3333333333333333,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.07222222222222223,
+          "Precision@5": 0.03333333333333333,
+          "Recall@1": 0.0,
+          "Recall@10": 0.25,
+          "Recall@5": 0.16666666666666666,
+          "nDCG@10": 0.11287321446400796
+        },
+        "sample_count": 6,
+        "small_sample_warning": true,
+        "variant": {
+          "CompleteEvidenceRecall@10": 0.16666666666666666,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.16666666666666666,
+          "Precision@5": 0.03333333333333333,
+          "Recall@1": 0.16666666666666666,
+          "Recall@10": 0.16666666666666666,
+          "Recall@5": 0.16666666666666666,
+          "nDCG@10": 0.16666666666666666
+        },
+        "variant_minus_parent": {
+          "CompleteEvidenceRecall@10": -0.16666666666666666,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.09444444444444443,
+          "Precision@5": 0.0,
+          "Recall@1": 0.16666666666666666,
+          "Recall@10": -0.08333333333333334,
+          "Recall@5": 0.0,
+          "nDCG@10": 0.0537934522026587
+        }
+      },
+      "egyptian_arabic": {
+        "parent": {
+          "CompleteEvidenceRecall@10": 0.3333333333333333,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.07222222222222223,
+          "Precision@5": 0.03333333333333333,
+          "Recall@1": 0.0,
+          "Recall@10": 0.25,
+          "Recall@5": 0.16666666666666666,
+          "nDCG@10": 0.11287321446400796
+        },
+        "sample_count": 6,
+        "small_sample_warning": true,
+        "variant": {
+          "CompleteEvidenceRecall@10": 0.16666666666666666,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.16666666666666666,
+          "Precision@5": 0.03333333333333333,
+          "Recall@1": 0.08333333333333333,
+          "Recall@10": 0.16666666666666666,
+          "Recall@5": 0.08333333333333333,
+          "nDCG@10": 0.1317310799249177
+        },
+        "variant_minus_parent": {
+          "CompleteEvidenceRecall@10": -0.16666666666666666,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.09444444444444443,
+          "Precision@5": 0.0,
+          "Recall@1": 0.08333333333333333,
+          "Recall@10": -0.08333333333333334,
+          "Recall@5": -0.08333333333333333,
+          "nDCG@10": 0.018857865460909742
+        }
+      },
+      "english": {
+        "parent": {
+          "CompleteEvidenceRecall@10": 0.3333333333333333,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.07222222222222223,
+          "Precision@5": 0.03333333333333333,
+          "Recall@1": 0.0,
+          "Recall@10": 0.25,
+          "Recall@5": 0.16666666666666666,
+          "nDCG@10": 0.11287321446400796
+        },
+        "sample_count": 6,
+        "small_sample_warning": true,
+        "variant": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.0,
+          "Precision@5": 0.0,
+          "Recall@1": 0.0,
+          "Recall@10": 0.0,
+          "Recall@5": 0.0,
+          "nDCG@10": 0.0
+        },
+        "variant_minus_parent": {
+          "CompleteEvidenceRecall@10": -0.3333333333333333,
+          "CompleteEvidenceRecall@5": -0.16666666666666666,
+          "MRR@10": -0.07222222222222223,
+          "Precision@5": -0.03333333333333333,
+          "Recall@1": 0.0,
+          "Recall@10": -0.25,
+          "Recall@5": -0.16666666666666666,
+          "nDCG@10": -0.11287321446400796
+        }
+      },
+      "simple_arabic": {
+        "parent": {
+          "CompleteEvidenceRecall@10": 0.3333333333333333,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.07222222222222223,
+          "Precision@5": 0.03333333333333333,
+          "Recall@1": 0.0,
+          "Recall@10": 0.25,
+          "Recall@5": 0.16666666666666666,
+          "nDCG@10": 0.11287321446400796
+        },
+        "sample_count": 6,
+        "small_sample_warning": true,
+        "variant": {
+          "CompleteEvidenceRecall@10": 0.3333333333333333,
+          "CompleteEvidenceRecall@5": 0.3333333333333333,
+          "MRR@10": 0.3333333333333333,
+          "Precision@5": 0.06666666666666667,
+          "Recall@1": 0.25,
+          "Recall@10": 0.25,
+          "Recall@5": 0.25,
+          "nDCG@10": 0.26885786546090973
+        },
+        "variant_minus_parent": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.26111111111111107,
+          "Precision@5": 0.03333333333333333,
+          "Recall@1": 0.25,
+          "Recall@10": 0.0,
+          "Recall@5": 0.08333333333333334,
+          "nDCG@10": 0.15598465099690179
+        }
+      }
+    },
+    "rrf_reranked": {
+      "arabic_english_code_switch": {
+        "parent": {
+          "CompleteEvidenceRecall@10": 0.3333333333333333,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.1875,
+          "Precision@5": 0.03333333333333333,
+          "Recall@1": 0.08333333333333333,
+          "Recall@10": 0.25,
+          "Recall@5": 0.08333333333333333,
+          "nDCG@10": 0.15476867825853116
+        },
+        "sample_count": 6,
+        "small_sample_warning": true,
+        "variant": {
+          "CompleteEvidenceRecall@10": 0.16666666666666666,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.16666666666666666,
+          "Precision@5": 0.03333333333333333,
+          "Recall@1": 0.16666666666666666,
+          "Recall@10": 0.16666666666666666,
+          "Recall@5": 0.16666666666666666,
+          "nDCG@10": 0.16666666666666666
+        },
+        "variant_minus_parent": {
+          "CompleteEvidenceRecall@10": -0.16666666666666666,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": -0.020833333333333343,
+          "Precision@5": 0.0,
+          "Recall@1": 0.08333333333333333,
+          "Recall@10": -0.08333333333333334,
+          "Recall@5": 0.08333333333333333,
+          "nDCG@10": 0.011897988408135496
+        }
+      },
+      "egyptian_arabic": {
+        "parent": {
+          "CompleteEvidenceRecall@10": 0.3333333333333333,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.1875,
+          "Precision@5": 0.03333333333333333,
+          "Recall@1": 0.08333333333333333,
+          "Recall@10": 0.25,
+          "Recall@5": 0.08333333333333333,
+          "nDCG@10": 0.15476867825853116
+        },
+        "sample_count": 6,
+        "small_sample_warning": true,
+        "variant": {
+          "CompleteEvidenceRecall@10": 0.3333333333333333,
+          "CompleteEvidenceRecall@5": 0.3333333333333333,
+          "MRR@10": 0.25,
+          "Precision@5": 0.10000000000000002,
+          "Recall@1": 0.16666666666666666,
+          "Recall@10": 0.3333333333333333,
+          "Recall@5": 0.3333333333333333,
+          "nDCG@10": 0.2822377339362118
+        },
+        "variant_minus_parent": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.0625,
+          "Precision@5": 0.06666666666666668,
+          "Recall@1": 0.08333333333333333,
+          "Recall@10": 0.08333333333333331,
+          "Recall@5": 0.25,
+          "nDCG@10": 0.12746905567768066
+        }
+      },
+      "english": {
+        "parent": {
+          "CompleteEvidenceRecall@10": 0.3333333333333333,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.1875,
+          "Precision@5": 0.03333333333333333,
+          "Recall@1": 0.08333333333333333,
+          "Recall@10": 0.25,
+          "Recall@5": 0.08333333333333333,
+          "nDCG@10": 0.15476867825853116
+        },
+        "sample_count": 6,
+        "small_sample_warning": true,
+        "variant": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.0,
+          "Precision@5": 0.0,
+          "Recall@1": 0.0,
+          "Recall@10": 0.0,
+          "Recall@5": 0.0,
+          "nDCG@10": 0.0
+        },
+        "variant_minus_parent": {
+          "CompleteEvidenceRecall@10": -0.3333333333333333,
+          "CompleteEvidenceRecall@5": -0.16666666666666666,
+          "MRR@10": -0.1875,
+          "Precision@5": -0.03333333333333333,
+          "Recall@1": -0.08333333333333333,
+          "Recall@10": -0.25,
+          "Recall@5": -0.08333333333333333,
+          "nDCG@10": -0.15476867825853116
+        }
+      },
+      "simple_arabic": {
+        "parent": {
+          "CompleteEvidenceRecall@10": 0.3333333333333333,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.1875,
+          "Precision@5": 0.03333333333333333,
+          "Recall@1": 0.08333333333333333,
+          "Recall@10": 0.25,
+          "Recall@5": 0.08333333333333333,
+          "nDCG@10": 0.15476867825853116
+        },
+        "sample_count": 6,
+        "small_sample_warning": true,
+        "variant": {
+          "CompleteEvidenceRecall@10": 0.3333333333333333,
+          "CompleteEvidenceRecall@5": 0.3333333333333333,
+          "MRR@10": 0.16666666666666666,
+          "Precision@5": 0.06666666666666667,
+          "Recall@1": 0.0,
+          "Recall@10": 0.25,
+          "Recall@5": 0.25,
+          "nDCG@10": 0.16963042680099982
+        },
+        "variant_minus_parent": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": -0.020833333333333343,
+          "Precision@5": 0.03333333333333333,
+          "Recall@1": -0.08333333333333333,
+          "Recall@10": 0.0,
+          "Recall@5": 0.16666666666666669,
+          "nDCG@10": 0.014861748542468661
+        }
+      }
+    }
+  },
+  "schema_version": 1,
+  "selection_decision": {
+    "CompleteEvidenceRecall@10_delta": 0.05673758865248227,
+    "Recall@10_delta": 0.05673758865248227,
+    "nDCG@10_delta": 0.06517729991822938,
+    "reranker_eligible": true,
+    "selected_pipeline": "rrf_reranked",
+    "thresholds": {
+      "maximum_CompleteEvidenceRecall@10_regression": 0.01,
+      "maximum_Recall@10_regression": 0.01,
+      "minimum_nDCG@10_delta": 0.002
+    }
+  },
+  "slices": {
+    "bge": {
+      "base_vs_variant": {
+        "base": {
+          "CompleteEvidenceRecall@10": 0.08547008547008547,
+          "CompleteEvidenceRecall@5": 0.07692307692307693,
+          "MRR@10": 0.06674806674806674,
+          "Precision@5": 0.017094017094017096,
+          "Recall@1": 0.04700854700854701,
+          "Recall@10": 0.08547008547008547,
+          "Recall@5": 0.07692307692307693,
+          "nDCG@10": 0.06807062467439992,
+          "sample_count": 117
+        },
+        "variant": {
+          "CompleteEvidenceRecall@10": 0.16666666666666666,
+          "CompleteEvidenceRecall@5": 0.125,
+          "MRR@10": 0.03859126984126984,
+          "Precision@5": 0.025000000000000005,
+          "Recall@1": 0.0,
+          "Recall@10": 0.14583333333333334,
+          "Recall@5": 0.10416666666666667,
+          "nDCG@10": 0.06255031684066761,
+          "sample_count": 24
+        }
+      },
+      "category": {
+        "authority": {
+          "CompleteEvidenceRecall@10": 0.06666666666666667,
+          "CompleteEvidenceRecall@5": 0.06666666666666667,
+          "MRR@10": 0.06666666666666667,
+          "Precision@5": 0.013333333333333334,
+          "Recall@1": 0.06666666666666667,
+          "Recall@10": 0.06666666666666667,
+          "Recall@5": 0.06666666666666667,
+          "nDCG@10": 0.06666666666666667,
+          "sample_count": 15
+        },
+        "case_holding": {
+          "CompleteEvidenceRecall@10": 0.045454545454545456,
+          "CompleteEvidenceRecall@5": 0.045454545454545456,
+          "MRR@10": 0.01515151515151515,
+          "Precision@5": 0.009090909090909092,
+          "Recall@1": 0.0,
+          "Recall@10": 0.045454545454545456,
+          "Recall@5": 0.045454545454545456,
+          "nDCG@10": 0.022727272727272728,
+          "sample_count": 22
+        },
+        "conditions": {
+          "CompleteEvidenceRecall@10": 0.1111111111111111,
+          "CompleteEvidenceRecall@5": 0.05555555555555555,
+          "MRR@10": 0.03571428571428571,
+          "Precision@5": 0.011111111111111112,
+          "Recall@1": 0.0,
+          "Recall@10": 0.08333333333333333,
+          "Recall@5": 0.027777777777777776,
+          "nDCG@10": 0.040010341142659715,
+          "sample_count": 18
+        },
+        "deadline": {
+          "CompleteEvidenceRecall@10": 0.21052631578947367,
+          "CompleteEvidenceRecall@5": 0.15789473684210525,
+          "MRR@10": 0.06453634085213034,
+          "Precision@5": 0.03157894736842106,
+          "Recall@1": 0.0,
+          "Recall@10": 0.21052631578947367,
+          "Recall@5": 0.15789473684210525,
+          "nDCG@10": 0.09973366552516758,
+          "sample_count": 19
+        },
+        "definition": {
+          "CompleteEvidenceRecall@10": 0.22727272727272727,
+          "CompleteEvidenceRecall@5": 0.22727272727272727,
+          "MRR@10": 0.19696969696969696,
+          "Precision@5": 0.045454545454545456,
+          "Recall@1": 0.18181818181818182,
+          "Recall@10": 0.22727272727272727,
+          "Recall@5": 0.22727272727272727,
+          "nDCG@10": 0.20454545454545456,
+          "sample_count": 22
+        },
+        "exact_provision": {
+          "CompleteEvidenceRecall@10": 0.038461538461538464,
+          "CompleteEvidenceRecall@5": 0.038461538461538464,
+          "MRR@10": 0.007692307692307693,
+          "Precision@5": 0.007692307692307693,
+          "Recall@1": 0.0,
+          "Recall@10": 0.019230769230769232,
+          "Recall@5": 0.019230769230769232,
+          "nDCG@10": 0.009122988952665239,
+          "sample_count": 26
+        },
+        "multi_evidence": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.05263157894736842,
+          "Precision@5": 0.010526315789473684,
+          "Recall@1": 0.02631578947368421,
+          "Recall@10": 0.02631578947368421,
+          "Recall@5": 0.02631578947368421,
+          "nDCG@10": 0.032270904882392544,
+          "sample_count": 19
+        }
+      },
+      "difficulty": {
+        "hard": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.05263157894736842,
+          "Precision@5": 0.010526315789473684,
+          "Recall@1": 0.02631578947368421,
+          "Recall@10": 0.02631578947368421,
+          "Recall@5": 0.02631578947368421,
+          "nDCG@10": 0.032270904882392544,
+          "sample_count": 19
+        },
+        "medium": {
+          "CompleteEvidenceRecall@10": 0.11475409836065574,
+          "CompleteEvidenceRecall@5": 0.09836065573770492,
+          "MRR@10": 0.06340749414519907,
+          "Precision@5": 0.019672131147540985,
+          "Recall@1": 0.040983606557377046,
+          "Recall@10": 0.10655737704918032,
+          "Recall@5": 0.09016393442622951,
+          "nDCG@10": 0.07256002867471603,
+          "sample_count": 122
+        }
+      },
+      "document_type": {
+        "applicable_laws": {
+          "CompleteEvidenceRecall@10": 0.16666666666666666,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.023809523809523808,
+          "Precision@5": 0.0,
+          "Recall@1": 0.0,
+          "Recall@10": 0.16666666666666666,
+          "Recall@5": 0.0,
+          "nDCG@10": 0.05555555555555555,
+          "sample_count": 6
+        },
+        "facts/events": {
+          "CompleteEvidenceRecall@10": 0.17391304347826086,
+          "CompleteEvidenceRecall@5": 0.15217391304347827,
+          "MRR@10": 0.1027432712215321,
+          "Precision@5": 0.030434782608695653,
+          "Recall@1": 0.06521739130434782,
+          "Recall@10": 0.16304347826086957,
+          "Recall@5": 0.14130434782608695,
+          "nDCG@10": 0.11482157504810273,
+          "sample_count": 46
+        },
+        "mixed": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.027777777777777776,
+          "Precision@5": 0.005555555555555556,
+          "Recall@1": 0.013888888888888888,
+          "Recall@10": 0.013888888888888888,
+          "Recall@5": 0.013888888888888888,
+          "nDCG@10": 0.017031866465707177,
+          "sample_count": 36
+        },
+        "reasoning": {
+          "CompleteEvidenceRecall@10": 0.12903225806451613,
+          "CompleteEvidenceRecall@5": 0.12903225806451613,
+          "MRR@10": 0.08172043010752687,
+          "Precision@5": 0.025806451612903226,
+          "Recall@1": 0.06451612903225806,
+          "Recall@10": 0.11290322580645161,
+          "Recall@5": 0.11290322580645161,
+          "nDCG@10": 0.08829670041191277,
+          "sample_count": 31
+        },
+        "ruling/verdict": {
+          "CompleteEvidenceRecall@10": 0.045454545454545456,
+          "CompleteEvidenceRecall@5": 0.045454545454545456,
+          "MRR@10": 0.01515151515151515,
+          "Precision@5": 0.009090909090909092,
+          "Recall@1": 0.0,
+          "Recall@10": 0.045454545454545456,
+          "Recall@5": 0.045454545454545456,
+          "nDCG@10": 0.022727272727272728,
+          "sample_count": 22
+        }
+      },
+      "gold_evidence_type": {
+        "applicable_laws": {
+          "CompleteEvidenceRecall@10": 0.16666666666666666,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.023809523809523808,
+          "Precision@5": 0.0,
+          "Recall@1": 0.0,
+          "Recall@10": 0.16666666666666666,
+          "Recall@5": 0.0,
+          "nDCG@10": 0.05555555555555555,
+          "sample_count": 6
+        },
+        "facts/events": {
+          "CompleteEvidenceRecall@10": 0.17391304347826086,
+          "CompleteEvidenceRecall@5": 0.15217391304347827,
+          "MRR@10": 0.1027432712215321,
+          "Precision@5": 0.030434782608695653,
+          "Recall@1": 0.06521739130434782,
+          "Recall@10": 0.16304347826086957,
+          "Recall@5": 0.14130434782608695,
+          "nDCG@10": 0.11482157504810273,
+          "sample_count": 46
+        },
+        "mixed": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.027777777777777776,
+          "Precision@5": 0.005555555555555556,
+          "Recall@1": 0.013888888888888888,
+          "Recall@10": 0.013888888888888888,
+          "Recall@5": 0.013888888888888888,
+          "nDCG@10": 0.017031866465707177,
+          "sample_count": 36
+        },
+        "reasoning": {
+          "CompleteEvidenceRecall@10": 0.12903225806451613,
+          "CompleteEvidenceRecall@5": 0.12903225806451613,
+          "MRR@10": 0.08172043010752687,
+          "Precision@5": 0.025806451612903226,
+          "Recall@1": 0.06451612903225806,
+          "Recall@10": 0.11290322580645161,
+          "Recall@5": 0.11290322580645161,
+          "nDCG@10": 0.08829670041191277,
+          "sample_count": 31
+        },
+        "ruling/verdict": {
+          "CompleteEvidenceRecall@10": 0.045454545454545456,
+          "CompleteEvidenceRecall@5": 0.045454545454545456,
+          "MRR@10": 0.01515151515151515,
+          "Precision@5": 0.009090909090909092,
+          "Recall@1": 0.0,
+          "Recall@10": 0.045454545454545456,
+          "Recall@5": 0.045454545454545456,
+          "nDCG@10": 0.022727272727272728,
+          "sample_count": 22
+        }
+      },
+      "jurisdiction": {
+        "Saudi Arabia": {
+          "CompleteEvidenceRecall@10": 0.09929078014184398,
+          "CompleteEvidenceRecall@5": 0.0851063829787234,
+          "MRR@10": 0.061955420466058765,
+          "Precision@5": 0.01843971631205674,
+          "Recall@1": 0.03900709219858156,
+          "Recall@10": 0.09574468085106383,
+          "Recall@5": 0.08156028368794327,
+          "nDCG@10": 0.06713099780908378,
+          "sample_count": 141
+        }
+      },
+      "language": {
+        "ar": {
+          "CompleteEvidenceRecall@10": 0.10077519379844961,
+          "CompleteEvidenceRecall@5": 0.09302325581395349,
+          "MRR@10": 0.06661129568106312,
+          "Precision@5": 0.020155038759689922,
+          "Recall@1": 0.04263565891472868,
+          "Recall@10": 0.09689922480620156,
+          "Recall@5": 0.08914728682170543,
+          "nDCG@10": 0.07079176246315876,
+          "sample_count": 129
+        },
+        "ar-en": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.0,
+          "Precision@5": 0.0,
+          "Recall@1": 0.0,
+          "Recall@10": 0.0,
+          "Recall@5": 0.0,
+          "nDCG@10": 0.0,
+          "sample_count": 6
+        },
+        "en": {
+          "CompleteEvidenceRecall@10": 0.16666666666666666,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.023809523809523808,
+          "Precision@5": 0.0,
+          "Recall@1": 0.0,
+          "Recall@10": 0.16666666666666666,
+          "Recall@5": 0.0,
+          "nDCG@10": 0.05555555555555555,
+          "sample_count": 6
+        }
+      },
+      "query_length": {
+        "long": {
+          "CompleteEvidenceRecall@10": 0.023809523809523808,
+          "CompleteEvidenceRecall@5": 0.023809523809523808,
+          "MRR@10": 0.02857142857142857,
+          "Precision@5": 0.009523809523809525,
+          "Recall@1": 0.011904761904761904,
+          "Recall@10": 0.023809523809523808,
+          "Recall@5": 0.023809523809523808,
+          "nDCG@10": 0.020246307274637016,
+          "sample_count": 42
+        },
+        "medium": {
+          "CompleteEvidenceRecall@10": 0.11538461538461539,
+          "CompleteEvidenceRecall@5": 0.09615384615384616,
+          "MRR@10": 0.06364468864468864,
+          "Precision@5": 0.019230769230769232,
+          "Recall@1": 0.038461538461538464,
+          "Recall@10": 0.10576923076923077,
+          "Recall@5": 0.08653846153846154,
+          "nDCG@10": 0.07154204116476683,
+          "sample_count": 52
+        },
+        "short": {
+          "CompleteEvidenceRecall@10": 0.14893617021276595,
+          "CompleteEvidenceRecall@5": 0.1276595744680851,
+          "MRR@10": 0.08991894630192503,
+          "Precision@5": 0.025531914893617023,
+          "Recall@1": 0.06382978723404255,
+          "Recall@10": 0.14893617021276595,
+          "Recall@5": 0.1276595744680851,
+          "nDCG@10": 0.10414765202081241,
+          "sample_count": 47
+        }
+      },
+      "question_type": {
+        "conditions_exceptions": {
+          "CompleteEvidenceRecall@10": 0.1111111111111111,
+          "CompleteEvidenceRecall@5": 0.05555555555555555,
+          "MRR@10": 0.03571428571428571,
+          "Precision@5": 0.011111111111111112,
+          "Recall@1": 0.0,
+          "Recall@10": 0.08333333333333333,
+          "Recall@5": 0.027777777777777776,
+          "nDCG@10": 0.040010341142659715,
+          "sample_count": 18
+        },
+        "holding_outcome_remedy": {
+          "CompleteEvidenceRecall@10": 0.045454545454545456,
+          "CompleteEvidenceRecall@5": 0.045454545454545456,
+          "MRR@10": 0.01515151515151515,
+          "Precision@5": 0.009090909090909092,
+          "Recall@1": 0.0,
+          "Recall@10": 0.045454545454545456,
+          "Recall@5": 0.045454545454545456,
+          "nDCG@10": 0.022727272727272728,
+          "sample_count": 22
+        },
+        "legal_concept": {
+          "CompleteEvidenceRecall@10": 0.22727272727272727,
+          "CompleteEvidenceRecall@5": 0.22727272727272727,
+          "MRR@10": 0.19696969696969696,
+          "Precision@5": 0.045454545454545456,
+          "Recall@1": 0.18181818181818182,
+          "Recall@10": 0.22727272727272727,
+          "Recall@5": 0.22727272727272727,
+          "nDCG@10": 0.20454545454545456,
+          "sample_count": 22
+        },
+        "procedure": {
+          "CompleteEvidenceRecall@10": 0.21052631578947367,
+          "CompleteEvidenceRecall@5": 0.15789473684210525,
+          "MRR@10": 0.06453634085213034,
+          "Precision@5": 0.03157894736842106,
+          "Recall@1": 0.0,
+          "Recall@10": 0.21052631578947367,
+          "Recall@5": 0.15789473684210525,
+          "nDCG@10": 0.09973366552516758,
+          "sample_count": 19
+        },
+        "reasoning": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.05263157894736842,
+          "Precision@5": 0.010526315789473684,
+          "Recall@1": 0.02631578947368421,
+          "Recall@10": 0.02631578947368421,
+          "Recall@5": 0.02631578947368421,
+          "nDCG@10": 0.032270904882392544,
+          "sample_count": 19
+        },
+        "reference_lookup": {
+          "CompleteEvidenceRecall@10": 0.038461538461538464,
+          "CompleteEvidenceRecall@5": 0.038461538461538464,
+          "MRR@10": 0.007692307692307693,
+          "Precision@5": 0.007692307692307693,
+          "Recall@1": 0.0,
+          "Recall@10": 0.019230769230769232,
+          "Recall@5": 0.019230769230769232,
+          "nDCG@10": 0.009122988952665239,
+          "sample_count": 26
+        },
+        "responsibility": {
+          "CompleteEvidenceRecall@10": 0.06666666666666667,
+          "CompleteEvidenceRecall@5": 0.06666666666666667,
+          "MRR@10": 0.06666666666666667,
+          "Precision@5": 0.013333333333333334,
+          "Recall@1": 0.06666666666666667,
+          "Recall@10": 0.06666666666666667,
+          "Recall@5": 0.06666666666666667,
+          "nDCG@10": 0.06666666666666667,
+          "sample_count": 15
+        }
+      },
+      "register": {
+        "egyptian": {
+          "CompleteEvidenceRecall@10": 0.16666666666666666,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.05555555555555555,
+          "Precision@5": 0.03333333333333333,
+          "Recall@1": 0.0,
+          "Recall@10": 0.16666666666666666,
+          "Recall@5": 0.16666666666666666,
+          "nDCG@10": 0.08333333333333333,
+          "sample_count": 6
+        },
+        "formal": {
+          "CompleteEvidenceRecall@10": 0.08547008547008547,
+          "CompleteEvidenceRecall@5": 0.07692307692307693,
+          "MRR@10": 0.06674806674806674,
+          "Precision@5": 0.017094017094017096,
+          "Recall@1": 0.04700854700854701,
+          "Recall@10": 0.08547008547008547,
+          "Recall@5": 0.07692307692307693,
+          "nDCG@10": 0.06807062467439992,
+          "sample_count": 117
+        },
+        "professional": {
+          "CompleteEvidenceRecall@10": 0.08333333333333333,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.011904761904761904,
+          "Precision@5": 0.0,
+          "Recall@1": 0.0,
+          "Recall@10": 0.08333333333333333,
+          "Recall@5": 0.0,
+          "nDCG@10": 0.027777777777777776,
+          "sample_count": 12
+        },
+        "simple": {
+          "CompleteEvidenceRecall@10": 0.3333333333333333,
+          "CompleteEvidenceRecall@5": 0.3333333333333333,
+          "MRR@10": 0.075,
+          "Precision@5": 0.06666666666666667,
+          "Recall@1": 0.0,
+          "Recall@10": 0.25,
+          "Recall@5": 0.25,
+          "nDCG@10": 0.11131237847378156,
+          "sample_count": 6
+        }
+      },
+      "source": {
+        "alarb": {
+          "CompleteEvidenceRecall@10": 0.03389830508474576,
+          "CompleteEvidenceRecall@5": 0.01694915254237288,
+          "MRR@10": 0.025020177562550445,
+          "Precision@5": 0.006779661016949153,
+          "Recall@1": 0.00847457627118644,
+          "Recall@10": 0.0423728813559322,
+          "Recall@5": 0.025423728813559324,
+          "nDCG@10": 0.024516619086420197,
+          "sample_count": 59
+        },
+        "arabiccr": {
+          "CompleteEvidenceRecall@10": 0.14634146341463414,
+          "CompleteEvidenceRecall@5": 0.13414634146341464,
+          "MRR@10": 0.08853077816492451,
+          "Precision@5": 0.02682926829268293,
+          "Recall@1": 0.06097560975609756,
+          "Recall@10": 0.13414634146341464,
+          "Recall@5": 0.12195121951219512,
+          "nDCG@10": 0.09779256298758562,
+          "sample_count": 82
+        }
+      }
+    },
+    "bm25": {
+      "base_vs_variant": {
+        "base": {
+          "CompleteEvidenceRecall@10": 0.21367521367521367,
+          "CompleteEvidenceRecall@5": 0.15384615384615385,
+          "MRR@10": 0.11858974358974358,
+          "Precision@5": 0.03076923076923077,
+          "Recall@1": 0.07264957264957266,
+          "Recall@10": 0.2094017094017094,
+          "Recall@5": 0.14957264957264957,
+          "nDCG@10": 0.1373309724165119,
+          "sample_count": 117
+        },
+        "variant": {
+          "CompleteEvidenceRecall@10": 0.20833333333333334,
+          "CompleteEvidenceRecall@5": 0.20833333333333334,
+          "MRR@10": 0.15625,
+          "Precision@5": 0.041666666666666664,
+          "Recall@1": 0.08333333333333333,
+          "Recall@10": 0.1875,
+          "Recall@5": 0.16666666666666666,
+          "nDCG@10": 0.1443808326649923,
+          "sample_count": 24
+        }
+      },
+      "category": {
+        "authority": {
+          "CompleteEvidenceRecall@10": 0.13333333333333333,
+          "CompleteEvidenceRecall@5": 0.06666666666666667,
+          "MRR@10": 0.040740740740740744,
+          "Precision@5": 0.013333333333333334,
+          "Recall@1": 0.0,
+          "Recall@10": 0.13333333333333333,
+          "Recall@5": 0.06666666666666667,
+          "nDCG@10": 0.06213064994902924,
+          "sample_count": 15
+        },
+        "case_holding": {
+          "CompleteEvidenceRecall@10": 0.09090909090909091,
+          "CompleteEvidenceRecall@5": 0.09090909090909091,
+          "MRR@10": 0.06818181818181818,
+          "Precision@5": 0.018181818181818184,
+          "Recall@1": 0.045454545454545456,
+          "Recall@10": 0.09090909090909091,
+          "Recall@5": 0.09090909090909091,
+          "nDCG@10": 0.07413317061688442,
+          "sample_count": 22
+        },
+        "conditions": {
+          "CompleteEvidenceRecall@10": 0.3333333333333333,
+          "CompleteEvidenceRecall@5": 0.2777777777777778,
+          "MRR@10": 0.20601851851851852,
+          "Precision@5": 0.05555555555555555,
+          "Recall@1": 0.1388888888888889,
+          "Recall@10": 0.3055555555555556,
+          "Recall@5": 0.25,
+          "nDCG@10": 0.2144049237569211,
+          "sample_count": 18
+        },
+        "deadline": {
+          "CompleteEvidenceRecall@10": 0.05263157894736842,
+          "CompleteEvidenceRecall@5": 0.05263157894736842,
+          "MRR@10": 0.02631578947368421,
+          "Precision@5": 0.010526315789473684,
+          "Recall@1": 0.0,
+          "Recall@10": 0.05263157894736842,
+          "Recall@5": 0.05263157894736842,
+          "nDCG@10": 0.033206829135339865,
+          "sample_count": 19
+        },
+        "definition": {
+          "CompleteEvidenceRecall@10": 0.4090909090909091,
+          "CompleteEvidenceRecall@5": 0.3181818181818182,
+          "MRR@10": 0.24936868686868685,
+          "Precision@5": 0.06363636363636364,
+          "Recall@1": 0.18181818181818182,
+          "Recall@10": 0.4090909090909091,
+          "Recall@5": 0.3181818181818182,
+          "nDCG@10": 0.28677413353027353,
+          "sample_count": 22
+        },
+        "exact_provision": {
+          "CompleteEvidenceRecall@10": 0.38461538461538464,
+          "CompleteEvidenceRecall@5": 0.2692307692307692,
+          "MRR@10": 0.21741452991452992,
+          "Precision@5": 0.05384615384615385,
+          "Recall@1": 0.11538461538461539,
+          "Recall@10": 0.34615384615384615,
+          "Recall@5": 0.23076923076923078,
+          "nDCG@10": 0.22893528839248428,
+          "sample_count": 26
+        },
+        "multi_evidence": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.008771929824561403,
+          "Precision@5": 0.0,
+          "Recall@1": 0.0,
+          "Recall@10": 0.02631578947368421,
+          "Recall@5": 0.0,
+          "nDCG@10": 0.011495128253587589,
+          "sample_count": 19
+        }
+      },
+      "difficulty": {
+        "hard": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.008771929824561403,
+          "Precision@5": 0.0,
+          "Recall@1": 0.0,
+          "Recall@10": 0.02631578947368421,
+          "Recall@5": 0.0,
+          "nDCG@10": 0.011495128253587589,
+          "sample_count": 19
+        },
+        "medium": {
+          "CompleteEvidenceRecall@10": 0.2459016393442623,
+          "CompleteEvidenceRecall@5": 0.1885245901639344,
+          "MRR@10": 0.14310109289617484,
+          "Precision@5": 0.03770491803278689,
+          "Recall@1": 0.0860655737704918,
+          "Recall@10": 0.2336065573770492,
+          "Recall@5": 0.1762295081967213,
+          "nDCG@10": 0.15831521573666837,
+          "sample_count": 122
+        }
+      },
+      "document_type": {
+        "applicable_laws": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.0,
+          "Precision@5": 0.0,
+          "Recall@1": 0.0,
+          "Recall@10": 0.0,
+          "Recall@5": 0.0,
+          "nDCG@10": 0.0,
+          "sample_count": 6
+        },
+        "facts/events": {
+          "CompleteEvidenceRecall@10": 0.2608695652173913,
+          "CompleteEvidenceRecall@5": 0.21739130434782608,
+          "MRR@10": 0.16998792270531402,
+          "Precision@5": 0.043478260869565216,
+          "Recall@1": 0.11956521739130435,
+          "Recall@10": 0.25,
+          "Recall@5": 0.20652173913043478,
+          "nDCG@10": 0.1830908289224234,
+          "sample_count": 46
+        },
+        "mixed": {
+          "CompleteEvidenceRecall@10": 0.19444444444444445,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.11226851851851853,
+          "Precision@5": 0.03333333333333334,
+          "Recall@1": 0.05555555555555555,
+          "Recall@10": 0.20833333333333334,
+          "Recall@5": 0.16666666666666666,
+          "nDCG@10": 0.1349260592331016,
+          "sample_count": 36
+        },
+        "reasoning": {
+          "CompleteEvidenceRecall@10": 0.2903225806451613,
+          "CompleteEvidenceRecall@5": 0.16129032258064516,
+          "MRR@10": 0.13754480286738352,
+          "Precision@5": 0.03225806451612903,
+          "Recall@1": 0.06451612903225806,
+          "Recall@10": 0.25806451612903225,
+          "Recall@5": 0.12903225806451613,
+          "nDCG@10": 0.14911024968700373,
+          "sample_count": 31
+        },
+        "ruling/verdict": {
+          "CompleteEvidenceRecall@10": 0.09090909090909091,
+          "CompleteEvidenceRecall@5": 0.09090909090909091,
+          "MRR@10": 0.06818181818181818,
+          "Precision@5": 0.018181818181818184,
+          "Recall@1": 0.045454545454545456,
+          "Recall@10": 0.09090909090909091,
+          "Recall@5": 0.09090909090909091,
+          "nDCG@10": 0.07413317061688442,
+          "sample_count": 22
+        }
+      },
+      "gold_evidence_type": {
+        "applicable_laws": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.0,
+          "Precision@5": 0.0,
+          "Recall@1": 0.0,
+          "Recall@10": 0.0,
+          "Recall@5": 0.0,
+          "nDCG@10": 0.0,
+          "sample_count": 6
+        },
+        "facts/events": {
+          "CompleteEvidenceRecall@10": 0.2608695652173913,
+          "CompleteEvidenceRecall@5": 0.21739130434782608,
+          "MRR@10": 0.16998792270531402,
+          "Precision@5": 0.043478260869565216,
+          "Recall@1": 0.11956521739130435,
+          "Recall@10": 0.25,
+          "Recall@5": 0.20652173913043478,
+          "nDCG@10": 0.1830908289224234,
+          "sample_count": 46
+        },
+        "mixed": {
+          "CompleteEvidenceRecall@10": 0.19444444444444445,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.11226851851851853,
+          "Precision@5": 0.03333333333333334,
+          "Recall@1": 0.05555555555555555,
+          "Recall@10": 0.20833333333333334,
+          "Recall@5": 0.16666666666666666,
+          "nDCG@10": 0.1349260592331016,
+          "sample_count": 36
+        },
+        "reasoning": {
+          "CompleteEvidenceRecall@10": 0.2903225806451613,
+          "CompleteEvidenceRecall@5": 0.16129032258064516,
+          "MRR@10": 0.13754480286738352,
+          "Precision@5": 0.03225806451612903,
+          "Recall@1": 0.06451612903225806,
+          "Recall@10": 0.25806451612903225,
+          "Recall@5": 0.12903225806451613,
+          "nDCG@10": 0.14911024968700373,
+          "sample_count": 31
+        },
+        "ruling/verdict": {
+          "CompleteEvidenceRecall@10": 0.09090909090909091,
+          "CompleteEvidenceRecall@5": 0.09090909090909091,
+          "MRR@10": 0.06818181818181818,
+          "Precision@5": 0.018181818181818184,
+          "Recall@1": 0.045454545454545456,
+          "Recall@10": 0.09090909090909091,
+          "Recall@5": 0.09090909090909091,
+          "nDCG@10": 0.07413317061688442,
+          "sample_count": 22
+        }
+      },
+      "jurisdiction": {
+        "Saudi Arabia": {
+          "CompleteEvidenceRecall@10": 0.2127659574468085,
+          "CompleteEvidenceRecall@5": 0.16312056737588654,
+          "MRR@10": 0.125,
+          "Precision@5": 0.03262411347517731,
+          "Recall@1": 0.07446808510638298,
+          "Recall@10": 0.20567375886524822,
+          "Recall@5": 0.1524822695035461,
+          "nDCG@10": 0.1385309486290192,
+          "sample_count": 141
+        }
+      },
+      "language": {
+        "ar": {
+          "CompleteEvidenceRecall@10": 0.2248062015503876,
+          "CompleteEvidenceRecall@5": 0.17054263565891473,
+          "MRR@10": 0.12887596899224807,
+          "Precision@5": 0.034108527131782945,
+          "Recall@1": 0.07364341085271318,
+          "Recall@10": 0.21705426356589147,
+          "Recall@5": 0.15891472868217055,
+          "nDCG@10": 0.14366561051698998,
+          "sample_count": 129
+        },
+        "ar-en": {
+          "CompleteEvidenceRecall@10": 0.16666666666666666,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.16666666666666666,
+          "Precision@5": 0.03333333333333333,
+          "Recall@1": 0.16666666666666666,
+          "Recall@10": 0.16666666666666666,
+          "Recall@5": 0.16666666666666666,
+          "nDCG@10": 0.16666666666666666,
+          "sample_count": 6
+        },
+        "en": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.0,
+          "Precision@5": 0.0,
+          "Recall@1": 0.0,
+          "Recall@10": 0.0,
+          "Recall@5": 0.0,
+          "nDCG@10": 0.0,
+          "sample_count": 6
+        }
+      },
+      "query_length": {
+        "long": {
+          "CompleteEvidenceRecall@10": 0.23809523809523808,
+          "CompleteEvidenceRecall@5": 0.19047619047619047,
+          "MRR@10": 0.14781746031746032,
+          "Precision@5": 0.0380952380952381,
+          "Recall@1": 0.07142857142857142,
+          "Recall@10": 0.23809523809523808,
+          "Recall@5": 0.16666666666666666,
+          "nDCG@10": 0.1575494998051106,
+          "sample_count": 42
+        },
+        "medium": {
+          "CompleteEvidenceRecall@10": 0.19230769230769232,
+          "CompleteEvidenceRecall@5": 0.17307692307692307,
+          "MRR@10": 0.11752136752136752,
+          "Precision@5": 0.03461538461538462,
+          "Recall@1": 0.0673076923076923,
+          "Recall@10": 0.17307692307692307,
+          "Recall@5": 0.16346153846153846,
+          "nDCG@10": 0.12599740896934972,
+          "sample_count": 52
+        },
+        "short": {
+          "CompleteEvidenceRecall@10": 0.2127659574468085,
+          "CompleteEvidenceRecall@5": 0.1276595744680851,
+          "MRR@10": 0.11288416075650118,
+          "Precision@5": 0.025531914893617023,
+          "Recall@1": 0.0851063829787234,
+          "Recall@10": 0.2127659574468085,
+          "Recall@5": 0.1276595744680851,
+          "nDCG@10": 0.13540254252065695,
+          "sample_count": 47
+        }
+      },
+      "question_type": {
+        "conditions_exceptions": {
+          "CompleteEvidenceRecall@10": 0.3333333333333333,
+          "CompleteEvidenceRecall@5": 0.2777777777777778,
+          "MRR@10": 0.20601851851851852,
+          "Precision@5": 0.05555555555555555,
+          "Recall@1": 0.1388888888888889,
+          "Recall@10": 0.3055555555555556,
+          "Recall@5": 0.25,
+          "nDCG@10": 0.2144049237569211,
+          "sample_count": 18
+        },
+        "holding_outcome_remedy": {
+          "CompleteEvidenceRecall@10": 0.09090909090909091,
+          "CompleteEvidenceRecall@5": 0.09090909090909091,
+          "MRR@10": 0.06818181818181818,
+          "Precision@5": 0.018181818181818184,
+          "Recall@1": 0.045454545454545456,
+          "Recall@10": 0.09090909090909091,
+          "Recall@5": 0.09090909090909091,
+          "nDCG@10": 0.07413317061688442,
+          "sample_count": 22
+        },
+        "legal_concept": {
+          "CompleteEvidenceRecall@10": 0.4090909090909091,
+          "CompleteEvidenceRecall@5": 0.3181818181818182,
+          "MRR@10": 0.24936868686868685,
+          "Precision@5": 0.06363636363636364,
+          "Recall@1": 0.18181818181818182,
+          "Recall@10": 0.4090909090909091,
+          "Recall@5": 0.3181818181818182,
+          "nDCG@10": 0.28677413353027353,
+          "sample_count": 22
+        },
+        "procedure": {
+          "CompleteEvidenceRecall@10": 0.05263157894736842,
+          "CompleteEvidenceRecall@5": 0.05263157894736842,
+          "MRR@10": 0.02631578947368421,
+          "Precision@5": 0.010526315789473684,
+          "Recall@1": 0.0,
+          "Recall@10": 0.05263157894736842,
+          "Recall@5": 0.05263157894736842,
+          "nDCG@10": 0.033206829135339865,
+          "sample_count": 19
+        },
+        "reasoning": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.008771929824561403,
+          "Precision@5": 0.0,
+          "Recall@1": 0.0,
+          "Recall@10": 0.02631578947368421,
+          "Recall@5": 0.0,
+          "nDCG@10": 0.011495128253587589,
+          "sample_count": 19
+        },
+        "reference_lookup": {
+          "CompleteEvidenceRecall@10": 0.38461538461538464,
+          "CompleteEvidenceRecall@5": 0.2692307692307692,
+          "MRR@10": 0.21741452991452992,
+          "Precision@5": 0.05384615384615385,
+          "Recall@1": 0.11538461538461539,
+          "Recall@10": 0.34615384615384615,
+          "Recall@5": 0.23076923076923078,
+          "nDCG@10": 0.22893528839248428,
+          "sample_count": 26
+        },
+        "responsibility": {
+          "CompleteEvidenceRecall@10": 0.13333333333333333,
+          "CompleteEvidenceRecall@5": 0.06666666666666667,
+          "MRR@10": 0.040740740740740744,
+          "Precision@5": 0.013333333333333334,
+          "Recall@1": 0.0,
+          "Recall@10": 0.13333333333333333,
+          "Recall@5": 0.06666666666666667,
+          "nDCG@10": 0.06213064994902924,
+          "sample_count": 15
+        }
+      },
+      "register": {
+        "egyptian": {
+          "CompleteEvidenceRecall@10": 0.3333333333333333,
+          "CompleteEvidenceRecall@5": 0.3333333333333333,
+          "MRR@10": 0.20833333333333334,
+          "Precision@5": 0.06666666666666667,
+          "Recall@1": 0.08333333333333333,
+          "Recall@10": 0.3333333333333333,
+          "Recall@5": 0.25,
+          "nDCG@10": 0.2035105062704832,
+          "sample_count": 6
+        },
+        "formal": {
+          "CompleteEvidenceRecall@10": 0.21367521367521367,
+          "CompleteEvidenceRecall@5": 0.15384615384615385,
+          "MRR@10": 0.11858974358974358,
+          "Precision@5": 0.03076923076923077,
+          "Recall@1": 0.07264957264957266,
+          "Recall@10": 0.2094017094017094,
+          "Recall@5": 0.14957264957264957,
+          "nDCG@10": 0.1373309724165119,
+          "sample_count": 117
+        },
+        "professional": {
+          "CompleteEvidenceRecall@10": 0.08333333333333333,
+          "CompleteEvidenceRecall@5": 0.08333333333333333,
+          "MRR@10": 0.08333333333333333,
+          "Precision@5": 0.016666666666666666,
+          "Recall@1": 0.08333333333333333,
+          "Recall@10": 0.08333333333333333,
+          "Recall@5": 0.08333333333333333,
+          "nDCG@10": 0.08333333333333333,
+          "sample_count": 12
+        },
+        "simple": {
+          "CompleteEvidenceRecall@10": 0.3333333333333333,
+          "CompleteEvidenceRecall@5": 0.3333333333333333,
+          "MRR@10": 0.25,
+          "Precision@5": 0.06666666666666667,
+          "Recall@1": 0.08333333333333333,
+          "Recall@10": 0.25,
+          "Recall@5": 0.25,
+          "nDCG@10": 0.20734615772281928,
+          "sample_count": 6
+        }
+      },
+      "source": {
+        "alarb": {
+          "CompleteEvidenceRecall@10": 0.1694915254237288,
+          "CompleteEvidenceRecall@5": 0.15254237288135594,
+          "MRR@10": 0.10805084745762712,
+          "Precision@5": 0.030508474576271188,
+          "Recall@1": 0.06779661016949153,
+          "Recall@10": 0.1694915254237288,
+          "Recall@5": 0.15254237288135594,
+          "nDCG@10": 0.12321797371432122,
+          "sample_count": 59
+        },
+        "arabiccr": {
+          "CompleteEvidenceRecall@10": 0.24390243902439024,
+          "CompleteEvidenceRecall@5": 0.17073170731707318,
+          "MRR@10": 0.13719512195121952,
+          "Precision@5": 0.03414634146341464,
+          "Recall@1": 0.07926829268292683,
+          "Recall@10": 0.23170731707317074,
+          "Recall@5": 0.1524390243902439,
+          "nDCG@10": 0.1495488208237409,
+          "sample_count": 82
+        }
+      }
+    },
+    "rrf": {
+      "base_vs_variant": {
+        "base": {
+          "CompleteEvidenceRecall@10": 0.21367521367521367,
+          "CompleteEvidenceRecall@5": 0.17094017094017094,
+          "MRR@10": 0.1357753357753358,
+          "Precision@5": 0.0358974358974359,
+          "Recall@1": 0.09401709401709402,
+          "Recall@10": 0.21367521367521367,
+          "Recall@5": 0.17094017094017094,
+          "nDCG@10": 0.14934552744217391,
+          "sample_count": 117
+        },
+        "variant": {
+          "CompleteEvidenceRecall@10": 0.16666666666666666,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.16666666666666666,
+          "Precision@5": 0.03333333333333333,
+          "Recall@1": 0.125,
+          "Recall@10": 0.14583333333333334,
+          "Recall@5": 0.125,
+          "nDCG@10": 0.14181390301312352,
+          "sample_count": 24
+        }
+      },
+      "category": {
+        "authority": {
+          "CompleteEvidenceRecall@10": 0.06666666666666667,
+          "CompleteEvidenceRecall@5": 0.06666666666666667,
+          "MRR@10": 0.06666666666666667,
+          "Precision@5": 0.013333333333333334,
+          "Recall@1": 0.06666666666666667,
+          "Recall@10": 0.06666666666666667,
+          "Recall@5": 0.06666666666666667,
+          "nDCG@10": 0.06666666666666667,
+          "sample_count": 15
+        },
+        "case_holding": {
+          "CompleteEvidenceRecall@10": 0.13636363636363635,
+          "CompleteEvidenceRecall@5": 0.045454545454545456,
+          "MRR@10": 0.05844155844155843,
+          "Precision@5": 0.009090909090909092,
+          "Recall@1": 0.045454545454545456,
+          "Recall@10": 0.13636363636363635,
+          "Recall@5": 0.045454545454545456,
+          "nDCG@10": 0.07575757575757575,
+          "sample_count": 22
+        },
+        "conditions": {
+          "CompleteEvidenceRecall@10": 0.3333333333333333,
+          "CompleteEvidenceRecall@5": 0.2777777777777778,
+          "MRR@10": 0.20601851851851852,
+          "Precision@5": 0.05555555555555555,
+          "Recall@1": 0.1388888888888889,
+          "Recall@10": 0.3055555555555556,
+          "Recall@5": 0.25,
+          "nDCG@10": 0.2144049237569211,
+          "sample_count": 18
+        },
+        "deadline": {
+          "CompleteEvidenceRecall@10": 0.05263157894736842,
+          "CompleteEvidenceRecall@5": 0.05263157894736842,
+          "MRR@10": 0.02631578947368421,
+          "Precision@5": 0.010526315789473684,
+          "Recall@1": 0.0,
+          "Recall@10": 0.05263157894736842,
+          "Recall@5": 0.05263157894736842,
+          "nDCG@10": 0.033206829135339865,
+          "sample_count": 19
+        },
+        "definition": {
+          "CompleteEvidenceRecall@10": 0.45454545454545453,
+          "CompleteEvidenceRecall@5": 0.4090909090909091,
+          "MRR@10": 0.32765151515151514,
+          "Precision@5": 0.08181818181818182,
+          "Recall@1": 0.2727272727272727,
+          "Recall@10": 0.45454545454545453,
+          "Recall@5": 0.4090909090909091,
+          "nDCG@10": 0.35804869038320813,
+          "sample_count": 22
+        },
+        "exact_provision": {
+          "CompleteEvidenceRecall@10": 0.3076923076923077,
+          "CompleteEvidenceRecall@5": 0.2692307692307692,
+          "MRR@10": 0.19294871794871796,
+          "Precision@5": 0.05384615384615385,
+          "Recall@1": 0.11538461538461539,
+          "Recall@10": 0.2692307692307692,
+          "Recall@5": 0.23076923076923078,
+          "nDCG@10": 0.1927480583527848,
+          "sample_count": 26
+        },
+        "multi_evidence": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.06140350877192983,
+          "Precision@5": 0.010526315789473684,
+          "Recall@1": 0.02631578947368421,
+          "Recall@10": 0.05263157894736842,
+          "Recall@5": 0.02631578947368421,
+          "nDCG@10": 0.04376603313598013,
+          "sample_count": 19
+        }
+      },
+      "difficulty": {
+        "hard": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.06140350877192983,
+          "Precision@5": 0.010526315789473684,
+          "Recall@1": 0.02631578947368421,
+          "Recall@10": 0.05263157894736842,
+          "Recall@5": 0.02631578947368421,
+          "nDCG@10": 0.04376603313598013,
+          "sample_count": 19
+        },
+        "medium": {
+          "CompleteEvidenceRecall@10": 0.23770491803278687,
+          "CompleteEvidenceRecall@5": 0.19672131147540983,
+          "MRR@10": 0.15343481654957064,
+          "Precision@5": 0.03934426229508197,
+          "Recall@1": 0.11065573770491803,
+          "Recall@10": 0.22540983606557377,
+          "Recall@5": 0.18442622950819673,
+          "nDCG@10": 0.164306604536604,
+          "sample_count": 122
+        }
+      },
+      "document_type": {
+        "applicable_laws": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.0,
+          "Precision@5": 0.0,
+          "Recall@1": 0.0,
+          "Recall@10": 0.0,
+          "Recall@5": 0.0,
+          "nDCG@10": 0.0,
+          "sample_count": 6
+        },
+        "facts/events": {
+          "CompleteEvidenceRecall@10": 0.2608695652173913,
+          "CompleteEvidenceRecall@5": 0.2391304347826087,
+          "MRR@10": 0.17481884057971014,
+          "Precision@5": 0.04782608695652174,
+          "Recall@1": 0.11956521739130435,
+          "Recall@10": 0.25,
+          "Recall@5": 0.22826086956521738,
+          "nDCG@10": 0.18741626379929335,
+          "sample_count": 46
+        },
+        "mixed": {
+          "CompleteEvidenceRecall@10": 0.16666666666666666,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.1412037037037037,
+          "Precision@5": 0.03888888888888889,
+          "Recall@1": 0.09722222222222222,
+          "Recall@10": 0.19444444444444445,
+          "Recall@5": 0.18055555555555555,
+          "nDCG@10": 0.14617308854602823,
+          "sample_count": 36
+        },
+        "reasoning": {
+          "CompleteEvidenceRecall@10": 0.25806451612903225,
+          "CompleteEvidenceRecall@5": 0.1935483870967742,
+          "MRR@10": 0.17661290322580644,
+          "Precision@5": 0.03870967741935485,
+          "Recall@1": 0.12903225806451613,
+          "Recall@10": 0.22580645161290322,
+          "Recall@5": 0.16129032258064516,
+          "nDCG@10": 0.17183594819219788,
+          "sample_count": 31
+        },
+        "ruling/verdict": {
+          "CompleteEvidenceRecall@10": 0.13636363636363635,
+          "CompleteEvidenceRecall@5": 0.045454545454545456,
+          "MRR@10": 0.05844155844155843,
+          "Precision@5": 0.009090909090909092,
+          "Recall@1": 0.045454545454545456,
+          "Recall@10": 0.13636363636363635,
+          "Recall@5": 0.045454545454545456,
+          "nDCG@10": 0.07575757575757575,
+          "sample_count": 22
+        }
+      },
+      "gold_evidence_type": {
+        "applicable_laws": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.0,
+          "Precision@5": 0.0,
+          "Recall@1": 0.0,
+          "Recall@10": 0.0,
+          "Recall@5": 0.0,
+          "nDCG@10": 0.0,
+          "sample_count": 6
+        },
+        "facts/events": {
+          "CompleteEvidenceRecall@10": 0.2608695652173913,
+          "CompleteEvidenceRecall@5": 0.2391304347826087,
+          "MRR@10": 0.17481884057971014,
+          "Precision@5": 0.04782608695652174,
+          "Recall@1": 0.11956521739130435,
+          "Recall@10": 0.25,
+          "Recall@5": 0.22826086956521738,
+          "nDCG@10": 0.18741626379929335,
+          "sample_count": 46
+        },
+        "mixed": {
+          "CompleteEvidenceRecall@10": 0.16666666666666666,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.1412037037037037,
+          "Precision@5": 0.03888888888888889,
+          "Recall@1": 0.09722222222222222,
+          "Recall@10": 0.19444444444444445,
+          "Recall@5": 0.18055555555555555,
+          "nDCG@10": 0.14617308854602823,
+          "sample_count": 36
+        },
+        "reasoning": {
+          "CompleteEvidenceRecall@10": 0.25806451612903225,
+          "CompleteEvidenceRecall@5": 0.1935483870967742,
+          "MRR@10": 0.17661290322580644,
+          "Precision@5": 0.03870967741935485,
+          "Recall@1": 0.12903225806451613,
+          "Recall@10": 0.22580645161290322,
+          "Recall@5": 0.16129032258064516,
+          "nDCG@10": 0.17183594819219788,
+          "sample_count": 31
+        },
+        "ruling/verdict": {
+          "CompleteEvidenceRecall@10": 0.13636363636363635,
+          "CompleteEvidenceRecall@5": 0.045454545454545456,
+          "MRR@10": 0.05844155844155843,
+          "Precision@5": 0.009090909090909092,
+          "Recall@1": 0.045454545454545456,
+          "Recall@10": 0.13636363636363635,
+          "Recall@5": 0.045454545454545456,
+          "nDCG@10": 0.07575757575757575,
+          "sample_count": 22
+        }
+      },
+      "jurisdiction": {
+        "Saudi Arabia": {
+          "CompleteEvidenceRecall@10": 0.20567375886524822,
+          "CompleteEvidenceRecall@5": 0.1702127659574468,
+          "MRR@10": 0.14103343465045592,
+          "Precision@5": 0.03546099290780142,
+          "Recall@1": 0.09929078014184398,
+          "Recall@10": 0.20212765957446807,
+          "Recall@5": 0.16312056737588654,
+          "nDCG@10": 0.14806354881595257,
+          "sample_count": 141
+        }
+      },
+      "language": {
+        "ar": {
+          "CompleteEvidenceRecall@10": 0.21705426356589147,
+          "CompleteEvidenceRecall@5": 0.17829457364341086,
+          "MRR@10": 0.14640088593576966,
+          "Precision@5": 0.0372093023255814,
+          "Recall@1": 0.10077519379844961,
+          "Recall@10": 0.2131782945736434,
+          "Recall@5": 0.17054263565891473,
+          "nDCG@10": 0.1540849642096846,
+          "sample_count": 129
+        },
+        "ar-en": {
+          "CompleteEvidenceRecall@10": 0.16666666666666666,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.16666666666666666,
+          "Precision@5": 0.03333333333333333,
+          "Recall@1": 0.16666666666666666,
+          "Recall@10": 0.16666666666666666,
+          "Recall@5": 0.16666666666666666,
+          "nDCG@10": 0.16666666666666666,
+          "sample_count": 6
+        },
+        "en": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.0,
+          "Precision@5": 0.0,
+          "Recall@1": 0.0,
+          "Recall@10": 0.0,
+          "Recall@5": 0.0,
+          "nDCG@10": 0.0,
+          "sample_count": 6
+        }
+      },
+      "query_length": {
+        "long": {
+          "CompleteEvidenceRecall@10": 0.21428571428571427,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.1516439909297052,
+          "Precision@5": 0.0380952380952381,
+          "Recall@1": 0.08333333333333333,
+          "Recall@10": 0.2261904761904762,
+          "Recall@5": 0.15476190476190477,
+          "nDCG@10": 0.15077217920568206,
+          "sample_count": 42
+        },
+        "medium": {
+          "CompleteEvidenceRecall@10": 0.19230769230769232,
+          "CompleteEvidenceRecall@5": 0.17307692307692307,
+          "MRR@10": 0.13653846153846153,
+          "Precision@5": 0.03461538461538462,
+          "Recall@1": 0.10576923076923077,
+          "Recall@10": 0.17307692307692307,
+          "Recall@5": 0.16346153846153846,
+          "nDCG@10": 0.14005133363976444,
+          "sample_count": 52
+        },
+        "short": {
+          "CompleteEvidenceRecall@10": 0.2127659574468085,
+          "CompleteEvidenceRecall@5": 0.1702127659574468,
+          "MRR@10": 0.13652482269503546,
+          "Precision@5": 0.03404255319148936,
+          "Recall@1": 0.10638297872340426,
+          "Recall@10": 0.2127659574468085,
+          "Recall@5": 0.1702127659574468,
+          "nDCG@10": 0.15450764908814713,
+          "sample_count": 47
+        }
+      },
+      "question_type": {
+        "conditions_exceptions": {
+          "CompleteEvidenceRecall@10": 0.3333333333333333,
+          "CompleteEvidenceRecall@5": 0.2777777777777778,
+          "MRR@10": 0.20601851851851852,
+          "Precision@5": 0.05555555555555555,
+          "Recall@1": 0.1388888888888889,
+          "Recall@10": 0.3055555555555556,
+          "Recall@5": 0.25,
+          "nDCG@10": 0.2144049237569211,
+          "sample_count": 18
+        },
+        "holding_outcome_remedy": {
+          "CompleteEvidenceRecall@10": 0.13636363636363635,
+          "CompleteEvidenceRecall@5": 0.045454545454545456,
+          "MRR@10": 0.05844155844155843,
+          "Precision@5": 0.009090909090909092,
+          "Recall@1": 0.045454545454545456,
+          "Recall@10": 0.13636363636363635,
+          "Recall@5": 0.045454545454545456,
+          "nDCG@10": 0.07575757575757575,
+          "sample_count": 22
+        },
+        "legal_concept": {
+          "CompleteEvidenceRecall@10": 0.45454545454545453,
+          "CompleteEvidenceRecall@5": 0.4090909090909091,
+          "MRR@10": 0.32765151515151514,
+          "Precision@5": 0.08181818181818182,
+          "Recall@1": 0.2727272727272727,
+          "Recall@10": 0.45454545454545453,
+          "Recall@5": 0.4090909090909091,
+          "nDCG@10": 0.35804869038320813,
+          "sample_count": 22
+        },
+        "procedure": {
+          "CompleteEvidenceRecall@10": 0.05263157894736842,
+          "CompleteEvidenceRecall@5": 0.05263157894736842,
+          "MRR@10": 0.02631578947368421,
+          "Precision@5": 0.010526315789473684,
+          "Recall@1": 0.0,
+          "Recall@10": 0.05263157894736842,
+          "Recall@5": 0.05263157894736842,
+          "nDCG@10": 0.033206829135339865,
+          "sample_count": 19
+        },
+        "reasoning": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.06140350877192983,
+          "Precision@5": 0.010526315789473684,
+          "Recall@1": 0.02631578947368421,
+          "Recall@10": 0.05263157894736842,
+          "Recall@5": 0.02631578947368421,
+          "nDCG@10": 0.04376603313598013,
+          "sample_count": 19
+        },
+        "reference_lookup": {
+          "CompleteEvidenceRecall@10": 0.3076923076923077,
+          "CompleteEvidenceRecall@5": 0.2692307692307692,
+          "MRR@10": 0.19294871794871796,
+          "Precision@5": 0.05384615384615385,
+          "Recall@1": 0.11538461538461539,
+          "Recall@10": 0.2692307692307692,
+          "Recall@5": 0.23076923076923078,
+          "nDCG@10": 0.1927480583527848,
+          "sample_count": 26
+        },
+        "responsibility": {
+          "CompleteEvidenceRecall@10": 0.06666666666666667,
+          "CompleteEvidenceRecall@5": 0.06666666666666667,
+          "MRR@10": 0.06666666666666667,
+          "Precision@5": 0.013333333333333334,
+          "Recall@1": 0.06666666666666667,
+          "Recall@10": 0.06666666666666667,
+          "Recall@5": 0.06666666666666667,
+          "nDCG@10": 0.06666666666666667,
+          "sample_count": 15
+        }
+      },
+      "register": {
+        "egyptian": {
+          "CompleteEvidenceRecall@10": 0.16666666666666666,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.16666666666666666,
+          "Precision@5": 0.03333333333333333,
+          "Recall@1": 0.08333333333333333,
+          "Recall@10": 0.16666666666666666,
+          "Recall@5": 0.08333333333333333,
+          "nDCG@10": 0.1317310799249177,
+          "sample_count": 6
+        },
+        "formal": {
+          "CompleteEvidenceRecall@10": 0.21367521367521367,
+          "CompleteEvidenceRecall@5": 0.17094017094017094,
+          "MRR@10": 0.1357753357753358,
+          "Precision@5": 0.0358974358974359,
+          "Recall@1": 0.09401709401709402,
+          "Recall@10": 0.21367521367521367,
+          "Recall@5": 0.17094017094017094,
+          "nDCG@10": 0.14934552744217391,
+          "sample_count": 117
+        },
+        "professional": {
+          "CompleteEvidenceRecall@10": 0.08333333333333333,
+          "CompleteEvidenceRecall@5": 0.08333333333333333,
+          "MRR@10": 0.08333333333333333,
+          "Precision@5": 0.016666666666666666,
+          "Recall@1": 0.08333333333333333,
+          "Recall@10": 0.08333333333333333,
+          "Recall@5": 0.08333333333333333,
+          "nDCG@10": 0.08333333333333333,
+          "sample_count": 12
+        },
+        "simple": {
+          "CompleteEvidenceRecall@10": 0.3333333333333333,
+          "CompleteEvidenceRecall@5": 0.3333333333333333,
+          "MRR@10": 0.3333333333333333,
+          "Precision@5": 0.06666666666666667,
+          "Recall@1": 0.25,
+          "Recall@10": 0.25,
+          "Recall@5": 0.25,
+          "nDCG@10": 0.26885786546090973,
+          "sample_count": 6
+        }
+      },
+      "source": {
+        "alarb": {
+          "CompleteEvidenceRecall@10": 0.1694915254237288,
+          "CompleteEvidenceRecall@5": 0.13559322033898305,
+          "MRR@10": 0.11077481840193705,
+          "Precision@5": 0.030508474576271188,
+          "Recall@1": 0.07627118644067797,
+          "Recall@10": 0.17796610169491525,
+          "Recall@5": 0.1440677966101695,
+          "nDCG@10": 0.12221170199161896,
+          "sample_count": 59
+        },
+        "arabiccr": {
+          "CompleteEvidenceRecall@10": 0.23170731707317074,
+          "CompleteEvidenceRecall@5": 0.1951219512195122,
+          "MRR@10": 0.1628048780487805,
+          "Precision@5": 0.03902439024390244,
+          "Recall@1": 0.11585365853658537,
+          "Recall@10": 0.21951219512195122,
+          "Recall@5": 0.17682926829268292,
+          "nDCG@10": 0.16666426787248528,
+          "sample_count": 82
+        }
+      }
+    },
+    "rrf_reranked": {
+      "base_vs_variant": {
+        "base": {
+          "CompleteEvidenceRecall@10": 0.27350427350427353,
+          "CompleteEvidenceRecall@5": 0.24786324786324787,
+          "MRR@10": 0.21952584452584453,
+          "Precision@5": 0.05299145299145299,
+          "Recall@1": 0.1752136752136752,
+          "Recall@10": 0.27350427350427353,
+          "Recall@5": 0.24786324786324787,
+          "nDCG@10": 0.2252628265563794,
+          "sample_count": 117
+        },
+        "variant": {
+          "CompleteEvidenceRecall@10": 0.20833333333333334,
+          "CompleteEvidenceRecall@5": 0.20833333333333334,
+          "MRR@10": 0.14583333333333334,
+          "Precision@5": 0.05000000000000001,
+          "Recall@1": 0.08333333333333333,
+          "Recall@10": 0.1875,
+          "Recall@5": 0.1875,
+          "nDCG@10": 0.15463370685096958,
+          "sample_count": 24
+        }
+      },
+      "category": {
+        "authority": {
+          "CompleteEvidenceRecall@10": 0.2,
+          "CompleteEvidenceRecall@5": 0.13333333333333333,
+          "MRR@10": 0.09555555555555556,
+          "Precision@5": 0.02666666666666667,
+          "Recall@1": 0.06666666666666667,
+          "Recall@10": 0.2,
+          "Recall@5": 0.13333333333333333,
+          "nDCG@10": 0.11927098842119252,
+          "sample_count": 15
+        },
+        "case_holding": {
+          "CompleteEvidenceRecall@10": 0.045454545454545456,
+          "CompleteEvidenceRecall@5": 0.045454545454545456,
+          "MRR@10": 0.009090909090909092,
+          "Precision@5": 0.009090909090909092,
+          "Recall@1": 0.0,
+          "Recall@10": 0.045454545454545456,
+          "Recall@5": 0.045454545454545456,
+          "nDCG@10": 0.017584218510660984,
+          "sample_count": 22
+        },
+        "conditions": {
+          "CompleteEvidenceRecall@10": 0.5,
+          "CompleteEvidenceRecall@5": 0.4444444444444444,
+          "MRR@10": 0.38293650793650796,
+          "Precision@5": 0.08888888888888889,
+          "Recall@1": 0.3055555555555556,
+          "Recall@10": 0.4722222222222222,
+          "Recall@5": 0.4166666666666667,
+          "nDCG@10": 0.3893381576524246,
+          "sample_count": 18
+        },
+        "deadline": {
+          "CompleteEvidenceRecall@10": 0.10526315789473684,
+          "CompleteEvidenceRecall@5": 0.10526315789473684,
+          "MRR@10": 0.07017543859649122,
+          "Precision@5": 0.021052631578947368,
+          "Recall@1": 0.05263157894736842,
+          "Recall@10": 0.10526315789473684,
+          "Recall@5": 0.10526315789473684,
+          "nDCG@10": 0.07894736842105263,
+          "sample_count": 19
+        },
+        "definition": {
+          "CompleteEvidenceRecall@10": 0.5,
+          "CompleteEvidenceRecall@5": 0.5,
+          "MRR@10": 0.4772727272727273,
+          "Precision@5": 0.1,
+          "Recall@1": 0.45454545454545453,
+          "Recall@10": 0.5,
+          "Recall@5": 0.5,
+          "nDCG@10": 0.4832240797077935,
+          "sample_count": 22
+        },
+        "exact_provision": {
+          "CompleteEvidenceRecall@10": 0.4230769230769231,
+          "CompleteEvidenceRecall@5": 0.38461538461538464,
+          "MRR@10": 0.2932692307692308,
+          "Precision@5": 0.08461538461538462,
+          "Recall@1": 0.17307692307692307,
+          "Recall@10": 0.38461538461538464,
+          "Recall@5": 0.34615384615384615,
+          "nDCG@10": 0.30391079004297583,
+          "sample_count": 26
+        },
+        "multi_evidence": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.06315789473684211,
+          "Precision@5": 0.021052631578947368,
+          "Recall@1": 0.02631578947368421,
+          "Recall@10": 0.05263157894736842,
+          "Recall@5": 0.05263157894736842,
+          "nDCG@10": 0.04475499502814498,
+          "sample_count": 19
+        }
+      },
+      "difficulty": {
+        "hard": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.06315789473684211,
+          "Precision@5": 0.021052631578947368,
+          "Recall@1": 0.02631578947368421,
+          "Recall@10": 0.05263157894736842,
+          "Recall@5": 0.05263157894736842,
+          "nDCG@10": 0.04475499502814498,
+          "sample_count": 19
+        },
+        "medium": {
+          "CompleteEvidenceRecall@10": 0.30327868852459017,
+          "CompleteEvidenceRecall@5": 0.2786885245901639,
+          "MRR@10": 0.22938134270101485,
+          "Precision@5": 0.05737704918032787,
+          "Recall@1": 0.18032786885245902,
+          "Recall@10": 0.29098360655737704,
+          "Recall@5": 0.26639344262295084,
+          "nDCG@10": 0.23948044890151557,
+          "sample_count": 122
+        }
+      },
+      "document_type": {
+        "applicable_laws": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.0,
+          "Precision@5": 0.0,
+          "Recall@1": 0.0,
+          "Recall@10": 0.0,
+          "Recall@5": 0.0,
+          "nDCG@10": 0.0,
+          "sample_count": 6
+        },
+        "facts/events": {
+          "CompleteEvidenceRecall@10": 0.34782608695652173,
+          "CompleteEvidenceRecall@5": 0.32608695652173914,
+          "MRR@10": 0.2784679089026915,
+          "Precision@5": 0.06521739130434782,
+          "Recall@1": 0.22826086956521738,
+          "Recall@10": 0.33695652173913043,
+          "Recall@5": 0.31521739130434784,
+          "nDCG@10": 0.2871378268096023,
+          "sample_count": 46
+        },
+        "mixed": {
+          "CompleteEvidenceRecall@10": 0.19444444444444445,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.17569444444444446,
+          "Precision@5": 0.044444444444444446,
+          "Recall@1": 0.125,
+          "Recall@10": 0.2222222222222222,
+          "Recall@5": 0.19444444444444445,
+          "nDCG@10": 0.17854636915176106,
+          "sample_count": 36
+        },
+        "reasoning": {
+          "CompleteEvidenceRecall@10": 0.41935483870967744,
+          "CompleteEvidenceRecall@5": 0.3870967741935484,
+          "MRR@10": 0.317741935483871,
+          "Precision@5": 0.08387096774193549,
+          "Recall@1": 0.24193548387096775,
+          "Recall@10": 0.3870967741935484,
+          "Recall@5": 0.3548387096774194,
+          "nDCG@10": 0.3240031465025809,
+          "sample_count": 31
+        },
+        "ruling/verdict": {
+          "CompleteEvidenceRecall@10": 0.045454545454545456,
+          "CompleteEvidenceRecall@5": 0.045454545454545456,
+          "MRR@10": 0.009090909090909092,
+          "Precision@5": 0.009090909090909092,
+          "Recall@1": 0.0,
+          "Recall@10": 0.045454545454545456,
+          "Recall@5": 0.045454545454545456,
+          "nDCG@10": 0.017584218510660984,
+          "sample_count": 22
+        }
+      },
+      "gold_evidence_type": {
+        "applicable_laws": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.0,
+          "Precision@5": 0.0,
+          "Recall@1": 0.0,
+          "Recall@10": 0.0,
+          "Recall@5": 0.0,
+          "nDCG@10": 0.0,
+          "sample_count": 6
+        },
+        "facts/events": {
+          "CompleteEvidenceRecall@10": 0.34782608695652173,
+          "CompleteEvidenceRecall@5": 0.32608695652173914,
+          "MRR@10": 0.2784679089026915,
+          "Precision@5": 0.06521739130434782,
+          "Recall@1": 0.22826086956521738,
+          "Recall@10": 0.33695652173913043,
+          "Recall@5": 0.31521739130434784,
+          "nDCG@10": 0.2871378268096023,
+          "sample_count": 46
+        },
+        "mixed": {
+          "CompleteEvidenceRecall@10": 0.19444444444444445,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.17569444444444446,
+          "Precision@5": 0.044444444444444446,
+          "Recall@1": 0.125,
+          "Recall@10": 0.2222222222222222,
+          "Recall@5": 0.19444444444444445,
+          "nDCG@10": 0.17854636915176106,
+          "sample_count": 36
+        },
+        "reasoning": {
+          "CompleteEvidenceRecall@10": 0.41935483870967744,
+          "CompleteEvidenceRecall@5": 0.3870967741935484,
+          "MRR@10": 0.317741935483871,
+          "Precision@5": 0.08387096774193549,
+          "Recall@1": 0.24193548387096775,
+          "Recall@10": 0.3870967741935484,
+          "Recall@5": 0.3548387096774194,
+          "nDCG@10": 0.3240031465025809,
+          "sample_count": 31
+        },
+        "ruling/verdict": {
+          "CompleteEvidenceRecall@10": 0.045454545454545456,
+          "CompleteEvidenceRecall@5": 0.045454545454545456,
+          "MRR@10": 0.009090909090909092,
+          "Precision@5": 0.009090909090909092,
+          "Recall@1": 0.0,
+          "Recall@10": 0.045454545454545456,
+          "Recall@5": 0.045454545454545456,
+          "nDCG@10": 0.017584218510660984,
+          "sample_count": 22
+        }
+      },
+      "jurisdiction": {
+        "Saudi Arabia": {
+          "CompleteEvidenceRecall@10": 0.2624113475177305,
+          "CompleteEvidenceRecall@5": 0.24113475177304963,
+          "MRR@10": 0.2069824383654171,
+          "Precision@5": 0.0524822695035461,
+          "Recall@1": 0.1595744680851064,
+          "Recall@10": 0.25886524822695034,
+          "Recall@5": 0.2375886524822695,
+          "nDCG@10": 0.21324084873418195,
+          "sample_count": 141
+        }
+      },
+      "language": {
+        "ar": {
+          "CompleteEvidenceRecall@10": 0.27906976744186046,
+          "CompleteEvidenceRecall@5": 0.2558139534883721,
+          "MRR@10": 0.21848468069398302,
+          "Precision@5": 0.05581395348837209,
+          "Recall@1": 0.16666666666666666,
+          "Recall@10": 0.2751937984496124,
+          "Recall@5": 0.25193798449612403,
+          "nDCG@10": 0.2253252687714702,
+          "sample_count": 129
+        },
+        "ar-en": {
+          "CompleteEvidenceRecall@10": 0.16666666666666666,
+          "CompleteEvidenceRecall@5": 0.16666666666666666,
+          "MRR@10": 0.16666666666666666,
+          "Precision@5": 0.03333333333333333,
+          "Recall@1": 0.16666666666666666,
+          "Recall@10": 0.16666666666666666,
+          "Recall@5": 0.16666666666666666,
+          "nDCG@10": 0.16666666666666666,
+          "sample_count": 6
+        },
+        "en": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.0,
+          "Precision@5": 0.0,
+          "Recall@1": 0.0,
+          "Recall@10": 0.0,
+          "Recall@5": 0.0,
+          "nDCG@10": 0.0,
+          "sample_count": 6
+        }
+      },
+      "query_length": {
+        "long": {
+          "CompleteEvidenceRecall@10": 0.2619047619047619,
+          "CompleteEvidenceRecall@5": 0.23809523809523808,
+          "MRR@10": 0.1910714285714286,
+          "Precision@5": 0.06190476190476191,
+          "Recall@1": 0.10714285714285714,
+          "Recall@10": 0.27380952380952384,
+          "Recall@5": 0.25,
+          "nDCG@10": 0.20299359669336214,
+          "sample_count": 42
+        },
+        "medium": {
+          "CompleteEvidenceRecall@10": 0.19230769230769232,
+          "CompleteEvidenceRecall@5": 0.19230769230769232,
+          "MRR@10": 0.16987179487179488,
+          "Precision@5": 0.038461538461538464,
+          "Recall@1": 0.1346153846153846,
+          "Recall@10": 0.17307692307692307,
+          "Recall@5": 0.17307692307692307,
+          "nDCG@10": 0.1607158488288918,
+          "sample_count": 52
+        },
+        "short": {
+          "CompleteEvidenceRecall@10": 0.3404255319148936,
+          "CompleteEvidenceRecall@5": 0.2978723404255319,
+          "MRR@10": 0.2622593718338399,
+          "Precision@5": 0.059574468085106386,
+          "Recall@1": 0.23404255319148937,
+          "Recall@10": 0.3404255319148936,
+          "Recall@5": 0.2978723404255319,
+          "nDCG@10": 0.2805107334318313,
+          "sample_count": 47
+        }
+      },
+      "question_type": {
+        "conditions_exceptions": {
+          "CompleteEvidenceRecall@10": 0.5,
+          "CompleteEvidenceRecall@5": 0.4444444444444444,
+          "MRR@10": 0.38293650793650796,
+          "Precision@5": 0.08888888888888889,
+          "Recall@1": 0.3055555555555556,
+          "Recall@10": 0.4722222222222222,
+          "Recall@5": 0.4166666666666667,
+          "nDCG@10": 0.3893381576524246,
+          "sample_count": 18
+        },
+        "holding_outcome_remedy": {
+          "CompleteEvidenceRecall@10": 0.045454545454545456,
+          "CompleteEvidenceRecall@5": 0.045454545454545456,
+          "MRR@10": 0.009090909090909092,
+          "Precision@5": 0.009090909090909092,
+          "Recall@1": 0.0,
+          "Recall@10": 0.045454545454545456,
+          "Recall@5": 0.045454545454545456,
+          "nDCG@10": 0.017584218510660984,
+          "sample_count": 22
+        },
+        "legal_concept": {
+          "CompleteEvidenceRecall@10": 0.5,
+          "CompleteEvidenceRecall@5": 0.5,
+          "MRR@10": 0.4772727272727273,
+          "Precision@5": 0.1,
+          "Recall@1": 0.45454545454545453,
+          "Recall@10": 0.5,
+          "Recall@5": 0.5,
+          "nDCG@10": 0.4832240797077935,
+          "sample_count": 22
+        },
+        "procedure": {
+          "CompleteEvidenceRecall@10": 0.10526315789473684,
+          "CompleteEvidenceRecall@5": 0.10526315789473684,
+          "MRR@10": 0.07017543859649122,
+          "Precision@5": 0.021052631578947368,
+          "Recall@1": 0.05263157894736842,
+          "Recall@10": 0.10526315789473684,
+          "Recall@5": 0.10526315789473684,
+          "nDCG@10": 0.07894736842105263,
+          "sample_count": 19
+        },
+        "reasoning": {
+          "CompleteEvidenceRecall@10": 0.0,
+          "CompleteEvidenceRecall@5": 0.0,
+          "MRR@10": 0.06315789473684211,
+          "Precision@5": 0.021052631578947368,
+          "Recall@1": 0.02631578947368421,
+          "Recall@10": 0.05263157894736842,
+          "Recall@5": 0.05263157894736842,
+          "nDCG@10": 0.04475499502814498,
+          "sample_count": 19
+        },
+        "reference_lookup": {
+          "CompleteEvidenceRecall@10": 0.4230769230769231,
+          "CompleteEvidenceRecall@5": 0.38461538461538464,
+          "MRR@10": 0.2932692307692308,
+          "Precision@5": 0.08461538461538462,
+          "Recall@1": 0.17307692307692307,
+          "Recall@10": 0.38461538461538464,
+          "Recall@5": 0.34615384615384615,
+          "nDCG@10": 0.30391079004297583,
+          "sample_count": 26
+        },
+        "responsibility": {
+          "CompleteEvidenceRecall@10": 0.2,
+          "CompleteEvidenceRecall@5": 0.13333333333333333,
+          "MRR@10": 0.09555555555555556,
+          "Precision@5": 0.02666666666666667,
+          "Recall@1": 0.06666666666666667,
+          "Recall@10": 0.2,
+          "Recall@5": 0.13333333333333333,
+          "nDCG@10": 0.11927098842119252,
+          "sample_count": 15
+        }
+      },
+      "register": {
+        "egyptian": {
+          "CompleteEvidenceRecall@10": 0.3333333333333333,
+          "CompleteEvidenceRecall@5": 0.3333333333333333,
+          "MRR@10": 0.25,
+          "Precision@5": 0.10000000000000002,
+          "Recall@1": 0.16666666666666666,
+          "Recall@10": 0.3333333333333333,
+          "Recall@5": 0.3333333333333333,
+          "nDCG@10": 0.2822377339362118,
+          "sample_count": 6
+        },
+        "formal": {
+          "CompleteEvidenceRecall@10": 0.27350427350427353,
+          "CompleteEvidenceRecall@5": 0.24786324786324787,
+          "MRR@10": 0.21952584452584453,
+          "Precision@5": 0.05299145299145299,
+          "Recall@1": 0.1752136752136752,
+          "Recall@10": 0.27350427350427353,
+          "Recall@5": 0.24786324786324787,
+          "nDCG@10": 0.2252628265563794,
+          "sample_count": 117
+        },
+        "professional": {
+          "CompleteEvidenceRecall@10": 0.08333333333333333,
+          "CompleteEvidenceRecall@5": 0.08333333333333333,
+          "MRR@10": 0.08333333333333333,
+          "Precision@5": 0.016666666666666666,
+          "Recall@1": 0.08333333333333333,
+          "Recall@10": 0.08333333333333333,
+          "Recall@5": 0.08333333333333333,
+          "nDCG@10": 0.08333333333333333,
+          "sample_count": 12
+        },
+        "simple": {
+          "CompleteEvidenceRecall@10": 0.3333333333333333,
+          "CompleteEvidenceRecall@5": 0.3333333333333333,
+          "MRR@10": 0.16666666666666666,
+          "Precision@5": 0.06666666666666667,
+          "Recall@1": 0.0,
+          "Recall@10": 0.25,
+          "Recall@5": 0.25,
+          "nDCG@10": 0.16963042680099982,
+          "sample_count": 6
+        }
+      },
+      "source": {
+        "alarb": {
+          "CompleteEvidenceRecall@10": 0.1694915254237288,
+          "CompleteEvidenceRecall@5": 0.15254237288135594,
+          "MRR@10": 0.12980225988700564,
+          "Precision@5": 0.03389830508474576,
+          "Recall@1": 0.09322033898305085,
+          "Recall@10": 0.17796610169491525,
+          "Recall@5": 0.16101694915254236,
+          "nDCG@10": 0.13690380311743466,
+          "sample_count": 59
+        },
+        "arabiccr": {
+          "CompleteEvidenceRecall@10": 0.32926829268292684,
+          "CompleteEvidenceRecall@5": 0.3048780487804878,
+          "MRR@10": 0.2625145180023229,
+          "Precision@5": 0.06585365853658537,
+          "Recall@1": 0.2073170731707317,
+          "Recall@10": 0.3170731707317073,
+          "Recall@5": 0.2926829268292683,
+          "nDCG@10": 0.2681662839950123,
+          "sample_count": 82
+        }
+      }
+    }
+  },
+  "status": "dev_reranker_evaluation_complete"
+}
