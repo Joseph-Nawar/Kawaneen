@@ -1,0 +1,21 @@
+{
+  "chunk_count": 124311,
+  "chunk_id_contract": "phase5-policy-hash",
+  "chunk_ids_hash": "4d94cb3eb050ff5c7b4c1103dfd34f0a21ff32a5f768918fd60169537340d9eb",
+  "chunk_policy_hashes": [
+    "93fe26c1f2482456101d8803f74c4c369d7643b063689756e16d52439acca46f"
+  ],
+  "chunk_policy_id": "legal-structure-v1",
+  "corpus_hash": "290d7a91e5f435778e782b76284a9797fb7f5ae261380f0a923b56224e530daa",
+  "document_count": 26147,
+  "normalization_policy_hashes": [
+    "78e262b833d1de1229d5f1c8618d91ba8d3d0916929386e3fbbdaed7352b5120"
+  ],
+  "release_hash": "87bfb6641c13859425855488fb0ccea27495f82e47d68bf80f0d802029ab1727",
+  "schema_version": 1,
+  "source_counts": {
+    "alarb": 55145,
+    "arabiccr": 69166
+  },
+  "status": "phase7_retrieval_corpus_ready"
+}

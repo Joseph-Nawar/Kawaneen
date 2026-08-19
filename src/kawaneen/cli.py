@@ -65,6 +65,22 @@ from kawaneen.normalization.orchestrator import (
 from kawaneen.normalization.sensitivity import run_sensitivity_validation
 from kawaneen.parsing.benchmark import preflight_pdfs, qualification_status
 from kawaneen.parsing.diagnostics import diagnose_docling
+from kawaneen.retrieval.orchestrator import (
+    build_final_report,
+    build_retrieval_corpus,
+    cache_status,
+    dense_sanity_audit,
+    encode_corpus,
+    evaluate_dev,
+    evaluate_holdout,
+    freeze_dev_selection,
+    real_model_smoke,
+    recover_holdout_artifacts,
+    retrieval_plan,
+    retrieval_report,
+    retrieval_smoke,
+    verify_holdout_readiness,
+)
 from kawaneen.sources.registry import (
     RegistryValidationError,
     format_summary,
@@ -202,6 +218,49 @@ def build_parser() -> argparse.ArgumentParser:
         help="freeze the externally AI-reviewed engineering release without human attestations",
     )
     evaluation_subparsers.add_parser("stats", help="show sanitized draft/review statistics")
+    retrieval_parser = subparsers.add_parser(
+        "retrieval", help="Phase 7 reproducible retrieval baselines"
+    )
+    retrieval_subparsers = retrieval_parser.add_subparsers(dest="retrieval_command", required=True)
+    retrieval_subparsers.add_parser("plan", help="show the frozen Phase 7 contract")
+    retrieval_subparsers.add_parser("build-corpus", help="verify and manifest the retrieval corpus")
+    retrieval_subparsers.add_parser("smoke", help="run offline retrieval pipeline smoke checks")
+    encode_parser = retrieval_subparsers.add_parser(
+        "encode-corpus", help="resume checkpointed dense corpus encoding"
+    )
+    encode_parser.add_argument("--model", choices=("bge-m3",), required=True)
+    encode_parser.add_argument("--policy", default="arabic-raw-v1")
+    encode_parser.add_argument("--device", default="cpu")
+    encode_parser.add_argument("--block-size", type=int, default=1024)
+    encode_parser.add_argument("--resume", action="store_true")
+    status_parser = retrieval_subparsers.add_parser(
+        "cache-status", help="show text-free dense checkpoint progress"
+    )
+    status_parser.add_argument("--model", choices=("bge-m3",), required=True)
+    status_parser.add_argument("--policy", default="arabic-raw-v1")
+    retrieval_subparsers.add_parser(
+        "real-model-smoke", help="load locked Hugging Face models for a local smoke check"
+    )
+    retrieval_subparsers.add_parser("evaluate-dev", help="evaluate all dev baselines")
+    retrieval_subparsers.add_parser(
+        "dense-sanity-audit", help="audit selected dense retrieval on deterministic DEV samples"
+    )
+    retrieval_subparsers.add_parser(
+        "freeze-dev-selection", help="freeze dev normalization/model selection"
+    )
+    holdout_parser = retrieval_subparsers.add_parser(
+        "evaluate-holdout", help="evaluate frozen baselines on holdout"
+    )
+    holdout_parser.add_argument("--allow-holdout", action="store_true")
+    recovery_parser = retrieval_subparsers.add_parser(
+        "recover-holdout-artifacts", help="replay holdout once to recover private observability"
+    )
+    recovery_parser.add_argument("--allow-holdout", action="store_true")
+    retrieval_subparsers.add_parser(
+        "verify-holdout-readiness", help="check protected holdout gates without consuming holdout"
+    )
+    retrieval_subparsers.add_parser("report", help="show the Phase 7 report")
+    retrieval_subparsers.add_parser("final-report", help="write the final Phase 7 report")
     return parser
 
 
@@ -397,6 +456,69 @@ def main(argv: list[str] | None = None) -> int:
                 print(json.dumps(evaluation_stats(), ensure_ascii=False, sort_keys=True))
         except (OSError, PermissionError, ValueError, RuntimeError) as exc:
             print(f"Evaluation operation failed: {exc}", file=sys.stderr)
+            return 1
+    elif args.command == "retrieval":
+        try:
+            if args.retrieval_command == "plan":
+                print(json.dumps(retrieval_plan(), ensure_ascii=False, sort_keys=True))
+            elif args.retrieval_command == "build-corpus":
+                print(json.dumps(build_retrieval_corpus(), ensure_ascii=False, sort_keys=True))
+            elif args.retrieval_command == "smoke":
+                print(json.dumps(retrieval_smoke(), ensure_ascii=False, sort_keys=True))
+            elif args.retrieval_command == "encode-corpus":
+                print(
+                    json.dumps(
+                        encode_corpus(
+                            model=args.model,
+                            policy_id=args.policy,
+                            device=args.device,
+                            block_size=args.block_size,
+                            resume=args.resume,
+                        ),
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                )
+            elif args.retrieval_command == "cache-status":
+                print(
+                    json.dumps(
+                        cache_status(model=args.model, policy_id=args.policy),
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                )
+            elif args.retrieval_command == "real-model-smoke":
+                print(json.dumps(real_model_smoke(), ensure_ascii=False, sort_keys=True))
+            elif args.retrieval_command == "evaluate-dev":
+                print(json.dumps(evaluate_dev(), ensure_ascii=False, sort_keys=True))
+            elif args.retrieval_command == "dense-sanity-audit":
+                print(json.dumps(dense_sanity_audit(), ensure_ascii=False, sort_keys=True))
+            elif args.retrieval_command == "freeze-dev-selection":
+                print(json.dumps(freeze_dev_selection(), ensure_ascii=False, sort_keys=True))
+            elif args.retrieval_command == "evaluate-holdout":
+                print(
+                    json.dumps(
+                        evaluate_holdout(allow_holdout=args.allow_holdout),
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                )
+            elif args.retrieval_command == "recover-holdout-artifacts":
+                print(
+                    json.dumps(
+                        recover_holdout_artifacts(allow_holdout=args.allow_holdout),
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                )
+            elif args.retrieval_command == "verify-holdout-readiness":
+                print(json.dumps(verify_holdout_readiness(), ensure_ascii=False, sort_keys=True))
+            elif args.retrieval_command == "report":
+                print(json.dumps(retrieval_report(), ensure_ascii=False, sort_keys=True))
+            elif args.retrieval_command == "final-report":
+                print(json.dumps(build_final_report(), ensure_ascii=False, sort_keys=True))
+        except (OSError, PermissionError, ValueError, RuntimeError) as exc:
+            print(f"Retrieval operation failed: {exc}", file=sys.stderr)
             return 1
     else:
         build_parser().print_help()

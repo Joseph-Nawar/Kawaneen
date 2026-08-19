@@ -1,0 +1,77 @@
+{
+  "cache_fingerprints": {
+    "bge": "797830a20035acb251f33f9048725353c77fff417e8b58bab5f72252e6d7230b",
+    "e5": "81e287f4ef1ba766059aa03886341136fdef926ec0124bceb39dc3d61a28830c"
+  },
+  "cache_statuses": {
+    "bge": {
+      "cache_fingerprint": "797830a20035acb251f33f9048725353c77fff417e8b58bab5f72252e6d7230b",
+      "completed_blocks": 122,
+      "completed_chunks": 124311,
+      "elapsed_recorded_compute_seconds": 32597.13575887401,
+      "estimated_remaining_blocks": 0,
+      "percentage": 100.0,
+      "total_blocks": 122,
+      "total_chunks": 124311
+    },
+    "e5": {
+      "cache_fingerprint": "81e287f4ef1ba766059aa03886341136fdef926ec0124bceb39dc3d61a28830c",
+      "completed_chunks": 124311,
+      "total_chunks": 124311
+    }
+  },
+  "checks": {
+    "corpus_representation": {
+      "bge": true,
+      "e5": true
+    },
+    "descending_exact_scores": {
+      "bge": true,
+      "e5": true
+    },
+    "dimensions": {
+      "bge": true,
+      "e5": true
+    },
+    "faiss_or_numpy_exact": {
+      "bge": true,
+      "e5": true
+    },
+    "finite_normalized": {
+      "bge": true,
+      "e5": true
+    },
+    "formatting": {
+      "bge_passage_no_prefix": true,
+      "bge_query_no_prefix": true,
+      "e5_passage_prefix": true,
+      "e5_query_prefix": true
+    },
+    "qrel_ids_in_corpus_universe": true,
+    "query_document_adapter_roles": true,
+    "query_representation": {
+      "bge": true,
+      "e5": true
+    },
+    "unique_corpus_chunk_ids": true
+  },
+  "config_hash": "cd9b5e0daebd93b63be1f1c08d069f52085ac2e0352a36d3f8c4813dc9bd1926",
+  "corpus_hash": "290d7a91e5f435778e782b76284a9797fb7f5ae261380f0a923b56224e530daa",
+  "faiss_parity_sample_rows": 4096,
+  "model_lock_hash": "3dea339cd508811ebc75ee4852f40d598a6067efae5a9bedc2b302810dd195f9",
+  "observed_bm25_over_dense_accepted": true,
+  "private_packet_sha256": "36086be6a84d252cafdd300a271abfa805bc256e0d6f938fe2449938f9a19c06",
+  "release_hash": "87bfb6641c13859425855488fb0ccea27495f82e47d68bf80f0d802029ab1727",
+  "sample_query_ids": {
+    "case-holding": "query-06abd14e78e361882e6b2eff",
+    "conditions": "query-06e7f792380e71563d008876",
+    "deadline": "query-03b0930c56f571af84abffbe",
+    "definition": "query-122ece67a2a290009c05f95e",
+    "exact-provision": "query-091464638b120e14676688b5",
+    "multi-evidence": "query-0554524e71323cb211b2021a",
+    "robustness": "query-06abd14e78e361882e6b2eff"
+  },
+  "schema_version": 1,
+  "selection_sha256": "bb9c58833f30ca9f4066bbb55339e2f74663fcaeae1a623892b6ce441b3a5fae",
+  "status": "dev_dense_sanity_passed"
+}
