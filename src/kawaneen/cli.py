@@ -65,6 +65,14 @@ from kawaneen.normalization.orchestrator import (
 from kawaneen.normalization.sensitivity import run_sensitivity_validation
 from kawaneen.parsing.benchmark import preflight_pdfs, qualification_status
 from kawaneen.parsing.diagnostics import diagnose_docling
+from kawaneen.retrieval.hybrid.finalization import finalize_phase8_holdout
+from kawaneen.retrieval.hybrid.orchestration import (
+    finalize_phase8_dev_selection,
+    phase8_holdout,
+    phase8_status,
+    rerank_dev,
+    run_dev_fusion,
+)
 from kawaneen.retrieval.orchestrator import (
     build_final_report,
     build_retrieval_corpus,
@@ -258,6 +266,31 @@ def build_parser() -> argparse.ArgumentParser:
     recovery_parser.add_argument("--allow-holdout", action="store_true")
     retrieval_subparsers.add_parser(
         "verify-holdout-readiness", help="check protected holdout gates without consuming holdout"
+    )
+    retrieval_subparsers.add_parser(
+        "phase8-dev-fusion", help="run cheap Phase 8 DEV fusion over frozen Phase 7 artifacts"
+    )
+    retrieval_subparsers.add_parser(
+        "phase8-finalize-dev", help="validate completed Phase 8 reranking and freeze DEV selection"
+    )
+    retrieval_subparsers.add_parser(
+        "phase8-final-report",
+        help="evaluate persisted Phase 8 DEV/holdout artifacts and freeze final reporting",
+    )
+    rerank_dev_parser = retrieval_subparsers.add_parser(
+        "phase8-rerank-dev", help="run manually authorized Phase 8 DEV reranking"
+    )
+    rerank_dev_parser.add_argument("--resume", action="store_true")
+    rerank_dev_parser.add_argument("--device", default="cpu")
+    holdout_parser = retrieval_subparsers.add_parser(
+        "phase8-holdout", help="run the one-shot Phase 8 holdout with private per-query capture"
+    )
+    holdout_parser.add_argument("--allow-holdout", action="store_true")
+    holdout_parser.add_argument("--resume", action="store_true")
+    holdout_parser.add_argument("--device", default="cpu")
+    retrieval_subparsers.add_parser(
+        "phase8-rerank-status",
+        help="show Phase 8 checkpoint manifest status without loading a model",
     )
     retrieval_subparsers.add_parser("report", help="show the Phase 7 report")
     retrieval_subparsers.add_parser("final-report", help="write the final Phase 7 report")
@@ -513,6 +546,36 @@ def main(argv: list[str] | None = None) -> int:
                 )
             elif args.retrieval_command == "verify-holdout-readiness":
                 print(json.dumps(verify_holdout_readiness(), ensure_ascii=False, sort_keys=True))
+            elif args.retrieval_command == "phase8-dev-fusion":
+                print(json.dumps(run_dev_fusion(), ensure_ascii=False, sort_keys=True))
+            elif args.retrieval_command == "phase8-finalize-dev":
+                print(
+                    json.dumps(finalize_phase8_dev_selection(), ensure_ascii=False, sort_keys=True)
+                )
+            elif args.retrieval_command == "phase8-final-report":
+                print(json.dumps(finalize_phase8_holdout(), ensure_ascii=False, sort_keys=True))
+            elif args.retrieval_command == "phase8-rerank-dev":
+                print(
+                    json.dumps(
+                        rerank_dev(resume=args.resume, device=args.device),
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                )
+            elif args.retrieval_command == "phase8-rerank-status":
+                print(json.dumps(phase8_status(), ensure_ascii=False, sort_keys=True))
+            elif args.retrieval_command == "phase8-holdout":
+                print(
+                    json.dumps(
+                        phase8_holdout(
+                            allow_holdout=args.allow_holdout,
+                            resume=args.resume,
+                            device=args.device,
+                        ),
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                )
             elif args.retrieval_command == "report":
                 print(json.dumps(retrieval_report(), ensure_ascii=False, sort_keys=True))
             elif args.retrieval_command == "final-report":

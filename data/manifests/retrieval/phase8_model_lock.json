@@ -1,0 +1,17 @@
+{
+  "contract": {
+    "batch_size": 4,
+    "candidate_count": 20,
+    "device": "cpu",
+    "evaluation_depth": 10,
+    "max_length": 1024,
+    "passage_contract": "exact chunk display_text",
+    "query_contract": "original query text",
+    "scoring": "raw model logit",
+    "serving_depth": 8
+  },
+  "model_id": "BAAI/bge-reranker-v2-m3",
+  "revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+  "schema_version": 1,
+  "status": "immutable_model_revision_locked"
+}

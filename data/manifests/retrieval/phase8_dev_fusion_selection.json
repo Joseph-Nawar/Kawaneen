@@ -1,0 +1,14 @@
+{
+  "final_phase8_selection_frozen": false,
+  "guardrails": {
+    "CompleteEvidenceRecall@10_max_regression": 0.01,
+    "Recall@10_max_regression": 0.01
+  },
+  "phase7_selection_sha256": "bb9c58833f30ca9f4066bbb55339e2f74663fcaeae1a623892b6ce441b3a5fae",
+  "primary_metric": "nDCG@10",
+  "reranker_evaluated": false,
+  "schema_version": 1,
+  "selected_dense_weight": 0.25,
+  "selected_fusion": "rrf__s1_d025",
+  "status": "provisional_dev_fusion_selection"
+}

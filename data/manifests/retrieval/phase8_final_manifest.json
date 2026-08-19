@@ -1,0 +1,138 @@
+{
+  "bootstrap": {
+    "confidence": 0.95,
+    "replicates": 2000,
+    "seed": 20260815
+  },
+  "exit_criterion": {
+    "cer10_regression_within_0_01": true,
+    "criterion_met": true,
+    "ndcg_improvement_positive": true,
+    "operational_cost_recorded": true,
+    "paired_bootstrap_ci_excludes_zero": true,
+    "recall10_regression_within_0_01": true,
+    "slice_regressions": {}
+  },
+  "final_configuration": {
+    "fusion": {
+      "candidate_k": 20,
+      "dense_top_k": 50,
+      "dense_weight": 0.25,
+      "rrf_k": 60,
+      "sparse_top_k": 50,
+      "sparse_weight": 1.0
+    },
+    "pipeline": "rrf_reranked",
+    "reranker": {
+      "candidate_count": 20,
+      "evaluation_depth": 10,
+      "max_length": 1024,
+      "model_id": "BAAI/bge-reranker-v2-m3",
+      "revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+      "scoring_contract": "raw-logit-v1",
+      "selected": true,
+      "serving_depth": 8
+    }
+  },
+  "final_configuration_sha256": "6c798d9d94421054934d8ab3f091a60b8f5d98ee7b1760e02ed7deb673d8dfb6",
+  "hashes": {
+    "chunk_policy_hash": "93fe26c1f2482456101d8803f74c4c369d7643b063689756e16d52439acca46f",
+    "corpus_hash": "290d7a91e5f435778e782b76284a9797fb7f5ae261380f0a923b56224e530daa",
+    "phase6_holdout_ids_hash": "c86be07a81d238fe02fc09a3e29575ec00ce4acd0efc15662201009a852ba0b0",
+    "phase6_item_set_hash": "87bfb6641c13859425855488fb0ccea27495f82e47d68bf80f0d802029ab1727",
+    "phase7_bge_holdout_replay_sha256": "14c7dff8eaf6970fe928984ce843d8c393eb0de49c042d1b79c4e5728989abfa",
+    "phase7_bm25_holdout_replay_sha256": "d9bc5bf78984d390cc66250b3bdcedcb1211a60b6536e554e449b1b55d54c20f",
+    "phase7_selection_sha256": "bb9c58833f30ca9f4066bbb55339e2f74663fcaeae1a623892b6ce441b3a5fae",
+    "phase8_comparison_sha256": "7196afc2db9dfa5616638b870979dbaa69014f6e3936890ac12f2efd869abd38",
+    "phase8_config_sha256": "5a45d8a8dcb350a6b1ecc7c1ae850bead9afeb701f995739b6cdec2c64884afe",
+    "phase8_dev_selection_sha256": "a62cc772f2b71883355c7935da7e7b87ab4d22b3746553148b4f64ef20f28b0b",
+    "phase8_final_report_sha256": "64da716e478c2ac3a0862b7ef32ffd9238914e1519fdef75890ea9d70d75c4bd",
+    "phase8_holdout_metrics_sha256": "5fe3d5f7df061334010a138d876d8f89e14ce09bbbb5e7a53a2e44d8849c79e9",
+    "phase8_model_lock_sha256": "a9dcb9f6ab6396d9ce68507c200533d8eadc7e2565d995b5c15d5c719deb21d9",
+    "qrel_hash": "257596ac0444f8765b4e7059d11394a470209969b98ccc991e06edfbd1c6354a",
+    "release_hash": "87bfb6641c13859425855488fb0ccea27495f82e47d68bf80f0d802029ab1727"
+  },
+  "holdout_protocol": {
+    "private_per_query_artifacts_preserved": true,
+    "rerun": false,
+    "status": "completed_once",
+    "tuned_on_holdout": false
+  },
+  "metadata_limitation": {
+    "document_count": 26147,
+    "fields": {
+      "document_type": {
+        "distinct_value_count": 0,
+        "distinct_values": [],
+        "null_count": 26147,
+        "populated_count": 0,
+        "populated_percentage": 0.0
+      },
+      "issuing_authority": {
+        "distinct_value_count": 0,
+        "distinct_values": [],
+        "null_count": 26147,
+        "populated_count": 0,
+        "populated_percentage": 0.0
+      },
+      "jurisdiction": {
+        "distinct_value_count": 0,
+        "distinct_values": [],
+        "null_count": 26147,
+        "populated_count": 0,
+        "populated_percentage": 0.0
+      },
+      "legal_status": {
+        "distinct_value_count": 0,
+        "distinct_values": [],
+        "null_count": 26147,
+        "populated_count": 0,
+        "populated_percentage": 0.0
+      },
+      "publication_date": {
+        "distinct_value_count": 0,
+        "distinct_values": [],
+        "null_count": 26147,
+        "populated_count": 0,
+        "populated_percentage": 0.0
+      },
+      "regulation_name": {
+        "distinct_value_count": 0,
+        "distinct_values": [],
+        "null_count": 26147,
+        "populated_count": 0,
+        "populated_percentage": 0.0
+      }
+    },
+    "limitation": "all six structured filter fields have 0% population over 26,147 documents; filtering is implemented and tested, but no metadata relevance leaderboard result exists"
+  },
+  "metric_definitions": {
+    "binary_relevance": "qrel grade > 0",
+    "complete_evidence": "every required evidence group represented in top-k",
+    "ndcg_gain": "2**rel - 1"
+  },
+  "model": {
+    "id": "BAAI/bge-reranker-v2-m3",
+    "max_length": 1024,
+    "model_loaded_by_finalization": false,
+    "revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+    "scoring_contract": "raw-logit-v1"
+  },
+  "no_phase7_mutation": true,
+  "schema_version": 1,
+  "selected_pipeline": "rrf_reranked",
+  "selection_immutable": true,
+  "selection_thresholds": {
+    "CompleteEvidenceRecall@10_delta": 0.05673758865248227,
+    "Recall@10_delta": 0.05673758865248227,
+    "nDCG@10_delta": 0.06517729991822938,
+    "reranker_eligible": true,
+    "selected_pipeline": "rrf_reranked",
+    "thresholds": {
+      "maximum_CompleteEvidenceRecall@10_regression": 0.01,
+      "maximum_Recall@10_regression": 0.01,
+      "minimum_nDCG@10_delta": 0.002
+    }
+  },
+  "status": "phase8_final_manifest_frozen"
+}

@@ -1,0 +1,23 @@
+{
+  "command": "uv run kawaneen retrieval phase8-holdout --allow-holdout --resume --device cpu",
+  "holdout_not_loaded": true,
+  "per_query_fields": [
+    "query_id",
+    "candidate_chunk_ids",
+    "candidate_scores",
+    "fusion_provenance",
+    "ranked_chunk_ids",
+    "ranked_scores",
+    "relevant_ranked_chunk_ids_at_10",
+    "qrel_grades",
+    "evidence_group_satisfaction",
+    "slice_labels",
+    "parent_intent_id",
+    "latency_ms"
+  ],
+  "private_root": "artifacts/private/phase8_retrieval/holdout",
+  "schema_version": 1,
+  "selection_manifest": "data/manifests/retrieval/phase8_dev_selection.json",
+  "status": "phase8_holdout_ready_not_executed",
+  "tracked_payload_is_text_free": true
+}
