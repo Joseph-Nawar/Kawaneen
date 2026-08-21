@@ -1,0 +1,20 @@
+{
+  "generator_request_fields": [
+    "evidence_id",
+    "quoted_text"
+  ],
+  "matching": "exact_codepoint_substring_only",
+  "schema_version": 1,
+  "semantic_entailment": "deferred_to_phase10",
+  "server_constructed_fields": [
+    "document_id",
+    "document_title",
+    "jurisdiction",
+    "article",
+    "page",
+    "chunk_id",
+    "source_url",
+    "quoted_text_exact"
+  ],
+  "status": "phase9_citation_schema_frozen"
+}
