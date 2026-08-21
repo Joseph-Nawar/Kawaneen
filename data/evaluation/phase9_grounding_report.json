@@ -1,0 +1,190 @@
+{
+  "assembly": {
+    "max_context_tokens": 4096,
+    "phase8_selection_sha256": "a62cc772f2b71883355c7935da7e7b87ab4d22b3746553148b4f64ef20f28b0b",
+    "private_root": "artifacts/private/phase9_grounding",
+    "query_count": 160,
+    "status": "phase9_dev_context_assembly_complete",
+    "token_counter_identity": "codepoint-v1"
+  },
+  "citation_audit": "data/evaluation/phase9_citation_integrity_audit.json",
+  "citation_audit_sha256": "97d1e66e1a0e929ff13f888c8cde1257bff893f95ae331aeed5c437785175c8c",
+  "citation_schema": "data/manifests/grounding/phase9_citation_schema.json",
+  "citation_schema_sha256": "0dba620b02433d266ebf5968fdb4941832435d958445a8c9413c3371f35a80ce",
+  "context_audit": "data/evaluation/phase9_dev_context_audit.json",
+  "context_audit_sha256": "ebd469ad17985fd85743f22b47ca1ba5f8b4fe650e5d8012ccbb6bae89c1f365",
+  "context_policy": "data/manifests/grounding/phase9_context_policy.json",
+  "context_policy_sha256": "be7324808180d4a0797154c2b3c46050ff67b41790da3fcc04f17c60383347dc",
+  "evidence_retention_audit": {
+    "BudgetOnlyLosses": {
+      "complete_gold_query_losses": 21,
+      "counter_identity": "codepoint-v1",
+      "gold_query_losses": 22,
+      "gold_representation_losses": 22,
+      "max_context_tokens": 4096
+    },
+    "UnboundedConditionalCompleteGoldRetention": {
+      "assembly_representation_losses": 0,
+      "conditional_rate": 1.0,
+      "input_covered_queries": 36,
+      "retained_queries": 36
+    },
+    "UnboundedConditionalGoldRetention": {
+      "assembly_representation_losses": 0,
+      "conditional_rate": 1.0,
+      "input_covered_queries": 38,
+      "retained_queries": 38
+    },
+    "budgeted_gold_representation_losses": 22,
+    "budgeted_retained_gold_representations": 17,
+    "input_gold_queries": 38,
+    "input_gold_representations": 39,
+    "loss_attribution": {
+      "block_reconstruction": 0,
+      "canonical_unit_deduplication": 0,
+      "ordering": 0,
+      "other": 0,
+      "provenance_resolution_failure": 0,
+      "token_budget_exclusion": 22
+    },
+    "representation_definition": "one positive qrel chunk present in the frozen Phase-8 top-8; retained when at least one authoritative canonical unit from that chunk is present in the ContextPack",
+    "unbounded_gold_representation_losses": 0,
+    "unbounded_retained_gold_representations": 39
+  },
+  "generation_executed": false,
+  "holdout_executed": false,
+  "metadata_audit": {
+    "chunk_scope_count": 1143,
+    "document_scope_count": 1073,
+    "fields": {
+      "article": {
+        "authoritative_source_locations": [
+          "data/interim/canonical/alarb/e64bfdc867146294a65434c5ca16c2c4c5288ca2/documents.parquet: raw_article_label, derived_article_ordinal",
+          "data/interim/canonical/arabiccr/3/documents.parquet: raw_article_label, derived_article_ordinal"
+        ],
+        "coverage": 0.0,
+        "field": "article",
+        "note": "Article columns exist upstream but are unpopulated for the frozen Phase-8 document scope.",
+        "populated_count": 0,
+        "scope": "distinct_frozen_phase8_top8_documents",
+        "scope_count": 1073,
+        "status": "partially_available_upstream"
+      },
+      "document_title": {
+        "authoritative_source_locations": [
+          "data/interim/canonical/alarb/e64bfdc867146294a65434c5ca16c2c4c5288ca2/documents.parquet: title",
+          "data/interim/canonical/arabiccr/3/documents.parquet: title"
+        ],
+        "coverage": 1.0,
+        "field": "document_title",
+        "note": "Resolved from canonical document records; never from retrieval metadata.",
+        "populated_count": 1073,
+        "scope": "distinct_frozen_phase8_top8_documents",
+        "scope_count": 1073,
+        "status": "available_upstream_wired"
+      },
+      "heading_path": {
+        "authoritative_source_locations": [
+          "artifacts/private/phase7_retrieval/corpus/chunks.jsonl: no structure_path field",
+          "artifacts/private/phase5_chunking/chunks/legal-structure-v1/chunks.jsonl: structure_path IDs do not match frozen Phase-8 chunk IDs"
+        ],
+        "coverage": 0.0,
+        "field": "heading_path",
+        "note": "Phase-5 structural paths are not authoritative heading labels for the frozen Phase-8 chunks.",
+        "populated_count": 0,
+        "scope": "distinct_frozen_phase8_top8_chunks",
+        "scope_count": 1143,
+        "status": "genuinely_absent_for_frozen_phase8_scope"
+      },
+      "jurisdiction": {
+        "authoritative_source_locations": [
+          "data/interim/canonical/*/documents.parquet: schema has no jurisdiction field",
+          "data/manifests/retrieval/phase8_metadata_coverage.json: query jurisdiction is not source provenance"
+        ],
+        "coverage": 0.0,
+        "field": "jurisdiction",
+        "note": "No authoritative jurisdiction field exists for the retrieved document records.",
+        "populated_count": 0,
+        "scope": "distinct_frozen_phase8_top8_documents",
+        "scope_count": 1073,
+        "status": "genuinely_absent_upstream"
+      },
+      "page": {
+        "authoritative_source_locations": [
+          "data/interim/canonical/*/documents.parquet: schema has no page field",
+          "artifacts/private/phase7_retrieval/corpus/chunks.jsonl: no page field"
+        ],
+        "coverage": 0.0,
+        "field": "page",
+        "note": "No authoritative page field exists in the relevant canonical document or chunk records.",
+        "populated_count": 0,
+        "scope": "distinct_frozen_phase8_top8_documents",
+        "scope_count": 1073,
+        "status": "genuinely_absent_upstream"
+      },
+      "source_url": {
+        "authoritative_source_locations": [
+          "data/interim/canonical/arabiccr/3/documents.parquet: source_metadata_json.details_url"
+        ],
+        "coverage": 0.5125815470643057,
+        "field": "source_url",
+        "note": "ArabicCCR details_url is wired; ALARB has no populated authoritative URL in scope.",
+        "populated_count": 550,
+        "scope": "distinct_frozen_phase8_top8_documents",
+        "scope_count": 1073,
+        "status": "partially_available_upstream_wired"
+      }
+    }
+  },
+  "metrics": {
+    "AssemblyConditionalCompleteGoldRetention": {
+      "assembly_representation_losses": 21,
+      "conditional_rate": 0.4166666666666667,
+      "input_covered_queries": 36,
+      "retained_queries": 15
+    },
+    "AssemblyConditionalGoldRetention": {
+      "assembly_representation_losses": 22,
+      "conditional_rate": 0.42105263157894735,
+      "input_covered_queries": 38,
+      "retained_queries": 16
+    },
+    "InputCompleteGoldEvidenceCoverage@8": {
+      "hits": 36,
+      "queries": 141,
+      "rate": 0.2553191489361702
+    },
+    "InputGoldEvidenceCoverage@8": {
+      "hits": 38,
+      "queries": 141,
+      "rate": 0.2695035460992908
+    },
+    "answerable_queries": 141,
+    "answerable_queries_with_complete_gold_in_input": 36,
+    "answerable_queries_with_gold_in_input": 38,
+    "dedup_only_representation_losses": 0,
+    "document_count": 398,
+    "duplicate_unit_violations": 0,
+    "duplication_ratio_after": 1.0,
+    "duplication_ratio_before": 2.9493087557603688,
+    "fabricated_or_inferred_metadata_count": 0,
+    "input_chunks_per_query": 8.0,
+    "mid_unit_truncations": 0,
+    "ordering_violations": 0,
+    "output_blocks_per_query": 2.675,
+    "overlapping_or_repeated_units_removed": 19,
+    "query_count": 160,
+    "token_budget_violations": 0,
+    "unique_canonical_units": 434,
+    "unresolved_source_count": 0
+  },
+  "phase8_selection_sha256": "a62cc772f2b71883355c7935da7e7b87ab4d22b3746553148b4f64ef20f28b0b",
+  "schema_version": 1,
+  "semantic_entailment": "deferred_to_phase10",
+  "status": "phase9_dev_grounding_audit_complete",
+  "token_budget_semantics": {
+    "counter_identity": "codepoint-v1",
+    "future_generator_tokenizer": "supplied_by_phase10",
+    "meaning": "deterministic_phase9_audit_counter_only"
+  }
+}

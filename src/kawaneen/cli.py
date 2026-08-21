@@ -58,6 +58,8 @@ from kawaneen.evaluation.orchestrator import (
     run_source_balance_audit,
     validate_evaluation,
 )
+from kawaneen.grounding.dev import assemble_dev as assemble_grounding_dev
+from kawaneen.grounding.dev import audit_dev as audit_grounding_dev
 from kawaneen.normalization.orchestrator import (
     normalization_plan,
     run_phase4_experiment,
@@ -294,6 +296,15 @@ def build_parser() -> argparse.ArgumentParser:
     )
     retrieval_subparsers.add_parser("report", help="show the Phase 7 report")
     retrieval_subparsers.add_parser("final-report", help="write the final Phase 7 report")
+    grounding_parser = subparsers.add_parser(
+        "grounding", help="deterministic Phase 9 context and citation grounding"
+    )
+    grounding_subparsers = grounding_parser.add_subparsers(
+        dest="grounding_command", required=True
+    )
+    for command in ("assemble-dev", "audit-dev"):
+        command_parser = grounding_subparsers.add_parser(command)
+        command_parser.add_argument("--max-context-tokens", type=int, default=4096)
     return parser
 
 
@@ -582,6 +593,27 @@ def main(argv: list[str] | None = None) -> int:
                 print(json.dumps(build_final_report(), ensure_ascii=False, sort_keys=True))
         except (OSError, PermissionError, ValueError, RuntimeError) as exc:
             print(f"Retrieval operation failed: {exc}", file=sys.stderr)
+            return 1
+    elif args.command == "grounding":
+        try:
+            if args.grounding_command == "assemble-dev":
+                print(
+                    json.dumps(
+                        assemble_grounding_dev(max_context_tokens=args.max_context_tokens),
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                )
+            elif args.grounding_command == "audit-dev":
+                print(
+                    json.dumps(
+                        audit_grounding_dev(max_context_tokens=args.max_context_tokens),
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                )
+        except (OSError, PermissionError, ValueError, RuntimeError) as exc:
+            print(f"Grounding operation failed: {exc}", file=sys.stderr)
             return 1
     else:
         build_parser().print_help()

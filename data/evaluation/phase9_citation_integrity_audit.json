@@ -1,0 +1,105 @@
+{
+  "accepted_citations_traceable_to_supplied_context_percent": 100.0,
+  "accepted_fabricated_evidence_ids": 0,
+  "accepted_fabricated_source_metadata": 0,
+  "accepted_non_exact_quotations": 0,
+  "accepted_quotations_exact_authoritative_substrings_percent": 100.0,
+  "adversarial_cases": [
+    "unknown_evidence_id",
+    "outside_context_source",
+    "invented_metadata",
+    "different_source_quote",
+    "altered_quote",
+    "normalized_but_not_exact_arabic_quote",
+    "empty_quote",
+    "unsupported_claim",
+    "empty_context",
+    "malformed_draft"
+  ],
+  "metadata_audit": {
+    "chunk_scope_count": 1143,
+    "document_scope_count": 1073,
+    "fields": {
+      "article": {
+        "authoritative_source_locations": [
+          "data/interim/canonical/alarb/e64bfdc867146294a65434c5ca16c2c4c5288ca2/documents.parquet: raw_article_label, derived_article_ordinal",
+          "data/interim/canonical/arabiccr/3/documents.parquet: raw_article_label, derived_article_ordinal"
+        ],
+        "coverage": 0.0,
+        "field": "article",
+        "note": "Article columns exist upstream but are unpopulated for the frozen Phase-8 document scope.",
+        "populated_count": 0,
+        "scope": "distinct_frozen_phase8_top8_documents",
+        "scope_count": 1073,
+        "status": "partially_available_upstream"
+      },
+      "document_title": {
+        "authoritative_source_locations": [
+          "data/interim/canonical/alarb/e64bfdc867146294a65434c5ca16c2c4c5288ca2/documents.parquet: title",
+          "data/interim/canonical/arabiccr/3/documents.parquet: title"
+        ],
+        "coverage": 1.0,
+        "field": "document_title",
+        "note": "Resolved from canonical document records; never from retrieval metadata.",
+        "populated_count": 1073,
+        "scope": "distinct_frozen_phase8_top8_documents",
+        "scope_count": 1073,
+        "status": "available_upstream_wired"
+      },
+      "heading_path": {
+        "authoritative_source_locations": [
+          "artifacts/private/phase7_retrieval/corpus/chunks.jsonl: no structure_path field",
+          "artifacts/private/phase5_chunking/chunks/legal-structure-v1/chunks.jsonl: structure_path IDs do not match frozen Phase-8 chunk IDs"
+        ],
+        "coverage": 0.0,
+        "field": "heading_path",
+        "note": "Phase-5 structural paths are not authoritative heading labels for the frozen Phase-8 chunks.",
+        "populated_count": 0,
+        "scope": "distinct_frozen_phase8_top8_chunks",
+        "scope_count": 1143,
+        "status": "genuinely_absent_for_frozen_phase8_scope"
+      },
+      "jurisdiction": {
+        "authoritative_source_locations": [
+          "data/interim/canonical/*/documents.parquet: schema has no jurisdiction field",
+          "data/manifests/retrieval/phase8_metadata_coverage.json: query jurisdiction is not source provenance"
+        ],
+        "coverage": 0.0,
+        "field": "jurisdiction",
+        "note": "No authoritative jurisdiction field exists for the retrieved document records.",
+        "populated_count": 0,
+        "scope": "distinct_frozen_phase8_top8_documents",
+        "scope_count": 1073,
+        "status": "genuinely_absent_upstream"
+      },
+      "page": {
+        "authoritative_source_locations": [
+          "data/interim/canonical/*/documents.parquet: schema has no page field",
+          "artifacts/private/phase7_retrieval/corpus/chunks.jsonl: no page field"
+        ],
+        "coverage": 0.0,
+        "field": "page",
+        "note": "No authoritative page field exists in the relevant canonical document or chunk records.",
+        "populated_count": 0,
+        "scope": "distinct_frozen_phase8_top8_documents",
+        "scope_count": 1073,
+        "status": "genuinely_absent_upstream"
+      },
+      "source_url": {
+        "authoritative_source_locations": [
+          "data/interim/canonical/arabiccr/3/documents.parquet: source_metadata_json.details_url"
+        ],
+        "coverage": 0.5125815470643057,
+        "field": "source_url",
+        "note": "ArabicCCR details_url is wired; ALARB has no populated authoritative URL in scope.",
+        "populated_count": 550,
+        "scope": "distinct_frozen_phase8_top8_documents",
+        "scope_count": 1073,
+        "status": "partially_available_upstream_wired"
+      }
+    }
+  },
+  "schema_version": 1,
+  "semantic_entailment": "not_proven_deferred_to_phase10",
+  "status": "phase9_structural_citation_integrity_audit"
+}

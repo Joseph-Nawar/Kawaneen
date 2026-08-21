@@ -1,0 +1,78 @@
+{
+  "AssemblyConditionalCompleteGoldRetention": {
+    "assembly_representation_losses": 21,
+    "conditional_rate": 0.4166666666666667,
+    "input_covered_queries": 36,
+    "retained_queries": 15
+  },
+  "AssemblyConditionalGoldRetention": {
+    "assembly_representation_losses": 22,
+    "conditional_rate": 0.42105263157894735,
+    "input_covered_queries": 38,
+    "retained_queries": 16
+  },
+  "InputCompleteGoldEvidenceCoverage@8": {
+    "hits": 36,
+    "queries": 141,
+    "rate": 0.2553191489361702
+  },
+  "InputGoldEvidenceCoverage@8": {
+    "hits": 38,
+    "queries": 141,
+    "rate": 0.2695035460992908
+  },
+  "answerable_queries": 141,
+  "answerable_queries_with_complete_gold_in_input": 36,
+  "answerable_queries_with_gold_in_input": 38,
+  "dedup_only_representation_losses": 0,
+  "document_count": 398,
+  "duplicate_unit_violations": 0,
+  "duplication_ratio_after": 1.0,
+  "duplication_ratio_before": 2.9493087557603688,
+  "evidence_retention_audit": {
+    "BudgetOnlyLosses": {
+      "complete_gold_query_losses": 21,
+      "counter_identity": "codepoint-v1",
+      "gold_query_losses": 22,
+      "gold_representation_losses": 22,
+      "max_context_tokens": 4096
+    },
+    "UnboundedConditionalCompleteGoldRetention": {
+      "assembly_representation_losses": 0,
+      "conditional_rate": 1.0,
+      "input_covered_queries": 36,
+      "retained_queries": 36
+    },
+    "UnboundedConditionalGoldRetention": {
+      "assembly_representation_losses": 0,
+      "conditional_rate": 1.0,
+      "input_covered_queries": 38,
+      "retained_queries": 38
+    },
+    "budgeted_gold_representation_losses": 22,
+    "budgeted_retained_gold_representations": 17,
+    "input_gold_queries": 38,
+    "input_gold_representations": 39,
+    "loss_attribution": {
+      "block_reconstruction": 0,
+      "canonical_unit_deduplication": 0,
+      "ordering": 0,
+      "other": 0,
+      "provenance_resolution_failure": 0,
+      "token_budget_exclusion": 22
+    },
+    "representation_definition": "one positive qrel chunk present in the frozen Phase-8 top-8; retained when at least one authoritative canonical unit from that chunk is present in the ContextPack",
+    "unbounded_gold_representation_losses": 0,
+    "unbounded_retained_gold_representations": 39
+  },
+  "fabricated_or_inferred_metadata_count": 0,
+  "input_chunks_per_query": 8.0,
+  "mid_unit_truncations": 0,
+  "ordering_violations": 0,
+  "output_blocks_per_query": 2.675,
+  "overlapping_or_repeated_units_removed": 19,
+  "query_count": 160,
+  "token_budget_violations": 0,
+  "unique_canonical_units": 434,
+  "unresolved_source_count": 0
+}
