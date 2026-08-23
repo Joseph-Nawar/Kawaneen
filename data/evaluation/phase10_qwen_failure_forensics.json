@@ -1,0 +1,299 @@
+{
+  "explicit_generator_abstention_slices": {
+    "by_category": {
+      "authority": 2,
+      "case_holding": 5,
+      "conditions": 6,
+      "deadline": 16,
+      "definition": 13,
+      "exact_provision": 6,
+      "multi_evidence": 9,
+      "unanswerable": 12
+    },
+    "by_language": {
+      "ar": 59,
+      "ar-en": 5,
+      "en": 5
+    },
+    "by_population": {
+      "explicitly_unanswerable": 12,
+      "gold_absent_from_top8": 41,
+      "gold_present_in_top8": 16
+    },
+    "by_register": {
+      "egyptian": 3,
+      "formal": 53,
+      "professional": 10,
+      "simple": 3
+    },
+    "count": 69,
+    "gold_evidence_survived": {
+      "false": 63,
+      "true": 6
+    },
+    "population_x_gold_survived": {
+      "explicitly_unanswerable|False": 12,
+      "gold_absent_from_top8|False": 41,
+      "gold_present_in_top8|False": 10,
+      "gold_present_in_top8|True": 6
+    },
+    "prompt_quartiles_over_all_dev": {
+      "counts": {
+        "Q1": 21,
+        "Q2": 15,
+        "Q3": 16,
+        "Q4": 17
+      },
+      "cutoffs": [
+        2583,
+        2910,
+        3159
+      ]
+    }
+  },
+  "invalid_generation_taxonomy": {
+    "by_population": {
+      "gold_absent_from_top8|output_truncated_at_max_new_tokens": 26,
+      "gold_absent_from_top8|syntactically_invalid_json": 8,
+      "gold_absent_from_top8|too_many_claims": 1,
+      "gold_present_in_top8|output_truncated_at_max_new_tokens": 11
+    },
+    "categories": {
+      "output_truncated_at_max_new_tokens": 37,
+      "syntactically_invalid_json": 8,
+      "too_many_claims": 1
+    },
+    "failure_mode_by_category": {
+      "output_truncated_at_max_new_tokens": "output_token_truncation",
+      "syntactically_invalid_json": "model_behavior_failure",
+      "too_many_claims": "model_behavior_schema_contract_failure"
+    },
+    "other_categories_zero": [
+      "no_json_emitted",
+      "json_wrapped_in_markdown",
+      "explanatory_text_before_or_after_json",
+      "schema_valid_json_with_forbidden_extra_fields",
+      "missing_required_field",
+      "invalid_decision_value",
+      "answer_with_empty_claims",
+      "abstain_with_claims",
+      "malformed_citation_structure"
+    ],
+    "total": 46
+  },
+  "ollama_structured_output_audit": {
+    "adapter_repairs_or_relaxes_invalid_output": false,
+    "json_mode_requested": true,
+    "json_schema_mode_requested": false,
+    "prompt_embedded_output_schema": true,
+    "pydantic_contract_validated_after_response": true,
+    "request_format_field": "json",
+    "response_path": "Ollama response.response -> last_raw_response -> parse_model_output",
+    "stop_reason_persisted": false
+  },
+  "outcome_matrix": {
+    "all_160": {
+      "explicitly_unanswerable": {
+        "outcomes": {
+          "generator_explicit_abstain": {
+            "count": 12,
+            "percent": 0.631578947368421
+          },
+          "pre_generation_policy": {
+            "count": 6,
+            "percent": 0.3157894736842105
+          },
+          "semantic_support_rejection": {
+            "count": 1,
+            "percent": 0.05263157894736842
+          }
+        },
+        "total": 19
+      },
+      "gold_absent_from_top8": {
+        "outcomes": {
+          "accepted_answer": {
+            "count": 9,
+            "percent": 0.08737864077669903
+          },
+          "generator_explicit_abstain": {
+            "count": 41,
+            "percent": 0.39805825242718446
+          },
+          "malformed_or_invalid_generation": {
+            "count": 35,
+            "percent": 0.33980582524271846
+          },
+          "quotation_mismatch": {
+            "count": 8,
+            "percent": 0.07766990291262135
+          },
+          "semantic_support_rejection": {
+            "count": 10,
+            "percent": 0.0970873786407767
+          }
+        },
+        "total": 103
+      },
+      "gold_present_in_top8": {
+        "outcomes": {
+          "accepted_answer": {
+            "count": 2,
+            "percent": 0.05263157894736842
+          },
+          "generator_explicit_abstain": {
+            "count": 16,
+            "percent": 0.42105263157894735
+          },
+          "malformed_or_invalid_generation": {
+            "count": 11,
+            "percent": 0.2894736842105263
+          },
+          "quotation_mismatch": {
+            "count": 2,
+            "percent": 0.05263157894736842
+          },
+          "semantic_support_rejection": {
+            "count": 7,
+            "percent": 0.18421052631578946
+          }
+        },
+        "total": 38
+      }
+    },
+    "gold_present_38": {
+      "gold_present_in_top8": {
+        "outcomes": {
+          "accepted_answer": {
+            "count": 2,
+            "percent": 0.05263157894736842
+          },
+          "generator_explicit_abstain": {
+            "count": 16,
+            "percent": 0.42105263157894735
+          },
+          "malformed_or_invalid_generation": {
+            "count": 11,
+            "percent": 0.2894736842105263
+          },
+          "quotation_mismatch": {
+            "count": 2,
+            "percent": 0.05263157894736842
+          },
+          "semantic_support_rejection": {
+            "count": 7,
+            "percent": 0.18421052631578946
+          }
+        },
+        "total": 38
+      }
+    },
+    "population_sizes": {
+      "explicitly_unanswerable": 19,
+      "gold_absent_from_top8": 103,
+      "gold_present_in_top8": 38
+    }
+  },
+  "output_token_truncation": {
+    "all_persisted_responses": 154,
+    "exactly_384_tokens": 37,
+    "invalid_responses_exactly_384": 37,
+    "termination_reason": "unavailable; not persisted",
+    "valid_or_explicit_abstain_exactly_384": 0
+  },
+  "primary_diagnosis": "MIXED_FAILURES",
+  "private_review_artifact": "artifacts/private/phase10_generation/forensics/phase10_qwen_private_review.json",
+  "quotation_failure_taxonomy": {
+    "categories": {
+      "correct_eid_but_paraphrased_quote": 8,
+      "punctuation_only_difference": 2,
+      "whitespace_only_difference": 1
+    },
+    "categories_zero": [
+      "arabic_codepoint_or_normalization_difference",
+      "truncated_quotation",
+      "quotation_copied_from_another_supplied_evidence_block",
+      "quotation_not_present_anywhere_in_supplied_context",
+      "other"
+    ],
+    "failed_citation_request_count": 11,
+    "failed_citations_with_valid_supplied_eid": 11,
+    "rejected_response_count": 10
+  },
+  "raw_answer_decisions": {
+    "accepted": 11,
+    "by_category": {
+      "authority|quotation_mismatch": 1,
+      "authority|semantic_support_rejection": 2,
+      "case_holding|accepted_answer": 5,
+      "case_holding|quotation_mismatch": 1,
+      "case_holding|semantic_support_rejection": 5,
+      "conditions|accepted_answer": 3,
+      "conditions|quotation_mismatch": 1,
+      "conditions|semantic_support_rejection": 1,
+      "deadline|accepted_answer": 1,
+      "deadline|semantic_support_rejection": 1,
+      "definition|quotation_mismatch": 4,
+      "definition|semantic_support_rejection": 4,
+      "exact_provision|accepted_answer": 1,
+      "exact_provision|quotation_mismatch": 2,
+      "exact_provision|semantic_support_rejection": 3,
+      "multi_evidence|accepted_answer": 1,
+      "multi_evidence|quotation_mismatch": 1,
+      "multi_evidence|semantic_support_rejection": 1,
+      "unanswerable|semantic_support_rejection": 1
+    },
+    "by_population": {
+      "explicitly_unanswerable|semantic_support_rejection": 1,
+      "gold_absent_from_top8|accepted_answer": 9,
+      "gold_absent_from_top8|quotation_mismatch": 8,
+      "gold_absent_from_top8|semantic_support_rejection": 10,
+      "gold_present_in_top8|accepted_answer": 2,
+      "gold_present_in_top8|quotation_mismatch": 2,
+      "gold_present_in_top8|semantic_support_rejection": 7
+    },
+    "gold_present_primary_slice": {
+      "accepted_answer": 2,
+      "generator_explicit_abstain": 16,
+      "malformed_or_invalid_generation": 11,
+      "quotation_mismatch": 2,
+      "semantic_support_rejection": 7
+    },
+    "quote_rejected": 10,
+    "support_rejected": 18,
+    "total": 39
+  },
+  "schema_version": 1,
+  "semantic_support_audit": {
+    "approved_design_interpretation": "The current Stage-A design and focused test intentionally fail closed for non-extractive unsupported claims; this is not an accidentally diagnostic-only verifier under the frozen code and manifest.",
+    "by_category": {
+      "authority": 2,
+      "case_holding": 5,
+      "conditions": 1,
+      "deadline": 1,
+      "definition": 4,
+      "exact_provision": 3,
+      "multi_evidence": 1,
+      "unanswerable": 1
+    },
+    "by_population": {
+      "explicitly_unanswerable": 1,
+      "gold_absent_from_top8": 10,
+      "gold_present_in_top8": 7
+    },
+    "code_path": {
+      "default_support": "src/kawaneen/generation/postprocessing.py:76",
+      "deferred_support": "src/kawaneen/generation/semantic.py:22-29",
+      "hard_gate": "src/kawaneen/generation/postprocessing.py:95-105",
+      "orchestration_persistence": "src/kawaneen/generation/orchestration.py:420-429"
+    },
+    "diagnostic_only_marker_in_policy": false,
+    "implementation_defect_found": false,
+    "production_hard_gate": true,
+    "real_nli_used": false,
+    "rejection_count": 18,
+    "rule": "DeferredSemanticSupport returns available=false; reject when claim.text is not an exact substring of the concatenated quoted evidence text.",
+    "threshold": "none"
+  },
+  "status": "complete_bounded_persisted_qwen_forensics"
+}

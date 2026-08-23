@@ -1,0 +1,19 @@
+{
+  "context_sufficient_query_count": 38,
+  "frozen_phase8_selection_sha256": "a62cc772f2b71883355c7935da7e7b87ab4d22b3746553148b4f64ef20f28b0b",
+  "input_query_count": 160,
+  "predeclared_minimum_allowed_queries": 10,
+  "predeclared_precision_floor": 0.95,
+  "schema_version": 1,
+  "score_gate_allowed_through": 160,
+  "score_gate_enabled": false,
+  "selected_allowed_queries": null,
+  "selected_precision": null,
+  "selected_recall": null,
+  "selected_threshold": null,
+  "selection_rationale": "No observed cutoff satisfies both the predeclared precision floor and minimum-throughput condition; do not invent or retune a cutoff.",
+  "status": "complete_no_cutoff_selected",
+  "study": "dev_only_one_dimensional_top_reranker_score",
+  "threshold_selected": false,
+  "valid_cutoff_count": 0
+}

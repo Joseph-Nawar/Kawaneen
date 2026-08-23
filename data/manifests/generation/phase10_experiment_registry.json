@@ -1,0 +1,33 @@
+{
+  "artifact_type": "phase10_experiment_registry",
+  "schema_version": 1,
+  "selected_generator": "qwen-ollama-stage-d",
+  "experiments": [
+    {
+      "id": "extractive",
+      "status": "benchmark_only"
+    },
+    {
+      "id": "qwen-ollama",
+      "status": "historical_experimental_non_selected"
+    },
+    {
+      "id": "qwen-ollama-stage-b",
+      "status": "historical_experimental_non_selected"
+    },
+    {
+      "id": "qwen-ollama-stage-c",
+      "status": "historical_experimental_non_selected"
+    },
+    {
+      "id": "qwen-ollama-stage-d",
+      "status": "selected_phase10_dev_configuration"
+    }
+  ],
+  "diagnostics": {
+    "stage_b_timeout_v1": "historical_diagnostic_non_selected",
+    "stage_b_timeout_v2": "historical_diagnostic_non_selected",
+    "stage_b_truncation_forensics": "historical_diagnostic_non_selected"
+  },
+  "holdout_accessed": false
+}

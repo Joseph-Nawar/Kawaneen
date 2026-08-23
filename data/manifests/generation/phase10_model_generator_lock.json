@@ -1,0 +1,24 @@
+{
+  "fanar": {
+    "hf_model_id": "QCRI/Fanar-1-9B-Instruct",
+    "hf_revision": null,
+    "name": "fanar-1-9b-instruct",
+    "role": "optional-arabic-challenger"
+  },
+  "ollama_digest_pending_local_pull": true,
+  "qwen": {
+    "hf_model_id": "Qwen/Qwen3-4B-Instruct-2507",
+    "hf_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+    "name": "qwen3-4b-instruct-2507",
+    "ollama_digest": null,
+    "ollama_model_tag": "qwen3:4b-instruct-2507-q4_K_M",
+    "role": "primary-local-candidate"
+  },
+  "schema_version": 1,
+  "status": "qwen_revision_locked_ollama_digest_pending_local_pull",
+  "tokenizer": {
+    "immutable_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+    "qwen_model_id": "Qwen/Qwen3-4B-Instruct-2507"
+  },
+  "weights_downloaded_or_loaded": false
+}

@@ -1,0 +1,149 @@
+{
+  "checkpoint_integrity": {
+    "checkpoint_file_count": 160,
+    "completed": 160,
+    "corrupt": 0,
+    "expected_checkpoint_count": 160,
+    "fingerprint_mismatches": 0,
+    "generation_policy_hash": "92e153ce4fe8006f7f41d5e0ae124481385079e7de44f27f8136622101a73a31",
+    "missing": 0,
+    "model_digest": "sha256:0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+    "phase9_policy_hash": "be7324808180d4a0797154c2b3c46050ff67b41790da3fcc04f17c60383347dc",
+    "prompt_template_hash": "91284e656d5e906476244a9c0e178debe893b351295738630aa430e60a690357",
+    "qwen_hf_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+    "regeneration_required": 0,
+    "tokenizer_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+    "unexpected": 0,
+    "valid": 160
+  },
+  "comparison_artifact": "data/evaluation/phase10_qwen_vs_extractive.json",
+  "decision": "QWEN_DEV_TOO_CONSERVATIVE",
+  "metrics": {
+    "ClaimCitationCoverage": {
+      "denominator": 18,
+      "numerator": 18,
+      "value": 1.0
+    },
+    "CompleteGoldEvidenceUse": {
+      "denominator": 38,
+      "numerator": 1,
+      "value": 0.02631578947368421
+    },
+    "ContextInsufficientAbstentionRecall": {
+      "denominator": 103,
+      "numerator": 94,
+      "value": 0.912621359223301
+    },
+    "FalseAbstentionRate": {
+      "denominator": 38,
+      "numerator": 36,
+      "value": 0.9473684210526315
+    },
+    "FalseAnswerRate": {
+      "denominator": 19,
+      "numerator": 0,
+      "value": 0.0
+    },
+    "GoldCitationHitRate": {
+      "denominator": 19,
+      "numerator": 1,
+      "value": 0.05263157894736842
+    },
+    "SupportedAnswerCoverage": {
+      "denominator": 141,
+      "numerator": 1,
+      "value": 0.0070921985815602835
+    },
+    "SupportedAnswerPrecision": {
+      "denominator": 11,
+      "numerator": 1,
+      "value": 0.09090909090909091
+    },
+    "UnanswerableAbstentionRecall": {
+      "denominator": 19,
+      "numerator": 19,
+      "value": 1.0
+    },
+    "ValidCitationRate": {
+      "denominator": 19,
+      "numerator": 19,
+      "value": 1.0
+    },
+    "invalid_generation_rate": {
+      "denominator": 160,
+      "numerator": 46,
+      "value": 0.2875
+    },
+    "policy_violation_acceptance_count": 0,
+    "unsupported_claim_rejection_count": 18
+  },
+  "outcome_decomposition": {
+    "generator_explicitly_returned_abstain": 69,
+    "invalid_citation_or_evidence_id": 0,
+    "invalid_or_malformed_generator_output": 46,
+    "non_exact_quote": 10,
+    "other": 0,
+    "other_pre_generation_policy": 0,
+    "pre_generation_conflict_policy": 0,
+    "pre_generation_currentness_status_policy": 6,
+    "pre_generation_jurisdiction_policy": 0,
+    "pre_generation_no_or_insufficient_context": 0,
+    "pre_generation_personalized_advice_policy": 0,
+    "semantic_support_diagnostic": 18,
+    "successful_verified_answer": 11,
+    "uncited_or_unsupported_claim": 0
+  },
+  "raw_text_policy": "Raw query, answer, quote, context, and source-bearing values remain private.",
+  "retention_slices": {
+    "complete_gold_evidence_survived": {
+      "answer_count": 1,
+      "query_count": 21
+    },
+    "gold_evidence_excluded": {
+      "abstention_count": 15,
+      "answer_count": 1,
+      "query_count": 16
+    },
+    "gold_evidence_survived": {
+      "abstention_count": 21,
+      "answer_count": 1,
+      "query_count": 22
+    }
+  },
+  "schema_version": 1,
+  "single_next_step": "Run one small frozen-configuration DEV diagnostic replay stratified across the explicit-abstain and malformed/rejected-output slices, recording raw decision, parse, and Phase-9 verification stages; do not change policy, prompt, budget, or decoding settings.",
+  "status": "complete_phase10_qwen_dev_analysis",
+  "token_budget": {
+    "BudgetedCompleteGoldEvidenceRetention": {
+      "denominator": 36,
+      "numerator": 21,
+      "value": 0.5833333333333334
+    },
+    "BudgetedGoldEvidenceRetention": {
+      "denominator": 39,
+      "numerator": 23,
+      "value": 0.5897435897435898
+    },
+    "budget_violations": 0,
+    "complete_gold_retained": 21,
+    "complete_gold_total": 36,
+    "evidence_token_budget": {
+      "max": 3251,
+      "p50": 3236,
+      "p95": 3246
+    },
+    "fixed_prompt_tokens": {
+      "max": 253,
+      "p50": 220,
+      "p95": 236
+    },
+    "gold_representation_retained": 23,
+    "gold_representation_total": 39,
+    "input_cap": 3584,
+    "mid_unit_truncations": 0,
+    "output_reservation": 384,
+    "relevant_representations_excluded_by_real_qwen_budget": 16,
+    "safety_margin": 128,
+    "unresolved_provenance": 0
+  }
+}

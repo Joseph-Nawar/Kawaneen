@@ -1,0 +1,46 @@
+{
+  "budgeted_complete_gold_evidence_retention": {
+    "rate": 0.5833333333333334,
+    "retained": 21,
+    "total": 36
+  },
+  "budgeted_gold_evidence_retention": {
+    "rate": 0.5897435897435898,
+    "retained": 23,
+    "total": 39
+  },
+  "budget_violations": 0,
+  "context_tokens": {
+    "max": 3247,
+    "p50": 2870,
+    "p95": 3220
+  },
+  "generator": "qwen-ollama-stage-c",
+  "input_token_cap": 3584,
+  "mid_unit_truncations": 0,
+  "model_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+  "output_reservation": 512,
+  "prompt_tokens": {
+    "max": 3462,
+    "p50": 3084,
+    "p95": 3434
+  },
+  "quote_registry_entries_per_query": {
+    "max": 8,
+    "p50": 4,
+    "p95": 8
+  },
+  "readiness_status": "qwen_stage_c_context_readiness_complete",
+  "relevant_representations_excluded_by_budget": 16,
+  "safety_margin": 128,
+  "schema_version": 1,
+  "private_pack_namespace": "artifacts/private/phase10_generation/context_packs/qwen-ollama-stage-c",
+  "private_registry_namespace": "artifacts/private/phase10_generation/quote_registries/qwen-ollama-stage-c",
+  "private_readiness_namespace": "artifacts/private/phase10_generation/readiness/qwen-ollama-stage-c",
+  "tokenizer_id": "Qwen/Qwen3-4B-Instruct-2507",
+  "tokenizer_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+  "timeout_seconds": 60,
+  "total_queries": 160,
+  "unresolved_provenance": 0,
+  "valid_contexts": 160
+}

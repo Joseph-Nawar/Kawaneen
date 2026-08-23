@@ -1,0 +1,32 @@
+{
+  "artifact": "phase10_stage_b_generation_policy",
+  "schema_version": 1,
+  "status": "prepared_not_executed",
+  "namespace": "qwen-ollama-stage-b",
+  "base_policy": "data/manifests/generation/phase10_generation_policy.json",
+  "input_contract": {
+    "total_input_tokens": 3584,
+    "safety_margin": 128
+  },
+  "output_contract": {
+    "max_new_tokens": 512,
+    "output_reservation": 512,
+    "max_claims": 3
+  },
+  "decoding": {
+    "temperature": 0.0,
+    "do_sample": false
+  },
+  "claim_modes": ["direct", "interpretation"],
+  "semantic_support": {
+    "nli_model": false,
+    "interpretation_acceptance": "unavailable_without_validated_verifier"
+  },
+  "extractive_mode": {
+    "benchmark_only": true,
+    "automatic_fallback": false
+  },
+  "prompt_version": "phase10-stage-b-prompt-template-v1",
+  "schema_version_label": "phase10-stage-b-output-schema-v1",
+  "generation_policy_version": "phase10-stage-b-generation-policy-v1"
+}

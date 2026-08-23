@@ -1,0 +1,1014 @@
+{
+  "accepted_answer_structure": {
+    "accepted_answer_count": 134,
+    "by_category": {
+      "authority": 15,
+      "case_holding": 22,
+      "conditions": 17,
+      "deadline": 16,
+      "definition": 20,
+      "exact_provision": 23,
+      "multi_evidence": 13,
+      "unanswerable": 8
+    },
+    "by_language": {
+      "ar": 127,
+      "ar-en": 3,
+      "en": 4
+    },
+    "by_population": {
+      "answerable_gold_absent_from_top8": 89,
+      "answerable_gold_in_top8": 37,
+      "explicitly_unanswerable": 8
+    },
+    "by_register": {
+      "egyptian": 5,
+      "formal": 116,
+      "professional": 7,
+      "simple": 6
+    },
+    "claims_per_answer": {
+      "1": 134
+    },
+    "complete_gold_evidence_used_count": 13,
+    "final_verified_direct_only": 134,
+    "gold_evidence_cited_count": 14,
+    "quote_refs_per_answer": {
+      "1": 73,
+      "2": 40,
+      "3": 9,
+      "4": 5,
+      "6": 7
+    },
+    "raw_direct_only": 76,
+    "raw_mixed_direct_and_interpretation": 58,
+    "rendered_answer_length_characters": {
+      "max": 7819,
+      "p50": 1544,
+      "p95": 6768
+    },
+    "resolved_citations_per_answer": {
+      "1": 124,
+      "3": 10
+    }
+  },
+  "checkpoint_integrity": {
+    "artifact_type_checkpoint": 160,
+    "artifact_type_result": 160,
+    "checkpoint_files": 160,
+    "corrupt": 0,
+    "expected": 160,
+    "final_postprocessing_complete": 160,
+    "fingerprint_mismatches": 160,
+    "generation_completed": 154,
+    "generation_policy_hash": "00050e680f3d1465859392d054eadd92b73ee614480fc33e05b39618dd40e6dc",
+    "incomplete": 0,
+    "input_cap": 3584,
+    "lifecycle_complete": 160,
+    "missing": 0,
+    "model_digest": "sha256:0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+    "output_cap": 512,
+    "phase9_policy_hash": "be7324808180d4a0797154c2b3c46050ff67b41790da3fcc04f17c60383347dc",
+    "pre_policy_completed": 6,
+    "prompt_hash": "d4d004f103ce02f2c46b81f899042b29760903cd7fbfa52daa28fa600088c634",
+    "quote_registry_policy": "phase10-stage-c-quote-registry-v1",
+    "qwen_hf_model_id": "Qwen/Qwen3-4B-Instruct-2507",
+    "qwen_hf_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+    "regeneration_required": false,
+    "result_checkpoint_mismatches": 0,
+    "result_files": 160,
+    "schema_hash": "ffbf3b8c3e7143c2487858bfc2223b39139a1840d0385da5fe2dd55aa24239c8",
+    "schema_version": 2,
+    "timeout_seconds": 60,
+    "tokenizer_id": "Qwen/Qwen3-4B-Instruct-2507",
+    "tokenizer_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+    "valid_complete": 160
+  },
+  "comparison": {
+    "extractive": {
+      "ClaimCitationCoverage": {
+        "absolute_delta": 0.0,
+        "prior": {
+          "denominator": 257,
+          "numerator": 257,
+          "value": 1.0
+        },
+        "stage_c": {
+          "denominator": 134,
+          "numerator": 134,
+          "value": 1.0
+        }
+      },
+      "CompleteGoldEvidenceUse": {
+        "absolute_delta": 0.026315789473684237,
+        "prior": {
+          "denominator": 38,
+          "numerator": 12,
+          "value": 0.3157894736842105
+        },
+        "stage_c": {
+          "denominator": 38,
+          "numerator": 13,
+          "value": 0.34210526315789475
+        }
+      },
+      "ContextInsufficientAbstentionRecall": {
+        "absolute_delta": 0.10679611650485436,
+        "prior": {
+          "denominator": 103,
+          "numerator": 3,
+          "value": 0.02912621359223301
+        },
+        "stage_c": {
+          "denominator": 103,
+          "numerator": 14,
+          "value": 0.13592233009708737
+        }
+      },
+      "FalseAbstentionRate": {
+        "absolute_delta": -0.07894736842105263,
+        "prior": {
+          "denominator": 38,
+          "numerator": 4,
+          "value": 0.10526315789473684
+        },
+        "stage_c": {
+          "denominator": 38,
+          "numerator": 1,
+          "value": 0.02631578947368421
+        }
+      },
+      "FalseAnswerRate": {
+        "absolute_delta": -0.21052631578947367,
+        "prior": {
+          "denominator": 19,
+          "numerator": 12,
+          "value": 0.631578947368421
+        },
+        "stage_c": {
+          "denominator": 19,
+          "numerator": 8,
+          "value": 0.42105263157894735
+        }
+      },
+      "GoldCitationHitRate": {
+        "absolute_delta": 0.04421648390519986,
+        "prior": {
+          "denominator": 257,
+          "numerator": 12,
+          "value": 0.04669260700389105
+        },
+        "stage_c": {
+          "denominator": 154,
+          "numerator": 14,
+          "value": 0.09090909090909091
+        }
+      },
+      "SupportedAnswerCoverage": {
+        "absolute_delta": 0.014184397163120574,
+        "prior": {
+          "denominator": 141,
+          "numerator": 12,
+          "value": 0.0851063829787234
+        },
+        "stage_c": {
+          "denominator": 141,
+          "numerator": 14,
+          "value": 0.09929078014184398
+        }
+      },
+      "SupportedAnswerPrecision": {
+        "absolute_delta": 0.0222858311183807,
+        "prior": {
+          "denominator": 146,
+          "numerator": 12,
+          "value": 0.0821917808219178
+        },
+        "stage_c": {
+          "denominator": 134,
+          "numerator": 14,
+          "value": 0.1044776119402985
+        }
+      },
+      "UnanswerableAbstentionRecall": {
+        "absolute_delta": 0.21052631578947373,
+        "prior": {
+          "denominator": 19,
+          "numerator": 7,
+          "value": 0.3684210526315789
+        },
+        "stage_c": {
+          "denominator": 19,
+          "numerator": 11,
+          "value": 0.5789473684210527
+        }
+      },
+      "ValidCitationRate": {
+        "absolute_delta": 0.0,
+        "prior": {
+          "denominator": 257,
+          "numerator": 257,
+          "value": 1.0
+        },
+        "stage_c": {
+          "denominator": 154,
+          "numerator": 154,
+          "value": 1.0
+        }
+      }
+    },
+    "qwen_stage_a": {
+      "ClaimCitationCoverage": {
+        "absolute_delta": 0.0,
+        "prior": {
+          "denominator": 18,
+          "numerator": 18,
+          "value": 1.0
+        },
+        "stage_c": {
+          "denominator": 134,
+          "numerator": 134,
+          "value": 1.0
+        }
+      },
+      "CompleteGoldEvidenceUse": {
+        "absolute_delta": 0.3157894736842105,
+        "prior": {
+          "denominator": 38,
+          "numerator": 1,
+          "value": 0.02631578947368421
+        },
+        "stage_c": {
+          "denominator": 38,
+          "numerator": 13,
+          "value": 0.34210526315789475
+        }
+      },
+      "ContextInsufficientAbstentionRecall": {
+        "absolute_delta": -0.7766990291262137,
+        "prior": {
+          "denominator": 103,
+          "numerator": 94,
+          "value": 0.912621359223301
+        },
+        "stage_c": {
+          "denominator": 103,
+          "numerator": 14,
+          "value": 0.13592233009708737
+        }
+      },
+      "FalseAbstentionRate": {
+        "absolute_delta": -0.9210526315789473,
+        "prior": {
+          "denominator": 38,
+          "numerator": 36,
+          "value": 0.9473684210526315
+        },
+        "stage_c": {
+          "denominator": 38,
+          "numerator": 1,
+          "value": 0.02631578947368421
+        }
+      },
+      "FalseAnswerRate": {
+        "absolute_delta": 0.42105263157894735,
+        "prior": {
+          "denominator": 19,
+          "numerator": 0,
+          "value": 0.0
+        },
+        "stage_c": {
+          "denominator": 19,
+          "numerator": 8,
+          "value": 0.42105263157894735
+        }
+      },
+      "GoldCitationHitRate": {
+        "absolute_delta": 0.038277511961722493,
+        "prior": {
+          "denominator": 19,
+          "numerator": 1,
+          "value": 0.05263157894736842
+        },
+        "stage_c": {
+          "denominator": 154,
+          "numerator": 14,
+          "value": 0.09090909090909091
+        }
+      },
+      "SupportedAnswerCoverage": {
+        "absolute_delta": 0.0921985815602837,
+        "prior": {
+          "denominator": 141,
+          "numerator": 1,
+          "value": 0.0070921985815602835
+        },
+        "stage_c": {
+          "denominator": 141,
+          "numerator": 14,
+          "value": 0.09929078014184398
+        }
+      },
+      "SupportedAnswerPrecision": {
+        "absolute_delta": 0.013568521031207592,
+        "prior": {
+          "denominator": 11,
+          "numerator": 1,
+          "value": 0.09090909090909091
+        },
+        "stage_c": {
+          "denominator": 134,
+          "numerator": 14,
+          "value": 0.1044776119402985
+        }
+      },
+      "UnanswerableAbstentionRecall": {
+        "absolute_delta": -0.42105263157894735,
+        "prior": {
+          "denominator": 19,
+          "numerator": 19,
+          "value": 1.0
+        },
+        "stage_c": {
+          "denominator": 19,
+          "numerator": 11,
+          "value": 0.5789473684210527
+        }
+      },
+      "ValidCitationRate": {
+        "absolute_delta": 0.0,
+        "prior": {
+          "denominator": 19,
+          "numerator": 19,
+          "value": 1.0
+        },
+        "stage_c": {
+          "denominator": 154,
+          "numerator": 154,
+          "value": 1.0
+        }
+      },
+      "invalid_generation_rate": {
+        "absolute_delta": -0.23124999999999998,
+        "prior": {
+          "denominator": 160,
+          "numerator": 46,
+          "value": 0.2875
+        },
+        "stage_c": {
+          "denominator": 160,
+          "numerator": 9,
+          "value": 0.05625
+        }
+      }
+    },
+    "qwen_stage_b": {
+      "ClaimCitationCoverage": {
+        "absolute_delta": 0.0,
+        "prior": {
+          "denominator": 86,
+          "numerator": 86,
+          "value": 1.0
+        },
+        "stage_c": {
+          "denominator": 134,
+          "numerator": 134,
+          "value": 1.0
+        }
+      },
+      "CompleteGoldEvidenceUse": {
+        "absolute_delta": 0.07894736842105265,
+        "prior": {
+          "denominator": 38,
+          "numerator": 10,
+          "value": 0.2631578947368421
+        },
+        "stage_c": {
+          "denominator": 38,
+          "numerator": 13,
+          "value": 0.34210526315789475
+        }
+      },
+      "ContextInsufficientAbstentionRecall": {
+        "absolute_delta": -0.4368932038834951,
+        "prior": {
+          "denominator": 103,
+          "numerator": 59,
+          "value": 0.5728155339805825
+        },
+        "stage_c": {
+          "denominator": 103,
+          "numerator": 14,
+          "value": 0.13592233009708737
+        }
+      },
+      "FalseAbstentionRate": {
+        "absolute_delta": -0.368421052631579,
+        "prior": {
+          "denominator": 38,
+          "numerator": 15,
+          "value": 0.39473684210526316
+        },
+        "stage_c": {
+          "denominator": 38,
+          "numerator": 1,
+          "value": 0.02631578947368421
+        }
+      },
+      "FalseAnswerRate": {
+        "absolute_delta": 0.21052631578947367,
+        "prior": {
+          "denominator": 19,
+          "numerator": 4,
+          "value": 0.21052631578947367
+        },
+        "stage_c": {
+          "denominator": 19,
+          "numerator": 8,
+          "value": 0.42105263157894735
+        }
+      },
+      "GoldCitationHitRate": {
+        "absolute_delta": 0.013986013986013984,
+        "prior": {
+          "denominator": 143,
+          "numerator": 11,
+          "value": 0.07692307692307693
+        },
+        "stage_c": {
+          "denominator": 154,
+          "numerator": 14,
+          "value": 0.09090909090909091
+        }
+      },
+      "SupportedAnswerCoverage": {
+        "absolute_delta": 0.021276595744680854,
+        "prior": {
+          "denominator": 141,
+          "numerator": 11,
+          "value": 0.07801418439716312
+        },
+        "stage_c": {
+          "denominator": 141,
+          "numerator": 14,
+          "value": 0.09929078014184398
+        }
+      },
+      "SupportedAnswerPrecision": {
+        "absolute_delta": -0.05045196552449022,
+        "prior": {
+          "denominator": 71,
+          "numerator": 11,
+          "value": 0.15492957746478872
+        },
+        "stage_c": {
+          "denominator": 134,
+          "numerator": 14,
+          "value": 0.1044776119402985
+        }
+      },
+      "UnanswerableAbstentionRecall": {
+        "absolute_delta": -0.21052631578947367,
+        "prior": {
+          "denominator": 19,
+          "numerator": 15,
+          "value": 0.7894736842105263
+        },
+        "stage_c": {
+          "denominator": 19,
+          "numerator": 11,
+          "value": 0.5789473684210527
+        }
+      },
+      "ValidCitationRate": {
+        "absolute_delta": 0.0,
+        "prior": {
+          "denominator": 143,
+          "numerator": 143,
+          "value": 1.0
+        },
+        "stage_c": {
+          "denominator": 154,
+          "numerator": 154,
+          "value": 1.0
+        }
+      },
+      "final_answer_coverage": {
+        "absolute_delta": 0.39375000000000004,
+        "prior": {
+          "denominator": 160,
+          "numerator": 71,
+          "value": 0.44375
+        },
+        "stage_c": {
+          "denominator": 160,
+          "numerator": 134,
+          "value": 0.8375
+        }
+      },
+      "invalid_generation_rate": {
+        "absolute_delta": -0.13125,
+        "prior": {
+          "denominator": 160,
+          "numerator": 30,
+          "value": 0.1875
+        },
+        "stage_c": {
+          "denominator": 160,
+          "numerator": 9,
+          "value": 0.05625
+        }
+      }
+    }
+  },
+  "context_audit": {
+    "BudgetedCompleteGoldEvidenceRetention": {
+      "denominator": 36,
+      "numerator": 21,
+      "value": 0.5833333333333334
+    },
+    "BudgetedGoldEvidenceRetention": {
+      "denominator": 39,
+      "numerator": 23,
+      "value": 0.5897435897435898
+    },
+    "budget_violations": 0,
+    "context_tokens": {
+      "max": 3241,
+      "p50": 2863,
+      "p95": 3217
+    },
+    "contexts_ready": 160,
+    "evidence_tokens": {
+      "max": 3247,
+      "p50": 2870,
+      "p95": 3220
+    },
+    "frozen_retrieval_universe": "a62cc772f2b71883355c7935da7e7b87ab4d22b3746553148b4f64ef20f28b0b",
+    "input_cap": 3584,
+    "mid_unit_truncations": 0,
+    "output_cap": 512,
+    "prompt_tokens": {
+      "max": 3462,
+      "p50": 3084,
+      "p95": 3434
+    },
+    "quote_registries_ready": 160,
+    "registry_entries_per_query": {
+      "max": 8,
+      "p50": 4,
+      "p95": 8
+    },
+    "relevant_gold_representations_excluded": 16,
+    "unresolved_provenance": 0
+  },
+  "decision": "QWEN_STAGE_C_TOO_PERMISSIVE",
+  "decision_basis": {
+    "explicitly_unanswerable_final_answers": 8,
+    "explicitly_unanswerable_total": 19,
+    "false_answer_rate": {
+      "denominator": 19,
+      "numerator": 8,
+      "value": 0.42105263157894735
+    },
+    "invalid_generation_rate": {
+      "denominator": 160,
+      "numerator": 9,
+      "value": 0.05625
+    },
+    "invalid_generation_target": "< 5%",
+    "qrel_limitation": "Phase-6 judgments are AI-reviewed/non-exhaustive and do not establish complete semantic correctness.",
+    "structural_acceptance_violations": 0
+  },
+  "metrics": {
+    "ClaimCitationCoverage": {
+      "denominator": 134,
+      "numerator": 134,
+      "value": 1.0
+    },
+    "CompleteGoldEvidenceUse": {
+      "denominator": 38,
+      "numerator": 13,
+      "value": 0.34210526315789475
+    },
+    "ContextInsufficientAbstentionRecall": {
+      "denominator": 103,
+      "numerator": 14,
+      "value": 0.13592233009708737
+    },
+    "FalseAbstentionRate": {
+      "denominator": 38,
+      "numerator": 1,
+      "value": 0.02631578947368421
+    },
+    "FalseAnswerRate": {
+      "denominator": 19,
+      "numerator": 8,
+      "value": 0.42105263157894735
+    },
+    "GoldCitationHitRate": {
+      "denominator": 154,
+      "numerator": 14,
+      "value": 0.09090909090909091
+    },
+    "SupportedAnswerCoverage": {
+      "denominator": 141,
+      "numerator": 14,
+      "value": 0.09929078014184398
+    },
+    "SupportedAnswerPrecision": {
+      "denominator": 134,
+      "numerator": 14,
+      "value": 0.1044776119402985
+    },
+    "UnanswerableAbstentionRecall": {
+      "denominator": 19,
+      "numerator": 11,
+      "value": 0.5789473684210527
+    },
+    "ValidCitationRate": {
+      "denominator": 154,
+      "numerator": 154,
+      "value": 1.0
+    },
+    "final_answer_coverage": {
+      "denominator": 160,
+      "numerator": 134,
+      "value": 0.8375
+    },
+    "invalid_generation_rate": {
+      "denominator": 160,
+      "numerator": 9,
+      "value": 0.05625
+    },
+    "policy_violation_acceptance_count": 0
+  },
+  "outcome_funnel": {
+    "counts": {
+      "generator_explicit_abstain": 11,
+      "interpretation_removed_semantic_support_unavailable": 0,
+      "invalid_json": 9,
+      "invalid_unknown_quote_reference": 0,
+      "other": 0,
+      "other_transport_runtime_failure": 0,
+      "phase9_citation_verification_failure": 0,
+      "pre_generation_policy": 6,
+      "provider_or_pydantic_schema_failure": 0,
+      "successful_final_verified_answer": 134,
+      "transport_timeout": 0
+    },
+    "final_abstentions": 26,
+    "final_answers": 134,
+    "pre_generation_policy_by_reason": {
+      "CURRENTNESS_UNVERIFIED": 6
+    },
+    "total": 160
+  },
+  "output_reliability": {
+    "done_reason_length": 9,
+    "done_reason_stop": 145,
+    "invalid_generation_rate": {
+      "denominator": 160,
+      "numerator": 9,
+      "value": 0.05625
+    },
+    "invalid_json": 9,
+    "output_cap_hits": 9,
+    "output_cap_hits_invalid": 9,
+    "output_cap_hits_valid": 0,
+    "provider_side_schema_failures": 0,
+    "schema_pydantic_failures": 0,
+    "target_achieved": false
+  },
+  "population_matrix": {
+    "answerable_gold_absent_from_top8": {
+      "generator_explicit_abstain": {
+        "denominator": 103,
+        "numerator": 7,
+        "value": 0.06796116504854369
+      },
+      "interpretation_removed_semantic_support_unavailable": {
+        "denominator": 103,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "invalid_json": {
+        "denominator": 103,
+        "numerator": 7,
+        "value": 0.06796116504854369
+      },
+      "invalid_unknown_quote_reference": {
+        "denominator": 103,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "other": {
+        "denominator": 103,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "other_transport_runtime_failure": {
+        "denominator": 103,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "phase9_citation_verification_failure": {
+        "denominator": 103,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "pre_generation_policy": {
+        "denominator": 103,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "provider_or_pydantic_schema_failure": {
+        "denominator": 103,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "successful_final_verified_answer": {
+        "denominator": 103,
+        "numerator": 89,
+        "value": 0.8640776699029126
+      },
+      "transport_timeout": {
+        "denominator": 103,
+        "numerator": 0,
+        "value": 0.0
+      }
+    },
+    "answerable_gold_in_top8": {
+      "generator_explicit_abstain": {
+        "denominator": 38,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "interpretation_removed_semantic_support_unavailable": {
+        "denominator": 38,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "invalid_json": {
+        "denominator": 38,
+        "numerator": 1,
+        "value": 0.02631578947368421
+      },
+      "invalid_unknown_quote_reference": {
+        "denominator": 38,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "other": {
+        "denominator": 38,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "other_transport_runtime_failure": {
+        "denominator": 38,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "phase9_citation_verification_failure": {
+        "denominator": 38,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "pre_generation_policy": {
+        "denominator": 38,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "provider_or_pydantic_schema_failure": {
+        "denominator": 38,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "successful_final_verified_answer": {
+        "denominator": 38,
+        "numerator": 37,
+        "value": 0.9736842105263158
+      },
+      "transport_timeout": {
+        "denominator": 38,
+        "numerator": 0,
+        "value": 0.0
+      }
+    },
+    "explicitly_unanswerable": {
+      "generator_explicit_abstain": {
+        "denominator": 19,
+        "numerator": 4,
+        "value": 0.21052631578947367
+      },
+      "interpretation_removed_semantic_support_unavailable": {
+        "denominator": 19,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "invalid_json": {
+        "denominator": 19,
+        "numerator": 1,
+        "value": 0.05263157894736842
+      },
+      "invalid_unknown_quote_reference": {
+        "denominator": 19,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "other": {
+        "denominator": 19,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "other_transport_runtime_failure": {
+        "denominator": 19,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "phase9_citation_verification_failure": {
+        "denominator": 19,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "pre_generation_policy": {
+        "denominator": 19,
+        "numerator": 6,
+        "value": 0.3157894736842105
+      },
+      "provider_or_pydantic_schema_failure": {
+        "denominator": 19,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "successful_final_verified_answer": {
+        "denominator": 19,
+        "numerator": 8,
+        "value": 0.42105263157894735
+      },
+      "transport_timeout": {
+        "denominator": 19,
+        "numerator": 0,
+        "value": 0.0
+      }
+    }
+  },
+  "private_qualitative_artifact": "artifacts/private/phase10_generation/reviews/qwen-ollama-stage-c-qualitative-sample.json",
+  "provenance": {
+    "active_checkpoint_byte_identical_to_quarantine": 0,
+    "active_checkpoint_mtime_min": 1787413580.401594,
+    "active_created_after_quarantine": true,
+    "active_raw_hash_match_interpretation": "Deterministic decoding can reproduce raw text; hashes alone are not contamination evidence.",
+    "active_raw_hash_matches_quarantine": 154,
+    "active_result_byte_identical_to_quarantine": 0,
+    "active_result_mtime_min": 1787413580.396804,
+    "active_result_paths_into_quarantine": 0,
+    "code_dataflow": {
+      "active_reads_legacy_results": false,
+      "active_reads_quarantine": false,
+      "active_telemetry_source": "same current Ollama request/response lifecycle",
+      "contexts_and_quote_registries_reused": true,
+      "existing_valid_cases_resumed": 155,
+      "new_output_source": "current OllamaGenerator.generate() response",
+      "output_cache_result_fallback": false,
+      "repaired_cases_processed_independently": 5,
+      "resume_sources_only_valid_active_lifecycle_v2": true
+    },
+    "legacy_pairs_compared": 160,
+    "quarantine_mtime_max": 1787408897.0629106,
+    "timing_fields_different_for_all_pairs": {
+      "elapsed_seconds": 154,
+      "eval_duration": 154,
+      "load_duration": 154,
+      "prompt_eval_duration": 154,
+      "total_duration": 154
+    },
+    "verdict": "ACTIVE_RUN_PROVENANCE_CLEAN"
+  },
+  "quote_registry_audit": {
+    "citation_verification_failures": 0,
+    "final_direct_claims": 134,
+    "interpretation_claims_proposed": 58,
+    "interpretation_claims_removed_semantic_support_unavailable": 58,
+    "mixed_raw_responses_retaining_direct_content": 58,
+    "phase9_citation_requests_constructed": 154,
+    "phase9_citations_accepted": 154,
+    "quote_refs_proposed": 242,
+    "raw_direct_only_answer_responses": 76,
+    "raw_interpretation_only_answer_responses": 0,
+    "raw_mixed_answer_responses": 58,
+    "refs_successfully_resolved": 242,
+    "stage_b_failed_citation_requests_reference": 39,
+    "stage_b_response_level_citation_rejections_reference": 29,
+    "unknown_or_invalid_quote_refs": 0,
+    "valid_quote_refs_proposed": 242
+  },
+  "raw_text_policy": "Queries, answers, source passages, quotations, and raw model outputs remain private.",
+  "runtime_telemetry": {
+    "actual_ollama_calls": 154,
+    "done": {
+      "True": 154
+    },
+    "done_reason": {
+      "length": 9,
+      "stop": 145
+    },
+    "done_reason_x_final_outcome": {
+      "length|invalid_json": 9,
+      "stop|generator_explicit_abstain": 11,
+      "stop|successful_final_verified_answer": 134
+    },
+    "done_reason_x_raw_validity": {
+      "length|invalid": 9,
+      "stop|valid_schema": 145
+    },
+    "elapsed_seconds": {
+      "max": 34.741149792000215,
+      "p50": 8.775188708001224,
+      "p95": 27.045104417000402
+    },
+    "eval_duration_seconds": {
+      "max": 26.173582,
+      "p50": 0.744082,
+      "p95": 20.040063
+    },
+    "http_200_responses_with_parser_failure": 9,
+    "http_errors": 0,
+    "load_duration_seconds": {
+      "max": 1.346814459,
+      "p50": 0.0018755,
+      "p95": 0.003169125
+    },
+    "model_digest": "sha256:0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+    "other_connection_runtime_errors": 0,
+    "output_cap_hits": 9,
+    "output_cap_hits_invalid": 9,
+    "output_cap_hits_valid": 0,
+    "output_eval_token_count": {
+      "max": 512,
+      "p50": 22,
+      "p95": 512
+    },
+    "parse_or_postprocessing_errors": 9,
+    "prompt_eval_duration_seconds": {
+      "max": 10.511977,
+      "p50": 6.311495,
+      "p95": 8.0586
+    },
+    "prompt_token_count": {
+      "max": 3470,
+      "p50": 3092,
+      "p95": 3444
+    },
+    "timeout_subtypes": {},
+    "timeout_transition": {
+      "eliminated_historical_timeout_no_response_in_this_run": true,
+      "historical_timeout_seconds": 30,
+      "retries": 0,
+      "stage_c_timeout_seconds": 60,
+      "timeouts_observed": 0
+    },
+    "timeouts": 0,
+    "tokens_per_second": {
+      "max": 44.99897729597055,
+      "p50": 30.73608737990223,
+      "p95": 42.097689602253375
+    },
+    "total_duration_seconds": {
+      "max": 34.727110958,
+      "p50": 8.759441458,
+      "p95": 27.035321042
+    },
+    "transport_successes": 154
+  },
+  "safety_invariants": {
+    "all_structural_acceptance_violations_zero": true,
+    "altered_non_authoritative_quotation_accepted": 0,
+    "fabricated_evidence_id_accepted": 0,
+    "fabricated_or_invalid_quote_ref_accepted": 0,
+    "fabricated_source_metadata_accepted": 0,
+    "jurisdiction_violation_reaching_final_answer": 0,
+    "malformed_invalid_generation_reaching_final_answer": 0,
+    "model_provided_quotation_reaching_final_output": 0,
+    "personalized_legal_recommendation_reaching_final_answer": 0,
+    "uncited_substantive_final_claim_accepted": 0,
+    "unsupported_interpretation_exposed": 0,
+    "unverified_currentness_claim_reaching_final_answer": 0
+  },
+  "schema_version": 1,
+  "single_recommended_next_step": "Manually review all eight final answers from explicitly unanswerable cases before any further model experiment or promotion decision.",
+  "status": "complete_final_phase10_stage_c_audit",
+  "unanswerable_analysis": {
+    "explicit_generator_abstentions": 4,
+    "false_answer_rate": {
+      "denominator": 19,
+      "numerator": 8,
+      "value": 0.42105263157894735
+    },
+    "final_answers": 8,
+    "pre_policy_abstentions": 6,
+    "qualitative_artifact": "artifacts/private/phase10_generation/reviews/qwen-ollama-stage-c-unanswerable.json",
+    "runtime_or_invalid_abstentions": 1,
+    "verification_abstentions": 0
+  }
+}

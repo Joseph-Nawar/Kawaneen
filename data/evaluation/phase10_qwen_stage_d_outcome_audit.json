@@ -1,0 +1,219 @@
+{
+  "integrity": {
+    "checkpoint_files": 160,
+    "corrupt": 0,
+    "expected": 160,
+    "fingerprint_mismatch": 0,
+    "generation_complete": 131,
+    "identities": {
+      "eligibility_digest": "8c990acd4d983da61baf3b8d72a4150f6f9f75b30dbf0b57ef18660fc84930e0",
+      "generator": "qwen-ollama-stage-d",
+      "input_cap": 3584,
+      "model_digest": "sha256:0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+      "output_cap": 512,
+      "phase9_policy_hash": "be7324808180d4a0797154c2b3c46050ff67b41790da3fcc04f17c60383347dc",
+      "policy_version": "phase10-stage-d-answerability-policy-v1",
+      "qwen_hf_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+      "registry_policy": "phase10-stage-d-quote-registry-v1",
+      "schema_hash": "9aa4009056bc2a58ea079c1be1e0a57537044bbb354e167416e816132b26f9de",
+      "settings_digest": "4e5fccb56222c0310136e4a3446ccfffb2af412bc2b6c73f6262fae4320c180c",
+      "template_digest": "316e0496cff5e7fbd8e86eee11cba07f0bd9b193e04bead5dc7864aae36b357e",
+      "timeout_seconds": 60,
+      "tokenizer_id": "Qwen/Qwen3-4B-Instruct-2507",
+      "tokenizer_revision": "cdbee75f17c01a7cc42f958dc650907174af0554"
+    },
+    "incomplete": 0,
+    "lifecycle_complete": 160,
+    "missing": 0,
+    "policy_pre_generation_complete": 29,
+    "regeneration_required": false,
+    "result_checkpoint_mismatch": 0,
+    "result_files": 160
+  },
+  "outcome_funnel": {
+    "deterministic_answerability_policy_abstention": 29,
+    "explicit_model_abstention": 36,
+    "successful_final_verified_answer": 95
+  },
+  "population_matrix": {
+    "answerable_gold_absent_from_top8": {
+      "deterministic_answerability_policy_abstention": {
+        "denominator": 103,
+        "numerator": 14,
+        "value": 0.13592233009708737
+      },
+      "explicit_model_abstention": {
+        "denominator": 103,
+        "numerator": 24,
+        "value": 0.23300970873786409
+      },
+      "invalid_or_runtime_failure": {
+        "denominator": 103,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "other_pre_generation_policy_abstention": {
+        "denominator": 103,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "successful_final_verified_answer": {
+        "denominator": 103,
+        "numerator": 65,
+        "value": 0.6310679611650486
+      }
+    },
+    "answerable_gold_in_top8": {
+      "deterministic_answerability_policy_abstention": {
+        "denominator": 38,
+        "numerator": 1,
+        "value": 0.02631578947368421
+      },
+      "explicit_model_abstention": {
+        "denominator": 38,
+        "numerator": 8,
+        "value": 0.21052631578947367
+      },
+      "invalid_or_runtime_failure": {
+        "denominator": 38,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "other_pre_generation_policy_abstention": {
+        "denominator": 38,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "successful_final_verified_answer": {
+        "denominator": 38,
+        "numerator": 29,
+        "value": 0.7631578947368421
+      }
+    },
+    "explicitly_unanswerable": {
+      "deterministic_answerability_policy_abstention": {
+        "denominator": 19,
+        "numerator": 14,
+        "value": 0.7368421052631579
+      },
+      "explicit_model_abstention": {
+        "denominator": 19,
+        "numerator": 4,
+        "value": 0.21052631578947367
+      },
+      "invalid_or_runtime_failure": {
+        "denominator": 19,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "other_pre_generation_policy_abstention": {
+        "denominator": 19,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "successful_final_verified_answer": {
+        "denominator": 19,
+        "numerator": 1,
+        "value": 0.05263157894736842
+      }
+    }
+  },
+  "raw_vs_final": {
+    "final_abstentions": 65,
+    "final_answers": 95,
+    "raw_abstain_decisions": 36,
+    "raw_answer_decisions": 95,
+    "raw_invalid_outputs": 0,
+    "raw_valid_outputs": 131
+  },
+  "runtime": {
+    "actual_ollama_calls": 131,
+    "done_reason": {
+      "stop": 131
+    },
+    "elapsed_seconds": {
+      "max": 8.96815745799995,
+      "p50": 6.7167856249998295,
+      "p95": 8.532670916000825
+    },
+    "generation_eval_duration_seconds": {
+      "max": 0.909918,
+      "p50": 0.551592,
+      "p95": 0.62085
+    },
+    "http_successes": 131,
+    "invalid_cap_hits": 0,
+    "load_duration_seconds": {
+      "max": 1.580144708,
+      "p50": 0.001829333,
+      "p95": 0.002453375
+    },
+    "other_runtime_failures": 0,
+    "output_cap_hits": 0,
+    "output_eval_tokens": {
+      "max": 31,
+      "p50": 21,
+      "p95": 21
+    },
+    "output_reliability": {
+      "completion_reason_x_final_outcome": {
+        "stop|abstain": 36,
+        "stop|answer": 95
+      },
+      "completion_reason_x_validity": {
+        "length|invalid": 0,
+        "stop|valid": 131
+      },
+      "done_reason_length": 0,
+      "done_reason_stop": 131,
+      "invalid_generation_rate": {
+        "denominator": 160,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "invalid_json": 0,
+      "schema_failures": 0,
+      "target_less_than_5_percent_met": true
+    },
+    "prompt_eval_duration_seconds": {
+      "max": 7.463009,
+      "p50": 5.531665,
+      "p95": 6.935729
+    },
+    "prompt_tokens": {
+      "max": 3462,
+      "p50": 3053,
+      "p95": 3430
+    },
+    "retries": 0,
+    "timeout_seconds": 60,
+    "timeouts": 0,
+    "tokens_per_second": {
+      "max": 48.32828083124643,
+      "p50": 37.18351756076125,
+      "p95": 44.24471117684611
+    },
+    "total_duration_seconds": {
+      "max": 8.959313708,
+      "p50": 6.710013,
+      "p95": 8.523293167
+    }
+  },
+  "safety": {
+    "all_acceptance_violations_zero": true,
+    "altered_quotation_accepted": 0,
+    "fabricated_evidence_id_accepted": 0,
+    "fabricated_metadata_accepted": 0,
+    "invalid_model_output_reaching_final_answer": 0,
+    "jurisdiction_violation": 0,
+    "model_quotation_text_exposed": 0,
+    "personalized_legal_recommendation": 0,
+    "server_reconstructed_text_verified_by_phase9": true,
+    "uncited_substantive_claim_accepted": 0,
+    "unknown_or_fabricated_quote_ref_accepted": 0,
+    "unsupported_interpretation_exposed": 0,
+    "unverified_currentness_claim": 0
+  },
+  "schema_version": 1,
+  "status": "complete"
+}

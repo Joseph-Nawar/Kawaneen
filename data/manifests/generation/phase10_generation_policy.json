@@ -1,0 +1,47 @@
+{
+  "currentness": {
+    "source_status_available": false,
+    "unknown_status_behavior": "abstain_on_explicit_currentness_question"
+  },
+  "decoding": {
+    "automatic_retry": false,
+    "do_sample": false,
+    "max_claims": 3,
+    "max_new_tokens": 384,
+    "temperature": 0.0
+  },
+  "jurisdiction_scope": {
+    "active_jurisdiction": "SA",
+    "allowed_jurisdictions": [
+      "SA"
+    ],
+    "authoritative_jurisdiction": "SA",
+    "contract_path": "data/manifests/generation/phase10_jurisdiction_scope.json",
+    "mode": "single",
+    "verified": true
+  },
+  "known_behavioral_limitations": {
+    "ambiguous_jurisdiction": "Conflicting jurisdiction markers fail closed as JURISDICTION_AMBIGUOUS.",
+    "explicit_known_jurisdiction_without_configured_scope": "An unresolved required jurisdiction fails closed as JURISDICTION_AMBIGUOUS."
+  },
+  "model_boundary": {
+    "llm_is_untrusted_claim_proposer": true,
+    "semantic_nli_deferred": true
+  },
+  "output_schema_version": "phase10-output-schema-v1",
+  "policy_version": "phase10-generation-policy-v1",
+  "extractive_mode": {
+    "automatic_fallback": false,
+    "benchmark_only": true,
+    "failure_behavior": "abstain"
+  },
+  "retrieval_score_gate": {
+    "enabled": false,
+    "calibration_path": "data/evaluation/phase10_retrieval_sufficiency_calibration.json",
+    "reason": "no DEV cutoff satisfied the predeclared precision and throughput conditions"
+  },
+  "schema_version": 1,
+  "status": "phase10_stage_a_policy_manifest",
+  "system_rules_version": "phase10-system-v1",
+  "template_version": "phase10-prompt-template-v1"
+}

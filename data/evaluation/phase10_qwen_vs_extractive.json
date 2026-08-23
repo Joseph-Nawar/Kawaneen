@@ -1,0 +1,136 @@
+{
+  "metrics": {
+    "ClaimCitationCoverage": {
+      "absolute_delta": 0.0,
+      "extractive": {
+        "denominator": 257,
+        "numerator": 257,
+        "value": 1.0
+      },
+      "qwen": {
+        "denominator": 18,
+        "numerator": 18,
+        "value": 1.0
+      }
+    },
+    "CompleteGoldEvidenceUse": {
+      "absolute_delta": -0.2894736842105263,
+      "extractive": {
+        "denominator": 38,
+        "numerator": 12,
+        "value": 0.3157894736842105
+      },
+      "qwen": {
+        "denominator": 38,
+        "numerator": 1,
+        "value": 0.02631578947368421
+      }
+    },
+    "ContextInsufficientAbstentionRecall": {
+      "absolute_delta": 0.883495145631068,
+      "extractive": {
+        "denominator": 103,
+        "numerator": 3,
+        "value": 0.02912621359223301
+      },
+      "qwen": {
+        "denominator": 103,
+        "numerator": 94,
+        "value": 0.912621359223301
+      }
+    },
+    "FalseAbstentionRate": {
+      "absolute_delta": 0.8421052631578947,
+      "extractive": {
+        "denominator": 38,
+        "numerator": 4,
+        "value": 0.10526315789473684
+      },
+      "qwen": {
+        "denominator": 38,
+        "numerator": 36,
+        "value": 0.9473684210526315
+      }
+    },
+    "FalseAnswerRate": {
+      "absolute_delta": -0.631578947368421,
+      "extractive": {
+        "denominator": 19,
+        "numerator": 12,
+        "value": 0.631578947368421
+      },
+      "qwen": {
+        "denominator": 19,
+        "numerator": 0,
+        "value": 0.0
+      }
+    },
+    "GoldCitationHitRate": {
+      "absolute_delta": 0.005938971943477367,
+      "extractive": {
+        "denominator": 257,
+        "numerator": 12,
+        "value": 0.04669260700389105
+      },
+      "qwen": {
+        "denominator": 19,
+        "numerator": 1,
+        "value": 0.05263157894736842
+      }
+    },
+    "SupportedAnswerCoverage": {
+      "absolute_delta": -0.07801418439716312,
+      "extractive": {
+        "denominator": 141,
+        "numerator": 12,
+        "value": 0.0851063829787234
+      },
+      "qwen": {
+        "denominator": 141,
+        "numerator": 1,
+        "value": 0.0070921985815602835
+      }
+    },
+    "SupportedAnswerPrecision": {
+      "absolute_delta": 0.008717310087173108,
+      "extractive": {
+        "denominator": 146,
+        "numerator": 12,
+        "value": 0.0821917808219178
+      },
+      "qwen": {
+        "denominator": 11,
+        "numerator": 1,
+        "value": 0.09090909090909091
+      }
+    },
+    "UnanswerableAbstentionRecall": {
+      "absolute_delta": 0.631578947368421,
+      "extractive": {
+        "denominator": 19,
+        "numerator": 7,
+        "value": 0.3684210526315789
+      },
+      "qwen": {
+        "denominator": 19,
+        "numerator": 19,
+        "value": 1.0
+      }
+    },
+    "ValidCitationRate": {
+      "absolute_delta": 0.0,
+      "extractive": {
+        "denominator": 257,
+        "numerator": 257,
+        "value": 1.0
+      },
+      "qwen": {
+        "denominator": 19,
+        "numerator": 19,
+        "value": 1.0
+      }
+    }
+  },
+  "schema_version": 1,
+  "status": "complete_qwen_vs_frozen_extractive"
+}

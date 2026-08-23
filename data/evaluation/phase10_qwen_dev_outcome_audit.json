@@ -1,0 +1,162 @@
+{
+  "checkpoint_integrity": {
+    "checkpoint_file_count": 160,
+    "completed": 160,
+    "corrupt": 0,
+    "expected_checkpoint_count": 160,
+    "fingerprint_mismatches": 0,
+    "generation_policy_hash": "92e153ce4fe8006f7f41d5e0ae124481385079e7de44f27f8136622101a73a31",
+    "missing": 0,
+    "model_digest": "sha256:0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+    "phase9_policy_hash": "be7324808180d4a0797154c2b3c46050ff67b41790da3fcc04f17c60383347dc",
+    "prompt_template_hash": "91284e656d5e906476244a9c0e178debe893b351295738630aa430e60a690357",
+    "qwen_hf_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+    "regeneration_required": 0,
+    "tokenizer_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+    "unexpected": 0,
+    "valid": 160
+  },
+  "identities": {
+    "generation_policy_hash": "92e153ce4fe8006f7f41d5e0ae124481385079e7de44f27f8136622101a73a31",
+    "ollama_digest": "sha256:0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+    "ollama_model_tag": "qwen3:4b-instruct-2507-q4_K_M",
+    "phase8_selection_sha256": "a62cc772f2b71883355c7935da7e7b87ab4d22b3746553148b4f64ef20f28b0b",
+    "phase9_policy_sha256": "be7324808180d4a0797154c2b3c46050ff67b41790da3fcc04f17c60383347dc",
+    "prompt_template_hash": "91284e656d5e906476244a9c0e178debe893b351295738630aa430e60a690357",
+    "qwen_hf_model_id": "Qwen/Qwen3-4B-Instruct-2507",
+    "qwen_hf_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+    "tokenizer_id": "Qwen/Qwen3-4B-Instruct-2507",
+    "tokenizer_revision": "cdbee75f17c01a7cc42f958dc650907174af0554"
+  },
+  "operational_metrics": {
+    "actual_qwen_calls": 154,
+    "answer_length_characters": {
+      "max": 657,
+      "p50": 325,
+      "p95": 657
+    },
+    "context_tokens": {
+      "max": 3240,
+      "p50": 2857,
+      "p95": 3210
+    },
+    "generation_tokens_per_second": null,
+    "model_digest": "sha256:0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+    "output_tokens": {
+      "max": 384,
+      "p50": 149,
+      "p95": 384
+    },
+    "per_call_latency_ms": null,
+    "prompt_tokens": {
+      "max": 3386,
+      "p50": 2910,
+      "p95": 3284
+    },
+    "total_wall_time_seconds": null
+  },
+  "outcome_decomposition": {
+    "generator_explicitly_returned_abstain": 69,
+    "invalid_citation_or_evidence_id": 0,
+    "invalid_or_malformed_generator_output": 46,
+    "non_exact_quote": 10,
+    "other": 0,
+    "other_pre_generation_policy": 0,
+    "pre_generation_conflict_policy": 0,
+    "pre_generation_currentness_status_policy": 6,
+    "pre_generation_jurisdiction_policy": 0,
+    "pre_generation_no_or_insufficient_context": 0,
+    "pre_generation_personalized_advice_policy": 0,
+    "semantic_support_diagnostic": 18,
+    "successful_verified_answer": 11,
+    "uncited_or_unsupported_claim": 0
+  },
+  "population_counts": {
+    "answerable_gold_absent_from_top8": 103,
+    "answerable_gold_in_top8": 38,
+    "explicitly_unanswerable": 19
+  },
+  "qwen_call_summary": {
+    "final_system_decisions": {
+      "abstain": 149,
+      "answer": 11
+    },
+    "observability_note": "Call count is inferred from persisted adapter raw responses; no endpoint call counter was persisted.",
+    "observed_qwen_response_count": 154,
+    "post_generation_fail_closed_count": 28,
+    "raw_generator_decisions": {
+      "abstain": 69,
+      "answer": 39,
+      "invalid": 46,
+      "none": 6
+    },
+    "stopped_before_inference_count": 6
+  },
+  "raw_vs_final": {
+    "final_system_decisions": {
+      "abstain": 149,
+      "answer": 11
+    },
+    "post_generation_fail_closed_count": 28,
+    "raw_generator_decisions": {
+      "abstain": 69,
+      "answer": 39,
+      "invalid": 46,
+      "none": 6
+    }
+  },
+  "safety_invariants": {
+    "accepted_answers_rechecked": 11,
+    "accepted_answers_with_invalid_citation": 0,
+    "all_acceptance_violations_zero": true,
+    "fabricated_document_metadata_accepted": 0,
+    "fabricated_evidence_id_accepted": 0,
+    "invalid_model_output_reaching_final_answer": 0,
+    "jurisdiction_violation_reaching_final_answer": 0,
+    "non_exact_quote_accepted": 0,
+    "personalized_legal_recommendation_reaching_final_answer": 0,
+    "policy_violation_acceptance_count": 0,
+    "uncited_substantive_final_claim_accepted": 0,
+    "unverified_currentness_claim_reaching_final_answer": 0
+  },
+  "schema_version": 1,
+  "status": "complete_persisted_qwen_dev_outcome_audit",
+  "structural_breakdown": {
+    "accepted_answer_count": 11,
+    "answer_length_characters": {
+      "max": 657,
+      "p50": 325,
+      "p95": 657
+    },
+    "by_category": {
+      "case_holding": 5,
+      "conditions": 3,
+      "deadline": 1,
+      "exact_provision": 1,
+      "multi_evidence": 1
+    },
+    "by_language": {
+      "ar": 11
+    },
+    "by_population": {
+      "answerable_gold_absent_from_top8": 9,
+      "answerable_gold_in_top8": 2
+    },
+    "by_register": {
+      "egyptian": 1,
+      "formal": 10
+    },
+    "citation_count_distribution": {
+      "1": 5,
+      "2": 4,
+      "3": 2
+    },
+    "claim_count_distribution": {
+      "1": 6,
+      "2": 3,
+      "3": 2
+    },
+    "complete_gold_evidence_used_count": 1,
+    "gold_evidence_cited_count": 1
+  }
+}

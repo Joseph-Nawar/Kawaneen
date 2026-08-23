@@ -58,6 +58,26 @@ from kawaneen.evaluation.orchestrator import (
     run_source_balance_audit,
     validate_evaluation,
 )
+from kawaneen.generation.ollama import (
+    LOCAL_OLLAMA_LOCK_PATH,
+    UrllibOllamaTransport,
+    inspect_ollama_model,
+    write_local_model_lock,
+)
+from kawaneen.generation.orchestration import (
+    generation_readiness,
+    generation_status,
+    run_dev_generation,
+)
+from kawaneen.generation.registry import default_model_registry
+from kawaneen.generation.timeout_diagnostic import (
+    evaluate_persisted_timeout_diagnostic,
+    evaluate_persisted_timeout_diagnostic_v2,
+    run_stage_b_timeout_diagnostic,
+    run_stage_b_timeout_diagnostic_v2,
+    timeout_diagnostic_status,
+    timeout_diagnostic_v2_status,
+)
 from kawaneen.grounding.dev import assemble_dev as assemble_grounding_dev
 from kawaneen.grounding.dev import audit_dev as audit_grounding_dev
 from kawaneen.normalization.orchestrator import (
@@ -299,12 +319,74 @@ def build_parser() -> argparse.ArgumentParser:
     grounding_parser = subparsers.add_parser(
         "grounding", help="deterministic Phase 9 context and citation grounding"
     )
-    grounding_subparsers = grounding_parser.add_subparsers(
-        dest="grounding_command", required=True
-    )
+    grounding_subparsers = grounding_parser.add_subparsers(dest="grounding_command", required=True)
     for command in ("assemble-dev", "audit-dev"):
         command_parser = grounding_subparsers.add_parser(command)
         command_parser.add_argument("--max-context-tokens", type=int, default=4096)
+    generation_parser = subparsers.add_parser(
+        "generation", help="Phase 10 Stage-A local generation and abstention tools"
+    )
+    generation_subparsers = generation_parser.add_subparsers(
+        dest="generation_command", required=True
+    )
+    generation_subparsers.add_parser("registry", help="show model candidates without loading them")
+    lock_ollama_parser = generation_subparsers.add_parser(
+        "lock-ollama", help="inspect and lock a manually obtained local Ollama model"
+    )
+    lock_ollama_parser.add_argument("--model", required=True)
+    lock_ollama_parser.add_argument("--endpoint", default="http://localhost:11434")
+    lock_ollama_parser.add_argument("--lock-path", type=Path, default=LOCAL_OLLAMA_LOCK_PATH)
+    status_parser = generation_subparsers.add_parser(
+        "status", help="show text-free resumable Qwen DEV checkpoint status"
+    )
+    status_parser.add_argument(
+        "--generator",
+        choices=("qwen-ollama", "qwen-ollama-stage-b", "qwen-ollama-stage-c", "qwen-ollama-stage-d"),
+        required=True,
+    )
+    readiness_parser = generation_subparsers.add_parser(
+        "readiness", help="assemble and audit generator contexts without generation"
+    )
+    readiness_parser.add_argument(
+        "--generator",
+        choices=("qwen-ollama", "qwen-ollama-stage-b", "qwen-ollama-stage-c", "qwen-ollama-stage-d"),
+        required=True,
+    )
+    run_parser = generation_subparsers.add_parser(
+        "run-dev", help="run resumable Qwen DEV generation"
+    )
+    run_parser.add_argument(
+        "--generator",
+        choices=("qwen-ollama", "qwen-ollama-stage-b", "qwen-ollama-stage-c", "qwen-ollama-stage-d"),
+        required=True,
+    )
+    run_parser.add_argument("--resume", action="store_true")
+    diagnose_timeout_parser = generation_subparsers.add_parser(
+        "diagnose-stage-b-timeouts",
+        help="replay only the frozen Stage-B timeout cohort for private diagnostics",
+    )
+    diagnose_timeout_parser.add_argument("--resume", action="store_true")
+    generation_subparsers.add_parser(
+        "timeout-diagnostic-status",
+        help="show private Stage-B timeout diagnostic progress",
+    )
+    generation_subparsers.add_parser(
+        "evaluate-timeout-diagnostic",
+        help="evaluate persisted Stage-B timeout envelopes offline",
+    )
+    generation_subparsers.add_parser(
+        "timeout-diagnostic-v2-status",
+        help="show private Stage-B timeout diagnostic v2 progress",
+    )
+    diagnose_timeout_v2_parser = generation_subparsers.add_parser(
+        "diagnose-stage-b-timeouts-v2",
+        help="replay the frozen Stage-B timeout cohort into the v2 namespace",
+    )
+    diagnose_timeout_v2_parser.add_argument("--resume", action="store_true")
+    generation_subparsers.add_parser(
+        "evaluate-timeout-diagnostic-v2",
+        help="evaluate persisted Stage-B timeout v2 envelopes offline",
+    )
     return parser
 
 
@@ -614,6 +696,117 @@ def main(argv: list[str] | None = None) -> int:
                 )
         except (OSError, PermissionError, ValueError, RuntimeError) as exc:
             print(f"Grounding operation failed: {exc}", file=sys.stderr)
+            return 1
+    elif args.command == "generation":
+        try:
+            if args.generation_command == "registry":
+                print(
+                    json.dumps(
+                        [
+                            candidate.model_dump(mode="json")
+                            for candidate in default_model_registry()
+                        ],
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                )
+            elif args.generation_command == "lock-ollama":
+                candidate = next(
+                    (item for item in default_model_registry() if item.ollama_model == args.model),
+                    None,
+                )
+                if candidate is None:
+                    raise ValueError(f"unknown registered Ollama model: {args.model}")
+                identity = inspect_ollama_model(
+                    args.endpoint,
+                    args.model,
+                    UrllibOllamaTransport(),
+                )
+                write_local_model_lock(args.lock_path, identity)
+                print(
+                    json.dumps(
+                        {
+                            "model": candidate.ollama_model,
+                            "digest": identity.digest,
+                            "lock_path": args.lock_path.as_posix(),
+                        },
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                )
+            elif args.generation_command == "status":
+                print(
+                    json.dumps(
+                        generation_status(args.generator),
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                )
+            elif args.generation_command == "readiness":
+                print(
+                    json.dumps(
+                        generation_readiness(args.generator),
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                )
+            elif args.generation_command == "run-dev":
+                print(
+                    json.dumps(
+                        run_dev_generation(
+                            generator_name=args.generator,
+                            resume=args.resume,
+                        ),
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                )
+            elif args.generation_command == "diagnose-stage-b-timeouts":
+                print(
+                    json.dumps(
+                        run_stage_b_timeout_diagnostic(resume=args.resume),
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                )
+            elif args.generation_command == "timeout-diagnostic-status":
+                print(
+                    json.dumps(timeout_diagnostic_status(), ensure_ascii=False, sort_keys=True)
+                )
+            elif args.generation_command == "evaluate-timeout-diagnostic":
+                print(
+                    json.dumps(
+                        evaluate_persisted_timeout_diagnostic(),
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                )
+            elif args.generation_command == "timeout-diagnostic-v2-status":
+                print(
+                    json.dumps(
+                        timeout_diagnostic_v2_status(),
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                )
+            elif args.generation_command == "diagnose-stage-b-timeouts-v2":
+                print(
+                    json.dumps(
+                        run_stage_b_timeout_diagnostic_v2(resume=args.resume),
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                )
+            elif args.generation_command == "evaluate-timeout-diagnostic-v2":
+                print(
+                    json.dumps(
+                        evaluate_persisted_timeout_diagnostic_v2(),
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                )
+        except (OSError, PermissionError, ValueError, RuntimeError) as exc:
+            print(f"Generation operation failed: {exc}", file=sys.stderr)
             return 1
     else:
         build_parser().print_help()

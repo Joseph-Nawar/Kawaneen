@@ -1,0 +1,103 @@
+{
+  "all_160": {
+    "explicitly_unanswerable": {
+      "outcomes": {
+        "generator_explicit_abstain": {
+          "count": 12,
+          "percent": 0.631578947368421
+        },
+        "pre_generation_policy": {
+          "count": 6,
+          "percent": 0.3157894736842105
+        },
+        "semantic_support_rejection": {
+          "count": 1,
+          "percent": 0.05263157894736842
+        }
+      },
+      "total": 19
+    },
+    "gold_absent_from_top8": {
+      "outcomes": {
+        "accepted_answer": {
+          "count": 9,
+          "percent": 0.08737864077669903
+        },
+        "generator_explicit_abstain": {
+          "count": 41,
+          "percent": 0.39805825242718446
+        },
+        "malformed_or_invalid_generation": {
+          "count": 35,
+          "percent": 0.33980582524271846
+        },
+        "quotation_mismatch": {
+          "count": 8,
+          "percent": 0.07766990291262135
+        },
+        "semantic_support_rejection": {
+          "count": 10,
+          "percent": 0.0970873786407767
+        }
+      },
+      "total": 103
+    },
+    "gold_present_in_top8": {
+      "outcomes": {
+        "accepted_answer": {
+          "count": 2,
+          "percent": 0.05263157894736842
+        },
+        "generator_explicit_abstain": {
+          "count": 16,
+          "percent": 0.42105263157894735
+        },
+        "malformed_or_invalid_generation": {
+          "count": 11,
+          "percent": 0.2894736842105263
+        },
+        "quotation_mismatch": {
+          "count": 2,
+          "percent": 0.05263157894736842
+        },
+        "semantic_support_rejection": {
+          "count": 7,
+          "percent": 0.18421052631578946
+        }
+      },
+      "total": 38
+    }
+  },
+  "gold_present_38": {
+    "gold_present_in_top8": {
+      "outcomes": {
+        "accepted_answer": {
+          "count": 2,
+          "percent": 0.05263157894736842
+        },
+        "generator_explicit_abstain": {
+          "count": 16,
+          "percent": 0.42105263157894735
+        },
+        "malformed_or_invalid_generation": {
+          "count": 11,
+          "percent": 0.2894736842105263
+        },
+        "quotation_mismatch": {
+          "count": 2,
+          "percent": 0.05263157894736842
+        },
+        "semantic_support_rejection": {
+          "count": 7,
+          "percent": 0.18421052631578946
+        }
+      },
+      "total": 38
+    }
+  },
+  "population_sizes": {
+    "explicitly_unanswerable": 19,
+    "gold_absent_from_top8": 103,
+    "gold_present_in_top8": 38
+  }
+}

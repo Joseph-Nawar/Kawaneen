@@ -1,0 +1,78 @@
+{
+  "distribution": {
+    "by_reason": {
+      "AUTHORITATIVE_SOURCE_UNAVAILABLE": {
+        "explicitly_unanswerable": 2
+      },
+      "CASE_FACTS_NOT_ESTABLISHED": {
+        "answerable_gold_in_top8": 1,
+        "explicitly_unanswerable": 2
+      },
+      "CURRENTNESS_UNVERIFIED": {
+        "explicitly_unanswerable": 6
+      },
+      "FORUM_OR_SOURCE_SCOPE_MISMATCH": {
+        "answerable_gold_absent_from_top8": 1,
+        "explicitly_unanswerable": 1
+      },
+      "FUTURE_LAW_UNKNOWABLE": {
+        "explicitly_unanswerable": 2
+      },
+      "REQUIRED_CASE_SECTION_MISSING": {
+        "answerable_gold_absent_from_top8": 13,
+        "explicitly_unanswerable": 1
+      }
+    },
+    "gold_present_false_abstentions": {
+      "denominator": 38,
+      "numerator": 1,
+      "value": 0.02631578947368421
+    },
+    "gold_present_rejected_query_ids_hashed": [
+      "8e2caa331fb059dd1ae9214d8e0b81fa65eb963f1feaa636fb0f482144cdb41d"
+    ],
+    "unanswerable": {
+      "final_answers": 1,
+      "generator_abstentions": 4,
+      "invalid_runtime_abstentions": 0,
+      "other_policy": 0,
+      "policy_by_reason": {
+        "AUTHORITATIVE_SOURCE_UNAVAILABLE": 2,
+        "CASE_FACTS_NOT_ESTABLISHED": 2,
+        "CURRENTNESS_UNVERIFIED": 6,
+        "FORUM_OR_SOURCE_SCOPE_MISMATCH": 1,
+        "FUTURE_LAW_UNKNOWABLE": 2,
+        "REQUIRED_CASE_SECTION_MISSING": 1
+      }
+    }
+  },
+  "gold_present_false_abstentions": {
+    "denominator": 38,
+    "numerator": 1,
+    "value": 0.02631578947368421
+  },
+  "policy_hash": "8c990acd4d983da61baf3b8d72a4150f6f9f75b30dbf0b57ef18660fc84930e0",
+  "policy_version": "phase10-stage-d-answerability-policy-v1",
+  "qualitative_label_review": {
+    "candidate": "ANSWERABILITY_LABEL_REVIEW_CANDIDATE",
+    "count": 1,
+    "phase6_label_unchanged": true,
+    "policy_optimized_against_isolated_case": false
+  },
+  "schema_version": 1,
+  "status": "complete",
+  "unanswerable": {
+    "final_answers": 1,
+    "generator_abstentions": 4,
+    "invalid_runtime_abstentions": 0,
+    "other_policy": 0,
+    "policy_by_reason": {
+      "AUTHORITATIVE_SOURCE_UNAVAILABLE": 2,
+      "CASE_FACTS_NOT_ESTABLISHED": 2,
+      "CURRENTNESS_UNVERIFIED": 6,
+      "FORUM_OR_SOURCE_SCOPE_MISMATCH": 1,
+      "FUTURE_LAW_UNKNOWABLE": 2,
+      "REQUIRED_CASE_SECTION_MISSING": 1
+    }
+  }
+}
