@@ -1,10 +1,56 @@
 from __future__ import annotations
 
 from pathlib import Path
+from types import SimpleNamespace
 
 from streamlit.testing.v1 import AppTest
 
+import kawaneen.ui.app as app
+
 APP = str(Path(__file__).parents[1] / "src/kawaneen/ui/app.py")
+
+
+class _Navigation:
+    def __init__(self) -> None:
+        self.ran = False
+
+    def run(self) -> None:
+        self.ran = True
+
+
+class _AppStreamlit:
+    def __init__(self) -> None:
+        self.config: dict[str, object] = {}
+        self.pages: list[object] = []
+        self.navigation_result = _Navigation()
+
+    def set_page_config(self, **kwargs: object) -> None:
+        self.config = kwargs
+
+    def Page(self, path: str, **kwargs: object) -> object:
+        page = SimpleNamespace(path=path, **kwargs)
+        self.pages.append(page)
+        return page
+
+    def navigation(self, pages: list[object], **_: object) -> _Navigation:
+        assert pages == self.pages
+        return self.navigation_result
+
+
+def test_main_configures_and_runs_the_four_page_navigation(monkeypatch) -> None:
+    fake = _AppStreamlit()
+    monkeypatch.setattr(app, "st", fake)
+
+    app.main()
+
+    assert fake.config["layout"] == "wide"
+    assert [page.title for page in fake.pages] == [
+        "Search",
+        "Ask",
+        "Extract",
+        "Evaluation",
+    ]
+    assert fake.navigation_result.ran is True
 
 
 def _run() -> AppTest:

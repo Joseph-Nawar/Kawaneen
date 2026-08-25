@@ -88,3 +88,46 @@ def test_client_maps_transport_failure_to_degraded_error() -> None:
 
     assert error.value.code == "API_UNAVAILABLE"
     assert error.value.message == "The Phase 12 API could not be reached."
+
+
+def test_client_exposes_all_phase12_endpoint_wrappers(monkeypatch) -> None:
+    client = HttpUiClient(
+        "http://api.test", transport=httpx.MockTransport(lambda _: httpx.Response(200))
+    )
+    monkeypatch.setattr(client, "_post", lambda *args, **kwargs: (args, kwargs))
+    monkeypatch.setattr(client, "_get", lambda *args, **kwargs: (args, kwargs))
+
+    assert client.search("q")[0][0] == "/v1/search"
+    assert client.answer("q")[0][0] == "/v1/answer"
+    assert client.extract("text", "hybrid")[0][0] == "/v1/extract"
+    assert client.list_documents()[0][0] == "/v1/documents"
+    assert client.get_document("doc-1")[0][0] == "/v1/documents/doc-1"
+    assert client.health()[0][0] == "/v1/health"
+    assert client.models()[0][0] == "/v1/models"
+    client.close()
+
+
+def test_client_rejects_invalid_success_payload_without_leaking_details() -> None:
+    client = HttpUiClient(
+        "http://api.test",
+        transport=httpx.MockTransport(lambda _: httpx.Response(200, json={"unexpected": True})),
+    )
+
+    with pytest.raises(UiApiError) as error:
+        client.search("q")
+
+    assert error.value.code == "API_INVALID_RESPONSE"
+    assert "unexpected" not in str(error.value)
+
+
+def test_client_handles_non_json_api_error_safely() -> None:
+    client = HttpUiClient(
+        "http://api.test",
+        transport=httpx.MockTransport(lambda _: httpx.Response(500, text="private traceback")),
+    )
+
+    with pytest.raises(UiApiError) as error:
+        client.search("q")
+
+    assert error.value.code == "API_ERROR"
+    assert "private traceback" not in str(error.value)

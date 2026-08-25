@@ -2,7 +2,7 @@
 
 help:
 	@printf '%s\n' 'Kawaneen development commands:'
-	@printf '%s\n' '  make install   uv sync --locked --dev'
+	@printf '%s\n' '  make install   uv sync --locked --dev --extra ui'
 	@printf '%s\n' '  make format    uv run ruff format .'
 	@printf '%s\n' '  make lint      uv run ruff check .'
 	@printf '%s\n' '  make typecheck uv run pyright'
@@ -63,7 +63,7 @@ help:
 	@printf '%s\n' '  make clean     remove safe local build and test artifacts'
 
 install:
-	uv sync --locked --dev
+	uv sync --locked --dev --extra ui
 
 format:
 	uv run ruff format .
