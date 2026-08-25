@@ -97,14 +97,20 @@ def seed_visual_qa_state(client: UiClient, state: UiSessionState) -> None:
 
     synthetic = DemoClient()
     if scenario == "search_arabic":
-        st.session_state["search_response"] = synthetic.search("ما هي مدة الاعتراض؟")
-        st.session_state["search_query_value"] = "ما هي مدة الاعتراض؟"
+        query = "ما هي مدة الاعتراض؟"
+        st.session_state["search_response"] = synthetic.search(query)
+        st.session_state["search_query"] = query
+        st.session_state["search_query_value"] = query
     elif scenario == "ask_grounded":
-        st.session_state["answer_response"] = synthetic.answer("ما هي مدة الاعتراض؟")
+        question = "ما هي مدة الاعتراض؟"
+        st.session_state["ask_question"] = question
+        st.session_state["answer_response"] = synthetic.answer(question)
     else:
         source_text = (
             "يلتزم الطرف بالسداد خلال ثلاثين يوماً.\n\nيجوز تمديد المدة في الحالات المحددة نظاماً."
         )
+        st.session_state["source_text"] = source_text
+        st.session_state["extraction_mode_select"] = "Deterministic"
         st.session_state["extraction_results"] = [
             ("segment-001", synthetic.extract(source_text, "deterministic"))
         ]

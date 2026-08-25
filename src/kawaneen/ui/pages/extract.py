@@ -35,7 +35,7 @@ def render() -> None:
         source_text = st.text_area(
             "Source text",
             placeholder="Paste a provision or clause here.",
-            height=140,
+            height=100,
             key="source_text",
         )
     elif source_mode == "Upload document":
@@ -86,7 +86,9 @@ def render() -> None:
             source_text = st.session_state.get("corpus_source_text", source_text)
         except UiApiError as error:
             st.error(error.message)
-    mode_label = st.selectbox("Extraction mode", ["Deterministic", "Hybrid"])
+    mode_label = st.selectbox(
+        "Extraction mode", ["Deterministic", "Hybrid"], key="extraction_mode_select"
+    )
     mode = "hybrid" if mode_label == "Hybrid" else "deterministic"
     if st.button("Extract"):
         if not source_text.strip():

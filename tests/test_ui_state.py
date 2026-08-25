@@ -121,6 +121,7 @@ def test_visual_qa_state_seeds_only_synthetic_demo_search(monkeypatch) -> None:
 
     response = fake.session_state["search_response"]
     assert response.results[0].document_id == "demo-procedure"
+    assert fake.session_state["search_query"] == "ما هي مدة الاعتراض؟"
     assert fake.session_state["search_query_value"] == "ما هي مدة الاعتراض؟"
     assert fake.session_state["_visual_qa_scenario"] == "search_arabic"
 
@@ -154,9 +155,12 @@ def test_visual_qa_state_reuses_synthetic_ask_and_extract_fixtures(monkeypatch) 
         assert fake.session_state["_visual_qa_scenario"] == scenario
         if scenario == "ask_grounded":
             assert fake.session_state["answer_response"].request_id == "demo-answer-grounded"
+            assert fake.session_state["ask_question"] == "ما هي مدة الاعتراض؟"
         else:
             results = fake.session_state["extraction_results"]
             assert results[0][1].result.source_provenance.source_id == "synthetic-demo"
+            assert "يلتزم الطرف بالسداد" in fake.session_state["source_text"]
+            assert fake.session_state["extraction_mode_select"] == "Deterministic"
 
 
 def test_visual_qa_state_accepts_explicit_demo_environment_switch(monkeypatch) -> None:

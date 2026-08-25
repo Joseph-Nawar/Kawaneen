@@ -23,7 +23,7 @@ Phase 13 adds a recruiter-facing Streamlit workspace over the Phase 12 HTTP API.
 - Search: ranked Saudi evidence, literal query highlighting, metadata, and returned-evidence refinement.
 - Ask: grounded answers with a prominent citation rail, exact quotes, canonical-unit inspection, and intentional abstention states.
 - Extract: paste, upload, or paginated corpus sources with bounded segmentation, visible hybrid limitations, and JSON/CSV exports.
-- Evaluation: live readiness, provenance-hashed tracked metrics, and current-session latency labelled as non-benchmark.
+- Evaluation: model capability snapshots, provenance-hashed tracked metrics, and current-session latency labelled as non-benchmark.
 
 Run the live API and UI as two processes:
 

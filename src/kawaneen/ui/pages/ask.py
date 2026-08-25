@@ -33,7 +33,7 @@ def render() -> None:
         query = st.text_area(
             "Ask a legal question",
             placeholder="Ask about a provision, deadline, or authority.",
-            height=110,
+            height=100,
             key="ask_question",
         )
         submitted = st.form_submit_button("Ask")

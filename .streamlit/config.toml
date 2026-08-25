@@ -9,5 +9,8 @@ font = "sans serif"
 [browser]
 gatherUsageStats = false
 
+[client]
+toolbarMode = "minimal"
+
 [server]
 headless = true

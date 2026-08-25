@@ -13,6 +13,9 @@ def inject_css() -> None:
         .stApp { background: var(--canvas); color: var(--navy); }
         .block-container { max-width: 1440px; padding: 1.5rem 3rem 4rem; }
         [data-testid="stHeader"] { background: transparent; }
+        .kw-product-header { padding-top:2.5rem; margin-bottom:.8rem !important; }
+        .block-container h1 { margin-top:.5rem !important; margin-bottom:.25rem !important; }
+        [data-testid="stForm"] { padding-top:.5rem !important; padding-bottom:.5rem !important; }
         [data-testid="stMetric"] { background:#fff; border:1px solid var(--line);
           border-radius:10px; padding:.8rem 1rem; }
         .kw-surface { background:#fff; border:1px solid var(--line);
@@ -27,7 +30,7 @@ def inject_css() -> None:
         .kw-status.degraded { color:#9a5d13; border-color:#e4bf87; background:#fff7e8; }
         .kw-quote { border-left:3px solid var(--gold); background:#fcfaf6;
           border-radius:0 8px 8px 0; padding:.8rem 1rem; line-height:1.8; }
-        [data-testid="stAlert"] { margin:.65rem 0; padding:.65rem .9rem; }
+        [data-testid="stAlert"] { margin:.4rem 0; padding:.45rem .9rem; }
         .kw-rtl { direction:rtl; text-align:right; }
         .kw-ltr { direction:ltr; text-align:left; }
         .kw-meta { color:#65727c; font-size:.78rem; }

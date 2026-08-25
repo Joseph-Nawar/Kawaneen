@@ -110,7 +110,9 @@ def test_demo_evaluation_page_shows_provenance_and_latency_label(monkeypatch) ->
     app = _run()
     app.switch_page("pages/evaluation.py").run()
 
-    assert any("Live API readiness" in item.value for item in app.markdown)
+    assert any("Model capability snapshot" in item.value for item in app.markdown)
+    assert not any("Live API readiness" in item.value for item in app.markdown)
+    assert not any("live readiness" in item.value for item in app.caption)
     assert any("Live session latency — not a benchmark" in item.value for item in app.markdown)
     assert any("Technical provenance" in item.label for item in app.expander)
     assert any("BM25 + BGE-M3" in item.value for item in app.caption)

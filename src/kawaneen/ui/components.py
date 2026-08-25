@@ -25,7 +25,7 @@ def render_product_header(state: UiSessionState) -> None:
     )
     st.html(
         f"""
-        <div
+        <div class="kw-product-header"
           style="display:flex;justify-content:space-between;align-items:flex-start;
           border-bottom:1px solid #dfe5e3;padding-bottom:1rem;margin-bottom:1.4rem"
         >

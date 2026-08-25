@@ -62,20 +62,21 @@ def render() -> None:
         f"{response.retrieval.returned_count} results · {response.latency_ms:.0f} ms API latency · "
         "scope: jurisdiction SA"
     )
-    refinement = st.text_input(
-        "Refine returned evidence",
-        placeholder="Filter only the returned evidence",
-        key="search_refinement",
-    )
-    document_options = {
-        f"{item.document_title or item.document_id} · {item.document_id}": item.document_id
-        for item in response.results
-    }
-    selected_documents = st.multiselect(
-        "Filter returned documents",
-        options=list(document_options),
-        help="Client-side filter derived only from this response; API ranking is preserved.",
-    )
+    with st.expander("Refine returned evidence", expanded=False):
+        refinement = st.text_input(
+            "Text refinement",
+            placeholder="Filter only the returned evidence",
+            key="search_refinement",
+        )
+        document_options = {
+            f"{item.document_title or item.document_id} · {item.document_id}": item.document_id
+            for item in response.results
+        }
+        selected_documents = st.multiselect(
+            "Filter returned documents",
+            options=list(document_options),
+            help="Client-side filter derived only from this response; API ranking is preserved.",
+        )
     results = filter_returned_evidence(
         response.results,
         {document_options[label] for label in (selected_documents or [])},

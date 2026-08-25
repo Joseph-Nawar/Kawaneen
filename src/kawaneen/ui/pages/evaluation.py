@@ -13,6 +13,7 @@ from kawaneen.ui.components import (
     render_product_header,
     render_status_gate,
 )
+from kawaneen.ui.config import UiMode
 from kawaneen.ui.evaluation import (
     aggregate_latency_by_operation,
     build_evaluation_snapshot,
@@ -30,7 +31,14 @@ def render() -> None:
     render_page_intro(
         "Evidence and readiness",
         "Evaluation",
-        "Tracked metrics, live readiness, and session observations in one transparent view.",
+        (
+            "Tracked metrics, synthetic capability fixtures, and session observations in one "
+            "transparent view."
+            if state.active_mode is UiMode.DEMO
+            else (
+                "Tracked metrics, live readiness, and session observations in one transparent view."
+            )
+        ),
     )
     root = Path(__file__).resolve().parents[4]
     snapshot = build_evaluation_snapshot(root)
@@ -41,29 +49,10 @@ def render() -> None:
     glance[2].metric("Generation", "Phase 10 tracked")
     glance[3].metric("Extraction", "Protected")
     st.caption("A compact portfolio summary; detailed tracked metrics and provenance follow below.")
-    st.markdown("### Live API readiness")
-    try:
-        models = client.models()
-        cols = st.columns(max(1, min(4, len(models.capabilities))))
-        for column, capability in zip(cols, models.capabilities, strict=False):
-            with column:
-                st.metric(capability.capability, "Ready" if capability.ready else "Not ready")
-                revision = (
-                    capability.revision[:12] if capability.revision else "revision not reported"
-                )
-                st.caption(
-                    f"{capability.provider} · {capability.model or 'model not reported'} · "
-                    f"rev {revision} · {'ready' if capability.ready else 'not ready'}"
-                )
-    except Exception:
-        st.warning("Model readiness could not be loaded from the current API session.")
-    st.markdown("### Frozen retrieval architecture")
-    st.caption("BM25 + BGE-M3 → weighted RRF (1.0 / 0.25) → BGE reranker → top 8")
-    st.markdown("### Retrieval")
-    st.caption("Frozen Phase 8 architecture/configuration. DEV and holdout remain separate labels.")
     retrieval_rows = common_retrieval_comparison(snapshot)
-    st.dataframe(list(retrieval_rows), width="stretch", hide_index=True)
     if retrieval_rows:
+        st.markdown("### Tracked retrieval comparison")
+        st.caption("Common tracked metrics and splits only; values are not rerun in this UI.")
         chart_data: dict[str, list[float]] = {}
         for row in retrieval_rows:
             label = f"{row['split']} · {row['model']} · {row['metric']}"
@@ -71,6 +60,44 @@ def render() -> None:
             if isinstance(value, (int, float)):
                 chart_data[label] = [float(value)]
         st.bar_chart(chart_data, horizontal=True)
+    capability_heading = (
+        "Model capability snapshot" if state.active_mode is UiMode.DEMO else "Live API readiness"
+    )
+    st.markdown(f"### {capability_heading}")
+    try:
+        models = client.models()
+        cols = st.columns(max(1, min(4, len(models.capabilities))))
+        for column, capability in zip(cols, models.capabilities, strict=False):
+            with column:
+                status = (
+                    "Synthetic fixture"
+                    if state.active_mode is UiMode.DEMO
+                    else "Ready"
+                    if capability.ready
+                    else "Not ready"
+                )
+                st.metric(capability.capability, status)
+                revision = (
+                    capability.revision[:12] if capability.revision else "revision not reported"
+                )
+                caption_status = (
+                    "synthetic fixture"
+                    if state.active_mode is UiMode.DEMO
+                    else "ready"
+                    if capability.ready
+                    else "not ready"
+                )
+                st.caption(
+                    f"{capability.provider} · {capability.model or 'model not reported'} · "
+                    f"rev {revision} · {caption_status}"
+                )
+    except Exception:
+        st.warning("Model readiness could not be loaded from the current API session.")
+    st.markdown("### Frozen retrieval architecture")
+    st.caption("BM25 + BGE-M3 → weighted RRF (1.0 / 0.25) → BGE reranker → top 8")
+    st.markdown("### Retrieval")
+    st.caption("Frozen Phase 8 architecture/configuration. DEV and holdout remain separate labels.")
+    st.dataframe(list(retrieval_rows), width="stretch", hide_index=True)
     st.markdown("### Phase 8 selected improvement deltas")
     st.dataframe(snapshot.retrieval["selected_deltas"], width="stretch", hide_index=True)
     st.markdown("### Generation · DEV / independently AI-reviewed, not human-gold")
