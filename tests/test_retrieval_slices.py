@@ -1,3 +1,5 @@
+import pytest
+
 from kawaneen.evaluation.models import (
     Answerability,
     CreationMethod,
@@ -11,7 +13,6 @@ from kawaneen.evaluation.models import (
     QueryType,
     RelevanceGrade,
 )
-import pytest
 from kawaneen.retrieval.slices import QueryLengthBins, assign_slices, build_query_length_bins
 
 

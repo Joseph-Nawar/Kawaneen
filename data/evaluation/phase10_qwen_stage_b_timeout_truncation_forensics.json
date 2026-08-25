@@ -1,0 +1,196 @@
+{
+  "analysis": "phase10_stage_b_timeout_v2_truncation_forensics",
+  "cohort": {
+    "asserted": true,
+    "excluded_length_512_valid_json": 1,
+    "expected": 15,
+    "selected": 15,
+    "selection_rule": "done_reason=length AND eval_count=512 AND nested_response_invalid_json"
+  },
+  "partial_structure": {
+    "attempted_citations": {
+      "count": 15,
+      "max": 9,
+      "p50": 6,
+      "p95": 8.3
+    },
+    "attempted_claims": {
+      "count": 15,
+      "max": 2,
+      "p50": 1,
+      "p95": 2
+    },
+    "complete_citations": {
+      "count": 15,
+      "max": 8,
+      "p50": 6,
+      "p95": 7.3
+    },
+    "complete_claims": {
+      "count": 15,
+      "max": 1,
+      "p50": 0,
+      "p95": 1
+    },
+    "exact_duplicate_quoted_text": {
+      "repeated_instances_beyond_first": 9,
+      "responses": 4
+    },
+    "mode_counts": {
+      "direct": 13,
+      "interpretation": 1,
+      "mixed": 1
+    },
+    "quoted_text_characters": {
+      "count": 15,
+      "max": 1215,
+      "p50": 990,
+      "p95": 1197.5
+    },
+    "quoted_text_share": {
+      "count": 15,
+      "max": 0.924658,
+      "p50": 0.690318,
+      "p95": 0.923635
+    }
+  },
+  "pressure_indicators": {
+    "stop_quote_share_p50": 0.565412,
+    "truncated_at_output_cap": 15,
+    "truncated_direct_only_or_mixed": 14,
+    "truncated_inside_quoted_text_or_evidence_id": 13,
+    "truncated_quote_share_p50": 0.690318
+  },
+  "primary_diagnosis": "QUOTE_COPYING_DOMINATES",
+  "runtime_timeout_followup": {
+    "basis_max_seconds": 29.04,
+    "basis_p95_seconds": 27.91,
+    "current_socket_timeout_seconds": 30,
+    "future_recommendation_seconds": 60,
+    "implemented": false
+  },
+  "schema_version": 1,
+  "source_namespace": "artifacts/private/phase10_generation/diagnostics/qwen-stage-b-timeouts-v2",
+  "source_scope": {
+    "envelopes": 27,
+    "raw_text_tracked": false,
+    "records": 27
+  },
+  "stage_c_recommendation": {
+    "action": "compact_direct_claim_citation_contract_before_changing_output_cap",
+    "cap_change": false,
+    "choice": "B"
+  },
+  "truncated_vs_stop": {
+    "stop_11": {
+      "chars": {
+        "count": 11,
+        "max": 1421,
+        "p50": 1196,
+        "p95": 1411
+      },
+      "complete_citations": {
+        "count": 11,
+        "max": 8,
+        "p50": 7,
+        "p95": 8
+      },
+      "complete_claims": {
+        "count": 11,
+        "max": 3,
+        "p50": 1,
+        "p95": 2
+      },
+      "context_tokens": {
+        "count": 11,
+        "max": 3057,
+        "p50": 2874,
+        "p95": 3033
+      },
+      "output_tokens": {
+        "count": 11,
+        "max": 499,
+        "p50": 448,
+        "p95": 498
+      },
+      "prompt_tokens": {
+        "count": 11,
+        "max": 3135,
+        "p50": 2962,
+        "p95": 3109
+      },
+      "quote_chars": {
+        "count": 11,
+        "max": 1017,
+        "p50": 703,
+        "p95": 987.5
+      },
+      "quote_share": {
+        "count": 11,
+        "max": 0.72591,
+        "p50": 0.565412,
+        "p95": 0.724469
+      }
+    },
+    "truncated_15": {
+      "chars": {
+        "count": 15,
+        "max": 1614,
+        "p50": 1404,
+        "p95": 1553.8
+      },
+      "complete_citations": {
+        "count": 15,
+        "max": 8,
+        "p50": 6,
+        "p95": 7.3
+      },
+      "complete_claims": {
+        "count": 15,
+        "max": 1,
+        "p50": 0,
+        "p95": 1
+      },
+      "context_tokens": {
+        "count": 15,
+        "max": 3179,
+        "p50": 3033,
+        "p95": 3167.1
+      },
+      "output_tokens": {
+        "count": 15,
+        "max": 512,
+        "p50": 512,
+        "p95": 512
+      },
+      "prompt_tokens": {
+        "count": 15,
+        "max": 3246,
+        "p50": 3099,
+        "p95": 3241.8
+      },
+      "quote_chars": {
+        "count": 15,
+        "max": 1215,
+        "p50": 990,
+        "p95": 1197.5
+      },
+      "quote_share": {
+        "count": 15,
+        "max": 0.924658,
+        "p50": 0.690318,
+        "p95": 0.923635
+      }
+    }
+  },
+  "truncation_location_counts": {
+    "between_citations": 0,
+    "between_claims": 0,
+    "inside_citation_object": 1,
+    "inside_claim_object": 1,
+    "inside_evidence_id": 2,
+    "inside_quoted_text": 11,
+    "near_final_closing_braces_brackets": 0,
+    "other": 0
+  }
+}

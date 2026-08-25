@@ -1,0 +1,39 @@
+{
+  "artifact_type": "stage_d_readiness_summary",
+  "budget_violations": 0,
+  "context_tokens": {
+    "max": 3276,
+    "p50": 2881,
+    "p95": 3247
+  },
+  "generator": "qwen-ollama-stage-d",
+  "input_cap": 3584,
+  "mid_unit_truncations": 0,
+  "model_eligible": 131,
+  "model_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+  "output_cap": 512,
+  "policy_hash": "8c990acd4d983da61baf3b8d72a4150f6f9f75b30dbf0b57ef18660fc84930e0",
+  "policy_pre_abstained": 29,
+  "policy_pre_abstained_by_reason": {
+    "AUTHORITATIVE_SOURCE_UNAVAILABLE": 2,
+    "CASE_FACTS_NOT_ESTABLISHED": 3,
+    "CURRENTNESS_UNVERIFIED": 6,
+    "FORUM_OR_SOURCE_SCOPE_MISMATCH": 2,
+    "FUTURE_LAW_UNKNOWABLE": 2,
+    "REQUIRED_CASE_SECTION_MISSING": 14
+  },
+  "policy_version": "phase10-stage-d-answerability-policy-v1",
+  "prompt_tokens_model_eligible": {
+    "max": 3456,
+    "p50": 3052,
+    "p95": 3434
+  },
+  "query_count": 160,
+  "schema_version": 1,
+  "timeout_seconds": 60.0,
+  "tokenizer_id": "Qwen/Qwen3-4B-Instruct-2507",
+  "tokenizer_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+  "unresolved_provenance": 0,
+  "valid_contexts": 160,
+  "valid_quote_registries": 160
+}

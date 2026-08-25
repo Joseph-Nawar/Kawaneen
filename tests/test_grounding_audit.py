@@ -160,7 +160,6 @@ def test_tracked_writer_rejects_source_text_but_cli_has_grounding_commands(tmp_p
     with pytest.raises(ValueError, match="source text"):
         write_tracked_json(tmp_path / "bad.json", {"display_text": "secret"})
     assert (
-        build_parser().parse_args(["grounding", "assemble-dev"]).grounding_command
-        == "assemble-dev"
+        build_parser().parse_args(["grounding", "assemble-dev"]).grounding_command == "assemble-dev"
     )
     assert build_parser().parse_args(["grounding", "audit-dev"]).grounding_command == "audit-dev"

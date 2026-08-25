@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
-from kawaneen.grounding.contracts import ContextPack
+from collections.abc import Mapping
+
+from kawaneen.grounding.contracts import ContextPack, EvidenceReference
 
 
 def _metadata_lines(pack: ContextPack, block_index: int) -> list[str]:
@@ -20,10 +22,16 @@ def _metadata_lines(pack: ContextPack, block_index: int) -> list[str]:
     return lines
 
 
-def render_context(pack: ContextPack) -> str:
+def render_context(
+    pack: ContextPack,
+    *,
+    evidence_labels: Mapping[str, str] | None = None,
+) -> str:
     """Render only server-selected context, including local evidence IDs."""
 
-    evidence_by_unit = {item.unit_id: item for item in pack.evidence}
+    evidence_by_unit: dict[str, EvidenceReference] = {}
+    for item in pack.evidence:
+        evidence_by_unit.setdefault(item.unit_id, item)
     lines: list[str] = []
     previous_document: str | None = None
     previous_heading: tuple[str, ...] | None = None
@@ -35,7 +43,12 @@ def render_context(pack: ContextPack) -> str:
             lines.append(f"Heading: {' / '.join(block.heading_path)}")
         for unit in block.units:
             evidence = evidence_by_unit[unit.unit_id]
-            lines.append(f"[{evidence.evidence_id}] {unit.display_text}")
+            label = (
+                evidence_labels.get(evidence.evidence_id, evidence.evidence_id)
+                if evidence_labels is not None
+                else evidence.evidence_id
+            )
+            lines.append(f"[{label}] {unit.display_text}")
         previous_document = block.document_id
         previous_heading = block.heading_path
     return "\n".join(lines)
@@ -44,6 +57,4 @@ def render_context(pack: ContextPack) -> str:
 def render_evidence(pack: ContextPack) -> str:
     """Render the evidence-only view used by deterministic verifier tests."""
 
-    return "\n".join(
-        f"[{item.evidence_id}] {item.display_text}" for item in pack.evidence
-    )
+    return "\n".join(f"[{item.evidence_id}] {item.display_text}" for item in pack.evidence)

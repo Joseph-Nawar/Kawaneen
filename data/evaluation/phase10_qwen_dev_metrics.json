@@ -1,0 +1,128 @@
+{
+  "evaluation_record_count": 160,
+  "evaluation_split": "DEV",
+  "identities": {
+    "generation_policy_hash": "92e153ce4fe8006f7f41d5e0ae124481385079e7de44f27f8136622101a73a31",
+    "ollama_digest": "sha256:0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+    "ollama_model_tag": "qwen3:4b-instruct-2507-q4_K_M",
+    "phase8_selection_sha256": "a62cc772f2b71883355c7935da7e7b87ab4d22b3746553148b4f64ef20f28b0b",
+    "phase9_policy_sha256": "be7324808180d4a0797154c2b3c46050ff67b41790da3fcc04f17c60383347dc",
+    "prompt_template_hash": "91284e656d5e906476244a9c0e178debe893b351295738630aa430e60a690357",
+    "qwen_hf_model_id": "Qwen/Qwen3-4B-Instruct-2507",
+    "qwen_hf_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+    "tokenizer_id": "Qwen/Qwen3-4B-Instruct-2507",
+    "tokenizer_revision": "cdbee75f17c01a7cc42f958dc650907174af0554"
+  },
+  "metrics": {
+    "ClaimCitationCoverage": {
+      "denominator": 18,
+      "numerator": 18,
+      "value": 1.0
+    },
+    "CompleteGoldEvidenceUse": {
+      "denominator": 38,
+      "numerator": 1,
+      "value": 0.02631578947368421
+    },
+    "ContextInsufficientAbstentionRecall": {
+      "denominator": 103,
+      "numerator": 94,
+      "value": 0.912621359223301
+    },
+    "FalseAbstentionRate": {
+      "denominator": 38,
+      "numerator": 36,
+      "value": 0.9473684210526315
+    },
+    "FalseAnswerRate": {
+      "denominator": 19,
+      "numerator": 0,
+      "value": 0.0
+    },
+    "GoldCitationHitRate": {
+      "denominator": 19,
+      "numerator": 1,
+      "value": 0.05263157894736842
+    },
+    "SupportedAnswerCoverage": {
+      "denominator": 141,
+      "numerator": 1,
+      "value": 0.0070921985815602835
+    },
+    "SupportedAnswerPrecision": {
+      "denominator": 11,
+      "numerator": 1,
+      "value": 0.09090909090909091
+    },
+    "UnanswerableAbstentionRecall": {
+      "denominator": 19,
+      "numerator": 19,
+      "value": 1.0
+    },
+    "ValidCitationRate": {
+      "denominator": 19,
+      "numerator": 19,
+      "value": 1.0
+    },
+    "invalid_generation_rate": {
+      "denominator": 160,
+      "numerator": 46,
+      "value": 0.2875
+    },
+    "policy_violation_acceptance_count": 0,
+    "unsupported_claim_rejection_count": 18
+  },
+  "populations": {
+    "answerable_gold_absent_from_top8": 103,
+    "answerable_gold_in_top8": 38,
+    "explicitly_unanswerable": 19
+  },
+  "posthoc_decision_accounting": {
+    "final_system_abstention_count": 149,
+    "final_system_answer_count": 11,
+    "population_counts": {
+      "answerable_gold_absent_from_top8": 103,
+      "answerable_gold_in_top8": 38,
+      "explicitly_unanswerable": 19
+    },
+    "raw_answer_rejected_by_post_generation_verification": 28,
+    "raw_generator_abstain_count": 69,
+    "raw_generator_answer_count": 39,
+    "raw_generator_invalid_count": 46
+  },
+  "schema_version": 1,
+  "status": "complete_persisted_qwen_dev_evaluation",
+  "token_budget": {
+    "BudgetedCompleteGoldEvidenceRetention": {
+      "denominator": 36,
+      "numerator": 21,
+      "value": 0.5833333333333334
+    },
+    "BudgetedGoldEvidenceRetention": {
+      "denominator": 39,
+      "numerator": 23,
+      "value": 0.5897435897435898
+    },
+    "budget_violations": 0,
+    "complete_gold_retained": 21,
+    "complete_gold_total": 36,
+    "evidence_token_budget": {
+      "max": 3251,
+      "p50": 3236,
+      "p95": 3246
+    },
+    "fixed_prompt_tokens": {
+      "max": 253,
+      "p50": 220,
+      "p95": 236
+    },
+    "gold_representation_retained": 23,
+    "gold_representation_total": 39,
+    "input_cap": 3584,
+    "mid_unit_truncations": 0,
+    "output_reservation": 384,
+    "relevant_representations_excluded_by_real_qwen_budget": 16,
+    "safety_margin": 128,
+    "unresolved_provenance": 0
+  }
+}

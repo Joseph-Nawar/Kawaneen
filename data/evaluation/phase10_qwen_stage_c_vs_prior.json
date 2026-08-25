@@ -1,0 +1,509 @@
+{
+  "metrics": {
+    "extractive": {
+      "ClaimCitationCoverage": {
+        "absolute_delta": 0.0,
+        "prior": {
+          "denominator": 257,
+          "numerator": 257,
+          "value": 1.0
+        },
+        "stage_c": {
+          "denominator": 134,
+          "numerator": 134,
+          "value": 1.0
+        }
+      },
+      "CompleteGoldEvidenceUse": {
+        "absolute_delta": 0.026315789473684237,
+        "prior": {
+          "denominator": 38,
+          "numerator": 12,
+          "value": 0.3157894736842105
+        },
+        "stage_c": {
+          "denominator": 38,
+          "numerator": 13,
+          "value": 0.34210526315789475
+        }
+      },
+      "ContextInsufficientAbstentionRecall": {
+        "absolute_delta": 0.10679611650485436,
+        "prior": {
+          "denominator": 103,
+          "numerator": 3,
+          "value": 0.02912621359223301
+        },
+        "stage_c": {
+          "denominator": 103,
+          "numerator": 14,
+          "value": 0.13592233009708737
+        }
+      },
+      "FalseAbstentionRate": {
+        "absolute_delta": -0.07894736842105263,
+        "prior": {
+          "denominator": 38,
+          "numerator": 4,
+          "value": 0.10526315789473684
+        },
+        "stage_c": {
+          "denominator": 38,
+          "numerator": 1,
+          "value": 0.02631578947368421
+        }
+      },
+      "FalseAnswerRate": {
+        "absolute_delta": -0.21052631578947367,
+        "prior": {
+          "denominator": 19,
+          "numerator": 12,
+          "value": 0.631578947368421
+        },
+        "stage_c": {
+          "denominator": 19,
+          "numerator": 8,
+          "value": 0.42105263157894735
+        }
+      },
+      "GoldCitationHitRate": {
+        "absolute_delta": 0.04421648390519986,
+        "prior": {
+          "denominator": 257,
+          "numerator": 12,
+          "value": 0.04669260700389105
+        },
+        "stage_c": {
+          "denominator": 154,
+          "numerator": 14,
+          "value": 0.09090909090909091
+        }
+      },
+      "SupportedAnswerCoverage": {
+        "absolute_delta": 0.014184397163120574,
+        "prior": {
+          "denominator": 141,
+          "numerator": 12,
+          "value": 0.0851063829787234
+        },
+        "stage_c": {
+          "denominator": 141,
+          "numerator": 14,
+          "value": 0.09929078014184398
+        }
+      },
+      "SupportedAnswerPrecision": {
+        "absolute_delta": 0.0222858311183807,
+        "prior": {
+          "denominator": 146,
+          "numerator": 12,
+          "value": 0.0821917808219178
+        },
+        "stage_c": {
+          "denominator": 134,
+          "numerator": 14,
+          "value": 0.1044776119402985
+        }
+      },
+      "UnanswerableAbstentionRecall": {
+        "absolute_delta": 0.21052631578947373,
+        "prior": {
+          "denominator": 19,
+          "numerator": 7,
+          "value": 0.3684210526315789
+        },
+        "stage_c": {
+          "denominator": 19,
+          "numerator": 11,
+          "value": 0.5789473684210527
+        }
+      },
+      "ValidCitationRate": {
+        "absolute_delta": 0.0,
+        "prior": {
+          "denominator": 257,
+          "numerator": 257,
+          "value": 1.0
+        },
+        "stage_c": {
+          "denominator": 154,
+          "numerator": 154,
+          "value": 1.0
+        }
+      }
+    },
+    "qwen_stage_a": {
+      "ClaimCitationCoverage": {
+        "absolute_delta": 0.0,
+        "prior": {
+          "denominator": 18,
+          "numerator": 18,
+          "value": 1.0
+        },
+        "stage_c": {
+          "denominator": 134,
+          "numerator": 134,
+          "value": 1.0
+        }
+      },
+      "CompleteGoldEvidenceUse": {
+        "absolute_delta": 0.3157894736842105,
+        "prior": {
+          "denominator": 38,
+          "numerator": 1,
+          "value": 0.02631578947368421
+        },
+        "stage_c": {
+          "denominator": 38,
+          "numerator": 13,
+          "value": 0.34210526315789475
+        }
+      },
+      "ContextInsufficientAbstentionRecall": {
+        "absolute_delta": -0.7766990291262137,
+        "prior": {
+          "denominator": 103,
+          "numerator": 94,
+          "value": 0.912621359223301
+        },
+        "stage_c": {
+          "denominator": 103,
+          "numerator": 14,
+          "value": 0.13592233009708737
+        }
+      },
+      "FalseAbstentionRate": {
+        "absolute_delta": -0.9210526315789473,
+        "prior": {
+          "denominator": 38,
+          "numerator": 36,
+          "value": 0.9473684210526315
+        },
+        "stage_c": {
+          "denominator": 38,
+          "numerator": 1,
+          "value": 0.02631578947368421
+        }
+      },
+      "FalseAnswerRate": {
+        "absolute_delta": 0.42105263157894735,
+        "prior": {
+          "denominator": 19,
+          "numerator": 0,
+          "value": 0.0
+        },
+        "stage_c": {
+          "denominator": 19,
+          "numerator": 8,
+          "value": 0.42105263157894735
+        }
+      },
+      "GoldCitationHitRate": {
+        "absolute_delta": 0.038277511961722493,
+        "prior": {
+          "denominator": 19,
+          "numerator": 1,
+          "value": 0.05263157894736842
+        },
+        "stage_c": {
+          "denominator": 154,
+          "numerator": 14,
+          "value": 0.09090909090909091
+        }
+      },
+      "SupportedAnswerCoverage": {
+        "absolute_delta": 0.0921985815602837,
+        "prior": {
+          "denominator": 141,
+          "numerator": 1,
+          "value": 0.0070921985815602835
+        },
+        "stage_c": {
+          "denominator": 141,
+          "numerator": 14,
+          "value": 0.09929078014184398
+        }
+      },
+      "SupportedAnswerPrecision": {
+        "absolute_delta": 0.013568521031207592,
+        "prior": {
+          "denominator": 11,
+          "numerator": 1,
+          "value": 0.09090909090909091
+        },
+        "stage_c": {
+          "denominator": 134,
+          "numerator": 14,
+          "value": 0.1044776119402985
+        }
+      },
+      "UnanswerableAbstentionRecall": {
+        "absolute_delta": -0.42105263157894735,
+        "prior": {
+          "denominator": 19,
+          "numerator": 19,
+          "value": 1.0
+        },
+        "stage_c": {
+          "denominator": 19,
+          "numerator": 11,
+          "value": 0.5789473684210527
+        }
+      },
+      "ValidCitationRate": {
+        "absolute_delta": 0.0,
+        "prior": {
+          "denominator": 19,
+          "numerator": 19,
+          "value": 1.0
+        },
+        "stage_c": {
+          "denominator": 154,
+          "numerator": 154,
+          "value": 1.0
+        }
+      },
+      "invalid_generation_rate": {
+        "absolute_delta": -0.23124999999999998,
+        "prior": {
+          "denominator": 160,
+          "numerator": 46,
+          "value": 0.2875
+        },
+        "stage_c": {
+          "denominator": 160,
+          "numerator": 9,
+          "value": 0.05625
+        }
+      }
+    },
+    "qwen_stage_b": {
+      "ClaimCitationCoverage": {
+        "absolute_delta": 0.0,
+        "prior": {
+          "denominator": 86,
+          "numerator": 86,
+          "value": 1.0
+        },
+        "stage_c": {
+          "denominator": 134,
+          "numerator": 134,
+          "value": 1.0
+        }
+      },
+      "CompleteGoldEvidenceUse": {
+        "absolute_delta": 0.07894736842105265,
+        "prior": {
+          "denominator": 38,
+          "numerator": 10,
+          "value": 0.2631578947368421
+        },
+        "stage_c": {
+          "denominator": 38,
+          "numerator": 13,
+          "value": 0.34210526315789475
+        }
+      },
+      "ContextInsufficientAbstentionRecall": {
+        "absolute_delta": -0.4368932038834951,
+        "prior": {
+          "denominator": 103,
+          "numerator": 59,
+          "value": 0.5728155339805825
+        },
+        "stage_c": {
+          "denominator": 103,
+          "numerator": 14,
+          "value": 0.13592233009708737
+        }
+      },
+      "FalseAbstentionRate": {
+        "absolute_delta": -0.368421052631579,
+        "prior": {
+          "denominator": 38,
+          "numerator": 15,
+          "value": 0.39473684210526316
+        },
+        "stage_c": {
+          "denominator": 38,
+          "numerator": 1,
+          "value": 0.02631578947368421
+        }
+      },
+      "FalseAnswerRate": {
+        "absolute_delta": 0.21052631578947367,
+        "prior": {
+          "denominator": 19,
+          "numerator": 4,
+          "value": 0.21052631578947367
+        },
+        "stage_c": {
+          "denominator": 19,
+          "numerator": 8,
+          "value": 0.42105263157894735
+        }
+      },
+      "GoldCitationHitRate": {
+        "absolute_delta": 0.013986013986013984,
+        "prior": {
+          "denominator": 143,
+          "numerator": 11,
+          "value": 0.07692307692307693
+        },
+        "stage_c": {
+          "denominator": 154,
+          "numerator": 14,
+          "value": 0.09090909090909091
+        }
+      },
+      "SupportedAnswerCoverage": {
+        "absolute_delta": 0.021276595744680854,
+        "prior": {
+          "denominator": 141,
+          "numerator": 11,
+          "value": 0.07801418439716312
+        },
+        "stage_c": {
+          "denominator": 141,
+          "numerator": 14,
+          "value": 0.09929078014184398
+        }
+      },
+      "SupportedAnswerPrecision": {
+        "absolute_delta": -0.05045196552449022,
+        "prior": {
+          "denominator": 71,
+          "numerator": 11,
+          "value": 0.15492957746478872
+        },
+        "stage_c": {
+          "denominator": 134,
+          "numerator": 14,
+          "value": 0.1044776119402985
+        }
+      },
+      "UnanswerableAbstentionRecall": {
+        "absolute_delta": -0.21052631578947367,
+        "prior": {
+          "denominator": 19,
+          "numerator": 15,
+          "value": 0.7894736842105263
+        },
+        "stage_c": {
+          "denominator": 19,
+          "numerator": 11,
+          "value": 0.5789473684210527
+        }
+      },
+      "ValidCitationRate": {
+        "absolute_delta": 0.0,
+        "prior": {
+          "denominator": 143,
+          "numerator": 143,
+          "value": 1.0
+        },
+        "stage_c": {
+          "denominator": 154,
+          "numerator": 154,
+          "value": 1.0
+        }
+      },
+      "final_answer_coverage": {
+        "absolute_delta": 0.39375000000000004,
+        "prior": {
+          "denominator": 160,
+          "numerator": 71,
+          "value": 0.44375
+        },
+        "stage_c": {
+          "denominator": 160,
+          "numerator": 134,
+          "value": 0.8375
+        }
+      },
+      "invalid_generation_rate": {
+        "absolute_delta": -0.13125,
+        "prior": {
+          "denominator": 160,
+          "numerator": 30,
+          "value": 0.1875
+        },
+        "stage_c": {
+          "denominator": 160,
+          "numerator": 9,
+          "value": 0.05625
+        }
+      }
+    }
+  },
+  "references": {
+    "extractive": "data/evaluation/phase10_extractive_dev_metrics.json",
+    "stage_a": "data/evaluation/phase10_qwen_dev_metrics.json",
+    "stage_b": "data/evaluation/phase10_qwen_stage_b_metrics.json"
+  },
+  "schema_version": 1,
+  "stage_c_metrics": {
+    "ClaimCitationCoverage": {
+      "denominator": 134,
+      "numerator": 134,
+      "value": 1.0
+    },
+    "CompleteGoldEvidenceUse": {
+      "denominator": 38,
+      "numerator": 13,
+      "value": 0.34210526315789475
+    },
+    "ContextInsufficientAbstentionRecall": {
+      "denominator": 103,
+      "numerator": 14,
+      "value": 0.13592233009708737
+    },
+    "FalseAbstentionRate": {
+      "denominator": 38,
+      "numerator": 1,
+      "value": 0.02631578947368421
+    },
+    "FalseAnswerRate": {
+      "denominator": 19,
+      "numerator": 8,
+      "value": 0.42105263157894735
+    },
+    "GoldCitationHitRate": {
+      "denominator": 154,
+      "numerator": 14,
+      "value": 0.09090909090909091
+    },
+    "SupportedAnswerCoverage": {
+      "denominator": 141,
+      "numerator": 14,
+      "value": 0.09929078014184398
+    },
+    "SupportedAnswerPrecision": {
+      "denominator": 134,
+      "numerator": 14,
+      "value": 0.1044776119402985
+    },
+    "UnanswerableAbstentionRecall": {
+      "denominator": 19,
+      "numerator": 11,
+      "value": 0.5789473684210527
+    },
+    "ValidCitationRate": {
+      "denominator": 154,
+      "numerator": 154,
+      "value": 1.0
+    },
+    "final_answer_coverage": {
+      "denominator": 160,
+      "numerator": 134,
+      "value": 0.8375
+    },
+    "invalid_generation_rate": {
+      "denominator": 160,
+      "numerator": 9,
+      "value": 0.05625
+    },
+    "policy_violation_acceptance_count": 0
+  },
+  "status": "stage_c_vs_frozen_extractive_stage_a_stage_b"
+}

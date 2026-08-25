@@ -1,0 +1,21 @@
+{
+  "BudgetedCompleteGoldEvidenceRetention": null,
+  "BudgetedGoldEvidenceRetention": null,
+  "configured_total_input_cap": 3584,
+  "fixed_prompt_schema_overhead": null,
+  "immutable_tokenizer_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+  "legacy_phase9_codepoint_audit": {
+    "BudgetedCompleteGoldEvidenceRetention": 0.4166666666666667,
+    "BudgetedGoldEvidenceRetention": 0.4358974358974359,
+    "is_real_qwen_budget": false,
+    "max_context_tokens": 4096,
+    "tokenizer_identity": "codepoint-v1"
+  },
+  "output_reservation": 384,
+  "phase9_assembly_exercised_with_real_tokenizer": false,
+  "qwen_model_id": "Qwen/Qwen3-4B-Instruct-2507",
+  "resulting_evidence_budget": null,
+  "safety_margin": 128,
+  "schema_version": 1,
+  "status": "real_qwen_token_budget_not_computable_before_tokenizer_lock"
+}

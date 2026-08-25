@@ -1,0 +1,318 @@
+{
+  "absolute_delta_vs_stage_c": {
+    "ClaimCitationCoverage": 0.0,
+    "CompleteGoldEvidenceUse": -0.026315789473684237,
+    "ContextInsufficientAbstentionRecall": 0.23300970873786409,
+    "FalseAbstentionRate": 0.21052631578947367,
+    "FalseAnswerRate": -0.3684210526315789,
+    "GoldCitationHitRate": 0.043111527647610115,
+    "SupportedAnswerCoverage": -0.007092198581560294,
+    "SupportedAnswerPrecision": 0.0323644933228594,
+    "UnanswerableAbstentionRecall": 0.36842105263157887,
+    "ValidCitationRate": 0.0,
+    "final_answer_coverage": -0.24375000000000002,
+    "invalid_generation_rate": -0.05625
+  },
+  "metrics": {
+    "Extractive": {
+      "ClaimCitationCoverage": {
+        "denominator": 257,
+        "numerator": 257,
+        "value": 1.0
+      },
+      "CompleteGoldEvidenceUse": {
+        "denominator": 38,
+        "numerator": 12,
+        "value": 0.3157894736842105
+      },
+      "ContextInsufficientAbstentionRecall": {
+        "denominator": 103,
+        "numerator": 3,
+        "value": 0.02912621359223301
+      },
+      "FalseAbstentionRate": {
+        "denominator": 38,
+        "numerator": 4,
+        "value": 0.10526315789473684
+      },
+      "FalseAnswerRate": {
+        "denominator": 19,
+        "numerator": 12,
+        "value": 0.631578947368421
+      },
+      "GoldCitationHitRate": {
+        "denominator": 257,
+        "numerator": 12,
+        "value": 0.04669260700389105
+      },
+      "SupportedAnswerCoverage": {
+        "denominator": 141,
+        "numerator": 12,
+        "value": 0.0851063829787234
+      },
+      "SupportedAnswerPrecision": {
+        "denominator": 146,
+        "numerator": 12,
+        "value": 0.0821917808219178
+      },
+      "UnanswerableAbstentionRecall": {
+        "denominator": 19,
+        "numerator": 7,
+        "value": 0.3684210526315789
+      },
+      "ValidCitationRate": {
+        "denominator": 257,
+        "numerator": 257,
+        "value": 1.0
+      }
+    },
+    "Stage A": {
+      "ClaimCitationCoverage": {
+        "denominator": 18,
+        "numerator": 18,
+        "value": 1.0
+      },
+      "CompleteGoldEvidenceUse": {
+        "denominator": 38,
+        "numerator": 1,
+        "value": 0.02631578947368421
+      },
+      "ContextInsufficientAbstentionRecall": {
+        "denominator": 103,
+        "numerator": 94,
+        "value": 0.912621359223301
+      },
+      "FalseAbstentionRate": {
+        "denominator": 38,
+        "numerator": 36,
+        "value": 0.9473684210526315
+      },
+      "FalseAnswerRate": {
+        "denominator": 19,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "GoldCitationHitRate": {
+        "denominator": 19,
+        "numerator": 1,
+        "value": 0.05263157894736842
+      },
+      "SupportedAnswerCoverage": {
+        "denominator": 141,
+        "numerator": 1,
+        "value": 0.0070921985815602835
+      },
+      "SupportedAnswerPrecision": {
+        "denominator": 11,
+        "numerator": 1,
+        "value": 0.09090909090909091
+      },
+      "UnanswerableAbstentionRecall": {
+        "denominator": 19,
+        "numerator": 19,
+        "value": 1.0
+      },
+      "ValidCitationRate": {
+        "denominator": 19,
+        "numerator": 19,
+        "value": 1.0
+      },
+      "invalid_generation_rate": {
+        "denominator": 160,
+        "numerator": 46,
+        "value": 0.2875
+      },
+      "policy_violation_acceptance_count": 0,
+      "unsupported_claim_rejection_count": 18
+    },
+    "Stage B": {
+      "ClaimCitationCoverage": {
+        "denominator": 86,
+        "numerator": 86,
+        "value": 1.0
+      },
+      "CompleteGoldEvidenceUse": {
+        "denominator": 38,
+        "numerator": 10,
+        "value": 0.2631578947368421
+      },
+      "ContextInsufficientAbstentionRecall": {
+        "denominator": 103,
+        "numerator": 59,
+        "value": 0.5728155339805825
+      },
+      "FalseAbstentionRate": {
+        "denominator": 38,
+        "numerator": 15,
+        "value": 0.39473684210526316
+      },
+      "FalseAnswerRate": {
+        "denominator": 19,
+        "numerator": 4,
+        "value": 0.21052631578947367
+      },
+      "GoldCitationHitRate": {
+        "denominator": 143,
+        "numerator": 11,
+        "value": 0.07692307692307693
+      },
+      "SupportedAnswerCoverage": {
+        "denominator": 141,
+        "numerator": 11,
+        "value": 0.07801418439716312
+      },
+      "SupportedAnswerPrecision": {
+        "denominator": 71,
+        "numerator": 11,
+        "value": 0.15492957746478872
+      },
+      "UnanswerableAbstentionRecall": {
+        "denominator": 19,
+        "numerator": 15,
+        "value": 0.7894736842105263
+      },
+      "ValidCitationRate": {
+        "denominator": 143,
+        "numerator": 143,
+        "value": 1.0
+      },
+      "final_answer_coverage": {
+        "denominator": 160,
+        "numerator": 71,
+        "value": 0.44375
+      },
+      "invalid_generation_rate": {
+        "denominator": 160,
+        "numerator": 30,
+        "value": 0.1875
+      },
+      "policy_violation_acceptance_count": 0,
+      "unsupported_interpretation_rejection_count": 3
+    },
+    "Stage C": {
+      "ClaimCitationCoverage": {
+        "denominator": 134,
+        "numerator": 134,
+        "value": 1.0
+      },
+      "CompleteGoldEvidenceUse": {
+        "denominator": 38,
+        "numerator": 13,
+        "value": 0.34210526315789475
+      },
+      "ContextInsufficientAbstentionRecall": {
+        "denominator": 103,
+        "numerator": 14,
+        "value": 0.13592233009708737
+      },
+      "FalseAbstentionRate": {
+        "denominator": 38,
+        "numerator": 1,
+        "value": 0.02631578947368421
+      },
+      "FalseAnswerRate": {
+        "denominator": 19,
+        "numerator": 8,
+        "value": 0.42105263157894735
+      },
+      "GoldCitationHitRate": {
+        "denominator": 154,
+        "numerator": 14,
+        "value": 0.09090909090909091
+      },
+      "SupportedAnswerCoverage": {
+        "denominator": 141,
+        "numerator": 14,
+        "value": 0.09929078014184398
+      },
+      "SupportedAnswerPrecision": {
+        "denominator": 134,
+        "numerator": 14,
+        "value": 0.1044776119402985
+      },
+      "UnanswerableAbstentionRecall": {
+        "denominator": 19,
+        "numerator": 11,
+        "value": 0.5789473684210527
+      },
+      "ValidCitationRate": {
+        "denominator": 154,
+        "numerator": 154,
+        "value": 1.0
+      },
+      "final_answer_coverage": {
+        "denominator": 160,
+        "numerator": 134,
+        "value": 0.8375
+      },
+      "invalid_generation_rate": {
+        "denominator": 160,
+        "numerator": 9,
+        "value": 0.05625
+      },
+      "policy_violation_acceptance_count": 0
+    },
+    "Stage D": {
+      "ClaimCitationCoverage": {
+        "denominator": 95,
+        "numerator": 95,
+        "value": 1.0
+      },
+      "CompleteGoldEvidenceUse": {
+        "denominator": 38,
+        "numerator": 12,
+        "value": 0.3157894736842105
+      },
+      "ContextInsufficientAbstentionRecall": {
+        "denominator": 103,
+        "numerator": 38,
+        "value": 0.36893203883495146
+      },
+      "FalseAbstentionRate": {
+        "denominator": 38,
+        "numerator": 9,
+        "value": 0.23684210526315788
+      },
+      "FalseAnswerRate": {
+        "denominator": 19,
+        "numerator": 1,
+        "value": 0.05263157894736842
+      },
+      "GoldCitationHitRate": {
+        "denominator": 97,
+        "numerator": 13,
+        "value": 0.13402061855670103
+      },
+      "SupportedAnswerCoverage": {
+        "denominator": 141,
+        "numerator": 13,
+        "value": 0.09219858156028368
+      },
+      "SupportedAnswerPrecision": {
+        "denominator": 95,
+        "numerator": 13,
+        "value": 0.1368421052631579
+      },
+      "UnanswerableAbstentionRecall": {
+        "denominator": 19,
+        "numerator": 18,
+        "value": 0.9473684210526315
+      },
+      "ValidCitationRate": {
+        "denominator": 97,
+        "numerator": 97,
+        "value": 1.0
+      },
+      "final_answer_coverage": {
+        "denominator": 160,
+        "numerator": 95,
+        "value": 0.59375
+      },
+      "invalid_generation_rate": {
+        "denominator": 160,
+        "numerator": 0,
+        "value": 0.0
+      }
+    }
+  }
+}

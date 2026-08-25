@@ -1,0 +1,206 @@
+{
+  "evaluation_record_count": 160,
+  "evaluation_split": "DEV",
+  "identities": {
+    "ollama_digest": "sha256:0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+    "ollama_model_tag": "qwen3:4b-instruct-2507-q4_K_M",
+    "phase8_selection_sha256": "a62cc772f2b71883355c7935da7e7b87ab4d22b3746553148b4f64ef20f28b0b",
+    "phase9_policy_sha256": "be7324808180d4a0797154c2b3c46050ff67b41790da3fcc04f17c60383347dc",
+    "qwen_hf_model_id": "Qwen/Qwen3-4B-Instruct-2507",
+    "qwen_hf_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+    "stage_b_policy_sha256": "933cda66c0d9df86eb8e109737e07423c8d9e2272f3452f3a94065bed654e610",
+    "stage_b_schema_sha256": "41b3b957bcad135840a8fab2b868bdfaf866959d92914e2fb70b5145a2d96b30",
+    "stage_b_template_sha256": "072cd2af1cda1dc5e5154a4f68521a8e502ed5480a843bcc4fc0153d6dd6dbb7",
+    "tokenizer_id": "Qwen/Qwen3-4B-Instruct-2507",
+    "tokenizer_revision": "cdbee75f17c01a7cc42f958dc650907174af0554"
+  },
+  "populations": {
+    "explicitly_unanswerable": 19,
+    "gold_absent_from_top8": 103,
+    "gold_present_in_top8": 38
+  },
+  "schema_version": 1,
+  "stage_b_deltas": {
+    "CompleteGoldEvidenceUse": {
+      "vs_extractive": -0.05263157894736842,
+      "vs_qwen_stage_a": 0.23684210526315788
+    },
+    "ContextInsufficientAbstentionRecall": {
+      "vs_extractive": 0.5436893203883495,
+      "vs_qwen_stage_a": -0.3398058252427185
+    },
+    "FalseAbstentionRate": {
+      "vs_extractive": 0.2894736842105263,
+      "vs_qwen_stage_a": -0.5526315789473684
+    },
+    "FalseAnswerRate": {
+      "vs_extractive": -0.42105263157894735,
+      "vs_qwen_stage_a": 0.21052631578947367
+    },
+    "SupportedAnswerCoverage": {
+      "vs_extractive": -0.00709219858156028,
+      "vs_qwen_stage_a": 0.07092198581560284
+    },
+    "SupportedAnswerPrecision": {
+      "vs_extractive": 0.07273779664287092,
+      "vs_qwen_stage_a": 0.06402048655569781
+    },
+    "UnanswerableAbstentionRecall": {
+      "vs_extractive": 0.4210526315789474,
+      "vs_qwen_stage_a": -0.21052631578947367
+    },
+    "ValidCitationRate": {
+      "vs_extractive": 0.0,
+      "vs_qwen_stage_a": 0.0
+    }
+  },
+  "status": "complete_qwen_stage_b_vs_frozen_baselines",
+  "systems": {
+    "ExtractiveBaseline": {
+      "CompleteGoldEvidenceUse": {
+        "denominator": 38,
+        "numerator": 12,
+        "value": 0.3157894736842105
+      },
+      "ContextInsufficientAbstentionRecall": {
+        "denominator": 103,
+        "numerator": 3,
+        "value": 0.02912621359223301
+      },
+      "FalseAbstentionRate": {
+        "denominator": 38,
+        "numerator": 4,
+        "value": 0.10526315789473684
+      },
+      "FalseAnswerRate": {
+        "denominator": 19,
+        "numerator": 12,
+        "value": 0.631578947368421
+      },
+      "SupportedAnswerCoverage": {
+        "denominator": 141,
+        "numerator": 12,
+        "value": 0.0851063829787234
+      },
+      "SupportedAnswerPrecision": {
+        "denominator": 146,
+        "numerator": 12,
+        "value": 0.0821917808219178
+      },
+      "UnanswerableAbstentionRecall": {
+        "denominator": 19,
+        "numerator": 7,
+        "value": 0.3684210526315789
+      },
+      "ValidCitationRate": {
+        "denominator": 257,
+        "numerator": 257,
+        "value": 1.0
+      }
+    },
+    "QwenStageA": {
+      "CompleteGoldEvidenceUse": {
+        "denominator": 38,
+        "numerator": 1,
+        "value": 0.02631578947368421
+      },
+      "ContextInsufficientAbstentionRecall": {
+        "denominator": 103,
+        "numerator": 94,
+        "value": 0.912621359223301
+      },
+      "FalseAbstentionRate": {
+        "denominator": 38,
+        "numerator": 36,
+        "value": 0.9473684210526315
+      },
+      "FalseAnswerRate": {
+        "denominator": 19,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "SupportedAnswerCoverage": {
+        "denominator": 141,
+        "numerator": 1,
+        "value": 0.0070921985815602835
+      },
+      "SupportedAnswerPrecision": {
+        "denominator": 11,
+        "numerator": 1,
+        "value": 0.09090909090909091
+      },
+      "UnanswerableAbstentionRecall": {
+        "denominator": 19,
+        "numerator": 19,
+        "value": 1.0
+      },
+      "ValidCitationRate": {
+        "denominator": 19,
+        "numerator": 19,
+        "value": 1.0
+      },
+      "final_answer_coverage": {
+        "denominator": 160,
+        "numerator": 11,
+        "value": 0.06875
+      },
+      "invalid_generation_rate": {
+        "denominator": 160,
+        "numerator": 46,
+        "value": 0.2875
+      }
+    },
+    "QwenStageB": {
+      "CompleteGoldEvidenceUse": {
+        "denominator": 38,
+        "numerator": 10,
+        "value": 0.2631578947368421
+      },
+      "ContextInsufficientAbstentionRecall": {
+        "denominator": 103,
+        "numerator": 59,
+        "value": 0.5728155339805825
+      },
+      "FalseAbstentionRate": {
+        "denominator": 38,
+        "numerator": 15,
+        "value": 0.39473684210526316
+      },
+      "FalseAnswerRate": {
+        "denominator": 19,
+        "numerator": 4,
+        "value": 0.21052631578947367
+      },
+      "SupportedAnswerCoverage": {
+        "denominator": 141,
+        "numerator": 11,
+        "value": 0.07801418439716312
+      },
+      "SupportedAnswerPrecision": {
+        "denominator": 71,
+        "numerator": 11,
+        "value": 0.15492957746478872
+      },
+      "UnanswerableAbstentionRecall": {
+        "denominator": 19,
+        "numerator": 15,
+        "value": 0.7894736842105263
+      },
+      "ValidCitationRate": {
+        "denominator": 143,
+        "numerator": 143,
+        "value": 1.0
+      },
+      "final_answer_coverage": {
+        "denominator": 160,
+        "numerator": 71,
+        "value": 0.44375
+      },
+      "invalid_generation_rate": {
+        "denominator": 160,
+        "numerator": 30,
+        "value": 0.1875
+      }
+    }
+  }
+}

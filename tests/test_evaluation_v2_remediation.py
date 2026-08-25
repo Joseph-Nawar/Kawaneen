@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 from kawaneen.corpus.models import CanonicalUnit, SourceProvenance, UnitType
 from kawaneen.evaluation.candidates import discover_evidence
 from kawaneen.evaluation.models import QueryCategory
@@ -64,6 +66,7 @@ def test_list_evidence_span_excludes_structural_prefix() -> None:
     assert not unit.text[spans[0].start : spans[0].end].startswith("1.")
 
 
+@pytest.mark.private_artifact
 def test_v2_draft_uses_natural_queries_and_non_copied_answers(tmp_path: Path) -> None:
     from kawaneen.evaluation.candidates import build_draft_candidates
     from kawaneen.evaluation.corpus import freeze_evaluation_corpus, load_evaluation_units
@@ -126,10 +129,9 @@ def test_compact_handoff_preserves_display_text(tmp_path: Path) -> None:
     from kawaneen.evaluation.handoff import write_handoff_artifacts
 
     unit = _unit("display text: ؛ [exact]", UnitType.VERDICT)
-    corpus = freeze_evaluation_corpus(
-        (unit,),
-        canonical_root=Path("data/interim/canonical"),
-    )
+    inventory = tmp_path / "inventory.json"
+    inventory.write_text(json.dumps({"sources": []}), encoding="utf-8")
+    corpus = freeze_evaluation_corpus((unit,), canonical_root=tmp_path, inventory_path=inventory)
     result = write_handoff_artifacts(corpus, (), tmp_path)
     shard_path = tmp_path / "canonical_review_shards" / result["shards"][0]["name"]
     row = json.loads(shard_path.read_text(encoding="utf-8"))

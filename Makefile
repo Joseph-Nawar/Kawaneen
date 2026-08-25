@@ -1,4 +1,4 @@
-.PHONY: help install format lint typecheck test check doctor sources-validate sources-summary data-plan data-acquire-alarb data-import-arabiccr data-verify data-audit data-audit-statutory data-manifest data-status data-rebuild-auto data-rebuild corpus-plan corpus-build corpus-validate corpus-inventory corpus-statutory-status corpus-duplicate-diagnostics corpus-gaps parsing-preflight parsing-benchmark parsing-diagnose normalization-plan normalization-run normalization-validate normalization-sensitivity chunking-plan chunking-build chunking-experiment chunking-validate evaluation-plan evaluation-build-draft evaluation-build-draft-v3 evaluation-build-draft-v4 evaluation-build-draft-v5 evaluation-build-final-candidate evaluation-export-review evaluation-import-review evaluation-validate evaluation-freeze evaluation-freeze-ai-reviewed evaluation-stats clean
+.PHONY: help install format lint typecheck test test-public test-private check doctor sources-validate sources-summary data-plan data-acquire-alarb data-import-arabiccr data-verify data-audit data-audit-statutory data-manifest data-status data-rebuild-auto data-rebuild corpus-plan corpus-build corpus-validate corpus-inventory corpus-statutory-status corpus-duplicate-diagnostics corpus-gaps parsing-preflight parsing-benchmark parsing-diagnose normalization-plan normalization-run normalization-validate normalization-sensitivity chunking-plan chunking-build chunking-experiment chunking-validate evaluation-plan evaluation-build-draft evaluation-build-draft-v3 evaluation-build-draft-v4 evaluation-build-draft-v5 evaluation-build-final-candidate evaluation-export-review evaluation-import-review evaluation-validate evaluation-freeze evaluation-freeze-ai-reviewed evaluation-stats clean
 
 help:
 	@printf '%s\n' 'Kawaneen development commands:'
@@ -7,6 +7,8 @@ help:
 	@printf '%s\n' '  make lint      uv run ruff check .'
 	@printf '%s\n' '  make typecheck uv run pyright'
 	@printf '%s\n' '  make test      uv run pytest'
+	@printf '%s\n' '  make test-public  public hermetic tests with the 85% coverage gate'
+	@printf '%s\n' '  make test-private  local private-artifact integration tests (set private roots as needed)'
 	@printf '%s\n' '  make check     format check, lint, typecheck, tests'
 	@printf '%s\n' '  make doctor    uv run kawaneen doctor'
 	@printf '%s\n' '  make sources-validate  uv run kawaneen sources validate'
@@ -68,12 +70,18 @@ typecheck:
 test:
 	uv run pytest
 
+test-public:
+	uv run pytest -m "not private_artifact" --cov=kawaneen --cov-branch --cov-report=term-missing --cov-fail-under=85
+
+test-private:
+	uv run pytest -m private_artifact --no-cov
+
 check:
 	uv run ruff format --check .
 	uv run ruff check .
 	uv run pyright
 	uv run kawaneen sources validate
-	uv run pytest
+	$(MAKE) test-public
 
 doctor:
 	uv run kawaneen doctor

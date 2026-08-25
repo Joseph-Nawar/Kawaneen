@@ -11,6 +11,7 @@ from kawaneen.evaluation.corpus import (
 )
 
 
+@pytest.mark.private_artifact
 def test_full_scope_uses_all_governed_source_documents_not_phase5_subset() -> None:
     units = load_evaluation_units(Path("data/interim/canonical"))
     corpus = freeze_evaluation_corpus(units, canonical_root=Path("data/interim/canonical"))
@@ -20,6 +21,7 @@ def test_full_scope_uses_all_governed_source_documents_not_phase5_subset() -> No
     assert corpus.content_policy_version == CONTENT_POLICY_VERSION
 
 
+@pytest.mark.private_artifact
 def test_corpus_policy_excludes_moj_and_case_text_when_structured_content_exists() -> None:
     units = load_evaluation_units(Path("data/interim/canonical"))
     assert {unit.provenance.source_id for unit in units} == {"alarb", "arabiccr"}

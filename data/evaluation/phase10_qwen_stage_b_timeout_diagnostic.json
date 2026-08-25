@@ -1,0 +1,27 @@
+{
+  "cohort_count": 27,
+  "cohort_ids_hash": "c692ab9ca2790dcabfb5e082e52e5d324555f56bc7c47b1cc6a69d0c1878c554",
+  "frozen_fingerprint_mismatches": 0,
+  "hf_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+  "model_digest": "sha256:0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+  "model_tag": "qwen3:4b-instruct-2507-q4_K_M",
+  "non_timeout_records": 133,
+  "schema_version": 1,
+  "stage_b_policy_hash": "933cda66c0d9df86eb8e109737e07423c8d9e2272f3452f3a94065bed654e610",
+  "stage_b_results_hash": "ce92ec1b045c5cd7b83355efa74a200541a1ec0ae0f0504b0f3ef16589a4818d",
+  "stage_b_template_hash": "072cd2af1cda1dc5e5154a4f68521a8e502ed5480a843bcc4fc0153d6dd6dbb7",
+  "status": "prepared_not_executed",
+  "timeout_configuration": {
+    "connect_timeout_seconds": null,
+    "http_client": "urllib.request",
+    "overall_timeout_seconds": null,
+    "pool_timeout_seconds": null,
+    "read_timeout_seconds": null,
+    "retry_count": 0,
+    "socket_timeout_seconds": 30.0,
+    "streaming": false,
+    "write_timeout_seconds": null
+  },
+  "tokenizer_id": "Qwen/Qwen3-4B-Instruct-2507",
+  "tokenizer_revision": "cdbee75f17c01a7cc42f958dc650907174af0554"
+}

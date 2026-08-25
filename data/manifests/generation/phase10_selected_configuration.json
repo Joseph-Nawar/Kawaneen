@@ -1,0 +1,58 @@
+{
+  "artifact_type": "phase10_selected_configuration",
+  "schema_version": 1,
+  "phase": "phase10",
+  "stage": "stage_d",
+  "selection_status": "selected_after_qualitative_review",
+  "generator": "qwen-ollama-stage-d",
+  "model": {
+    "hf_id": "Qwen/Qwen3-4B-Instruct-2507",
+    "hf_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+    "ollama_tag": "qwen3:4b-instruct-2507-q4_K_M",
+    "ollama_digest": "sha256:0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0"
+  },
+  "tokenizer": {
+    "id": "Qwen/Qwen3-4B-Instruct-2507",
+    "revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+    "local_files_only": true
+  },
+  "answerability": {
+    "version": "phase10-stage-d-answerability-policy-v1",
+    "hash": "8c990acd4d983da61baf3b8d72a4150f6f9f75b30dbf0b57ef18660fc84930e0"
+  },
+  "provider_contract": {
+    "mode": "direct_only",
+    "schema_hash": "9aa4009056bc2a58ea079c1be1e0a57537044bbb354e167416e816132b26f9de",
+    "template_hash": "316e0496cff5e7fbd8e86eee11cba07f0bd9b193e04bead5dc7864aae36b357e",
+    "registry_policy": "phase10-stage-d-quote-registry-v1",
+    "phase9_verifier": "authoritative_phase9_citation_verifier"
+  },
+  "runtime": {
+    "timeout_seconds": 60,
+    "retries": 0,
+    "input_cap": 3584,
+    "output_cap": 512,
+    "temperature": 0,
+    "sampling_enabled": false
+  },
+  "dev_disposition": {
+    "decision": "QWEN_STAGE_D_SELECTED_AFTER_QUALITATIVE_REVIEW",
+    "nominal_false_answer_rate": {
+      "numerator": 1,
+      "denominator": 19,
+      "value": 0.05263157894736842
+    },
+    "nominal_unanswerable_abstention": {
+      "numerator": 18,
+      "denominator": 19,
+      "value": 0.9473684210526315
+    },
+    "label_review_candidate": "ANSWERABILITY_LABEL_REVIEW_CANDIDATE",
+    "label_unchanged": true,
+    "policy_added_for_isolated_case": false
+  },
+  "holdout": {
+    "accessed": false,
+    "frozen_before_access": true
+  }
+}

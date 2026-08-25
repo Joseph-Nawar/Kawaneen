@@ -1,0 +1,392 @@
+{
+  "checkpoint_integrity": {
+    "artifact_type_checkpoint": 160,
+    "artifact_type_result": 160,
+    "checkpoint_files": 160,
+    "corrupt": 0,
+    "expected": 160,
+    "final_postprocessing_complete": 160,
+    "fingerprint_mismatches": 160,
+    "generation_completed": 154,
+    "generation_policy_hash": "00050e680f3d1465859392d054eadd92b73ee614480fc33e05b39618dd40e6dc",
+    "incomplete": 0,
+    "input_cap": 3584,
+    "lifecycle_complete": 160,
+    "missing": 0,
+    "model_digest": "sha256:0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+    "output_cap": 512,
+    "phase9_policy_hash": "be7324808180d4a0797154c2b3c46050ff67b41790da3fcc04f17c60383347dc",
+    "pre_policy_completed": 6,
+    "prompt_hash": "d4d004f103ce02f2c46b81f899042b29760903cd7fbfa52daa28fa600088c634",
+    "quote_registry_policy": "phase10-stage-c-quote-registry-v1",
+    "qwen_hf_model_id": "Qwen/Qwen3-4B-Instruct-2507",
+    "qwen_hf_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+    "regeneration_required": false,
+    "result_checkpoint_mismatches": 0,
+    "result_files": 160,
+    "schema_hash": "ffbf3b8c3e7143c2487858bfc2223b39139a1840d0385da5fe2dd55aa24239c8",
+    "schema_version": 2,
+    "timeout_seconds": 60,
+    "tokenizer_id": "Qwen/Qwen3-4B-Instruct-2507",
+    "tokenizer_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+    "valid_complete": 160
+  },
+  "identities": {
+    "generation_policy_hash": "00050e680f3d1465859392d054eadd92b73ee614480fc33e05b39618dd40e6dc",
+    "ollama_digest": "sha256:0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+    "ollama_model_tag": "qwen3:4b-instruct-2507-q4_K_M",
+    "phase8_selection_sha256": "a62cc772f2b71883355c7935da7e7b87ab4d22b3746553148b4f64ef20f28b0b",
+    "phase9_policy_sha256": "be7324808180d4a0797154c2b3c46050ff67b41790da3fcc04f17c60383347dc",
+    "prompt_hash": "d4d004f103ce02f2c46b81f899042b29760903cd7fbfa52daa28fa600088c634",
+    "qwen_hf_model_id": "Qwen/Qwen3-4B-Instruct-2507",
+    "qwen_hf_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+    "schema_hash": "ffbf3b8c3e7143c2487858bfc2223b39139a1840d0385da5fe2dd55aa24239c8",
+    "tokenizer_id": "Qwen/Qwen3-4B-Instruct-2507",
+    "tokenizer_revision": "cdbee75f17c01a7cc42f958dc650907174af0554"
+  },
+  "outcome_funnel": {
+    "counts": {
+      "generator_explicit_abstain": 11,
+      "interpretation_removed_semantic_support_unavailable": 0,
+      "invalid_json": 9,
+      "invalid_unknown_quote_reference": 0,
+      "other": 0,
+      "other_transport_runtime_failure": 0,
+      "phase9_citation_verification_failure": 0,
+      "pre_generation_policy": 6,
+      "provider_or_pydantic_schema_failure": 0,
+      "successful_final_verified_answer": 134,
+      "transport_timeout": 0
+    },
+    "final_abstentions": 26,
+    "final_answers": 134,
+    "pre_generation_policy_by_reason": {
+      "CURRENTNESS_UNVERIFIED": 6
+    },
+    "total": 160
+  },
+  "population_matrix": {
+    "answerable_gold_absent_from_top8": {
+      "generator_explicit_abstain": {
+        "denominator": 103,
+        "numerator": 7,
+        "value": 0.06796116504854369
+      },
+      "interpretation_removed_semantic_support_unavailable": {
+        "denominator": 103,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "invalid_json": {
+        "denominator": 103,
+        "numerator": 7,
+        "value": 0.06796116504854369
+      },
+      "invalid_unknown_quote_reference": {
+        "denominator": 103,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "other": {
+        "denominator": 103,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "other_transport_runtime_failure": {
+        "denominator": 103,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "phase9_citation_verification_failure": {
+        "denominator": 103,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "pre_generation_policy": {
+        "denominator": 103,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "provider_or_pydantic_schema_failure": {
+        "denominator": 103,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "successful_final_verified_answer": {
+        "denominator": 103,
+        "numerator": 89,
+        "value": 0.8640776699029126
+      },
+      "transport_timeout": {
+        "denominator": 103,
+        "numerator": 0,
+        "value": 0.0
+      }
+    },
+    "answerable_gold_in_top8": {
+      "generator_explicit_abstain": {
+        "denominator": 38,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "interpretation_removed_semantic_support_unavailable": {
+        "denominator": 38,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "invalid_json": {
+        "denominator": 38,
+        "numerator": 1,
+        "value": 0.02631578947368421
+      },
+      "invalid_unknown_quote_reference": {
+        "denominator": 38,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "other": {
+        "denominator": 38,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "other_transport_runtime_failure": {
+        "denominator": 38,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "phase9_citation_verification_failure": {
+        "denominator": 38,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "pre_generation_policy": {
+        "denominator": 38,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "provider_or_pydantic_schema_failure": {
+        "denominator": 38,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "successful_final_verified_answer": {
+        "denominator": 38,
+        "numerator": 37,
+        "value": 0.9736842105263158
+      },
+      "transport_timeout": {
+        "denominator": 38,
+        "numerator": 0,
+        "value": 0.0
+      }
+    },
+    "explicitly_unanswerable": {
+      "generator_explicit_abstain": {
+        "denominator": 19,
+        "numerator": 4,
+        "value": 0.21052631578947367
+      },
+      "interpretation_removed_semantic_support_unavailable": {
+        "denominator": 19,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "invalid_json": {
+        "denominator": 19,
+        "numerator": 1,
+        "value": 0.05263157894736842
+      },
+      "invalid_unknown_quote_reference": {
+        "denominator": 19,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "other": {
+        "denominator": 19,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "other_transport_runtime_failure": {
+        "denominator": 19,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "phase9_citation_verification_failure": {
+        "denominator": 19,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "pre_generation_policy": {
+        "denominator": 19,
+        "numerator": 6,
+        "value": 0.3157894736842105
+      },
+      "provider_or_pydantic_schema_failure": {
+        "denominator": 19,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "successful_final_verified_answer": {
+        "denominator": 19,
+        "numerator": 8,
+        "value": 0.42105263157894735
+      },
+      "transport_timeout": {
+        "denominator": 19,
+        "numerator": 0,
+        "value": 0.0
+      }
+    }
+  },
+  "provenance": {
+    "active_checkpoint_byte_identical_to_quarantine": 0,
+    "active_checkpoint_mtime_min": 1787413580.401594,
+    "active_created_after_quarantine": true,
+    "active_raw_hash_match_interpretation": "Deterministic decoding can reproduce raw text; hashes alone are not contamination evidence.",
+    "active_raw_hash_matches_quarantine": 154,
+    "active_result_byte_identical_to_quarantine": 0,
+    "active_result_mtime_min": 1787413580.396804,
+    "active_result_paths_into_quarantine": 0,
+    "code_dataflow": {
+      "active_reads_legacy_results": false,
+      "active_reads_quarantine": false,
+      "active_telemetry_source": "same current Ollama request/response lifecycle",
+      "contexts_and_quote_registries_reused": true,
+      "existing_valid_cases_resumed": 155,
+      "new_output_source": "current OllamaGenerator.generate() response",
+      "output_cache_result_fallback": false,
+      "repaired_cases_processed_independently": 5,
+      "resume_sources_only_valid_active_lifecycle_v2": true
+    },
+    "legacy_pairs_compared": 160,
+    "quarantine_mtime_max": 1787408897.0629106,
+    "timing_fields_different_for_all_pairs": {
+      "elapsed_seconds": 154,
+      "eval_duration": 154,
+      "load_duration": 154,
+      "prompt_eval_duration": 154,
+      "total_duration": 154
+    },
+    "verdict": "ACTIVE_RUN_PROVENANCE_CLEAN"
+  },
+  "quote_registry_audit": {
+    "citation_verification_failures": 0,
+    "final_direct_claims": 134,
+    "interpretation_claims_proposed": 58,
+    "interpretation_claims_removed_semantic_support_unavailable": 58,
+    "mixed_raw_responses_retaining_direct_content": 58,
+    "phase9_citation_requests_constructed": 154,
+    "phase9_citations_accepted": 154,
+    "quote_refs_proposed": 242,
+    "raw_direct_only_answer_responses": 76,
+    "raw_interpretation_only_answer_responses": 0,
+    "raw_mixed_answer_responses": 58,
+    "refs_successfully_resolved": 242,
+    "stage_b_failed_citation_requests_reference": 39,
+    "stage_b_response_level_citation_rejections_reference": 29,
+    "unknown_or_invalid_quote_refs": 0,
+    "valid_quote_refs_proposed": 242
+  },
+  "raw_vs_final": {
+    "final_abstentions": 26,
+    "final_answers": 134,
+    "pre_generation_stops": 6,
+    "qwen_calls": 154,
+    "raw_abstain_decisions": 11,
+    "raw_answer_decisions": 134,
+    "raw_generator_invalid_count": 9,
+    "raw_invalid_responses": 9,
+    "raw_valid_responses": 145
+  },
+  "safety_invariants": {
+    "all_structural_acceptance_violations_zero": true,
+    "altered_non_authoritative_quotation_accepted": 0,
+    "fabricated_evidence_id_accepted": 0,
+    "fabricated_or_invalid_quote_ref_accepted": 0,
+    "fabricated_source_metadata_accepted": 0,
+    "jurisdiction_violation_reaching_final_answer": 0,
+    "malformed_invalid_generation_reaching_final_answer": 0,
+    "model_provided_quotation_reaching_final_output": 0,
+    "personalized_legal_recommendation_reaching_final_answer": 0,
+    "uncited_substantive_final_claim_accepted": 0,
+    "unsupported_interpretation_exposed": 0,
+    "unverified_currentness_claim_reaching_final_answer": 0
+  },
+  "schema_version": 1,
+  "status": "complete_stage_c_outcome_audit",
+  "termination_and_generation": {
+    "actual_ollama_calls": 154,
+    "done": {
+      "True": 154
+    },
+    "done_reason": {
+      "length": 9,
+      "stop": 145
+    },
+    "done_reason_x_final_outcome": {
+      "length|invalid_json": 9,
+      "stop|generator_explicit_abstain": 11,
+      "stop|successful_final_verified_answer": 134
+    },
+    "done_reason_x_raw_validity": {
+      "length|invalid": 9,
+      "stop|valid_schema": 145
+    },
+    "elapsed_seconds": {
+      "max": 34.741149792000215,
+      "p50": 8.775188708001224,
+      "p95": 27.045104417000402
+    },
+    "eval_duration_seconds": {
+      "max": 26.173582,
+      "p50": 0.744082,
+      "p95": 20.040063
+    },
+    "http_errors": 0,
+    "load_duration_seconds": {
+      "max": 1.346814459,
+      "p50": 0.0018755,
+      "p95": 0.003169125
+    },
+    "model_digest": "sha256:0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+    "other_connection_runtime_errors": 9,
+    "output_cap_hits": 9,
+    "output_cap_hits_invalid": 9,
+    "output_cap_hits_valid": 0,
+    "output_eval_token_count": {
+      "max": 512,
+      "p50": 22,
+      "p95": 512
+    },
+    "prompt_eval_duration_seconds": {
+      "max": 10.511977,
+      "p50": 6.311495,
+      "p95": 8.0586
+    },
+    "prompt_token_count": {
+      "max": 3470,
+      "p50": 3092,
+      "p95": 3444
+    },
+    "timeout_subtypes": {},
+    "timeout_transition": {
+      "eliminated_historical_timeout_no_response_in_this_run": true,
+      "historical_timeout_seconds": 30,
+      "retries": 0,
+      "stage_c_timeout_seconds": 60,
+      "timeouts_observed": 0
+    },
+    "timeouts": 0,
+    "tokens_per_second": {
+      "max": 44.99897729597055,
+      "p50": 30.73608737990223,
+      "p95": 42.097689602253375
+    },
+    "total_duration_seconds": {
+      "max": 34.727110958,
+      "p50": 8.759441458,
+      "p95": 27.035321042
+    },
+    "transport_successes": 154
+  }
+}

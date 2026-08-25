@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "status": "active",
+  "active_jurisdiction": "SA",
+  "allowed_jurisdictions": [
+    "SA"
+  ],
+  "mode": "single",
+  "authoritative_source": {
+    "registry_path": "data/manifests/source_registry.csv",
+    "registry_sha256": "8d5e9a6be1ae3083c8d23574d330b53b9baecfb7050bbfb1a8945fb10aac4ae2",
+    "active_release_path": "data/manifests/evaluation/phase6_ai_reviewed_v1_manifest.json",
+    "active_release_sha256": "1b50e262fce2a0e09f75b9ad4d7bf14bf24bfaea0247f18f87e875f0d4bf6ddd",
+    "primary_release_source_ids": [
+      "alarb",
+      "arabiccr"
+    ],
+    "registry_jurisdiction": "Saudi Arabia"
+  }
+}
