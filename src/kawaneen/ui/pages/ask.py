@@ -15,7 +15,8 @@ from kawaneen.ui.components import (
     render_status_gate,
     render_warning_list,
 )
-from kawaneen.ui.formatting import locate_quote, text_direction
+from kawaneen.ui.formatting import text_direction
+from kawaneen.ui.presentation import inspect_verified_quote
 from kawaneen.ui.state import get_context
 
 
@@ -92,13 +93,26 @@ def render() -> None:
                 with st.expander(f"Inspect citation {index}"):
                     try:
                         detail = client.get_document(citation.document_id)
-                        location = locate_quote(detail.units, citation.quoted_text)
-                        if location:
-                            st.success(
-                                f"Located in canonical unit {location.unit_id} at characters "
-                                f"{location.start_char}-{location.end_char}."
-                            )
-                        else:
+                        location_html = ""
+                        for unit in detail.units:
+                            location_html = inspect_verified_quote(unit, citation.quoted_text)
+                            if location_html:
+                                st.success(f"Exact quote located in canonical unit {unit.unit_id}.")
+                                document_title = (
+                                    detail.document.title or detail.document.document_id
+                                )
+                                article = citation.article or (
+                                    unit.heading_path[-1] if unit.heading_path else "not available"
+                                )
+                                st.caption(
+                                    f"Document: {document_title} · "
+                                    f"Unit: {unit.unit_id} · Article: "
+                                    f"{article} · "
+                                    f"Page: {citation.page or 'not available'}"
+                                )
+                                st.html(location_html)
+                                break
+                        if not location_html:
                             st.info(
                                 "The exact quote was not found in the returned canonical units."
                             )

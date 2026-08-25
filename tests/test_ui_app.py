@@ -67,7 +67,7 @@ def test_demo_search_page_renders_evidence_and_supports_english_query(monkeypatc
     app.text_input[0].set_value("appeal deadline")
     app.button[0].click().run()
 
-    assert any("Employment Procedures Regulation" in item.value for item in app.markdown)
+    assert any("Employment Procedures Regulation" in item.value for item in app.caption)
 
 
 def test_demo_ask_page_renders_grounded_answer_and_abstention(monkeypatch) -> None:
@@ -95,6 +95,16 @@ def test_demo_extract_page_shows_experimental_label_and_downloads(monkeypatch) -
     assert len(app.download_button) == 2
 
 
+def test_demo_extract_corpus_mode_shows_paginated_document_bounds(monkeypatch) -> None:
+    monkeypatch.setenv("KAWANEEN_UI_MODE", "demo")
+    app = _run()
+    app.switch_page("pages/extract.py").run()
+
+    app.selectbox[0].select("Corpus document").run()
+
+    assert any("Documents 1\u20132 of 2" in item.value for item in app.caption)
+
+
 def test_demo_evaluation_page_shows_provenance_and_latency_label(monkeypatch) -> None:
     monkeypatch.setenv("KAWANEEN_UI_MODE", "demo")
     app = _run()
@@ -102,4 +112,6 @@ def test_demo_evaluation_page_shows_provenance_and_latency_label(monkeypatch) ->
 
     assert any("Live API readiness" in item.value for item in app.markdown)
     assert any("Live session latency — not a benchmark" in item.value for item in app.markdown)
-    assert any("source hashes" in item.value.lower() for item in app.markdown)
+    assert any("Technical provenance" in item.label for item in app.expander)
+    assert any("BM25 + BGE-M3" in item.value for item in app.caption)
+    assert any("Search" in item.value and "Answer" in item.value for item in app.caption)

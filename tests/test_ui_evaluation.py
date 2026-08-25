@@ -4,7 +4,9 @@ import pytest
 
 from kawaneen.ui.evaluation import (
     aggregate_latency,
+    aggregate_latency_by_operation,
     build_evaluation_snapshot,
+    common_retrieval_comparison,
     validate_source_path,
 )
 
@@ -37,3 +39,23 @@ def test_latency_aggregation_keeps_last_fifty_and_computes_percentiles() -> None
     assert summary.values[-1] == 60
     assert summary.median == pytest.approx(35.5)
     assert summary.p95 == pytest.approx(57.55)
+
+
+def test_latency_aggregation_keeps_endpoint_families_separate() -> None:
+    grouped = aggregate_latency_by_operation(
+        {"Search": (12.0, 18.0), "Answer": (40.0,), "Extract": ()}
+    )
+
+    assert grouped["Search"].count == 2
+    assert grouped["Answer"].median == 40.0
+    assert grouped["Extract"].count == 0
+
+
+def test_retrieval_comparison_uses_only_common_tracked_metrics() -> None:
+    snapshot = build_evaluation_snapshot(ROOT)
+
+    rows = common_retrieval_comparison(snapshot)
+
+    assert rows
+    assert {"split", "metric", "model", "value"} <= rows[0].keys()
+    assert all(row["metric"] in {"MRR@10", "nDCG@10", "Recall@10"} for row in rows)

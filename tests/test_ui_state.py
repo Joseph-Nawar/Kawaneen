@@ -34,6 +34,21 @@ def test_session_state_records_live_latency_and_ignores_demo_latency() -> None:
     assert demo.search_latency_ms == []
 
 
+def test_session_latency_groups_are_explicitly_endpoint_specific() -> None:
+    live = UiSessionState(
+        settings=UiSettings(mode=UiMode.LIVE),
+        resolution=ModeResolution(UiMode.LIVE, "Live"),
+    )
+
+    live.record_latency("search", 10)
+    live.record_latency("answer", 20)
+    live.record_latency("extract", 30)
+
+    assert live.search_latency_ms == [10]
+    assert live.answer_latency_ms == [20]
+    assert live.extract_latency_ms == [30]
+
+
 def test_demo_context_is_cached_and_can_be_activated(monkeypatch) -> None:
     fake = _StreamlitState()
     monkeypatch.setattr(state_module, "st", fake)

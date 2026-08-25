@@ -13,6 +13,7 @@ from kawaneen.ui.components import (
     render_status_gate,
     render_warning_list,
 )
+from kawaneen.ui.presentation import filter_returned_evidence
 from kawaneen.ui.state import get_context
 
 
@@ -66,13 +67,22 @@ def render() -> None:
         placeholder="Filter only the returned evidence",
         key="search_refinement",
     )
+    document_options = {
+        f"{item.document_title or item.document_id} · {item.document_id}": item.document_id
+        for item in response.results
+    }
+    selected_documents = st.multiselect(
+        "Filter returned documents",
+        options=list(document_options),
+        help="Client-side filter derived only from this response; API ranking is preserved.",
+    )
+    results = filter_returned_evidence(
+        response.results,
+        {document_options[label] for label in (selected_documents or [])},
+    )
     if refinement:
-        results = tuple(
-            item for item in response.results if refinement.casefold() in item.text.casefold()
-        )
+        results = tuple(item for item in results if refinement.casefold() in item.text.casefold())
         st.caption("Refine returned evidence · original ranking preserved · not a new API search")
-    else:
-        results = response.results
     if not results:
         st.warning("No returned evidence matches this refinement.")
     for evidence in results:

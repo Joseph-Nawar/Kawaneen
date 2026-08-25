@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-import html
-
 import streamlit as st
 
 from kawaneen.api.contracts import ExtractionResponse
@@ -15,6 +13,7 @@ from kawaneen.ui.components import (
     render_status_gate,
 )
 from kawaneen.ui.exports import extraction_csv, extraction_json
+from kawaneen.ui.presentation import document_page_bounds, extract_presentation_rows
 from kawaneen.ui.state import get_context
 from kawaneen.ui.uploads import extract_text, segment_text, validate_upload
 
@@ -56,14 +55,30 @@ def render() -> None:
                     st.error(str(error))
     else:
         try:
-            documents = client.list_documents(offset=0, limit=20)
+            page_limit = 10
+            offset = int(st.session_state.get("corpus_document_offset", 0))
+            documents = client.list_documents(offset=offset, limit=page_limit)
+            start, end, total, has_previous, has_next = document_page_bounds(
+                documents.offset, documents.limit, documents.total
+            )
+            st.markdown("### Corpus documents")
+            st.caption(f"Documents {start}\u2013{end} of {total}")
+            previous_col, next_col = st.columns(2)
+            with previous_col:
+                if st.button("Previous documents", disabled=not has_previous):
+                    st.session_state["corpus_document_offset"] = max(
+                        0, documents.offset - documents.limit
+                    )
+                    st.rerun()
+            with next_col:
+                if st.button("Next documents", disabled=not has_next):
+                    st.session_state["corpus_document_offset"] = documents.offset + documents.limit
+                    st.rerun()
             options = {
                 f"{item.title or item.document_id} · {item.document_id}": item.document_id
                 for item in documents.items
             }
-            selected = st.selectbox(
-                "Corpus document (first page)", list(options) or ["No documents available"]
-            )
+            selected = st.selectbox("Corpus document", list(options) or ["No documents available"])
             if options and st.button("Load corpus document"):
                 detail = client.get_document(options[selected])
                 source_text = "\n\n".join(unit.text for unit in detail.units)
@@ -104,29 +119,28 @@ def render() -> None:
     for segment_id, response in results:
         result = response.result
         with st.expander(f"{segment_id} · {result.configuration}", expanded=True):
-            cards = st.columns(4)
+            cards = st.columns(6)
             cards[0].metric("Obligations", len(result.obligations))
             cards[1].metric("Deadlines", len(result.deadlines))
-            cards[2].metric("Authorities", len(result.regulated_entities))
+            cards[2].metric("Regulated entities", len(result.regulated_entities))
             cards[3].metric("Exceptions", len(result.exceptions))
-            if result.obligations:
-                st.markdown("**Obligations**")
-                for rule in result.obligations:
-                    st.markdown(
-                        f'- <span dir="auto">{html.escape(rule.action_span.text)}</span>',
-                        unsafe_allow_html=True,
-                    )
-            for label, spans in (
-                ("Exceptions", result.exceptions),
-                ("Regulated entities", result.regulated_entities),
-            ):
-                if spans:
-                    st.markdown(f"**{label}**")
-                    for span in spans:
-                        st.markdown(
-                            f'- <span dir="auto">{html.escape(span.text)}</span>',
-                            unsafe_allow_html=True,
-                        )
+            cards[4].metric("Prohibitions", len(result.prohibitions))
+            cards[5].metric("Permissions", len(result.permissions))
+            rows = extract_presentation_rows(segment_id, response)
+            for row in rows:
+                field = row["field"]
+                value = row["value"]
+                if field == "summary" or field == "source":
+                    st.json({str(field): value})
+                elif field in {"obligation", "rule"}:
+                    st.markdown(f"**{str(field).title()}**")
+                    st.json(value)
+                elif field == "deadline":
+                    st.markdown("**Deadline · exact extracted span**")
+                    st.json(value)
+                elif field in {"regulated_entity", "exception"}:
+                    st.markdown(f"**{str(field).replace('_', ' ').title()}**")
+                    st.write(value)
     st.download_button(
         "Download JSON", extraction_json(results), "kawaneen-extraction.json", "application/json"
     )

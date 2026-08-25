@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from statistics import median, quantiles
@@ -134,6 +134,36 @@ def aggregate_latency(values: Sequence[float], limit: int = 50) -> LatencySummar
         minimum=min(recent),
         maximum=max(recent),
     )
+
+
+def aggregate_latency_by_operation(
+    values_by_operation: Mapping[str, Sequence[float]], limit: int = 50
+) -> dict[str, LatencySummary]:
+    """Aggregate Search, Answer, and Extract independently."""
+
+    return {
+        operation: aggregate_latency(values, limit=limit)
+        for operation, values in values_by_operation.items()
+    }
+
+
+def common_retrieval_comparison(snapshot: EvaluationSnapshot) -> tuple[dict[str, object], ...]:
+    """Flatten only metrics shared by every tracked model in each split."""
+
+    rows: list[dict[str, object]] = []
+    for split, models in snapshot.retrieval.items():
+        if split not in {"dev", "holdout"} or not models:
+            continue
+        metric_sets: list[set[str]] = [set(metrics.keys()) for metrics in models.values()]
+        common_metrics: set[str] = (
+            metric_sets[0].intersection(*metric_sets[1:]) if metric_sets else set()
+        )
+        for model, metrics in models.items():
+            for metric in sorted(common_metrics):
+                rows.append(
+                    {"split": split, "model": model, "metric": metric, "value": metrics[metric]}
+                )
+    return tuple(rows)
 
 
 def _retrieval_models(split: dict[str, Any]) -> dict[str, dict[str, float]]:

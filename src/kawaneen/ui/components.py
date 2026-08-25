@@ -23,7 +23,7 @@ def render_product_header(state: UiSessionState) -> None:
         if state.status_label == "Degraded"
         else ""
     )
-    st.markdown(
+    st.html(
         f"""
         <div
           style="display:flex;justify-content:space-between;align-items:flex-start;
@@ -36,7 +36,6 @@ def render_product_header(state: UiSessionState) -> None:
           <div class="kw-status {status_class}">{html.escape(state.status_label)}</div>
         </div>
         """,
-        unsafe_allow_html=True,
     )
 
 
@@ -74,7 +73,8 @@ def render_evidence_card(evidence: Evidence, query: str = "") -> None:
         f"Evidence {html.escape(evidence.chunk_id)} · "
         f"{html.escape(evidence.provenance or 'source')}"
     )
-    st.markdown(
+    st.caption(f"{evidence.rank:02d} · {evidence.document_title or evidence.document_id}")
+    st.html(
         f"""
         <div class="kw-surface" style="margin:.6rem 0">
           <div style="display:flex;justify-content:space-between;gap:1rem">
@@ -87,7 +87,6 @@ def render_evidence_card(evidence: Evidence, query: str = "") -> None:
           </div>
         </div>
         """,
-        unsafe_allow_html=True,
     )
 
 
@@ -95,7 +94,7 @@ def render_citation_card(citation: Citation) -> None:
     title = html.escape(citation.document_title or citation.document_id)
     quote = html.escape(citation.quoted_text)
     direction = text_direction(citation.quoted_text)
-    st.markdown(
+    st.html(
         f"""
         <div class="kw-quote kw-{direction}" style="margin:.5rem 0">
           <div style="font-weight:700">{title}</div>
@@ -105,7 +104,6 @@ def render_citation_card(citation: Citation) -> None:
           </div>
         </div>
         """,
-        unsafe_allow_html=True,
     )
 
 
