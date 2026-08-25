@@ -32,6 +32,9 @@ def test_plan_and_freeze_write_only_governance_artifacts(tmp_path: Path) -> None
 def test_status_artifacts_are_aggregate_and_do_not_claim_results(tmp_path: Path) -> None:
     result = write_phase15_status_artifacts(tmp_path)
     assert len(result) == 9
+    assert (tmp_path / "data/manifests/evaluation/phase15_dialect_manifest.json").is_file()
+    assert (tmp_path / "data/manifests/evaluation/phase15_generator_subset_manifest.json").is_file()
+    assert not (tmp_path / "data/evaluation/phase15_dialect_manifest.json").exists()
     for path in result:
         payload = json.loads(Path(path).read_text())
         assert payload["status"] == "NOT_RUN"

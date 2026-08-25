@@ -207,9 +207,16 @@ def write_phase15_status_artifacts(root: Path = Path(".")) -> tuple[str, ...]:
         "phase15_latency_metrics.json",
     )
     payload = metric_status_artifact(status="NOT_RUN", reason=reason)
-    return tuple(
-        write_aggregate_artifact(root, filename, payload).as_posix() for filename in filenames
-    )
+    manifest_filenames = {"phase15_dialect_manifest.json", "phase15_generator_subset_manifest.json"}
+    paths: list[str] = []
+    for filename in filenames:
+        if filename in manifest_filenames:
+            relative = TRACKED_MANIFEST_ROOT / filename
+            _write_frozen(root, relative, payload)
+            paths.append(_path(root, relative).as_posix())
+        else:
+            paths.append(write_aggregate_artifact(root, filename, payload).as_posix())
+    return tuple(paths)
 
 
 def assert_no_protected_artifacts(root: Path = Path(".")) -> None:
