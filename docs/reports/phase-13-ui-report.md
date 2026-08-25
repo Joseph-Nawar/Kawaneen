@@ -18,15 +18,32 @@ Phase 13 adds the recruiter-facing Streamlit interface over the Phase 12 `/v1` H
 
 | Gate | Result |
 |---|---|
-| UI unit tests | 39 passed |
+| UI helper/page tests | Included in public run: 832 passed, 1 skipped |
 | Hermetic page/component render coverage | 5 passed |
-| Streamlit AppTest | 4 page/interactions passed |
+| Streamlit AppTest | 6 page/interactions passed |
 | Ruff/Pyright on UI | Passed |
 | Private integration smoke | Targeted test skipped as expected without `KAWANEEN_PRIVATE_PHASE12_API_URL` |
-| `make check` | Passed: 824 passed, 1 skipped, 85.01% branch-aware coverage |
-| Browser viewport QA | Blocked: no browser backend is available in this environment |
-| Final screenshots | Blocked by browser availability; none fabricated |
-| Push/PR | Branch pushed; [PR #9](https://github.com/Joseph-Nawar/Kawaneen/pull/9) open, not merged |
+| `make check` | Passed: 832 passed, 1 skipped, 85.02% branch-aware coverage |
+| Browser tooling | `agent-browser` unavailable; Playwright/Selenium unavailable; Google Chrome app exists but browser backend discovery returned `[]` |
+| Browser viewport QA | Not performed because no browser automation backend is available |
+| Final screenshots | Not created; no synthetic screenshot gate was fabricated |
+| Push/PR | Branch rebased onto `main`, force-pushed, and [PR #9](https://github.com/Joseph-Nawar/Kawaneen/pull/9) retargeted to `main`, not merged |
+
+## Product follow-up
+
+- Search filters only the returned result set by document ID/title and preserves API ranks.
+- Ask inspection shows exact canonical-unit context, safe verified-quote highlighting, RTL direction, metadata, and conditional real source links.
+- Extract corpus mode requests paginated document pages and shows visible bounds; findings expose summary counts, rule structure, exact deadline spans, regulated entities, exceptions, source provenance, and segment IDs.
+- Evaluation shows current capability readiness, frozen Phase 8 architecture/configuration, common tracked retrieval comparisons/deltas, Phase 10 cards, Phase 11 summary/error taxonomy, separate Search/Answer/Extract latency, and collapsed technical hashes.
+
+## History and release gate
+
+- Requested pre-rewrite head: `03cbb23fc9889d4a06f574a2b179541c7aef2161`.
+- Final rebased head: `72c9a2f38a41ee1313c2b15b9e989939e5b41875`.
+- `origin/main`: `f33a0448f4de8128962995d5bc3be538300c6162`.
+- `git merge-base HEAD origin/main` equals `origin/main`.
+- `origin/main`, old Phase 12, and the frozen Phase 12 tree share tree `38cb494ea859a443efe3bff0c6225486564b12b9`.
+- PR remains unmerged and must not be merged until real rendered QA and the four screenshots are available.
 
 ## Safety confirmations
 

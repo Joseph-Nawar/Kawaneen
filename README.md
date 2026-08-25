@@ -39,3 +39,14 @@ make ui-demo
 ```
 
 Demo mode is labelled persistently as `DEMO DATA`; it never masquerades as a live system. Fixtures and visual artifacts are synthetic only. The UI uses the Phase 12 `/v1` HTTP boundary and does not import model-serving or retrieval runtime services.
+
+### Visual QA artifacts
+
+The four synthetic visual artifacts are release-gated at:
+
+- `docs/assets/ui/search.png`
+- `docs/assets/ui/ask.png`
+- `docs/assets/ui/extract.png`
+- `docs/assets/ui/evaluation.png`
+
+They are intentionally not checked in until real browser inspection is available. The current environment has no `agent-browser`, Playwright/Selenium installation, or connected browser automation backend; PR #9 remains unmerged pending that gate.
