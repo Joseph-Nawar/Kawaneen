@@ -21,7 +21,10 @@ jobs:
         with:
           enable-cache: true
       - run: uv sync --locked --dev --all-extras --python "${{ matrix.python-version }}"
-      - run: uv run ruff format --check .
-      - run: uv run ruff check .
-      - run: uv run pyright
-      - run: uv run pytest
+      - run: |
+          .venv/bin/python --version
+          .venv/bin/python -c "import sys; expected='${{ matrix.python-version }}'; actual=f'{sys.version_info.major}.{sys.version_info.minor}'; assert actual == expected, f'expected {expected}, got {actual}'"
+      - run: .venv/bin/ruff format --check .
+      - run: .venv/bin/ruff check .
+      - run: uv run --no-sync pyright
+      - run: .venv/bin/pytest
