@@ -1,9 +1,12 @@
 from pathlib import Path
 
+import pytest
+
 from kawaneen.extraction.annotation import prepare_annotation_pack
 from kawaneen.extraction.readiness import build_readiness_report
 
 
+@pytest.mark.private_artifact
 def test_readiness_report_is_text_free_and_reports_zero_model_calls(tmp_path: Path) -> None:
     pack = prepare_annotation_pack(
         private_root=tmp_path / "private",

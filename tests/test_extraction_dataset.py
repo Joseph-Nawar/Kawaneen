@@ -1,5 +1,7 @@
 from pathlib import Path
 
+import pytest
+
 from kawaneen.extraction.annotation import (
     ANNOTATION_ROOT,
     SELECTION_MANIFEST_PATH,
@@ -8,6 +10,7 @@ from kawaneen.extraction.annotation import (
 )
 
 
+@pytest.mark.private_artifact
 def test_annotation_selection_is_reproducible_and_protected(tmp_path: Path) -> None:
     first = prepare_annotation_pack(
         private_root=tmp_path / "private-1",
@@ -25,6 +28,7 @@ def test_annotation_selection_is_reproducible_and_protected(tmp_path: Path) -> N
     assert ANNOTATION_ROOT.as_posix().endswith("phase11_extraction/annotations")
 
 
+@pytest.mark.private_artifact
 def test_new_annotation_records_are_not_human_gold(tmp_path: Path) -> None:
     result = prepare_annotation_pack(
         private_root=tmp_path / "private",

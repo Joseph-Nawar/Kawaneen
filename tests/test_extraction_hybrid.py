@@ -111,3 +111,115 @@ def test_proposal_contract_forbids_metadata_and_offsets() -> None:
                 ],
             }
         )
+
+
+def test_unique_span_with_invalid_occurrence_is_resolved_server_side() -> None:
+    text = "يجوز تمديد المهلة."
+    result = assemble_hybrid_result(
+        text,
+        _base(text),
+        {
+            "schema_version": "phase11-proposal-v1",
+            "rules": [
+                {"modality": "permission", "action": {"text": "تمديد المهلة", "occurrence": 7}}
+            ],
+        },
+    )
+    assert result.permissions[0].action_span.start_char == text.index("تمديد المهلة")
+    assert result.validation_metadata.diagnostics[0].code == "INVALID_OCCURRENCE_CORRECTED"
+
+
+def test_repeated_span_without_occurrence_is_rejected() -> None:
+    text = "يجوز التمديد، ويجوز التمديد."
+    result = assemble_hybrid_result(
+        text,
+        _base(text),
+        {
+            "schema_version": "phase11-proposal-v1",
+            "rules": [{"modality": "permission", "action": {"text": "التمديد"}}],
+        },
+    )
+    assert result.rules == ()
+    assert result.validation_metadata.diagnostics[0].code == "AMBIGUOUS_OR_INVALID_OCCURRENCE"
+
+
+def test_missing_registry_fails_closed_without_inventing_semantics() -> None:
+    text = "يجوز التمديد."
+    base = _base(text).model_copy(update={"candidate_registry": None})
+    result = assemble_hybrid_result(
+        text,
+        base,
+        {
+            "schema_version": "phase11-proposal-v1",
+            "regulated_entities": [{"text": "التمديد"}],
+            "rules": [{"modality": "permission", "action": {"text": "التمديد"}}],
+        },
+    )
+    assert result.regulated_entities == ()
+    assert result.rules == ()
+    assert all(item.code == "MISSING_REGISTRY" for item in result.validation_metadata.diagnostics)
+
+
+def test_invalid_optional_spans_are_dropped_and_valid_fields_are_retained() -> None:
+    text = "يجوز التمديد إذا تحقق الشرط، إلا في الاستثناء، والحد 1250 SAR ونسبة 15%."
+    result = assemble_hybrid_result(
+        text,
+        _base(text),
+        {
+            "schema_version": "phase11-proposal-v1",
+            "regulated_entities": [],
+            "rules": [
+                {
+                    "modality": "permission",
+                    "actor": {"text": "فاعل"},
+                    "action": {"text": "التمديد"},
+                    "conditions": [{"text": "تحقق الشرط"}, {"text": "غير موجود"}],
+                    "exceptions": [{"text": "الاستثناء"}, {"text": "غير موجود"}],
+                    "monetary_threshold_refs": ["M001", "P001"],
+                    "percentage_threshold_refs": ["P001", "M001"],
+                }
+            ],
+            "exceptions": [{"text": "الاستثناء"}],
+            "penalties": [{"text": "الحد"}],
+        },
+    )
+    rule = result.permissions[0]
+    assert [span.text for span in rule.condition_spans] == ["تحقق الشرط"]
+    assert [span.text for span in rule.exception_spans] == ["الاستثناء"]
+    assert rule.monetary_threshold_refs == ("M001",)
+    assert rule.percentage_threshold_refs == ("P001",)
+    assert result.exceptions[0].text == "الاستثناء"
+    assert result.penalties[0].text == "الحد"
+
+
+def test_empty_action_drops_only_the_invalid_rule() -> None:
+    text = "يجوز التمديد."
+    result = assemble_hybrid_result(
+        text,
+        _base(text),
+        {
+            "schema_version": "phase11-proposal-v1",
+            "rules": [{"modality": "permission", "action": {"text": ""}}],
+        },
+    )
+    assert result.rules == ()
+    assert result.validation_metadata.diagnostics[0].code == "INVALID_PROVIDER_JSON"
+
+
+def test_top_level_invalid_spans_and_candidate_refs_are_dropped() -> None:
+    text = "يجوز التمديد خلال 30 يوماً."
+    result = assemble_hybrid_result(
+        text,
+        _base(text),
+        {
+            "schema_version": "phase11-proposal-v1",
+            "exceptions": [{"text": "غير موجود"}],
+            "deadline_refs": ["T001", "M001"],
+            "monetary_threshold_refs": ["M999"],
+            "percentage_threshold_refs": ["P999"],
+        },
+    )
+    assert [candidate.candidate_id for candidate in result.deadlines] == ["T001"]
+    assert result.monetary_thresholds == ()
+    assert result.percentage_thresholds == ()
+    assert result.exceptions == ()

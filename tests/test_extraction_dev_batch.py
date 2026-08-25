@@ -198,6 +198,7 @@ def test_export_holdout_batch_is_source_only_and_rebuilds_candidates_v3(tmp_path
     assert all("result" not in item and "raw_response" not in item for item in payload["records"])
 
 
+@pytest.mark.private_artifact
 def test_freeze_stage_b2_configuration_writes_text_free_selection_manifest(
     tmp_path: Path,
 ) -> None:
@@ -469,6 +470,7 @@ def test_import_adjudication_promotes_only_the_excluded_exact_agreement(
     assert all(item["human_verified"] is False for item in stored)
 
 
+@pytest.mark.private_artifact
 def test_holdout_release_freeze_is_text_free_and_counts_provenance(
     tmp_path: Path,
 ) -> None:

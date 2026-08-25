@@ -1,3 +1,5 @@
+import pytest
+
 import kawaneen.extraction.orchestration as extraction_orchestration
 from kawaneen.corpus.models import SourceProvenance
 from kawaneen.extraction.annotation import AnnotationRecord, AnnotationUpdate
@@ -5,6 +7,7 @@ from kawaneen.extraction.contracts import CandidateRegistry
 from kawaneen.extraction.orchestration import annotation_progress, next_dev_annotation
 
 
+@pytest.mark.private_artifact
 def test_dev_progress_reports_only_the_current_unreviewed_dev_pack() -> None:
     progress = annotation_progress("dev")
     assert progress == {

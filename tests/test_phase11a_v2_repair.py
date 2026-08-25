@@ -92,6 +92,7 @@ def test_regulation_candidates_are_bounded_and_do_not_follow_bare_lexical_tokens
         assert text[candidate.span.start_char : candidate.span.end_char] == candidate.raw_exact_text
 
 
+@pytest.mark.private_artifact
 def test_v2_selection_and_batch_are_fresh_and_unreviewed(tmp_path: Path) -> None:
     pack = prepare_annotation_pack(
         private_root=tmp_path / "annotations",

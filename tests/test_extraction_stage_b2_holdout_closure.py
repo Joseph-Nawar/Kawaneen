@@ -1,10 +1,13 @@
 from __future__ import annotations
 
+import pytest
+
 from kawaneen.extraction.stage_b2_holdout_evaluation import (
     evaluate_clean_stage_b2_holdout,
 )
 
 
+@pytest.mark.private_artifact
 def test_frozen_holdout_evaluation_reconciles_completion_and_safety() -> None:
     report = evaluate_clean_stage_b2_holdout()
 
