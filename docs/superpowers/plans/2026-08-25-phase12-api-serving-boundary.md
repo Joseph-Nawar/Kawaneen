@@ -118,8 +118,8 @@
 **Interfaces:**
 - Public tests cover every requirement in the Phase 12 request without `private_artifact` markers; private smoke tests, if present, are narrowly marked and never run in public verification.
 
-- [ ] **Step 1: Run `uv run ruff format --check .`, `uv run ruff check .`, `uv run pyright`, and `uv run pytest -m 'not private_artifact' --cov=kawaneen --cov-branch --cov-report=term-missing --cov-fail-under=85`.**
-- [ ] **Step 2: Run `make check` and the clean-checkout/public-CI equivalent without Qwen/Ollama, HOLDOUT, or evaluation runners.**
+- [x] **Step 1: Run `uv run ruff format --check .`, `uv run ruff check .`, `uv run pyright`, and `uv run pytest -m 'not private_artifact' --cov=kawaneen --cov-branch --cov-report=term-missing --cov-fail-under=85`.**
+- [x] **Step 2: Run `make check` and the clean-checkout/public-CI equivalent without Qwen/Ollama, HOLDOUT, or evaluation runners.**
 - [ ] **Step 3: Audit tracked files for absolute workstation paths, secrets, private artifacts, model outputs, caches, and raw inputs; compare frozen Phase 10/11 tracked hashes/results before and after.**
 - [ ] **Step 4: Request a code review, fix Critical/Important findings, then commit the final implementation.**
 - [ ] **Step 5: Push `phase12/api-serving-boundary` and open/update the PR without merging; record exact tests, coverage, lint/type results, commit SHA, PR status, CI jobs, and safety confirmations in the report/final response.**
