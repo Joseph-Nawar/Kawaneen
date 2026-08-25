@@ -72,7 +72,7 @@ def build_router(
         container: ServiceContainer = _CONTAINER,
     ) -> SearchResponse:
         service = container.retriever
-        if service is None:
+        if service is None or not container.component_ready("retrieval"):
             raise service_unavailable("retrieval service is not ready")
         started = time.perf_counter()
         result = await _run_with_timeout(
@@ -80,6 +80,7 @@ def build_router(
         )
         return SearchResponse(
             request_id=_request_id(raw_request),
+            jurisdiction=request.jurisdiction,
             results=tuple(_evidence(item) for item in result.evidence),
             retrieval=_summary(result.summary),
             latency_ms=(time.perf_counter() - started) * 1000,
@@ -98,7 +99,7 @@ def build_router(
         container: ServiceContainer = _CONTAINER,
     ) -> AnswerResponse:
         service = container.answerer
-        if service is None:
+        if service is None or not container.component_ready("answer"):
             raise service_unavailable("answer service is not ready")
         started = time.perf_counter()
         try:
@@ -109,6 +110,7 @@ def build_router(
             raise model_unavailable() from error
         return AnswerResponse(
             request_id=_request_id(raw_request),
+            jurisdiction=request.jurisdiction,
             answerable=result.answerable,
             answer=result.answer,
             abstention_reason=result.abstention_reason,
@@ -132,6 +134,8 @@ def build_router(
         service = container.extractor
         if service is None:
             raise service_unavailable("extraction service is not ready")
+        if request.mode.value == "hybrid" and not container.component_ready("extraction_hybrid"):
+            raise model_unavailable()
         started = time.perf_counter()
         try:
             result = await _run_with_timeout(
@@ -159,7 +163,7 @@ def build_router(
         limit: int = Query(default=20, ge=1, le=100),
         container: ServiceContainer = _CONTAINER,
     ) -> DocumentPage:
-        if container.corpus is None:
+        if container.corpus is None or not container.component_ready("corpus"):
             raise service_unavailable("canonical corpus is not ready")
         page = await _run_with_timeout(
             lambda: container.corpus.list_documents(offset=offset, limit=limit),
@@ -186,7 +190,7 @@ def build_router(
     ) -> DocumentDetail:
         if "/" in document_id or "\\" in document_id or document_id in {".", ".."}:
             raise document_not_found(document_id)
-        if container.corpus is None:
+        if container.corpus is None or not container.component_ready("corpus"):
             raise service_unavailable("canonical corpus is not ready")
         value = await _run_with_timeout(
             lambda: container.corpus.get_document(document_id),
@@ -281,10 +285,13 @@ def _evidence(item: Any) -> Any:
 
 def _summary(item: Any) -> RetrievalSummary:
     return RetrievalSummary(
+        strategy=item.strategy,
         sparse_top_k=item.sparse_top_k,
         dense_top_k=item.dense_top_k,
         fused_candidate_count=item.fused_candidate_count,
         reranker_depth=item.reranker_depth,
+        top_score=item.top_score,
+        hit_count=item.hit_count,
         returned_count=item.returned_count,
     )
 

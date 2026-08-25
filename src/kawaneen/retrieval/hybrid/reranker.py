@@ -112,6 +112,11 @@ class BGERerankerAdapter:
             )
         return self._model
 
+    def preload(self) -> None:
+        """Load reusable reranker weights without scoring a request."""
+
+        self._load()
+
     def score_pairs(
         self, pairs: Sequence[tuple[str, str]], *, batch_size: int = 4
     ) -> tuple[float, ...]:

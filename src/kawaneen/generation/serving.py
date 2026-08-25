@@ -8,8 +8,16 @@ from dataclasses import dataclass
 from typing import Protocol, cast
 
 from kawaneen.generation.answerability import SourceEligibility, evaluate_stage_d_policy
-from kawaneen.generation.contracts import AbstentionReason
+from kawaneen.generation.contracts import (
+    STAGE_D_GENERATION_SETTINGS,
+    AbstentionReason,
+    GenerationDecision,
+    GenerationRequest,
+    GenerationResult,
+)
 from kawaneen.generation.policy import JurisdictionScope, PolicyContext, PolicyOutcome
+from kawaneen.generation.quote_registry import build_quote_registry
+from kawaneen.generation.stage_d import STAGE_D_QUOTE_REGISTRY_POLICY_VERSION
 from kawaneen.grounding.assembly import ContextAssembler
 from kawaneen.grounding.contracts import (
     GeneratedDraft,
@@ -35,7 +43,7 @@ class PolicyEvaluator(Protocol):
 
 
 class DraftGenerator(Protocol):
-    def __call__(self, query: str, context: object) -> GeneratedDraft: ...
+    def __call__(self, query: str, context: object) -> GeneratedDraft | None: ...
 
 
 class DraftVerifier(Protocol):
@@ -54,6 +62,58 @@ class ServingAnswerResult:
 
 class GenerationModelUnavailableError(RuntimeError):
     """The configured Stage-D provider cannot serve this request."""
+
+
+class StageDServingGenerator:
+    """Adapt the locked Stage-D provider to the Phase-9 draft contract."""
+
+    def __init__(self, provider: object, *, jurisdiction_text: str = "SA") -> None:
+        self.provider = provider
+        self.jurisdiction_text = jurisdiction_text
+
+    def __call__(self, query: str, context: object) -> GeneratedDraft | None:
+        from kawaneen.grounding.contracts import CitationRequest, ClaimDraft, ContextPack
+
+        if not isinstance(context, ContextPack):
+            raise ValueError("Stage-D context is invalid")
+        registry = build_quote_registry(
+            context, policy_version=STAGE_D_QUOTE_REGISTRY_POLICY_VERSION
+        )
+        request = GenerationRequest(
+            query=query,
+            context_pack=context,
+            settings=STAGE_D_GENERATION_SETTINGS,
+            jurisdiction_text=self.jurisdiction_text,
+            quote_registry=registry,
+        )
+        generate = getattr(self.provider, "generate", None)
+        if not callable(generate):
+            raise GenerationModelUnavailableError("Stage-D provider is unavailable")
+        result = generate(request)
+        if not isinstance(result, GenerationResult):
+            raise ValueError("Stage-D provider returned an invalid result")
+        if result.decision is GenerationDecision.ABSTAIN:
+            if result.abstention_reason is None:
+                return None
+            return GeneratedDraft(answer_text="", claims=())
+        claims = tuple(
+            ClaimDraft(
+                claim_id=f"C{index:03d}",
+                claim_text="\n".join(citation.quoted_text for citation in claim.citations),
+                citations=tuple(
+                    CitationRequest(
+                        evidence_id=citation.evidence_id,
+                        quoted_text=citation.quoted_text,
+                    )
+                    for citation in claim.citations
+                ),
+            )
+            for index, claim in enumerate(result.claims, start=1)
+        )
+        return GeneratedDraft(
+            answer_text="\n".join(claim.claim_text for claim in claims),
+            claims=claims,
+        )
 
 
 class ServingAnswerer:
@@ -141,6 +201,14 @@ class ServingAnswerer:
             )
         try:
             draft = self.generator(query, context)
+            if draft is None:
+                return ServingAnswerResult(
+                    answerable=False,
+                    answer=None,
+                    abstention_reason="MODEL_ABSTENTION",
+                    citations=(),
+                    retrieval=retrieval,
+                )
             verification = self.verifier(context, draft)
         except (TypeError, ValueError, KeyError, AttributeError):
             return ServingAnswerResult(

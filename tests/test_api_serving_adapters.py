@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from kawaneen.extraction.provider import MockExtractionProvider
-from kawaneen.retrieval.hybrid.contracts import SourceHit
+from kawaneen.retrieval.hybrid.contracts import FusionConfig, SourceHit
 from kawaneen.retrieval.models import RetrievalChunk
 
 
@@ -43,10 +43,11 @@ def test_serving_retriever_freezes_fusion_and_exposes_raw_logits() -> None:
         reranker=lambda query, candidates: {
             item.chunk_id: float(10 - item.fused_rank) for item in candidates
         },
+        fusion_config=FusionConfig(sparse_weight=1.0, dense_weight=0.25),
     )
     result = retriever.search("q", limit=2)
 
-    assert [item.chunk_id for item in result.evidence] == ["c1", "c3"]
+    assert [item.chunk_id for item in result.evidence] == ["c1", "c2"]
     assert result.evidence[0].score == 9.0
     assert result.evidence[0].score_type == "reranker_raw_logit"
     assert result.summary.fused_candidate_count == 20
@@ -112,3 +113,55 @@ def test_memory_corpus_orders_documents_and_hides_paths() -> None:
     assert detail is not None
     assert not hasattr(detail, "path")
     assert repository.get_document("missing") is None
+
+
+def test_serving_retriever_accepts_authoritative_phase8_fusion_configuration() -> None:
+    from kawaneen.retrieval.serving import HybridServingRetriever
+
+    chunks = {f"c{i}": _chunk(f"c{i}", f"text {i}") for i in range(1, 4)}
+    seen: list[tuple[str, ...]] = []
+
+    def sparse(query: str, top_k: int) -> tuple[SourceHit, ...]:
+        return tuple(SourceHit(f"c{i}", float(i)) for i in (1, 2, 3))
+
+    def dense(query: str, top_k: int) -> tuple[SourceHit, ...]:
+        return tuple(SourceHit(f"c{i}", float(i)) for i in (2, 3, 1))
+
+    def reranker(query: str, candidates: object) -> dict[str, float]:
+        values = tuple(item.chunk_id for item in candidates)  # type: ignore[union-attr]
+        seen.append(values)
+        return {chunk_id: float(index) for index, chunk_id in enumerate(values)}
+
+    retriever = HybridServingRetriever(
+        chunks=chunks,
+        sparse_search=sparse,
+        dense_search=dense,
+        reranker=reranker,
+        fusion_config=FusionConfig(sparse_weight=1.0, dense_weight=0.25),
+    )
+
+    result = retriever.search("q")
+
+    assert seen[0][:2] == ("c1", "c2")
+    assert result.summary.strategy == "hybrid_reranked"
+    assert result.summary.top_score == 2.0
+    assert result.summary.hit_count == 3
+
+
+def test_serving_retriever_reports_empty_hits_without_a_fake_score() -> None:
+    from kawaneen.retrieval.serving import HybridServingRetriever
+
+    retriever = HybridServingRetriever(
+        chunks={},
+        sparse_search=lambda query, top_k: (),
+        dense_search=lambda query, top_k: (),
+        reranker=lambda query, candidates: {},
+        fusion_config=FusionConfig(sparse_weight=1.0, dense_weight=0.25),
+    )
+
+    result = retriever.search("no match")
+
+    assert result.evidence == ()
+    assert result.summary.top_score is None
+    assert result.summary.hit_count == 0
+    assert result.summary.returned_count == 0

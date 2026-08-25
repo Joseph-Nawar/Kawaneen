@@ -1,7 +1,13 @@
 from __future__ import annotations
 
+import pytest
+
 from kawaneen.generation.contracts import (
     AbstentionReason,
+    GenerationDecision,
+    GenerationResult,
+    ModelOutputCitation,
+    ModelOutputClaim,
 )
 from kawaneen.generation.policy import PolicyOutcome
 from kawaneen.grounding.contracts import (
@@ -116,6 +122,102 @@ def test_answer_returns_only_verified_citations() -> None:
     assert result.answerable is True
     assert result.answer == draft.answer_text
     assert result.citations == (verified,)
+
+
+def test_stage_d_serving_generator_resolves_request_local_quote_registry() -> None:
+    from kawaneen.generation.serving import StageDServingGenerator
+    from kawaneen.grounding.contracts import (
+        ContextBlock,
+        ContextPack,
+        ContextUnit,
+        EvidenceReference,
+        SourceRecord,
+    )
+
+    source = SourceRecord(document_id="doc-1", source_id="fixture")
+    unit = ContextUnit(
+        unit_id="unit-1",
+        document_id="doc-1",
+        ordinal=1,
+        display_text="النص القانوني",
+        source=source,
+        best_retrieval_rank=1,
+        contributing_chunk_ids=("chunk-1",),
+        contributing_ranks=(1,),
+    )
+    pack = ContextPack(
+        query_id="query-1",
+        phase8_selection_sha256="a" * 64,
+        canonical_corpus_hash="b" * 64,
+        assembly_policy_version="phase9-test",
+        token_counter_identity="fixture",
+        max_context_tokens=100,
+        token_count=10,
+        units=(unit,),
+        blocks=(
+            ContextBlock(
+                block_id="B001",
+                document_id="doc-1",
+                source=source,
+                units=(unit,),
+                best_retrieval_rank=1,
+            ),
+        ),
+        evidence=(
+            EvidenceReference(
+                evidence_id="E001",
+                unit_id="unit-1",
+                block_id="B001",
+                document_id="doc-1",
+                display_text="النص القانوني",
+                source=source,
+                contributing_chunk_ids=("chunk-1",),
+                contributing_ranks=(1,),
+            ),
+        ),
+        omissions=(),
+        input_chunk_ids=("chunk-1",),
+    )
+
+    class FakeProvider:
+        def generate(self, request: object) -> GenerationResult:
+            assert request.quote_registry.entries[0].quote_id == "Q001"
+            return GenerationResult(
+                decision=GenerationDecision.ANSWER,
+                claims=(
+                    ModelOutputClaim(
+                        citations=(
+                            ModelOutputCitation(evidence_id="E001", quoted_text="النص القانوني"),
+                        ),
+                    ),
+                ),
+            )
+
+    draft = StageDServingGenerator(FakeProvider())("query", pack)
+
+    assert draft is not None
+    assert draft.answer_text == "النص القانوني"
+    assert draft.claims[0].citations[0].evidence_id == "E001"
+
+    class AbstainingProvider:
+        def generate(self, request: object) -> GenerationResult:
+            return GenerationResult(decision=GenerationDecision.ABSTAIN)
+
+    assert StageDServingGenerator(AbstainingProvider())("query", pack) is None
+
+    class InvalidProvider:
+        def generate(self, request: object) -> GenerationResult:
+            return GenerationResult(
+                decision=GenerationDecision.ABSTAIN,
+                abstention_reason=AbstentionReason.INVALID_GENERATION,
+            )
+
+    invalid = StageDServingGenerator(InvalidProvider())("query", pack)
+    assert invalid is not None
+    assert invalid.answer_text == ""
+
+    with pytest.raises(RuntimeError, match="provider"):
+        StageDServingGenerator(object())("query", pack)
 
 
 def test_invalid_generation_or_citations_abstain_fail_closed() -> None:

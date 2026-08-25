@@ -34,9 +34,9 @@ def create_app(
     settings: Settings | None = None,
     api_settings: ApiSettings | None = None,
 ) -> FastAPI:
-    del settings
+    effective_settings = settings or Settings()
     timeouts = api_settings or ApiSettings()
-    factory = container_factory or build_default_container
+    factory = container_factory or (lambda: build_default_container(effective_settings))
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):

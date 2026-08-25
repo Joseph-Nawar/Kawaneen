@@ -78,16 +78,20 @@ class Evidence(ApiModel):
 
 
 class RetrievalSummary(ApiModel):
+    strategy: Literal["hybrid_reranked"] = "hybrid_reranked"
     sparse_top_k: int = 50
     dense_top_k: int = 50
     fused_candidate_count: int = 20
     reranker_depth: int = 8
+    top_score: float | None = None
+    hit_count: int = Field(ge=0, le=20)
     returned_count: int = Field(ge=0, le=8)
     score_type: Literal["reranker_raw_logit"] = "reranker_raw_logit"
 
 
 class SearchResponse(ApiModel):
     request_id: str = Field(min_length=1, max_length=128)
+    jurisdiction: Literal["SA"] = "SA"
     results: tuple[Evidence, ...]
     retrieval: RetrievalSummary
     latency_ms: float = Field(ge=0)
@@ -106,6 +110,7 @@ class Citation(ApiModel):
 
 class AnswerResponse(ApiModel):
     request_id: str = Field(min_length=1, max_length=128)
+    jurisdiction: Literal["SA"] = "SA"
     answerable: bool
     answer: str | None = None
     abstention_reason: str | None = None
