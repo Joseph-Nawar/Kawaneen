@@ -52,6 +52,20 @@ class DenseModelAdapter:
     def format_passage(self, text: str) -> str:
         return text
 
+    def preload(self) -> None:
+        """Load reusable weights without executing an embedding request."""
+
+        if self.encoder is not None:
+            return
+        from sentence_transformers import SentenceTransformer
+
+        key = (self.model_id, self.revision, self.device)
+        model = _MODEL_CACHE.get(key)
+        if model is None:
+            model = SentenceTransformer(self.model_id, revision=self.revision, device=self.device)
+            _MODEL_CACHE[key] = model
+        model.max_seq_length = self.max_length
+
     def _encode(self, texts: Sequence[str], *, batch_size: int) -> np.ndarray:
         formatted = tuple(texts)
         if self.encoder is None:
