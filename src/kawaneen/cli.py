@@ -147,6 +147,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--version", action="version", version=f"kawaneen {__version__}")
     subparsers = parser.add_subparsers(dest="command")
     subparsers.add_parser("doctor", help="check that the foundation is available")
+    api_parser = subparsers.add_parser("api", help="production API serving")
+    api_subparsers = api_parser.add_subparsers(dest="api_command", required=True)
+    serve_parser = api_subparsers.add_parser("serve", help="serve the versioned FastAPI API")
+    serve_parser.add_argument("--host", default="127.0.0.1")
+    serve_parser.add_argument("--port", type=int, default=8000)
     sources_parser = subparsers.add_parser(
         "sources", help="validate and summarize source governance"
     )
@@ -535,6 +540,16 @@ def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     if args.command == "doctor":
         print("Kawaneen foundation: ready")
+    elif args.command == "api":
+        if args.api_command == "serve":
+            import uvicorn
+
+            uvicorn.run(
+                "kawaneen.api.app:create_app",
+                factory=True,
+                host=args.host,
+                port=args.port,
+            )
     elif args.command == "sources":
         try:
             records = load_registry()

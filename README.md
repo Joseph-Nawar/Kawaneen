@@ -1,8 +1,8 @@
 # Kawaneen
 
-Kawaneen is the foundation for a future jurisdiction-aware Arabic legal and regulatory intelligence system. Phase 0 provides an installable Python package, validated settings, structured logging, a small diagnostic CLI, and developer quality gates.
+Kawaneen is a jurisdiction-aware Arabic legal and regulatory intelligence system. The current release includes the Phase 7–11 frozen retrieval, grounding, generation-policy, and extraction primitives plus the Phase 12 production serving boundary.
 
-Legal document parsing, NLP, search, retrieval, RAG, APIs, and model-backed functionality are planned for later phases and are not implemented here.
+The serving API is intentionally scoped to Saudi Arabia (`SA`) and exposes search, grounded answers, structured extraction, canonical document reads, readiness, and model capability metadata. Missing local corpus/model assets produce degraded readiness instead of opaque startup failures.
 
 ## Quick start
 
@@ -10,7 +10,8 @@ Legal document parsing, NLP, search, retrieval, RAG, APIs, and model-backed func
 uv sync --locked --dev
 uv run kawaneen --version
 uv run kawaneen doctor
+uv run kawaneen api serve
 make check
 ```
 
-See [development.md](docs/development.md) for the complete workflow and [the Phase 0 report](docs/reports/phase-00-foundation-report.md) for verification results.
+See [the API guide](docs/api.md), [development.md](docs/development.md), and [the Phase 12 report](docs/reports/phase-12-api-report.md) for the serving contract and verification record.

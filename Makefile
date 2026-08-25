@@ -1,4 +1,4 @@
-.PHONY: help install format lint typecheck test test-public test-private check doctor sources-validate sources-summary data-plan data-acquire-alarb data-import-arabiccr data-verify data-audit data-audit-statutory data-manifest data-status data-rebuild-auto data-rebuild corpus-plan corpus-build corpus-validate corpus-inventory corpus-statutory-status corpus-duplicate-diagnostics corpus-gaps parsing-preflight parsing-benchmark parsing-diagnose normalization-plan normalization-run normalization-validate normalization-sensitivity chunking-plan chunking-build chunking-experiment chunking-validate evaluation-plan evaluation-build-draft evaluation-build-draft-v3 evaluation-build-draft-v4 evaluation-build-draft-v5 evaluation-build-final-candidate evaluation-export-review evaluation-import-review evaluation-validate evaluation-freeze evaluation-freeze-ai-reviewed evaluation-stats extraction-status extraction-prepare extraction-validate extraction-deterministic clean
+.PHONY: help install format lint typecheck test test-public test-private check doctor api-serve sources-validate sources-summary data-plan data-acquire-alarb data-import-arabiccr data-verify data-audit data-audit-statutory data-manifest data-status data-rebuild-auto data-rebuild corpus-plan corpus-build corpus-validate corpus-inventory corpus-statutory-status corpus-duplicate-diagnostics corpus-gaps parsing-preflight parsing-benchmark parsing-diagnose normalization-plan normalization-run normalization-validate normalization-sensitivity chunking-plan chunking-build chunking-experiment chunking-validate evaluation-plan evaluation-build-draft evaluation-build-draft-v3 evaluation-build-draft-v4 evaluation-build-draft-v5 evaluation-build-final-candidate evaluation-export-review evaluation-import-review evaluation-validate evaluation-freeze evaluation-freeze-ai-reviewed evaluation-stats extraction-status extraction-prepare extraction-validate extraction-deterministic clean
 
 help:
 	@printf '%s\n' 'Kawaneen development commands:'
@@ -11,6 +11,7 @@ help:
 	@printf '%s\n' '  make test-private  local private-artifact integration tests (set private roots as needed)'
 	@printf '%s\n' '  make check     format check, lint, typecheck, tests'
 	@printf '%s\n' '  make doctor    uv run kawaneen doctor'
+	@printf '%s\n' '  make api-serve uv run kawaneen api serve'
 	@printf '%s\n' '  make sources-validate  uv run kawaneen sources validate'
 	@printf '%s\n' '  make sources-summary   uv run kawaneen sources summary'
 	@printf '%s\n' '  make data-plan         uv run kawaneen data plan'
@@ -89,6 +90,9 @@ check:
 
 doctor:
 	uv run kawaneen doctor
+
+api-serve:
+	uv run kawaneen api serve
 
 sources-validate:
 	uv run kawaneen sources validate
