@@ -1,0 +1,130 @@
+{
+  "artifact_type": "phase11_stage_b1_vs_b2_selection",
+  "comparison_table": {
+    "action_F1": {
+      "B1": 0.047058823529411764,
+      "B2": 0.06211180124223602,
+      "absolute_delta": 0.015052977712824253
+    },
+    "actor_F1": {
+      "B1": 0.05128205128205127,
+      "B2": 0.07228915662650602,
+      "absolute_delta": 0.021007105344454748
+    },
+    "clause_exact_rate": {
+      "B1": 0.1625,
+      "B2": 0.1875,
+      "absolute_delta": 0.024999999999999994
+    },
+    "completion_rate": {
+      "B1": 0.9875,
+      "B2": 0.975,
+      "absolute_delta": -0.012500000000000067
+    },
+    "full_rule_exact_F1": {
+      "B1": 0.0,
+      "B2": 0.0,
+      "absolute_delta": 0.0
+    },
+    "invalid_candidate_acceptance": {
+      "B1": 0.0,
+      "B2": 0.0,
+      "absolute_delta": 0.0
+    },
+    "invalid_candidate_proposals": {
+      "B1": 51,
+      "B2": 5,
+      "absolute_delta": -46
+    },
+    "macro_F1": {
+      "B1": 0.08420261750185024,
+      "B2": 0.19062817720899816,
+      "absolute_delta": 0.10642555970714793
+    },
+    "micro_F1": {
+      "B1": 0.051502145922746774,
+      "B2": 0.1078838174273859,
+      "absolute_delta": 0.05638167150463912
+    },
+    "micro_precision": {
+      "B1": 0.1935483870967742,
+      "B2": 0.3333333333333333,
+      "absolute_delta": 0.13978494623655913
+    },
+    "micro_recall": {
+      "B1": 0.0297029702970297,
+      "B2": 0.06435643564356436,
+      "absolute_delta": 0.034653465346534656
+    },
+    "modality_accuracy": {
+      "B1": 0.8235294117647058,
+      "B2": 0.7391304347826086,
+      "absolute_delta": -0.0843989769820972
+    },
+    "predicted_rules": {
+      "B1": 36,
+      "B2": 31,
+      "absolute_delta": -5
+    },
+    "regulated_entity_F1": {
+      "B1": 0.0,
+      "B2": 0.10638297872340426,
+      "absolute_delta": 0.10638297872340426
+    },
+    "regulated_entity_proposals": {
+      "B1": 0,
+      "B2": 23,
+      "absolute_delta": 23
+    },
+    "unsupported_span_acceptance": {
+      "B1": 0.0,
+      "B2": 0.0,
+      "absolute_delta": 0.0
+    },
+    "unsupported_span_proposals": {
+      "B1": 22,
+      "B2": 46,
+      "absolute_delta": 24
+    },
+    "valid_empty_outputs": {
+      "B1": 61,
+      "B2": 56,
+      "absolute_delta": -5
+    }
+  },
+  "hashes": {
+    "annotation_release_sha256": "9e0f60baa9b19c7841c729643f257bb5be8a9f993e51b2d95660909421af53c1",
+    "b1_result_set_sha256": "910c1eabdc9d07c22a17706055bdb6e1ff94b69a6a8256dd3061f12a94c50083",
+    "b2_config_sha256": "0d3736250a3b72f582d75720ea02fbb60a4762f3157006f741520b2f2eaab25e",
+    "b2_evaluation_sha256": "b3bda87e1791285007c780392854375bfe1431cbbf098dce0ae2468a55ae5a32",
+    "b2_result_set_sha256": "58d4a6b16fd8578d3b776646ee314720eed32d6c0a6350b7d51d983acef2d672",
+    "b2_template_sha256": "72d8e6b613b56ddb61cf536df55760b2220f6e570c2f09b8536e7263d0c1f9bf",
+    "candidate_policy_sha256": "dcc40496967242ee1cba99576bebce9eca3520d639f4ae25a6bb2fe0797cd675"
+  },
+  "holdout_recommendation": "FREEZE_B2_AND_RUN_HOLDOUT_ONCE",
+  "intervention_findings": {
+    "complete_action_guidance": "modest improvement: action F1 0.0471 to 0.0621, TP 4 to 5, FP 32 to 22",
+    "multiple_rule_guidance": "not sufficient for coverage: predicted rules 36 to 31; missed extraction 111 to 98",
+    "nonempty_extraction_guidance": "limited: final empty outputs 61 to 56, but fully empty provider bodies 22 to 46",
+    "optional_candidate_guidance": "strongly succeeded: invalid candidate proposals 51 to 5; acceptance remained 0",
+    "regulated_entity_guidance": "succeeded: 0 to 23 raw proposals, 15 final accepted, F1 0 to 0.1064",
+    "safety_gates": "all hard safety gates passed for completed outputs"
+  },
+  "paired_record_comparison": {
+    "clause_exact_transitions": {
+      "False->False": 64,
+      "False->True": 3,
+      "True->False": 1,
+      "True->True": 12
+    },
+    "semantic_f1_improved": 12,
+    "semantic_f1_unchanged": 67,
+    "semantic_f1_worsened": 1
+  },
+  "record_count": 80,
+  "reference_status": "AI-reviewed/adjudicated; not human gold",
+  "schema_version": 1,
+  "selection": "SELECT_STAGE_B2_EXPERIMENTAL",
+  "selection_reason": "B2 provides broader measurable semantic utility with entities, lower candidate-reference error, fewer spurious rules, and higher micro/macro/clause metrics while retaining all safety gates; it remains experimental and limited.",
+  "split": "dev"
+}

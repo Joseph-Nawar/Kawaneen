@@ -1,0 +1,119 @@
+{
+  "artifact_type": "phase11_deterministic_dev_candidate_evaluation",
+  "candidate_audit_artifact": "artifacts/private/phase11_extraction/review/phase11_dev_candidate_audit_v3.json",
+  "candidate_compatible_release_fingerprint": "b06fd5088e0e97250e6951064087a2c3a3a3f930213e73c7e10d7a996ef74e40",
+  "candidate_policy_hash": "dcc40496967242ee1cba99576bebce9eca3520d639f4ae25a6bb2fe0797cd675",
+  "candidate_policy_version": "phase11-candidates-v3",
+  "evaluation_scope": "candidate_extraction_and_normalization_only",
+  "extractor": "deterministic-v1",
+  "families": {
+    "monetary": {
+      "F1": "not_estimable",
+      "audited_precision": 1.0,
+      "audited_recall": "not_estimable",
+      "boundary_correction_count": 0,
+      "candidate_count": 8,
+      "normalization_accuracy": "not_estimable",
+      "normalization_status_counts": {
+        "normalized": 8
+      },
+      "observed_prior_normalization_error_count": 0,
+      "obvious_false_positive_count": 0,
+      "records_containing_candidates": 3,
+      "recovered_from_v2_count": 8,
+      "unresolved_count": 0
+    },
+    "percentage": {
+      "F1": "not_estimable",
+      "audited_precision": 1.0,
+      "audited_recall": "not_estimable",
+      "boundary_correction_count": 0,
+      "candidate_count": 1,
+      "normalization_accuracy": "not_estimable",
+      "normalization_status_counts": {
+        "normalized": 1
+      },
+      "observed_prior_normalization_error_count": 0,
+      "obvious_false_positive_count": 0,
+      "records_containing_candidates": 1,
+      "recovered_from_v2_count": 1,
+      "unresolved_count": 0
+    },
+    "referenced_article": {
+      "F1": "not_estimable",
+      "audited_precision": 1.0,
+      "audited_recall": "not_estimable",
+      "boundary_correction_count": 0,
+      "candidate_count": 72,
+      "normalization_accuracy": "not_estimable",
+      "normalization_status_counts": {
+        "normalized": 72
+      },
+      "observed_prior_normalization_error_count": 0,
+      "obvious_false_positive_count": 0,
+      "records_containing_candidates": 55,
+      "recovered_from_v2_count": 72,
+      "unresolved_count": 0
+    },
+    "referenced_regulation": {
+      "F1": "not_estimable",
+      "audited_precision": 1.0,
+      "audited_recall": "not_estimable",
+      "boundary_correction_count": 4,
+      "candidate_count": 13,
+      "normalization_accuracy": "not_estimable",
+      "normalization_status_counts": {
+        "partial": 13
+      },
+      "observed_prior_normalization_error_count": 0,
+      "obvious_false_positive_count": 0,
+      "records_containing_candidates": 8,
+      "recovered_from_v2_count": 0,
+      "unresolved_count": 0
+    },
+    "temporal": {
+      "F1": "not_estimable",
+      "audited_precision": 1.0,
+      "audited_recall": "not_estimable",
+      "boundary_correction_count": 12,
+      "candidate_count": 21,
+      "normalization_accuracy": "not_estimable",
+      "normalization_status_counts": {
+        "normalized": 20,
+        "partial": 1
+      },
+      "observed_prior_normalization_error_count": 1,
+      "obvious_false_positive_count": 0,
+      "records_containing_candidates": 13,
+      "recovered_from_v2_count": 4,
+      "unresolved_count": 0
+    }
+  },
+  "focused_expected_form_tests": "pending final verification",
+  "holdout_accessed": false,
+  "lifecycle_state": "complete",
+  "model_calls": 0,
+  "normalization_accuracy_policy": "not_estimable without independent normalized-value gold; bounded expected-form tests are reported separately",
+  "overall_audited_precision": 1.0,
+  "overall_obvious_false_positive_count": 0,
+  "recall_policy": "not_estimable without an independent candidate-family gold denominator",
+  "record_count": 80,
+  "schema_version": "phase11-deterministic-dev-candidate-evaluation-v3",
+  "selection_fingerprint": "98a698a82ac8d444ad35cb037bb7fadb5e1c4ca1c1d63e5cee13a9e273107f05",
+  "selection_version": "phase11-selection-v2",
+  "semantic_annotations_used_as_gold": false,
+  "semantic_fields_excluded": [
+    "regulated_entities",
+    "rules",
+    "actor",
+    "action",
+    "conditions",
+    "exceptions",
+    "penalties",
+    "deadline_role",
+    "effective_date_role",
+    "monetary_threshold_role",
+    "percentage_threshold_role"
+  ],
+  "split": "dev"
+}

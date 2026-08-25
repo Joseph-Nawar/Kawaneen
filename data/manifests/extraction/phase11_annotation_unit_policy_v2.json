@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "artifact_type": "phase11_annotation_unit_eligibility_policy",
+  "policy_version": "phase11-eligibility-v2",
+  "selection_version": "phase11-selection-v2",
+  "source_governance": {
+    "source_role": "primary_statutory",
+    "source_type": "dataset",
+    "regulatory_source_metadata_required": true,
+    "case_law_ineligible": true
+  },
+  "eligible_structural_roles": ["article"],
+  "required_structural_metadata": [
+    "article_ordinal",
+    "article_parse_confidence=high",
+    "part_index=null",
+    "source_field=text"
+  ],
+  "canonical_text_length": {
+    "minimum_codepoints": 50,
+    "maximum_codepoints": 1500,
+    "inclusive": true
+  },
+  "excluded_representations": [
+    "article_part",
+    "unresolved_structural_label",
+    "document_or_full_text_fallback",
+    "empty_or_near_empty",
+    "header_or_metadata_blob",
+    "multi_chapter_aggregate"
+  ],
+  "no_phase11_ad_hoc_splitting": true,
+  "sampling": {
+    "weak_strata_only": true,
+    "semantic_gold_used": false,
+    "document_disjoint_dev_holdout": true,
+    "seed_version": "phase11a-regulatory-selection-v2"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "artifact_type": "phase11_annotation_selection_supersession",
+  "superseded_selection_version": "phase11-selection-v1",
+  "superseded_manifest_sha256": "a3ff8e783bbec0d231049536ddc532f816eb7f7756f4929b8eb065e0f2eed66f",
+  "replacement_selection_version": "phase11-selection-v2",
+  "replacement_manifest": "phase11_annotation_selection.json",
+  "status": "superseded",
+  "source_text_included": false
+}

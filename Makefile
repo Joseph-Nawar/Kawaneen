@@ -1,4 +1,4 @@
-.PHONY: help install format lint typecheck test check doctor sources-validate sources-summary data-plan data-acquire-alarb data-import-arabiccr data-verify data-audit data-audit-statutory data-manifest data-status data-rebuild-auto data-rebuild corpus-plan corpus-build corpus-validate corpus-inventory corpus-statutory-status corpus-duplicate-diagnostics corpus-gaps parsing-preflight parsing-benchmark parsing-diagnose normalization-plan normalization-run normalization-validate normalization-sensitivity chunking-plan chunking-build chunking-experiment chunking-validate evaluation-plan evaluation-build-draft evaluation-build-draft-v3 evaluation-build-draft-v4 evaluation-build-draft-v5 evaluation-build-final-candidate evaluation-export-review evaluation-import-review evaluation-validate evaluation-freeze evaluation-freeze-ai-reviewed evaluation-stats clean
+.PHONY: help install format lint typecheck test check doctor sources-validate sources-summary data-plan data-acquire-alarb data-import-arabiccr data-verify data-audit data-audit-statutory data-manifest data-status data-rebuild-auto data-rebuild corpus-plan corpus-build corpus-validate corpus-inventory corpus-statutory-status corpus-duplicate-diagnostics corpus-gaps parsing-preflight parsing-benchmark parsing-diagnose normalization-plan normalization-run normalization-validate normalization-sensitivity chunking-plan chunking-build chunking-experiment chunking-validate evaluation-plan evaluation-build-draft evaluation-build-draft-v3 evaluation-build-draft-v4 evaluation-build-draft-v5 evaluation-build-final-candidate evaluation-export-review evaluation-import-review evaluation-validate evaluation-freeze evaluation-freeze-ai-reviewed evaluation-stats extraction-status extraction-prepare extraction-validate extraction-deterministic clean
 
 help:
 	@printf '%s\n' 'Kawaneen development commands:'
@@ -51,6 +51,10 @@ help:
 	@printf '%s\n' '  make evaluation-freeze         uv run kawaneen evaluation freeze (review-gated)'
 	@printf '%s\n' '  make evaluation-freeze-ai-reviewed  uv run kawaneen evaluation freeze-ai-reviewed'
 	@printf '%s\n' '  make evaluation-stats          uv run kawaneen evaluation stats'
+	@printf '%s\n' '  make extraction-status         uv run kawaneen extraction status'
+	@printf '%s\n' '  make extraction-prepare        uv run kawaneen extraction prepare-annotations'
+	@printf '%s\n' '  make extraction-validate       uv run kawaneen extraction validate-annotations --split dev'
+	@printf '%s\n' '  make extraction-deterministic  uv run kawaneen extraction run-deterministic --split dev'
 	@printf '%s\n' '  make clean     remove safe local build and test artifacts'
 
 install:
@@ -202,6 +206,18 @@ evaluation-freeze-ai-reviewed:
 
 evaluation-stats:
 	uv run kawaneen evaluation stats
+
+extraction-status:
+	uv run kawaneen extraction status
+
+extraction-prepare:
+	uv run kawaneen extraction prepare-annotations
+
+extraction-validate:
+	uv run kawaneen extraction validate-annotations --split dev
+
+extraction-deterministic:
+	uv run kawaneen extraction run-deterministic --split dev
 
 clean:
 	find . -maxdepth 1 -type d \( -name .pytest_cache -o -name .ruff_cache -o -name htmlcov -o -name dist -o -name build \) -exec rm -rf {} +

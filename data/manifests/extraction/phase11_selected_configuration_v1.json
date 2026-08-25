@@ -1,0 +1,94 @@
+{
+  "artifact_type": "phase11_selected_configuration",
+  "b1_vs_b2_selection_artifact_sha256": "90771d3e51cf117acf4e6c84bb92419cfa1341d186cd81834ddca6d4fa1fcfd7",
+  "b2_configuration_sha256": "0d3736250a3b72f582d75720ea02fbb60a4762f3157006f741520b2f2eaab25e",
+  "b2_evaluation_sha256": "b3bda87e1791285007c780392854375bfe1431cbbf098dce0ae2468a55ae5a32",
+  "b2_result_set_sha256": "58d4a6b16fd8578d3b776646ee314720eed32d6c0a6350b7d51d983acef2d672",
+  "candidate_compatible_release_fingerprint": "b06fd5088e0e97250e6951064087a2c3a3a3f930213e73c7e10d7a996ef74e40",
+  "candidate_policy_hash": "dcc40496967242ee1cba99576bebce9eca3520d639f4ae25a6bb2fe0797cd675",
+  "candidate_policy_version": "phase11-candidates-v3",
+  "capability_status": {
+    "article_references": {
+      "evidence_language": "operationally supported / precision-audited; candidate recall and F1 not independently established",
+      "f1_established": false,
+      "recall_established": false,
+      "status": "supported",
+      "support_scope": "deterministic_candidate_generation",
+      "validation_basis": "precision/false-positive audit plus deterministic invariants"
+    },
+    "hybrid_semantic_layer": {
+      "status": "experimental"
+    },
+    "monetary_candidates": {
+      "status": "experimental"
+    },
+    "percentage_candidates": {
+      "status": "experimental"
+    },
+    "regulation_references": {
+      "status": "experimental"
+    },
+    "temporal_date_duration_candidates": {
+      "evidence_language": "operationally supported / precision-audited; candidate recall and F1 not independently established",
+      "f1_established": false,
+      "recall_established": false,
+      "status": "supported",
+      "support_scope": "deterministic_candidate_generation",
+      "validation_basis": "precision/false-positive audit plus deterministic invariants"
+    }
+  },
+  "closure_notes": "Final protected HOLDOUT evaluation completed once; references are AI-reviewed/adjudicated and not human gold.",
+  "comparison_artifact_sha256": "18f57165a6ef4ee2ea9e6bde8a8bba2a87a1deaf84cc7821a7715db135d4f939",
+  "evaluation_config_manifest_sha256": "419ffae3ed746d8a90feca001bf17c977c1a372cd5dfed3a0bb8cd8af946228e",
+  "experimental_disclaimer": "AI-reviewed/adjudicated DEV reference; not human gold.",
+  "final_disposition": "PHASE11_HYBRID_EXPERIMENTAL_LIMITED",
+  "final_report_path": "docs/reports/phase11-final-selection.md",
+  "final_report_sha256": "f7be48fe03681e84716671002b631383e05adfd4d055866fd2ce68bf6d65a8f9",
+  "full_rule_exact_f1_dev": 0.0,
+  "hard_safety_gates": {
+    "final_schema_validity_rate_completed": 1.0,
+    "invalid_candidate_reference_acceptance_rate": 0.0,
+    "provenance_completeness_rate_completed": 1.0,
+    "unsupported_span_acceptance_rate": 0.0
+  },
+  "hf_model": "Qwen/Qwen3-4B-Instruct-2507",
+  "hf_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+  "holdout_annotation_release_sha256": "2a5ade4acbc897bdca9456083970ada5809e8d0baf45d3ebc559472905b220b9",
+  "holdout_completed_record_count": 39,
+  "holdout_evaluation": 1,
+  "holdout_evaluation_sha256": "653565f0e9d76b8776c1f32b5b5ff3d3a8e67031ab7469b803cb78f57b79a36f",
+  "holdout_failed_record_count": 1,
+  "holdout_human_gold": false,
+  "holdout_human_verified": 0,
+  "holdout_model_inference": 1,
+  "holdout_recommendation": "CLOSED_AFTER_SINGLE_PROTECTED_EVALUATION",
+  "holdout_record_count": 40,
+  "holdout_reference_fingerprint": "5fe335d2910bb1ea2662bdc912ec8bab4d73b15870b1a777b8a947a3315278c9",
+  "holdout_reference_frozen": true,
+  "holdout_result_set_sha256": "0fba9650e08256339499438d993401d49366d0caf3b8daa071a6a254fad30f16",
+  "human_gold": false,
+  "model": "qwen3:4b-instruct-2507-q4_K_M",
+  "no_further_inference": true,
+  "no_post_holdout_tuning": true,
+  "ollama_digest": "sha256:0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+  "ollama_tag": "qwen3:4b-instruct-2507-q4_K_M",
+  "records": 80,
+  "runtime_settings": {
+    "automatic_retries": 0,
+    "num_predict": 1024,
+    "seed": 0,
+    "temperature": 0.0,
+    "top_p": 1.0
+  },
+  "schema_sha256": "7e1e0287c0a384d09fddc419964e3422b95a1540d2a7fc92aca58fa692d03ee0",
+  "schema_version": 1,
+  "selection": "SELECT_STAGE_B2_EXPERIMENTAL",
+  "selection_fingerprint": "98a698a82ac8d444ad35cb037bb7fadb5e1c4ca1c1d63e5cee13a9e273107f05",
+  "selection_rationale": "B2 provides broader measurable semantic utility with entities, lower candidate-reference error, fewer spurious rules, and higher micro/macro/clause metrics while retaining all safety gates; it remains experimental and limited.",
+  "semantic_annotation_release_fingerprint": "a48be5b6cacb4b0a1d2a45c82d4f4b2b12ec80c725447d9ff20d2e8355c80f04",
+  "semantic_annotation_release_sha256": "9e0f60baa9b19c7841c729643f257bb5be8a9f993e51b2d95660909421af53c1",
+  "split": "dev",
+  "status": "PHASE11_CLOSED",
+  "template_sha256": "72d8e6b613b56ddb61cf536df55760b2220f6e570c2f09b8536e7263d0c1f9bf",
+  "template_version": "phase11-hybrid-qwen-stage-b2-prompt-v1"
+}

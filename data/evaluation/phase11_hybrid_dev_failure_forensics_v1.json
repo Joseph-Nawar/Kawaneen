@@ -1,0 +1,311 @@
+{
+  "artifact_type": "phase11_hybrid_dev_failure_forensics",
+  "attempted_without_response": 8,
+  "candidate_reference_breakdown": {
+    "affected_records": 56,
+    "diagnostic_events_by_field": {
+      "effective_date_refs": 1,
+      "monetary_threshold_refs": 2,
+      "percentage_threshold_refs": 57,
+      "rules[0].monetary_threshold_refs": 2,
+      "rules[0].percentage_threshold_refs": 23,
+      "rules[1].percentage_threshold_refs": 1
+    },
+    "invalid_candidate_id_shape_groups": {
+      "A_prefixed_non_article_field": 49,
+      "M_prefixed_non_monetary_field": 1,
+      "R_prefixed_non_regulation_field": 4,
+      "T_prefixed_non_temporal_field": 7,
+      "blank_or_empty": 15,
+      "numeric_or_other_non_id": 5
+    }
+  },
+  "completed": 6,
+  "complexity_comparison": {
+    "schema_valid_failed": {
+      "candidate_references": {
+        "count": 65,
+        "max": 6,
+        "mean": 1.78,
+        "min": 0,
+        "p50": 2,
+        "p95": 4
+      },
+      "canonical_text_chars": {
+        "count": 65,
+        "max": 1305,
+        "mean": 323.62,
+        "min": 63,
+        "p50": 238,
+        "p95": 761
+      },
+      "predicted_rules": {
+        "count": 65,
+        "max": 8,
+        "mean": 1.75,
+        "min": 0,
+        "p50": 2,
+        "p95": 4
+      },
+      "raw_response_chars": {
+        "count": 65,
+        "max": 2990,
+        "mean": 907.45,
+        "min": 167,
+        "p50": 852,
+        "p95": 1726
+      },
+      "raw_response_tokens": {
+        "count": 65,
+        "max": 826,
+        "mean": 257.18,
+        "min": 47,
+        "p50": 235,
+        "p95": 481
+      },
+      "records": 65,
+      "span_fields": {
+        "count": 65,
+        "max": 10,
+        "mean": 2.8,
+        "min": 0,
+        "p50": 2,
+        "p95": 7
+      }
+    },
+    "success": {
+      "candidate_references": {
+        "count": 6,
+        "max": 2,
+        "mean": 0.5,
+        "min": 0,
+        "p50": 0,
+        "p95": 1
+      },
+      "canonical_text_chars": {
+        "count": 6,
+        "max": 216,
+        "mean": 167.5,
+        "min": 119,
+        "p50": 150,
+        "p95": 211
+      },
+      "predicted_rules": {
+        "count": 6,
+        "max": 2,
+        "mean": 1.17,
+        "min": 1,
+        "p50": 1,
+        "p95": 1
+      },
+      "raw_response_chars": {
+        "count": 6,
+        "max": 916,
+        "mean": 638.5,
+        "min": 531,
+        "p50": 540,
+        "p95": 732
+      },
+      "raw_response_tokens": {
+        "count": 6,
+        "max": 249,
+        "mean": 176.67,
+        "min": 141,
+        "p50": 150,
+        "p95": 212
+      },
+      "records": 6,
+      "span_fields": {
+        "count": 6,
+        "max": 4,
+        "mean": 1.83,
+        "min": 1,
+        "p50": 1,
+        "p95": 3
+      }
+    },
+    "timeout": {
+      "candidate_references": {
+        "count": 0,
+        "max": null,
+        "mean": null,
+        "min": null,
+        "p50": null,
+        "p95": null
+      },
+      "canonical_text_chars": {
+        "count": 0,
+        "max": null,
+        "mean": null,
+        "min": null,
+        "p50": null,
+        "p95": null
+      },
+      "predicted_rules": {
+        "count": 0,
+        "max": null,
+        "mean": null,
+        "min": null,
+        "p50": null,
+        "p95": null
+      },
+      "raw_response_chars": {
+        "count": 0,
+        "max": null,
+        "mean": null,
+        "min": null,
+        "p50": null,
+        "p95": null
+      },
+      "raw_response_tokens": {
+        "count": 0,
+        "max": null,
+        "mean": null,
+        "min": null,
+        "p50": null,
+        "p95": null
+      },
+      "records": 0,
+      "span_fields": {
+        "count": 0,
+        "max": null,
+        "mean": null,
+        "min": null,
+        "p50": null,
+        "p95": null
+      }
+    },
+    "timeout_records": {
+      "canonical_text_chars": {
+        "count": 8,
+        "max": 1415,
+        "mean": 810.62,
+        "min": 445,
+        "p50": 537,
+        "p95": 1244
+      },
+      "records": 8
+    }
+  },
+  "confirmed_raw_responses": 72,
+  "dominant_issue_ranking": [
+    {
+      "affected_records": 56,
+      "category": "CANDIDATE_REFERENCE_INTERFACE"
+    },
+    {
+      "affected_records": 41,
+      "category": "MODEL_EXACT_COPYING"
+    },
+    {
+      "affected_records": 8,
+      "category": "RUNTIME_OR_CHECKPOINT"
+    },
+    {
+      "affected_records": 1,
+      "category": "OUTPUT_TOKEN_BUDGET"
+    }
+  ],
+  "exact_span_breakdown": {
+    "affected_records": {
+      "A_NONEXACT_OR_PARAPHRASE": 21,
+      "C_WHITESPACE": 6,
+      "E_OCCURRENCE": 21
+    },
+    "diagnostic_events": {
+      "A_NONEXACT_OR_PARAPHRASE": 38,
+      "C_WHITESPACE": 7,
+      "E_OCCURRENCE": 41
+    },
+    "ocr_normalization_evidence": 0,
+    "punctuation_only_evidence": 0,
+    "schema_span_representation_mismatch_evidence": 0,
+    "validator_bug_evidence": 0
+  },
+  "failed": 74,
+  "failed_after_confirmed_model_response": 66,
+  "failed_before_provider_call": 0,
+  "holdout_access_during_forensics": 0,
+  "lifecycle_stage_counts": {
+    "CANDIDATES_READY": 80,
+    "CANDIDATE_REFS_VALID": 15,
+    "EXACT_SPANS_VALID": 30,
+    "EXTRACTION_RESULT_ASSEMBLED": 72,
+    "INPUT_LOADED": 80,
+    "JSON_PARSED": 71,
+    "MODEL_CALL_ATTEMPTED": 80,
+    "MODEL_CALL_CONFIRMED": 72,
+    "PERSISTED_COMPLETE": 6,
+    "PROMPT_BUILT": 80,
+    "PROVIDER_SCHEMA_VALID": 71,
+    "RAW_RESPONSE_RECEIVED": 72
+  },
+  "model_calls_during_forensics": 0,
+  "provider_call_attempts": 80,
+  "provider_schema_breakdown": {
+    "action_actor_shape": 0,
+    "candidate_ref_shape": 0,
+    "extra_field": 0,
+    "missing_required_field": 0,
+    "modality_enum": 0,
+    "nested_rule_schema": 0,
+    "null_vs_object_mismatch": 0,
+    "wrong_field_type": 0
+  },
+  "raw_response_statistics": {
+    "apparently_truncated": 1,
+    "invalid_json": 1,
+    "no_truncation_evidence": 71,
+    "nonexact_span_diagnostic_events": 38,
+    "provider_schema_invalid": 0,
+    "provider_schema_valid": 71,
+    "raw_characters": {
+      "count": 72,
+      "max": 3630,
+      "mean": 922.85,
+      "min": 167,
+      "p50": 847,
+      "p95": 1914
+    },
+    "raw_tokens": {
+      "count": 72,
+      "max": 1024,
+      "mean": 261.12,
+      "min": 47,
+      "p50": 233,
+      "p95": 524
+    },
+    "responses_with_invalid_candidate_ids": 56,
+    "responses_with_nonexact_span_evidence": 21,
+    "responses_with_whitespace_only_span_difference": 6,
+    "schema_valid_but_rejected_by_interface": 65,
+    "suspected_truncated": 0,
+    "valid_json": 71,
+    "whitespace_span_diagnostic_events": 7
+  },
+  "recommended_fix": "Review candidate-reference serialization/instructions and exact-span output contract offline before any bounded rerun; do not weaken validation or increase token budget based on this pass.",
+  "record_count": 80,
+  "reported_model_calls": 72,
+  "schema_version": "phase11-hybrid-dev-failure-forensics-v1",
+  "split": "dev",
+  "taxonomy": {
+    "primary_failure_counts": {
+      "INVALID_CANDIDATE_ID": 56,
+      "MODEL_TIMEOUT": 8,
+      "OUTPUT_TRUNCATED": 1,
+      "UNSUPPORTED_SOURCE_SPAN": 9
+    },
+    "primary_failure_percentages": {
+      "INVALID_CANDIDATE_ID": 75.68,
+      "MODEL_TIMEOUT": 10.81,
+      "OUTPUT_TRUNCATED": 1.35,
+      "UNSUPPORTED_SOURCE_SPAN": 12.16
+    },
+    "secondary_diagnostic_counts": {
+      "INVALID_JSON_UNTERMINATED": 1,
+      "NO_RAW_RESPONSE": 8,
+      "UNSUPPORTED_SOURCE_SPAN": 32
+    }
+  },
+  "tracked_source_text_leakage": 0
+}

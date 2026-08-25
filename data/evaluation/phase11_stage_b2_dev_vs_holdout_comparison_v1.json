@@ -1,0 +1,133 @@
+{
+  "artifact_type": "phase11_stage_b2_dev_vs_holdout_comparison",
+  "dev_completed": 78,
+  "dev_records": 80,
+  "dev_split": "dev",
+  "hashes": {
+    "candidate_policy_hash": "dcc40496967242ee1cba99576bebce9eca3520d639f4ae25a6bb2fe0797cd675",
+    "dev_evaluation_sha256": "b3bda87e1791285007c780392854375bfe1431cbbf098dce0ae2468a55ae5a32",
+    "dev_result_set_sha256": "58d4a6b16fd8578d3b776646ee314720eed32d6c0a6350b7d51d983acef2d672",
+    "holdout_annotation_release_fingerprint": "5fe335d2910bb1ea2662bdc912ec8bab4d73b15870b1a777b8a947a3315278c9",
+    "holdout_annotation_release_sha256": "2a5ade4acbc897bdca9456083970ada5809e8d0baf45d3ebc559472905b220b9",
+    "holdout_evaluation_sha256": "653565f0e9d76b8776c1f32b5b5ff3d3a8e67031ab7469b803cb78f57b79a36f",
+    "holdout_result_set_sha256": "0fba9650e08256339499438d993401d49366d0caf3b8daa071a6a254fad30f16",
+    "schema_sha256": "7e1e0287c0a384d09fddc419964e3422b95a1540d2a7fc92aca58fa692d03ee0",
+    "template_sha256": "72d8e6b613b56ddb61cf536df55760b2220f6e570c2f09b8536e7263d0c1f9bf"
+  },
+  "holdout_completed": 39,
+  "holdout_records": 40,
+  "holdout_split": "holdout",
+  "method_notes": {
+    "delta": "holdout minus dev; raw count deltas are not rate-normalized",
+    "end_to_end": "failed pipeline records produce no predictions and contribute reference false negatives",
+    "evaluation": "same Phase-11 strict evaluator and matching contract for both splits",
+    "no_tuning": "comparison is diagnostic only; no post-HOLDOUT tuning performed"
+  },
+  "metric_table": [
+    {
+      "delta": 0.0,
+      "dev": 0.975,
+      "holdout": 0.975,
+      "metric": "completion"
+    },
+    {
+      "delta": -10,
+      "dev": 31,
+      "holdout": 21,
+      "metric": "predicted_rules"
+    },
+    {
+      "delta": -33,
+      "dev": 56,
+      "holdout": 23,
+      "metric": "valid_empty_outputs"
+    },
+    {
+      "delta": 0.07880220646178092,
+      "dev": 0.10638297872340426,
+      "holdout": 0.18518518518518517,
+      "metric": "regulated_entity_f1"
+    },
+    {
+      "delta": 0.11639008865651286,
+      "dev": 0.07228915662650602,
+      "holdout": 0.18867924528301888,
+      "metric": "actor_f1"
+    },
+    {
+      "delta": 0.022994581736487385,
+      "dev": 0.06211180124223602,
+      "holdout": 0.0851063829787234,
+      "metric": "action_f1"
+    },
+    {
+      "delta": 0.02127659574468085,
+      "dev": 0.0,
+      "holdout": 0.02127659574468085,
+      "metric": "full_rule_exact_f1"
+    },
+    {
+      "delta": -0.07246376811594202,
+      "dev": 0.7391304347826086,
+      "holdout": 0.6666666666666666,
+      "metric": "modality_accuracy"
+    },
+    {
+      "delta": 0.0051282051282051655,
+      "dev": 0.3333333333333333,
+      "holdout": 0.3384615384615385,
+      "metric": "micro_precision"
+    },
+    {
+      "delta": 0.04401794859288885,
+      "dev": 0.06435643564356436,
+      "holdout": 0.10837438423645321,
+      "metric": "micro_recall"
+    },
+    {
+      "delta": 0.05629528705022607,
+      "dev": 0.1078838174273859,
+      "holdout": 0.16417910447761197,
+      "metric": "micro_f1"
+    },
+    {
+      "delta": -0.07237967467567492,
+      "dev": 0.19062817720899816,
+      "holdout": 0.11824850253332324,
+      "metric": "macro_f1"
+    },
+    {
+      "delta": -0.037500000000000006,
+      "dev": 0.1875,
+      "holdout": 0.15,
+      "metric": "clause_exact_rate"
+    },
+    {
+      "delta": -27,
+      "dev": 46,
+      "holdout": 19,
+      "metric": "unsupported_proposals"
+    },
+    {
+      "delta": 0,
+      "dev": 0,
+      "holdout": 0,
+      "metric": "unsupported_acceptance"
+    },
+    {
+      "delta": -1,
+      "dev": 5,
+      "holdout": 4,
+      "metric": "invalid_candidate_proposals"
+    },
+    {
+      "delta": 0,
+      "dev": 0,
+      "holdout": 0,
+      "metric": "invalid_candidate_acceptance"
+    }
+  ],
+  "reference_status": "AI-reviewed/adjudicated; not human gold",
+  "schema_version": 1,
+  "stage": "hybrid-qwen-v1-stage-b2"
+}

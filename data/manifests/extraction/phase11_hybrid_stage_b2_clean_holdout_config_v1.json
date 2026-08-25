@@ -1,0 +1,210 @@
+{
+  "artifact_type": "phase11_hybrid_dev_configuration",
+  "automatic_retries": 0,
+  "candidate_compatible_release_fingerprint": "c07f6ee4d8493925574a38861954950e6e8a75615d35105d8cb31997ad5207ce",
+  "candidate_policy_hash": "dcc40496967242ee1cba99576bebce9eca3520d639f4ae25a6bb2fe0797cd675",
+  "candidate_policy_version": "phase11-candidates-v3",
+  "checkpoint_root": "artifacts/private/phase11_extraction/checkpoints/hybrid-qwen-v1-stage-b2-clean/holdout",
+  "evaluation_performed": 0,
+  "hf_model": "Qwen/Qwen3-4B-Instruct-2507",
+  "hf_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+  "holdout_access": 1,
+  "lifecycle_state": "complete",
+  "model": "qwen3:4b-instruct-2507-q4_K_M",
+  "model_calls": 1,
+  "ollama_digest": "sha256:0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+  "ollama_tag": "qwen3:4b-instruct-2507-q4_K_M",
+  "record_count": 40,
+  "reference_labels_loaded": 0,
+  "result_root": "artifacts/private/phase11_extraction/results/hybrid-qwen-v1-stage-b2-clean/holdout",
+  "run": {
+    "completed": 0,
+    "failed": 1,
+    "model_calls": 1,
+    "provider_calls_attempted": 1,
+    "raw_responses_received": 1,
+    "record_count": 40,
+    "skipped": 39,
+    "statuses": [
+      {
+        "record_id": "aaea218b-138c-5df6-8bd0-58955c902453",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "3cee1ece-177b-59d6-831e-016d245742ca",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "d086954f-7670-5ab9-9d5f-229fe0aeab5e",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "523a3322-c87d-5e4c-9d83-d77b83edd37d",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "854fae27-467d-525c-8332-9ae07a155133",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "28036b4e-c304-5b05-b062-6bb883ce04e7",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "d2a9e979-5891-5dc2-98a9-26614a24067a",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "19a871f1-7f34-5b59-8fac-1d1c43df1e78",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "ab8c6387-9ef0-5330-9ee0-d43165a7f5fb",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "81ad10fd-5946-51eb-b0a7-f2b296560f86",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "111816f6-b3c1-5e5c-9e63-35746b4f5e82",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "1e843e14-9a43-55ec-8999-048259efcbf9",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "fbcff1d7-62b4-5ffe-aed6-8736c362a9bd",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "557e9c0a-45fd-5a64-ad89-ffc4aa2f82ad",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "87a68647-821f-5192-ab75-e72389b025b6",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "2815f686-56ff-5df4-8043-a1f1f2e0cfa1",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "f5410fb7-dcfe-5c12-8ddc-a8e6d30afd2c",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "a2637966-7b5e-59c7-bdef-20d10ef4a630",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "454f7bce-617d-54f1-8057-2d281c574a41",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "f125d6f6-51b0-55a2-8c46-9de21e741c2b",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "23fb8032-642b-53ec-a99a-b8b4d6289705",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "29a7660f-574a-5339-bfcb-e7ef7785a2ab",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "5d117617-1e1b-5343-af77-6474d8a90f31",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "4eda601a-ac84-5381-8de3-19b111fdafcd",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "ea73b1ab-93b7-56c2-8456-a64f449fd797",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "89a13d9d-e06c-51d5-b56b-cb45453e2abf",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "125fa6c0-5c8e-5b7a-b521-705debf1db0c",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "1b67d89d-8c88-51fa-8f04-8fbbea981f1f",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "3152d1f8-e8c4-5a66-82ff-2f959d9195b9",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "3e376740-80de-5150-90e3-592d5f65901b",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "abf580f0-69e3-5078-b231-590c9a47bdf6",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "f52c0c03-a024-513c-ac04-f79b16e9a234",
+        "status": "failed"
+      },
+      {
+        "record_id": "c4ceb077-182e-5a5d-851f-e7ecad5b6dc9",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "11f5300a-6cb5-5f90-9391-aedefdfcd5f8",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "8d8be4e2-fb6e-5f8c-ae51-2a89bedcc2be",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "97f4b3ee-73eb-5616-858e-bd0648456719",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "c1066292-0701-5558-be3b-ac0165cca470",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "8c6123f7-6a7f-5e34-a4a1-06ca53e7bfd8",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "a656ff17-45d6-50b5-b4af-02211e8f481b",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "b4fc38d9-8ff7-522c-8c0d-82bde5dcfa93",
+        "status": "skipped_complete"
+      }
+    ],
+    "timeouts": 0
+  },
+  "runtime_settings": {
+    "automatic_retries": 0,
+    "num_predict": 1024,
+    "seed": 0,
+    "temperature": 0.0,
+    "top_p": 1.0
+  },
+  "schema_sha256": "7e1e0287c0a384d09fddc419964e3422b95a1540d2a7fc92aca58fa692d03ee0",
+  "schema_version": 1,
+  "selection_fingerprint": "98a698a82ac8d444ad35cb037bb7fadb5e1c4ca1c1d63e5cee13a9e273107f05",
+  "semantic_release_fingerprint": "5fe335d2910bb1ea2662bdc912ec8bab4d73b15870b1a777b8a947a3315278c9",
+  "semantic_release_sha256": null,
+  "split": "holdout",
+  "stage": "hybrid-qwen-v1-stage-b2",
+  "stage_experiment": "Stage B2 is the final DEV prompt experiment.",
+  "template_sha256": "72d8e6b613b56ddb61cf536df55760b2220f6e570c2f09b8536e7263d0c1f9bf",
+  "template_version": "phase11-hybrid-qwen-stage-b2-prompt-v1",
+  "tokenizer_revision": "cdbee75f17c01a7cc42f958dc650907174af0554"
+}

@@ -1,0 +1,504 @@
+{
+  "ai_adjudicated": 77,
+  "annotation_schema_version": "phase11-proposal-v1",
+  "artifact_type": "phase11_dev_candidate_compatible_release",
+  "candidate_compatible_release_fingerprint": "b06fd5088e0e97250e6951064087a2c3a3a3f930213e73c7e10d7a996ef74e40",
+  "candidate_policy_hash": "dcc40496967242ee1cba99576bebce9eca3520d639f4ae25a6bb2fe0797cd675",
+  "candidate_policy_version": "phase11-candidates-v3",
+  "dual_ai_agreed": 3,
+  "eligibility_policy_version": "phase11-eligibility-v2",
+  "evaluation_set_type": "ai_reviewed_adjudicated_not_human_gold",
+  "holdout_touched": false,
+  "human_verified": 0,
+  "lifecycle_state": "frozen",
+  "record_count": 80,
+  "record_fingerprints": [
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "0a999561c8638f1a0414210952868978cf201ae13540901b4aa5ed2ff1922b12",
+      "candidate_registry_sha256": "70332dee7824aeac016a7d58d45af082913396389c1b4647feb9640dd5d7d5f0",
+      "canonical_unit_id": "044c940e-26ec-5af0-8834-36f2dc7591c5"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "197309531ecd7ff390a5469bdcd3177b863bfd89a804851548e1bdd95890c065",
+      "candidate_registry_sha256": "fab59056bb039bba05d5ae4eb793d91602d89bf7587e344c0df7c9eaab4e3ec8",
+      "canonical_unit_id": "0474c851-8c78-5a3a-bcad-d31ffe5f3db6"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "573ce196acd0c3ed93248176c485c905cc3ba41b37d6e342112ede4cb0de8e12",
+      "candidate_registry_sha256": "8acc6d3963a421c1d7bc2da4d926e5c8cc4100d8768b2c2cb205d42bd5e3b844",
+      "canonical_unit_id": "0693e435-dd07-5f90-ba17-a3fb0f85fd1b"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "8d4c1518468888afdfc31570eb45bd513ae231e6777b30b0b50108792fcff89c",
+      "candidate_registry_sha256": "4521706670cba0dbb5230e84e648c61ba91085b3d8b5b9de8920f3ba2b64dc97",
+      "canonical_unit_id": "0a3aca62-4ab0-5c0d-8c6c-c1f0c69475e2"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "232d85b5fa1a7beb15ffd83ee3b070e1e49fd6d72ea5eeb867e71c73c4a7de59",
+      "candidate_registry_sha256": "f78c07958e0e16ec7a6e359e399389aa0a3a150fd50855a7a4bfd923d697103e",
+      "canonical_unit_id": "0dcd9759-c24f-5706-a763-02b436a7348b"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "43cd2dd78a32f392d6862668b8375c73fd9da9f13267617d0ba0762562c9183b",
+      "candidate_registry_sha256": "d30b8a99f71c3710728ae5630b4596a9fd6247903cf1f7d0692f78284ffa200e",
+      "canonical_unit_id": "0fb54d97-bcff-530e-ba55-8501a8842ce6"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "d0dcba12bcb3acead684659ea70fa927aed7976841bb5ec2744220d375b1e859",
+      "candidate_registry_sha256": "03f31b08c223c7161c3478231f4680f6bca4ac1621bb6b1b31e1afde4f33a46d",
+      "canonical_unit_id": "1095d693-c9e5-508f-863c-0d4ee50abd38"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "13ee43e070f4771417e8d57d4a6245e57f3b8ae857e04c13ceb10cb2eca00b1e",
+      "candidate_registry_sha256": "fbd187138d517a4252b50ffcb596b71e6e3acb526fdae17353b6dd4664aeb6a4",
+      "canonical_unit_id": "2026b804-79a3-57ba-ba43-43c9533b8f36"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "f6df0680d470fde7e5f73e20c2e208dfd7e2b02cb60adbc4222c33d0296dba2a",
+      "candidate_registry_sha256": "6f85899343526e05a5538846279cca093a42a94280785718b8abb370afba5783",
+      "canonical_unit_id": "20a7c17f-c92f-5a2e-ac56-ccf93432f9fd"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "b13047234ad3f6f698958b12bed1f3b279e5a8f2c8894c031e5503e79f4b839b",
+      "candidate_registry_sha256": "b7a51bc38ef70b9745ca88dc1ec556f7270979ae3fdb98cfb69b22bf66b81609",
+      "canonical_unit_id": "20b0f2b5-fe33-58ec-bca4-d004dcd1367e"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "8d223acfa7936d3c8838be937a10f22804b4eb08a27ab7101abb18318a78592e",
+      "candidate_registry_sha256": "39102ffafe81ed1242bc5c7371eef220cf266099c7a390ae54ba37de75430b6b",
+      "canonical_unit_id": "2cd6da18-e13a-5f03-ac33-830ee6678954"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "dd85fae7c4c6737c9dea7e3088e07ec3352f642594816ae603532b2859a5ca2b",
+      "candidate_registry_sha256": "01033ecc18ca0f0043e2cfd18d6bd09e2642dbfa0e30139fc4540ff476f69276",
+      "canonical_unit_id": "31c38c04-53fe-592f-87e9-c58998ccc2d1"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "62fdd69e611b3ed880a66a51bd3078750a2e89880abb228ceb8dc2ffff083129",
+      "candidate_registry_sha256": "ce406a7ddb557d76e89c73948658782ce7a2159c3c0e1eafabfc99bdcf23b1a4",
+      "canonical_unit_id": "32218c01-383d-59dd-a81b-3cd2d608c521"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "a403f87c757fea024b5d6ad7f6d5d92da852af249efb5d0d282b89e5cb9e1ce7",
+      "candidate_registry_sha256": "8de6a56b162ed8af798936dd16083e127ac70522afde658cf65484593c59440a",
+      "canonical_unit_id": "378eb4ab-bec3-5c02-b036-d37e0cc9378d"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "b876ccdcde1cf108b751b01fc4cf4ff150775ce6eeea18008aa458ea55e5d4bb",
+      "candidate_registry_sha256": "adca0b2cf4d425950a6eeb8688afdcce798aff63417382b73a3849913230713f",
+      "canonical_unit_id": "3a6672be-6da8-5e56-9522-09f15df3ccdc"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "b72c0c632d5815f5b8ff3e90dc422a5541d272ad8a3e4f8566bb2cef0265a095",
+      "candidate_registry_sha256": "d8c23a56969af588bea1f455115e0c09126cadfafa5a8f1e76b7b2cf6b8c0735",
+      "canonical_unit_id": "3b25dede-9f16-5ec6-88b0-9950d4b5044e"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "c8004e8fb8e97e166d990e2501d7b40a9f5339f8e9ecfba2d453cc35b86ac4b8",
+      "candidate_registry_sha256": "2eb6ab7044123ff3a9227e1d8c608014ef1f5096e68a2cae6cea487612f52de6",
+      "canonical_unit_id": "3c45f8f6-6af1-5e68-85f1-4d81e8c8d549"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "75cb56714e5a2645671310b2b9a6b1fdca0edb68ec7dbe963ca18896e02ae015",
+      "candidate_registry_sha256": "d1b36157c9bdde017f7c27665c2e2d1c221385a3e88eb55679aded2bf2531870",
+      "canonical_unit_id": "40056685-be34-5ac1-bf7c-747dc8bb460e"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "95c37a0292d45d426924915ffdd4cbf10442eca9f20ba1f4b8342c0973eed6b5",
+      "candidate_registry_sha256": "8a349c1e66a7da842df4b4310a14c480e2ef87282d5cddb267b308cb29dffc70",
+      "canonical_unit_id": "42fd4133-f604-5ca3-9207-4694caaaefcd"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "3efe86bbe506398c6196661138731ba2e894d4ca06712f5331947804a9cf0466",
+      "candidate_registry_sha256": "f881155ffb18111b3a782ba216e5f30011e9df4f03e9f02a222c129ff0b1d110",
+      "canonical_unit_id": "44467988-6455-5b71-be29-493a212abd96"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "bfe298b800da0e21a25c57d94d17eec0dc25409448a1349fa5b8e3e155b75e16",
+      "candidate_registry_sha256": "91047cacdf595bdb731ca87a41d5a2ff592d05b3e1d5cf1c5b5fa04d0ce22d60",
+      "canonical_unit_id": "4743245d-9b0e-5fea-a31d-7cad384f4626"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "f254f8f935b90e0f51962b59d328c70bfafdbf6fd07900876f33c58244d55523",
+      "candidate_registry_sha256": "d26d93f734fee30d99142fa58903d42d2a9628c7c4b931a98ece6b18f7b444f1",
+      "canonical_unit_id": "4c36192b-ede1-5ea3-b759-efa742042d84"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "f254f8f935b90e0f51962b59d328c70bfafdbf6fd07900876f33c58244d55523",
+      "candidate_registry_sha256": "ba34f73f2a3834208aa695c79b1cb8e9d2f39af7fd79ae029839de5e68bc5e21",
+      "canonical_unit_id": "4c369578-0daa-53bd-afb7-8b4cb7f324b1"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "6fb028e422a98a65eead829536fe1a7788a64bec12136c14df194d2f66f3b028",
+      "candidate_registry_sha256": "e048ef3220d70f6ada0080a09ce298fca393323b38ed8cb6dfb65b6ccb3aff8e",
+      "canonical_unit_id": "4c6079bf-f0c2-586e-96f7-bb8df1194915"
+    },
+    {
+      "annotation_provenance": "dual_ai_agreed",
+      "annotation_sha256": "75cb56714e5a2645671310b2b9a6b1fdca0edb68ec7dbe963ca18896e02ae015",
+      "candidate_registry_sha256": "1374f8358fa30047ffde711316a3e8da10ce9c9f6a61577214c9f620b3f7be97",
+      "canonical_unit_id": "4ed7e7b0-3aa0-5e8b-bf31-d7bcac75f14f"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "daa364ce6851d6047dc2764ee661b40fc1beed1a3308b2705fc42937df277bcf",
+      "candidate_registry_sha256": "143caf6bce77ac946ec41f6edbb29bde1f6ab6856ebea92cdf314ad70324accc",
+      "canonical_unit_id": "4ee619a5-1934-5cba-95d7-16db8588cce7"
+    },
+    {
+      "annotation_provenance": "dual_ai_agreed",
+      "annotation_sha256": "75cb56714e5a2645671310b2b9a6b1fdca0edb68ec7dbe963ca18896e02ae015",
+      "candidate_registry_sha256": "1c372ba9db8c752f2ab9c8e7c11a11119d25c6ed7aa0652076fb785c67bf6cbc",
+      "canonical_unit_id": "51924524-5b4d-57de-833e-ebdc0520b1cf"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "be13322842ad1cb55381ccc2e62c3527bcde38be37061d67466c1b724f422e59",
+      "candidate_registry_sha256": "9510cda9ba73aa09139646a7d97277a6b74d05e2a85a63e3d3c0ecaac6e85464",
+      "canonical_unit_id": "53a5b5ea-d8d8-5cb8-b81f-5d253e1d4f87"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "890ea3f7a3d893afc02590756c8c10113e48b6f835970962a4ec4b7c60ebda09",
+      "candidate_registry_sha256": "008291f2d3046c5e6a9532388e57e6a6fe87fd74fa466f76bc6f835014b783f8",
+      "canonical_unit_id": "565f3911-e741-5e0f-9cad-ef1b6782f6f2"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "2d07bb6fa3e6f58fede429a5692d2011984527587c0ca5a16e849491cd1a61d1",
+      "candidate_registry_sha256": "7b9ef58fd72e4cda51c0653f23dede64950046e5e5e619c807442cafe4cbb095",
+      "canonical_unit_id": "67088b68-159c-585c-bc57-441037123354"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "21669d797a3425aeb97d21a542b5cf06f87d41981da5778bc63e038564924876",
+      "candidate_registry_sha256": "eef442a195088bf7eef1a8626f2e272be7d3d9fee72e81b3974e1034bf91a606",
+      "canonical_unit_id": "67935a9e-54d1-589f-a7d4-9ddad2ec0e16"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "e47973802e50540fc8395bbf77bc4fefcf4585d6133b9618b05ae7f2143e5eeb",
+      "candidate_registry_sha256": "48c848af149db20c490a28754fea50e40148e207c8c8ee90f35127b42f457252",
+      "canonical_unit_id": "67b86a34-d937-5ca6-be73-2c17bf898eaa"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "e3b918691162f28beb0021cc536b9f4f04872666917b3dde04514c69798d4228",
+      "candidate_registry_sha256": "58a7238d572e2761bf1973ea8399d9e648722896f571ad6300133b96da20d0ae",
+      "canonical_unit_id": "6fecfa61-a5d3-56f2-b138-eb2019e28d6f"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "a877424e7c62c0c5c89010045102fa13e335656ba3ab30c2da004eee07ae429f",
+      "candidate_registry_sha256": "6922cf344e5a5509db3124744beaefe48c630751e25fcd0dd2fb8eff78215419",
+      "canonical_unit_id": "70671bf5-d8bc-584b-b19c-756aac4c29ab"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "99dd48c010601dbedcf5d6685c10b5fe117c86c1671405fd50a40dec76fae121",
+      "candidate_registry_sha256": "df965a32a0fbabc3726e8ccc99e26fb33131bbf9dd5f0e13d869d94055fe4e9d",
+      "canonical_unit_id": "7b75c9e6-6faa-5432-9959-031cfae2889c"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "1692acb3d4b2b1928bacf8e68baf355bc03a30dd71ce0e8e8d5257f1bb15846c",
+      "candidate_registry_sha256": "d2288485d5319d766b8f8e2437d7c06430f006e08261f69511b2e79bec0c2d5c",
+      "canonical_unit_id": "846069fa-11e2-5c77-aaec-3c25fb04df7e"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "8b9ef9f11bc70e227790d863ce7c046c43c2e018e8f3ff8bc381621edd17262b",
+      "candidate_registry_sha256": "7f6fcf117656f88ce499195e68910f241f323935866d9264560742bb4266e6d6",
+      "canonical_unit_id": "87a350bd-c026-57f8-91bf-a109be263cef"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "9570e66da5026c8a995e3e805b4372618ea554ce0284ece8f8d2f2b741bda2a8",
+      "candidate_registry_sha256": "eec89a64a2bd4158bd0e91ad6ae1b03ed70449ee05c10c24a217303704e75ae1",
+      "canonical_unit_id": "8968230f-4aad-572b-9be9-98c34505aca0"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "0a73651dfb0b8c9b370f0e5958a1bd8ba219bd52eb0c1d305a5825c7acd8e254",
+      "candidate_registry_sha256": "0f41c1bdf864f74bcd965633b263068f5c3ad9e67547e3bd69ec7f6001bab842",
+      "canonical_unit_id": "8a2d3ba3-2c1e-5087-9b60-d73d234b75bd"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "b554529cc86ae44128e6d8263e21e11c94d7463277e5f2d8dd2827272680edab",
+      "candidate_registry_sha256": "ee60bf47206d1b3a207469ad5e5d32c9e10583b9a6fc29e65e4d1fb60377d4ee",
+      "canonical_unit_id": "92623d3f-02aa-50cb-9f41-42deb7f5488f"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "e478798dd6fd86e7a4173b77e8a090e106ced5c2b5a6bcc0232b6fabd490e265",
+      "candidate_registry_sha256": "ef51930d0b3d3725d594a9e472111e3649251f5a2732379f9e8dc0378116476f",
+      "canonical_unit_id": "941bc6fc-89b2-5eaa-9382-3765332bd7d7"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "4f7b56062bb680e159f9a649082aa5229e6eab6dd4fbc46c88d6bb3a542d6dd9",
+      "candidate_registry_sha256": "0afd6403c260493887ceaed544807a4843b68fce3f0902a3784a42054697cb70",
+      "canonical_unit_id": "9bf76be1-3a59-5692-8916-dcee9a16e7f4"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "42b995740a103ff09d0b4869edeffdd7b35521199473fc420219d414d075db0b",
+      "candidate_registry_sha256": "223d504a073b1940d5c9479a65aee98a7eae5b1e27f91040796dc1fbd19d8298",
+      "canonical_unit_id": "9c68c267-1afe-568c-b289-9baee0d2e6cc"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "75cb56714e5a2645671310b2b9a6b1fdca0edb68ec7dbe963ca18896e02ae015",
+      "candidate_registry_sha256": "f992201178e52ed80b312ae6c9b14c8ea6f050ec15c82110e91c2d45d28ffcd8",
+      "canonical_unit_id": "9c82e3c4-3428-5cf2-8ba6-0bd3d5e0f513"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "bd7efe0d0f7cb2d83a17ee822ac4c7c5b8cd39f34dd54ed7a58c26d2eaf71659",
+      "candidate_registry_sha256": "fce2c5d1badbb86f4fac6b2aecd85c85518eebe456114674696b7f92d71d6987",
+      "canonical_unit_id": "9cbf6ac0-fc46-59cd-8818-6ce4452ffada"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "507ae43f76ba068fb8bc6343689ce729c15eab83ef40d518c844ea1d8e6e5aff",
+      "candidate_registry_sha256": "47eaff7849134a2832f93cba157af8a16da42d9a3a00437afaf2b86f85fee552",
+      "canonical_unit_id": "a01a08ba-3ae2-5ea3-afe7-a4e20a622779"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "a0f627e15aa6d9f065e2d8171869a5c8969c50322eef05acb970bd5d6dbcb75b",
+      "candidate_registry_sha256": "4897f9e8d3deeb5cf4ae24466fe8a359eda4d5c6429f7db690cfd82d465bdaea",
+      "canonical_unit_id": "a0cfdf74-c4cb-5afd-bb99-5d7572444ec9"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "6888a423751607c6b23031d28f1366c71ce6f753a8be94e0b6ca93aab60eb78f",
+      "candidate_registry_sha256": "c3f69ec0a4eddf52867f0230e7f33441498e04a4f87cc168098781058bc210a5",
+      "canonical_unit_id": "a363a009-026a-5eb5-9761-0f0b4aca2b8e"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "22b257e02cfb362bee266b618bf8e5bf79a1bc2374d49e4c1a52d53a49ec16aa",
+      "candidate_registry_sha256": "9b9e70d8664e8efa415d75753bf1d1b8e9863422fce2eea2417ffd5c452ea04d",
+      "canonical_unit_id": "a3fefb4f-5f31-5014-91c9-6730574ced63"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "07d055cd3ea36c271b2c1a86038f411513bf7d30f846b4ba540b65ff23f4a26b",
+      "candidate_registry_sha256": "731a26ce6894fe8e8248909bd3ed50f329a13e28e8e2c068438a25972fce8321",
+      "canonical_unit_id": "a7ff1897-95be-52cf-8f5d-d9ff9af56421"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "27263da32af5ef15f55bc57c88fc3c005d12512648fc7278649d6d926e0ca8a6",
+      "candidate_registry_sha256": "bba4ef68e60cc230e93bb9dca98b17e2eecf2b28e3e2ef226e1fe38c62beb24a",
+      "canonical_unit_id": "a9aac19b-3686-5440-9648-7e14e63e094b"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "e17fbc91da4af6719c05cd5212cb414aa9e35080ed543781374b082d8ba8bd76",
+      "candidate_registry_sha256": "3b526dd9bcd2e081b494738dc6ed7ac4c647320a2f0d9126e7ca8f97361459da",
+      "canonical_unit_id": "aa45ed67-c42e-5794-ba67-b071357e0438"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "0db50d026db101e6eea077c04561e19b6435b0e5363a3abcb58bf0b30d53f991",
+      "candidate_registry_sha256": "8589187f62327b008de39a0b3cc5e7ea273833840b8ceccdddfb088a6ba57220",
+      "canonical_unit_id": "ab4cd2a8-6f07-5f8e-92ee-61ee4ce5cd4a"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "dafe6b9bd10aa057b2ae565b337bb1acd4cc0a6a0c099d33d6958cf82378a84a",
+      "candidate_registry_sha256": "c4ad7cfc624c058329a8f836a6e2bd7e1fc10e454d6ccd641ea06dbad78b6a99",
+      "canonical_unit_id": "b0fda842-b3e2-5a79-8f88-9f63ae94a14c"
+    },
+    {
+      "annotation_provenance": "dual_ai_agreed",
+      "annotation_sha256": "75cb56714e5a2645671310b2b9a6b1fdca0edb68ec7dbe963ca18896e02ae015",
+      "candidate_registry_sha256": "0831acdf1792dfee291e177bd231add8aa9e9333ae35e2dd2924c57e6e006992",
+      "canonical_unit_id": "b2d08db8-d4b5-5ac0-abce-7ee39dc3b5f0"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "1f3cbb9e78c26ecda8162ab88e7809cfce5be91bcd32aeb96078fd6cf44e8ca7",
+      "candidate_registry_sha256": "902dedd5065fd35895fb0775d16113a39eea0a73acfe8cbd2a9cefc619a8cbb6",
+      "canonical_unit_id": "babe5bf2-606e-5e34-a89d-8aef691e7703"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "8ad210fa9df6d85748ef6fe43ceabbb343465d778cc9f0c895133ed6111dceda",
+      "candidate_registry_sha256": "7bb3a91f5bbcf33c0eaaec8fe8b2d1e3da65cf5f9619db648175743611aa85aa",
+      "canonical_unit_id": "bb1bdcc7-5ea3-5576-a2d9-a8233e56ab50"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "009584f9994c393bb27b227f23d4d6f33d4bdef3c40c968d81fe0d1c513c7296",
+      "candidate_registry_sha256": "5ea3ead027a1feb8bbc12b499a16eb83718a2c613797b965368c66670097e550",
+      "canonical_unit_id": "bbad7cad-7034-5c5c-a11c-9fe3ad995468"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "edcb24372576d723df9aa6a12a426c40c26f0eee118d96008f60ca9d3f0a431c",
+      "candidate_registry_sha256": "07de05d1ce9a3627c512f0f904eeccca5d09c523e8ce57ed93ca548d2abc5451",
+      "canonical_unit_id": "be218554-2ab3-5636-b232-7ae3207deaf8"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "da632008646349b4e68d765c6751c9f533b56ba4ca9fef13e216bc6429748188",
+      "candidate_registry_sha256": "e87c341f47cb23a68c7e5d39f01bfed47124d17eb1ed08553cefa490e4978814",
+      "canonical_unit_id": "bfa3279d-d012-56d5-a65d-0ac52ac5efb7"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "1b43696f86a3c5697255f19429c73a399f61aab72878d913b8619e1165630c34",
+      "candidate_registry_sha256": "937c954d7d4d2b518152eb8bb8fc79a2ff88e769c7244f4bdb348ab66d8b6a2e",
+      "canonical_unit_id": "c0a0a9f3-b9cb-520f-a6dc-84acde670036"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "f254f8f935b90e0f51962b59d328c70bfafdbf6fd07900876f33c58244d55523",
+      "candidate_registry_sha256": "b725f34d644e74d991eecf810a4a18522baf9aefc081da3c53824103f3ebb2ca",
+      "canonical_unit_id": "cc594a14-8f34-589b-b982-f35152ea1d1e"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "2bb13c994ef7ce1d00b389b83f80b3d9d717d6b0008184db9d3d5a5c796e46ab",
+      "candidate_registry_sha256": "3782ba7861df56cf7cb5849089190edabf8b10acdf44432025bea3525d3552c5",
+      "canonical_unit_id": "d076ae95-736d-58b5-8776-9fc12df9ad05"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "9cf3e703364ea52dfe114c5d357d3a39e4c5ea8b803f8eca252e431e3e5295dc",
+      "candidate_registry_sha256": "712f0efcc8e9a682f9182eb9a8a5fed385f9ee8e0a0e8b0cf8c55aba8a87e5c3",
+      "canonical_unit_id": "d2658a7d-5561-582c-8699-0919ae882f26"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "f254f8f935b90e0f51962b59d328c70bfafdbf6fd07900876f33c58244d55523",
+      "candidate_registry_sha256": "6e7d6f5e27e9f51c92c394cec9eed396ea807159f195be42ed621a49299847f8",
+      "canonical_unit_id": "d596db90-3aca-54bc-be7e-4584e4ec4149"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "6989f37dcf5947e1a9394be22fe645d42785bccc770e0ed0d9caf5fd6eecacf0",
+      "candidate_registry_sha256": "41209df7b98472cfeef1f893c4d3307eb70971386c8ba415af382d212687e06e",
+      "canonical_unit_id": "d63860ff-4e6e-51a9-89c4-fb52fb3a9e54"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "885ece0b4fcbf14df2d5a857310862b980ca6ccb3c51cb1a9ee731e712f592a5",
+      "candidate_registry_sha256": "2d9c2d74b7f4813a5855ac2fdfbc2888b0cef1730c7c3f63a94996814f97e6d1",
+      "canonical_unit_id": "dbc971c0-bea1-57f9-92af-64c29c8a696e"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "ab33d6d4fba22901c743e03ab7188a9d3667db61318cd2f09852cf360f077324",
+      "candidate_registry_sha256": "3c03211d5ebf568be78147e880b10ebdab7c3030a9dcfd648dc6c80e95e56db4",
+      "canonical_unit_id": "dc88af64-0752-5c39-a3cb-1b86925b2ae7"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "20be48436fc3e9f217ec120aa1a208d43499fcc623e55ef0314bde018cd999da",
+      "candidate_registry_sha256": "dc9dbd29cbde9f54b2644daa4afa595cd12abedc0e5d4f5ff80c4d9a3d23c013",
+      "canonical_unit_id": "de597c32-df4d-56df-86ac-7257761b64c6"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "071007a9fb2d9e8c5ac28428ed95ecf214e846b07027097c692fe1cffd9f3c6b",
+      "candidate_registry_sha256": "6af87242953130ae17707dec4c430b2b556a6a61bc964a880404bb0e6c797e46",
+      "canonical_unit_id": "e252d8c9-fb3e-5ee9-80d8-9eb69cd237b9"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "71140fd9491c0c9176b6597863f1a89294492ca6f6545cbd60e89a733a0cf2b0",
+      "candidate_registry_sha256": "2af4018a1dc54777eb94c2d98c594545c4f974e5790ce0ad772b38d7fa473e55",
+      "canonical_unit_id": "e2af5532-77dd-52e4-8a64-45048868771e"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "da3a1412e73c6e00136a419cf7ea54f4d2048cdc873965dbd33fbd8cb1939e27",
+      "candidate_registry_sha256": "bc1c4bf702d27bf7374eb457ef10a22583ae0c1d97b39bc97a817b24eb24ff51",
+      "canonical_unit_id": "e4372741-4200-5ac4-b95e-8c12e07c2d77"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "28dc642f6b321ca51ab64683a9209b74b453cdbae46cec95bfa5da58b0a3c734",
+      "candidate_registry_sha256": "356468e5d08f5c2b2fc6f89fef11a61ff40c48157049d22c5c24746253a1f6f1",
+      "canonical_unit_id": "e50c9575-09f7-5599-9fab-b81c5298c378"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "796cea30352b5b790e2acbdde7b1fb3eb4d0e72bc0a739bbb7f1b1fd103e6817",
+      "candidate_registry_sha256": "9234a8691cbadc5756af593a9276a9de9bac0a478af2812b438a2231e848939e",
+      "canonical_unit_id": "e528fa1d-fb4a-5902-b56d-a31a315dc63f"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "05cf60399a263d3be5321f611a1c56063dc1bbf75f6b4d891007416a12e089b7",
+      "candidate_registry_sha256": "6b8a247e164fb2872eb0383fa8fc3155630c4d7e8228be164bfaa3fe1671dd8f",
+      "canonical_unit_id": "e7868e4b-2716-538f-9cfe-2891ba943d0f"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "ca19de6254eceb8ee569bed82051453abd59a793b1500cc4dc0b45154a362835",
+      "candidate_registry_sha256": "4347357ac9863ed7d886ce21d29ad43d40181f9a6275359512030647364ccabc",
+      "canonical_unit_id": "f04eb690-f4c4-5a33-934c-6a5331bb1321"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "cff91f583e9835a2bd08f3725760c92ef96fa837c060475c8ae2b22e0e27ca17",
+      "candidate_registry_sha256": "9f88f5879b892db6c40107b090eac66d76eb6f53a0ad68030e2aa50fb14633ed",
+      "canonical_unit_id": "f2c3243c-f7a9-51ac-81a4-10dff797a428"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "8918e45ed14edfa49399452abea8d207848e87ae1241eff085e46480e3ad2c9f",
+      "candidate_registry_sha256": "e619fc578105ffb1b4cd9da9570a8d3bf5db9bf79a8a9c709aa4a35e65a40824",
+      "canonical_unit_id": "f2f0d665-2dd8-58ac-9753-63fd5da3c82a"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "f26269ef8a480c4024f946d3f9ff28ac29df0e42b90ceb6c8d2b4ee6810b7860",
+      "candidate_registry_sha256": "0377b3e7f9ecd2029c7a5a5377b12f229d2311903b60f107c66a8509622358aa",
+      "canonical_unit_id": "f4ad452d-2cbb-5dad-89c6-e4ecf72ebb04"
+    },
+    {
+      "annotation_provenance": "ai_adjudicated_after_independent_second_review",
+      "annotation_sha256": "7f425cf7c99e18fa6f3cada451a7d8c872516b84b19372db6ed6c7f41241363e",
+      "candidate_registry_sha256": "1c7b7a5c19a3400e0391f861fa4909e0decb569b4aba6a83c46d2e6f7856a0c8",
+      "canonical_unit_id": "f7588125-a3f2-532b-8bf0-81e195a3be6f"
+    }
+  ],
+  "schema_version": "phase11-dev-candidate-compatible-release-v1",
+  "selection_fingerprint": "98a698a82ac8d444ad35cb037bb7fadb5e1c4ca1c1d63e5cee13a9e273107f05",
+  "semantic_annotation_changes": 0,
+  "semantic_annotation_release_fingerprint": "a48be5b6cacb4b0a1d2a45c82d4f4b2b12ec80c725447d9ff20d2e8355c80f04",
+  "semantic_annotation_release_sha256": "9e0f60baa9b19c7841c729643f257bb5be8a9f993e51b2d95660909421af53c1",
+  "split": "dev",
+  "unresolved": 0
+}

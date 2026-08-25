@@ -1,0 +1,44 @@
+{
+  "annotation_release_sha256": "9e0f60baa9b19c7841c729643f257bb5be8a9f993e51b2d95660909421af53c1",
+  "artifact_type": "phase11_hybrid_stage_b1_under_extraction_summary",
+  "b2_change_scope": "one bounded prompt-only DEV correction; no schema, candidate, validator, runtime, or model changes",
+  "candidate_policy_sha256": "dcc40496967242ee1cba99576bebce9eca3520d639f4ae25a6bb2fe0797cd675",
+  "clean_result_set_sha256": "910c1eabdc9d07c22a17706055bdb6e1ff94b69a6a8256dd3061f12a94c50083",
+  "completed": 79,
+  "disposition": "B2_JUSTIFIED_PROMPT_ONLY",
+  "empty_primary_causes": {
+    "FIELD_LOCAL_VALIDATION_REMOVED_ALL_CONTENT": 0,
+    "MODEL_RETURNED_EMPTY": 21,
+    "MODEL_RETURNED_ONLY_INVALID_ACTIONS": 1,
+    "MODEL_RETURNED_ONLY_INVALID_CANDIDATE_REFS": 38,
+    "MODEL_RETURNED_ONLY_NONEXACT_SPANS": 0,
+    "OTHER": 0,
+    "REFERENCE_ITSELF_EMPTY": 1
+  },
+  "empty_with_nonempty_reference": 57,
+  "implementation_defect": false,
+  "normative_rule_diagnosis": {
+    "final_rules": 36,
+    "gold_rules": 134,
+    "invalid_action_drops": 23,
+    "provider_exact_valid_actions": 36,
+    "provider_fewer_than_gold_records": 51,
+    "provider_no_rule_records_with_gold": 49,
+    "provider_rules": 59
+  },
+  "records": 80,
+  "reference_status": "AI-reviewed/adjudicated; not human gold",
+  "regulated_entity_diagnosis": {
+    "accepted": 0,
+    "gold_support_completed": 76,
+    "gold_support_end_to_end": 79,
+    "provider_proposals": 0,
+    "rejected": 0
+  },
+  "schema_sha256": "7e1e0287c0a384d09fddc419964e3422b95a1540d2a7fc92aca58fa692d03ee0",
+  "schema_version": 1,
+  "split": "dev",
+  "stage": "hybrid-qwen-v1-stage-b1-clean",
+  "template_sha256": "6cf49ae83d9917621d8487f91c0f176dfb316f2d0b3cf0f8867330ba6c1daf58",
+  "valid_empty_results": 61
+}

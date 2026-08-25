@@ -1,0 +1,256 @@
+{
+  "annotation_release_fingerprint": "a48be5b6cacb4b0a1d2a45c82d4f4b2b12ec80c725447d9ff20d2e8355c80f04",
+  "annotation_schema_version": "phase11-proposal-v1",
+  "artifact_type": "phase11_deterministic_dev_evaluation",
+  "candidate_policy_version": "phase11-candidates-v2",
+  "clause_exact_match": {
+    "accuracy": 0.225,
+    "exact_records": 18,
+    "record_count": 80
+  },
+  "deterministic_candidate_performance": {
+    "monetary": {
+      "candidate_registry_total": 0,
+      "gold_references_present_in_registry": 0,
+      "gold_semantic_support": 0,
+      "normalization_status_counts": {},
+      "records_with_candidate": 0,
+      "semantic_classification": {
+        "metric": "not_estimable",
+        "support": 0
+      }
+    },
+    "percentage": {
+      "candidate_registry_total": 0,
+      "gold_references_present_in_registry": 0,
+      "gold_semantic_support": 0,
+      "normalization_status_counts": {},
+      "records_with_candidate": 0,
+      "semantic_classification": {
+        "metric": "not_estimable",
+        "support": 0
+      }
+    },
+    "referenced_article": {
+      "candidate_registry_total": 0,
+      "gold_references_present_in_registry": 0,
+      "gold_semantic_support": 0,
+      "normalization_status_counts": {},
+      "records_with_candidate": 0,
+      "semantic_classification": {
+        "metric": "not_estimable",
+        "reason": "phase11 semantic annotation schema has no article/regulation reference fields",
+        "support": 0
+      }
+    },
+    "referenced_regulation": {
+      "candidate_registry_total": 41,
+      "gold_references_present_in_registry": 0,
+      "gold_semantic_support": 0,
+      "normalization_status_counts": {
+        "partial": 41
+      },
+      "records_with_candidate": 25,
+      "semantic_classification": {
+        "metric": "not_estimable",
+        "reason": "phase11 semantic annotation schema has no article/regulation reference fields",
+        "support": 0
+      }
+    },
+    "temporal": {
+      "candidate_registry_total": 21,
+      "gold_references_present_in_registry": 14,
+      "gold_semantic_support": 14,
+      "normalization_status_counts": {
+        "normalized": 20,
+        "partial": 1
+      },
+      "records_with_candidate": 13,
+      "semantic_classification": {
+        "F1": 0.0,
+        "FN": 14,
+        "FP": 0,
+        "TP": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "support": 14
+      }
+    }
+  },
+  "eligibility_policy_version": "phase11-eligibility-v2",
+  "engineering_metrics": {
+    "FinalSchemaValidityRate": 1.0,
+    "InvalidCandidateReferenceAcceptanceRate": 0.0,
+    "InvalidCandidateReferenceRate": 0.0,
+    "ProvenanceCompletenessRate": 1.0,
+    "RawProviderSchemaValidityRate": 1.0,
+    "UnsupportedSpanAcceptanceRate": 0.0,
+    "UnsupportedSpanProposalRate": 0.0
+  },
+  "error_taxonomy": {
+    "empty_gold_records": 18,
+    "empty_predicted_records": 80,
+    "evaluator_error_counts": {
+      "MISSED_EXTRACTION": 131,
+      "SPURIOUS_EXTRACTION": 41
+    },
+    "gold_rule_count": 134,
+    "predicted_rule_count": 0
+  },
+  "evaluation_set_type": "ai_reviewed_adjudicated_not_human_gold",
+  "extractor": "deterministic-v1",
+  "field_metric_notes": {
+    "referenced_article_and_regulation": "semantic gold fields are not present in the Phase-11 proposal schema; candidate registry counts are reported separately",
+    "zero_support_policy": "TP/FP/FN/support are retained; precision/recall/F1 are not_estimable when support is zero"
+  },
+  "field_metrics": {
+    "deadlines": {
+      "F1": 0.0,
+      "FN": 9,
+      "FP": 0,
+      "TP": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "support": 9
+    },
+    "effective_dates": {
+      "F1": 0.0,
+      "FN": 5,
+      "FP": 0,
+      "TP": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "support": 5
+    },
+    "exceptions": {
+      "F1": 0.0,
+      "FN": 26,
+      "FP": 0,
+      "TP": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "support": 26
+    },
+    "monetary_thresholds": {
+      "F1": null,
+      "FN": 0,
+      "FP": 0,
+      "TP": 0,
+      "metric": "not_estimable",
+      "precision": null,
+      "reason": "no adjudicated semantic support for this field in the Phase-11 annotation schema",
+      "recall": null,
+      "support": 0
+    },
+    "penalties": {
+      "F1": 0.0,
+      "FN": 12,
+      "FP": 0,
+      "TP": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "support": 12
+    },
+    "percentage_thresholds": {
+      "F1": null,
+      "FN": 0,
+      "FP": 0,
+      "TP": 0,
+      "metric": "not_estimable",
+      "precision": null,
+      "reason": "no adjudicated semantic support for this field in the Phase-11 annotation schema",
+      "recall": null,
+      "support": 0
+    },
+    "referenced_articles": {
+      "F1": null,
+      "FN": 0,
+      "FP": 0,
+      "TP": 0,
+      "metric": "not_estimable",
+      "precision": null,
+      "reason": "no adjudicated semantic support for this field in the Phase-11 annotation schema",
+      "recall": null,
+      "support": 0
+    },
+    "referenced_regulations": {
+      "F1": null,
+      "FN": 0,
+      "FP": 41,
+      "TP": 0,
+      "metric": "not_estimable",
+      "precision": null,
+      "reason": "no adjudicated semantic support for this field in the Phase-11 annotation schema",
+      "recall": null,
+      "support": 0
+    },
+    "regulated_entities": {
+      "F1": 0.0,
+      "FN": 79,
+      "FP": 0,
+      "TP": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "support": 79
+    }
+  },
+  "holdout_accessed": false,
+  "interpretation_state": "superseded_diagnostic",
+  "lifecycle_state": "complete",
+  "macro_F1": 0.0,
+  "micro": {
+    "F1": 0.0,
+    "FN": 131,
+    "FP": 41,
+    "TP": 0,
+    "precision": 0.0,
+    "recall": 0.0,
+    "support": 131
+  },
+  "model_calls": 0,
+  "normalized_deterministic_value_accuracy": {
+    "metric": "not_estimable",
+    "reason": "no independent normalized-value gold field exists; candidate normalization is deterministic registry output"
+  },
+  "normative_rule_metrics": {
+    "action_span": {
+      "F1": 0.0,
+      "FN": 134,
+      "FP": 0,
+      "TP": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "support": 134
+    },
+    "actor_span": {
+      "F1": 0.0,
+      "FN": 76,
+      "FP": 0,
+      "TP": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "support": 76
+    },
+    "clause_exact_match_rate": 0.225,
+    "clause_exact_match_records": 18,
+    "full_rule": {
+      "F1": 0.0,
+      "FN": 134,
+      "FP": 0,
+      "TP": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "support": 134
+    },
+    "modality_accuracy": 0.0
+  },
+  "private_evaluation_artifact": "artifacts/private/phase11_extraction/evaluation/deterministic-v1/dev/phase11_dev_deterministic_metrics_v1.json",
+  "private_result_directory": "artifacts/private/phase11_extraction/results/deterministic-v2/dev/",
+  "record_count": 80,
+  "schema_version": "phase11-deterministic-dev-evaluation-v1",
+  "selection_fingerprint": "98a698a82ac8d444ad35cb037bb7fadb5e1c4ca1c1d63e5cee13a9e273107f05",
+  "selection_version": "phase11-selection-v2",
+  "split": "dev",
+  "superseded_by": "data/evaluation/phase11_deterministic_dev_candidate_metrics_v3.json",
+  "supersession_reason": "deterministic-v1 intentionally emits candidate registries, not semantic role classifications"
+}
