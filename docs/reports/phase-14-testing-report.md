@@ -34,7 +34,47 @@ synthetic text only.
 
 ## Final verification record
 
-The base SHA is `294c8c171abc0e93d826ffbb6d2cf019c63e6d44`. The final SHA, PR metadata, fresh CI status, coverage, Docker architecture,
-Compose outcome, and cleanup result are recorded here after the final
-verification commands and remote CI run. This report intentionally does not
-invent unavailable remote or local Docker evidence.
+The authoritative base SHA is
+`294c8c171abc0e93d826ffbb6d2cf019c63e6d44`. The implementation head verified
+by the fresh remote run is
+`2247e788f909d316e25655722d4ccbd3c5e54756`.
+
+Local verification on macOS/Python 3.12:
+
+- `make check`: 881 passed, 1 skipped, 42 deselected; 85.11% branch coverage.
+- `make test-unit`: 860 passed, 1 skipped.
+- `make test-integration`: 16 passed.
+- `make test-regression`: 5 passed, covering all 20 public cases and the
+  configuration lock.
+- `make test-model-regression`: 1 passed from the existing local BGE-M3 and
+  BGE reranker cache; no download occurred.
+- `tests/test_public_ci_policy.py`: 1 passed.
+
+PR and remote CI:
+
+- PR [#10](https://github.com/Joseph-Nawar/Kawaneen/pull/10) is open against
+  `main`, not merged, with merge state `CLEAN`/`MERGEABLE` at verification.
+- Workflow run
+  [32890984816](https://github.com/Joseph-Nawar/Kawaneen/actions/runs/32890984816)
+  passed all three jobs: quality Python 3.11 (1m54s), quality Python 3.12
+  (2m08s), and `e2e-compose` (37s).
+- The successful Compose job exercised health, search, grounded answer,
+  verified citation/display, and deliberate abstention in the public
+  synthetic stack.
+
+Docker details:
+
+- The local Docker daemon reported `linux/arm64` (Docker 29.7.2), and the
+  Compose definition contains no `platform: linux/amd64` override.
+- The exact local Compose command was attempted after implementation and
+  again after the CI fix. Both local attempts were blocked before image build
+  by Docker Hub registry-auth `DeadlineExceeded` timeouts; the second attempt
+  also confirmed the CI-discovered dependency fix in the tree. The cleanup
+  command `docker compose -f docker-compose.e2e.yml down -v --remove-orphans`
+  was run, leaving no project containers or volumes.
+
+Integrity checks passed: no Qdrant, HOLDOUT access, tuning, model download,
+private corpus, secret, or machine-local path was added; frozen Phase 7–13
+result artifacts were not modified; and `git diff --check` is clean. The
+report update itself is documentation-only after the tested implementation
+head above.
