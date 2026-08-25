@@ -10,7 +10,6 @@ from pathlib import Path
 from statistics import median, quantiles
 from typing import Any
 
-
 _ALLOWED_SOURCES = (
     Path("data/evaluation/phase8_comparison.json"),
     Path("data/evaluation/phase10_qwen_stage_d_metrics.json"),
@@ -71,7 +70,9 @@ def build_evaluation_snapshot(root: Path) -> EvaluationSnapshot:
 
     phase8 = source_data[Path("data/evaluation/phase8_comparison.json")]
     phase10 = source_data[Path("data/evaluation/phase10_qwen_stage_d_metrics.json")]
-    phase11 = source_data[Path("data/evaluation/phase11_hybrid_qwen_stage_b2_clean_holdout_report.json")]
+    phase11 = source_data[
+        Path("data/evaluation/phase11_hybrid_qwen_stage_b2_clean_holdout_report.json")
+    ]
     end_to_end = phase11["end_to_end_40_record_view"]
     micro = end_to_end["micro"]
     safety = phase11["safety_structural_metrics"]
@@ -97,18 +98,26 @@ def build_evaluation_snapshot(root: Path) -> EvaluationSnapshot:
         "micro_recall": float(micro["recall"]),
         "micro_f1": float(micro["F1"]),
         "schema_validity": float(safety["FinalSchemaValidityRate"]["end_to_end"]["rate"]),
-        "provenance_completeness": float(safety["ProvenanceCompletenessRate"]["end_to_end"]["rate"]),
+        "provenance_completeness": float(
+            safety["ProvenanceCompletenessRate"]["end_to_end"]["rate"]
+        ),
         "full_rule_exact_f1": float(end_to_end["normative"]["full_rule_exact_match"]["F1"]),
-        "error_taxonomy": {key: int(value) for key, value in sorted(phase11["error_taxonomy"].items())},
+        "error_taxonomy": {
+            key: int(value) for key, value in sorted(phase11["error_taxonomy"].items())
+        },
         "scope_note": "Phase 11 protected HOLDOUT summary from the tracked sanitized report.",
     }
-    return EvaluationSnapshot("phase13-evaluation-v1", tuple(sources), retrieval, generation, extraction)
+    return EvaluationSnapshot(
+        "phase13-evaluation-v1", tuple(sources), retrieval, generation, extraction
+    )
 
 
 def write_evaluation_snapshot(root: Path, destination: Path) -> None:
     snapshot = build_evaluation_snapshot(root)
     destination.parent.mkdir(parents=True, exist_ok=True)
-    destination.write_text(json.dumps(snapshot.to_dict(), ensure_ascii=False, indent=2, sort_keys=True) + "\n")
+    destination.write_text(
+        json.dumps(snapshot.to_dict(), ensure_ascii=False, indent=2, sort_keys=True) + "\n"
+    )
 
 
 def aggregate_latency(values: Sequence[float], limit: int = 50) -> LatencySummary:
@@ -119,7 +128,9 @@ def aggregate_latency(values: Sequence[float], limit: int = 50) -> LatencySummar
         values=recent,
         count=len(recent),
         median=float(median(recent)),
-        p95=float(quantiles(recent, n=100, method="inclusive")[94]) if len(recent) > 1 else recent[0],
+        p95=float(quantiles(recent, n=100, method="inclusive")[94])
+        if len(recent) > 1
+        else next(iter(recent)),
         minimum=min(recent),
         maximum=max(recent),
     )
@@ -130,7 +141,11 @@ def _retrieval_models(split: dict[str, Any]) -> dict[str, dict[str, float]]:
     for name, payload in split.items():
         metrics = payload.get("metrics", {})
         selected = {
-            metric: float(metrics[metric]["value"] if isinstance(metrics[metric], dict) and "value" in metrics[metric] else metrics[metric])
+            metric: float(
+                metrics[metric]["value"]
+                if isinstance(metrics[metric], dict) and "value" in metrics[metric]
+                else metrics[metric]
+            )
             for metric in ("MRR@10", "nDCG@10", "Recall@10")
             if metric in metrics
         }

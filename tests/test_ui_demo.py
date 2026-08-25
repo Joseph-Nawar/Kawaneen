@@ -23,4 +23,3 @@ def test_demo_client_exposes_grounded_and_abstention_answers() -> None:
     assert abstention.answerable is False
     assert abstention.answer is None
     assert abstention.abstention_reason
-

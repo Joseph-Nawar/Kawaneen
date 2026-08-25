@@ -8,16 +8,18 @@ from kawaneen.api.contracts import ExtractionResponse
 from kawaneen.corpus.models import SourceProvenance
 from kawaneen.extraction.contracts import (
     CandidateRegistry,
-    ExtractionResult,
-    NormativeRule,
     ExactSourceSpan,
+    ExtractionResult,
     Modality,
+    NormativeRule,
 )
 
 
 def extraction_response(text: str, mode: str) -> ExtractionResponse:
     phrase = "thirty days" if "thirty" in text.lower() else "ثلاثين يوماً"
-    start = text.lower().find(phrase.lower()) if phrase.lower() in text.lower() else text.find(phrase)
+    start = (
+        text.lower().find(phrase.lower()) if phrase.lower() in text.lower() else text.find(phrase)
+    )
     if start < 0:
         start = 0
         phrase = text[: min(12, len(text))] or "synthetic"

@@ -27,7 +27,20 @@ def extraction_csv(items: Sequence[ExtractionItem]) -> bytes:
     writer.writeheader()
     for segment_id, response in items:
         result = response.result
-        for field in ("obligations", "prohibitions", "permissions", "deadlines", "exceptions", "regulated_entities"):
+        for field in (
+            "obligations",
+            "prohibitions",
+            "permissions",
+            "deadlines",
+            "exceptions",
+            "regulated_entities",
+        ):
             value = getattr(result, field)
-            writer.writerow({"segment_id": segment_id, "field": field, "value": json.dumps(value, ensure_ascii=False, default=str)})
+            writer.writerow(
+                {
+                    "segment_id": segment_id,
+                    "field": field,
+                    "value": json.dumps(value, ensure_ascii=False, default=str),
+                }
+            )
     return output.getvalue().encode("utf-8")

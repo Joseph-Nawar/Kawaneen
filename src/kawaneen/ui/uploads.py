@@ -47,15 +47,23 @@ def extract_text(name: str, payload: bytes) -> str:
             reader = PdfReader(io.BytesIO(payload))
             text = "\n".join(page.extract_text() or "" for page in reader.pages)
         except Exception as error:
-            raise ValueError("This PDF has no readable text; scanned-document OCR belongs to the ingestion pipeline.") from error
+            raise ValueError(
+                "This PDF has no readable text; scanned-document OCR belongs to "
+                "the ingestion pipeline."
+            ) from error
     else:
         raise ValueError("Only .txt, .md, and text-based .pdf files are supported.")
     if not text.strip():
-        raise ValueError("This file has no readable text; scanned-document OCR belongs to the ingestion pipeline.")
+        raise ValueError(
+            "This file has no readable text; scanned-document OCR belongs to "
+            "the ingestion pipeline."
+        )
     return text
 
 
-def segment_text(text: str, max_chars: int = 18_000, max_segments: int = 5) -> tuple[TextSegment, ...]:
+def segment_text(
+    text: str, max_chars: int = 18_000, max_segments: int = 5
+) -> tuple[TextSegment, ...]:
     if not text.strip():
         raise ValueError("Text must contain at least one non-whitespace character.")
     if max_chars < 1 or max_chars > 20_000:

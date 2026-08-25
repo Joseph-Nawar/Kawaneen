@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import cast
+
 from kawaneen.api.contracts import (
     AnswerResponse,
     DocumentDetail,
@@ -70,7 +72,7 @@ class DemoClient(UiClient):
                     },
                 ],
             }
-        results = payload["results"][:limit]
+        results = cast(list[dict[str, object]], payload["results"])[:limit]
         return SearchResponse.model_validate(
             {
                 **payload,
@@ -81,7 +83,7 @@ class DemoClient(UiClient):
                     "dense_top_k": 50,
                     "fused_candidate_count": 20,
                     "reranker_depth": 8,
-                    "top_score": results[0]["score"],
+                    "top_score": cast(float, results[0]["score"]),
                     "hit_count": len(results),
                     "returned_count": len(results),
                     "score_type": "reranker_raw_logit",
@@ -157,11 +159,21 @@ class DemoClient(UiClient):
         ]
         page = items[offset : offset + limit]
         return DocumentPage.model_validate(
-            {"request_id": "demo-documents", "items": page, "offset": offset, "limit": limit, "total": len(items)}
+            {
+                "request_id": "demo-documents",
+                "items": page,
+                "offset": offset,
+                "limit": limit,
+                "total": len(items),
+            }
         )
 
     def get_document(self, document_id: str) -> DocumentDetail:
-        title = "Employment Procedures Regulation" if document_id == "demo-employment" else "لائحة الإجراءات التجريبية"
+        title = (
+            "Employment Procedures Regulation"
+            if document_id == "demo-employment"
+            else "لائحة الإجراءات التجريبية"
+        )
         return DocumentDetail.model_validate(
             {
                 "request_id": "demo-document-detail",
@@ -173,18 +185,53 @@ class DemoClient(UiClient):
                     "unit_count": 2,
                 },
                 "units": [
-                    {"unit_id": f"{document_id}-u1", "ordinal": 1, "unit_type": "article", "text": "Synthetic heading", "heading_path": ()},
-                    {"unit_id": f"{document_id}-u2", "ordinal": 2, "unit_type": "article", "text": "An appeal may be filed within thirty days from notification.", "heading_path": ("Synthetic",)},
+                    {
+                        "unit_id": f"{document_id}-u1",
+                        "ordinal": 1,
+                        "unit_type": "article",
+                        "text": "Synthetic heading",
+                        "heading_path": (),
+                    },
+                    {
+                        "unit_id": f"{document_id}-u2",
+                        "ordinal": 2,
+                        "unit_type": "article",
+                        "text": "An appeal may be filed within thirty days from notification.",
+                        "heading_path": ("Synthetic",),
+                    },
                 ],
             }
         )
 
     def health(self) -> HealthResponse:
         return HealthResponse.model_validate(
-            {"request_id": "demo-health", "status": "ready", "components": [{"name": "demo-fixtures", "ready": True, "required": True, "detail": "Synthetic data"}]}
+            {
+                "request_id": "demo-health",
+                "status": "ready",
+                "components": [
+                    {
+                        "name": "demo-fixtures",
+                        "ready": True,
+                        "required": True,
+                        "detail": "Synthetic data",
+                    }
+                ],
+            }
         )
 
     def models(self) -> ModelsResponse:
         return ModelsResponse.model_validate(
-            {"request_id": "demo-models", "capabilities": [{"capability": "retrieval", "provider": "synthetic-demo", "model": "fixture", "revision": "tracked", "loaded": True, "ready": True}]}
+            {
+                "request_id": "demo-models",
+                "capabilities": [
+                    {
+                        "capability": "retrieval",
+                        "provider": "synthetic-demo",
+                        "model": "fixture",
+                        "revision": "tracked",
+                        "loaded": True,
+                        "ready": True,
+                    }
+                ],
+            }
         )

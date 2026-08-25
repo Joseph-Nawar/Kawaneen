@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 from dataclasses import dataclass
-from typing import Any, Protocol, TypeVar
+from typing import Any, Protocol, TypeVar, cast
 from uuid import uuid4
 
 import httpx
@@ -69,7 +69,9 @@ class HttpUiClient:
         self._client.close()
 
     def search(self, query: str, limit: int = 8) -> SearchResponse:
-        return self._post("/v1/search", {"query": query, "jurisdiction": "SA", "limit": limit}, SearchResponse)
+        return self._post(
+            "/v1/search", {"query": query, "jurisdiction": "SA", "limit": limit}, SearchResponse
+        )
 
     def answer(self, query: str) -> AnswerResponse:
         return self._post("/v1/answer", {"query": query, "jurisdiction": "SA"}, AnswerResponse)
@@ -130,16 +132,21 @@ class HttpUiClient:
         try:
             return model.model_validate(response.json())
         except (ValueError, ValidationError) as error:
-            raise UiApiError("API_INVALID_RESPONSE", "The Phase 12 API returned an invalid response.") from error
+            raise UiApiError(
+                "API_INVALID_RESPONSE", "The Phase 12 API returned an invalid response."
+            ) from error
 
 
 def _api_error(response: httpx.Response) -> UiApiError:
     try:
         payload = response.json()
-        error = payload.get("error", {}) if isinstance(payload, dict) else {}
+        payload_map = cast(dict[str, object], payload) if isinstance(payload, dict) else {}
+        raw_error = payload_map.get("error")
+        error = cast(dict[str, object], raw_error) if isinstance(raw_error, dict) else {}
         code = str(error.get("code", "API_ERROR"))
         message = str(error.get("message", "The Phase 12 API returned an error."))
-        request_id = payload.get("request_id") if isinstance(payload, dict) else None
+        raw_request_id = payload_map.get("request_id")
+        request_id = raw_request_id if isinstance(raw_request_id, str) else None
     except ValueError:
         code = "API_ERROR"
         message = "The Phase 12 API returned an error."
