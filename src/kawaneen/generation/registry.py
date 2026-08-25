@@ -97,9 +97,7 @@ def load_generation_lock(
             ollama_model=model_tag_value,
             role=str(qwen.get("role", "primary-local-candidate")),
             ollama_digest=(
-                str(qwen["ollama_digest"])
-                if isinstance(qwen.get("ollama_digest"), str)
-                else None
+                str(qwen["ollama_digest"]) if isinstance(qwen.get("ollama_digest"), str) else None
             ),
         ),
         revision_value,

@@ -117,9 +117,7 @@ def assemble_or_load_stage_c_context(
             jurisdiction_text=jurisdiction_text,
         ).text
     )
-    evidence_budget = (
-        settings.total_input_tokens - fixed_prompt_tokens - settings.safety_margin
-    )
+    evidence_budget = settings.total_input_tokens - fixed_prompt_tokens - settings.safety_margin
     if evidence_budget <= 0:
         raise ValueError("Stage-C fixed prompt overhead leaves no evidence budget")
     fingerprint = stage_c_context_cache_fingerprint(
@@ -250,8 +248,7 @@ def _load_cached(
             or registry_value.get("schema_version") != STAGE_C_CONTEXT_CACHE_SCHEMA_VERSION
             or registry_value.get("fingerprint") != fingerprint
             or context_value.get("query_id") != context_seed.query_id
-            or context_value.get("phase8_selection_sha256")
-            != context_seed.phase8_selection_sha256
+            or context_value.get("phase8_selection_sha256") != context_seed.phase8_selection_sha256
             or chunk_ids != context_seed.input_chunk_ids
             or context_value.get("phase9_policy_hash") != phase9_policy_hash
             or context_value.get("tokenizer_id") != tokenizer.fingerprint.identity

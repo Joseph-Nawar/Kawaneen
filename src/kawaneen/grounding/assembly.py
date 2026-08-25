@@ -110,9 +110,7 @@ class ContextAssembler:
             canonical_corpus_hash=canonical_corpus_hash,
             input_chunk_ids=tuple(
                 item.chunk_id
-                for item in sorted(
-                    ranked_inputs, key=lambda value: (value.rank, value.chunk_id)
-                )
+                for item in sorted(ranked_inputs, key=lambda value: (value.rank, value.chunk_id))
             ),
         )
         if self._count(result) > self.max_context_tokens:

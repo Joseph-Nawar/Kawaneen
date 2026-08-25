@@ -113,14 +113,9 @@ def audit_dev(*, max_context_tokens: int = 4096) -> dict[str, object]:
     ranked = load_frozen_phase8_dev_rankings()
     grouped = _group_rankings(ranked)
     packs = tuple(
-        ContextPack.model_validate(_private_pack_payload(query_id))
-        for query_id in sorted(grouped)
+        ContextPack.model_validate(_private_pack_payload(query_id)) for query_id in sorted(grouped)
     )
-    items = tuple(
-        item
-        for item in read_items_jsonl(ITEMS)
-        if item.split == DatasetSplit.DEV
-    )
+    items = tuple(item for item in read_items_jsonl(ITEMS) if item.split == DatasetSplit.DEV)
     metrics = audit_dev_contexts(packs, grouped, resolver=resolver, items=items)
     unbounded_packs = _assemble_unbounded_dev(
         grouped,
@@ -267,9 +262,7 @@ def _metadata_audit(
     resolver: CanonicalCorpusResolver,
     grouped: dict[str, tuple[RetrievalInput, ...]],
 ) -> dict[str, object]:
-    input_chunk_ids = {
-        item.chunk_id for rows in grouped.values() for item in rows
-    }
+    input_chunk_ids = {item.chunk_id for rows in grouped.values() for item in rows}
     input_document_ids: set[str] = set()
     input_units: set[str] = set()
     for chunk_id in input_chunk_ids:
@@ -330,9 +323,7 @@ def _metadata_audit(
                 "document_title",
                 title_count,
                 status="available_upstream_wired",
-                source_locations=tuple(
-                    path.as_posix() + ": title" for path in CANONICAL_DOCUMENTS
-                ),
+                source_locations=tuple(path.as_posix() + ": title" for path in CANONICAL_DOCUMENTS),
                 note="Resolved from canonical document records; never from retrieval metadata.",
             ),
             "jurisdiction": document_field(
@@ -345,8 +336,7 @@ def _metadata_audit(
                     "jurisdiction is not source provenance",
                 ),
                 note=(
-                    "No authoritative jurisdiction field exists for the retrieved "
-                    "document records."
+                    "No authoritative jurisdiction field exists for the retrieved document records."
                 ),
             ),
             "article": document_field(

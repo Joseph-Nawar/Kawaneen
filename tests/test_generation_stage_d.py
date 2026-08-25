@@ -238,9 +238,7 @@ def test_stage_d_schema_accepts_only_direct_claims() -> None:
             json.dumps(
                 {
                     "decision": "answer",
-                    "claims": [
-                        {"mode": "interpretation", "text": "x", "quote_refs": ["Q001"]}
-                    ],
+                    "claims": [{"mode": "interpretation", "text": "x", "quote_refs": ["Q001"]}],
                 }
             )
         )
@@ -256,9 +254,7 @@ def test_stage_d_schema_forbids_extra_fields_and_exposes_no_interpretation() -> 
             json.dumps(
                 {
                     "decision": "answer",
-                    "claims": [
-                        {"mode": "direct", "quote_refs": ["Q001"], "text": "forbidden"}
-                    ],
+                    "claims": [{"mode": "direct", "quote_refs": ["Q001"], "text": "forbidden"}],
                 }
             )
         )
@@ -270,9 +266,7 @@ def test_stage_d_schema_enforces_direct_claim_and_reference_limits() -> None:
             json.dumps(
                 {
                     "decision": "answer",
-                    "claims": [
-                        {"mode": "direct", "quote_refs": ["Q001", "Q002", "Q003", "Q004"]}
-                    ],
+                    "claims": [{"mode": "direct", "quote_refs": ["Q001", "Q002", "Q003", "Q004"]}],
                 }
             )
         )

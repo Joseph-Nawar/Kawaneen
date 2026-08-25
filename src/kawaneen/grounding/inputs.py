@@ -9,9 +9,7 @@ from typing import cast
 
 from kawaneen.grounding.contracts import RetrievalInput
 
-PHASE8_SELECTION_SHA256 = (
-    "a62cc772f2b71883355c7935da7e7b87ab4d22b3746553148b4f64ef20f28b0b"
-)
+PHASE8_SELECTION_SHA256 = "a62cc772f2b71883355c7935da7e7b87ab4d22b3746553148b4f64ef20f28b0b"
 PHASE8_SELECTION = Path("data/manifests/retrieval/phase8_dev_selection.json")
 PHASE8_RERANK_ROOT = Path("artifacts/private/phase8_retrieval/rerank")
 

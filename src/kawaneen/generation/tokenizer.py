@@ -99,8 +99,7 @@ def _default_loader(identity: str, revision: str) -> object:
     snapshot = _resolve_local_tokenizer_snapshot(identity, revision)
     if snapshot is None:
         raise ValueError(
-            "exact pinned tokenizer revision is unavailable locally: "
-            f"{identity}@{revision}"
+            f"exact pinned tokenizer revision is unavailable locally: {identity}@{revision}"
         )
     from transformers import AutoTokenizer
 

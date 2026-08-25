@@ -287,13 +287,10 @@ def _source_entries(
 ) -> tuple[SourceEligibility, ...]:
     registry = source_registry or load_source_eligibility_registry()
     source_ids = {
-        evidence.source.source_id
-        for evidence in pack.evidence
-        if evidence.source.source_id
+        evidence.source.source_id for evidence in pack.evidence if evidence.source.source_id
     }
     return tuple(
-        registry.get(source_id, SourceEligibility(source_id=source_id))
-        for source_id in source_ids
+        registry.get(source_id, SourceEligibility(source_id=source_id)) for source_id in source_ids
     )
 
 

@@ -341,7 +341,12 @@ def build_parser() -> argparse.ArgumentParser:
     )
     status_parser.add_argument(
         "--generator",
-        choices=("qwen-ollama", "qwen-ollama-stage-b", "qwen-ollama-stage-c", "qwen-ollama-stage-d"),
+        choices=(
+            "qwen-ollama",
+            "qwen-ollama-stage-b",
+            "qwen-ollama-stage-c",
+            "qwen-ollama-stage-d",
+        ),
         required=True,
     )
     readiness_parser = generation_subparsers.add_parser(
@@ -349,7 +354,12 @@ def build_parser() -> argparse.ArgumentParser:
     )
     readiness_parser.add_argument(
         "--generator",
-        choices=("qwen-ollama", "qwen-ollama-stage-b", "qwen-ollama-stage-c", "qwen-ollama-stage-d"),
+        choices=(
+            "qwen-ollama",
+            "qwen-ollama-stage-b",
+            "qwen-ollama-stage-c",
+            "qwen-ollama-stage-d",
+        ),
         required=True,
     )
     run_parser = generation_subparsers.add_parser(
@@ -357,7 +367,12 @@ def build_parser() -> argparse.ArgumentParser:
     )
     run_parser.add_argument(
         "--generator",
-        choices=("qwen-ollama", "qwen-ollama-stage-b", "qwen-ollama-stage-c", "qwen-ollama-stage-d"),
+        choices=(
+            "qwen-ollama",
+            "qwen-ollama-stage-b",
+            "qwen-ollama-stage-c",
+            "qwen-ollama-stage-d",
+        ),
         required=True,
     )
     run_parser.add_argument("--resume", action="store_true")
@@ -770,9 +785,7 @@ def main(argv: list[str] | None = None) -> int:
                     )
                 )
             elif args.generation_command == "timeout-diagnostic-status":
-                print(
-                    json.dumps(timeout_diagnostic_status(), ensure_ascii=False, sort_keys=True)
-                )
+                print(json.dumps(timeout_diagnostic_status(), ensure_ascii=False, sort_keys=True))
             elif args.generation_command == "evaluate-timeout-diagnostic":
                 print(
                     json.dumps(

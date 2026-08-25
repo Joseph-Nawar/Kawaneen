@@ -54,19 +54,22 @@ def test_claim_and_draft_are_strict_but_allow_structural_validation_later() -> N
     claim = ClaimDraft(claim_id="C001", claim_text="يثبت النص الواقعة", citations=())
     draft = GeneratedDraft(answer_text="إجابة", claims=(claim,))
     assert draft.claims[0].claim_id == "C001"
-    assert ContextPack(
-        query_id="q1",
-        phase8_selection_sha256="a" * 64,
-        canonical_corpus_hash="b" * 64,
-        assembly_policy_version="phase9-v1",
-        token_counter_identity="fake-v1",
-        max_context_tokens=10,
-        token_count=0,
-        units=(),
-        blocks=(),
-        evidence=(),
-        omissions=(),
-    ).evidence == ()
+    assert (
+        ContextPack(
+            query_id="q1",
+            phase8_selection_sha256="a" * 64,
+            canonical_corpus_hash="b" * 64,
+            assembly_policy_version="phase9-v1",
+            token_counter_identity="fake-v1",
+            max_context_tokens=10,
+            token_count=0,
+            units=(),
+            blocks=(),
+            evidence=(),
+            omissions=(),
+        ).evidence
+        == ()
+    )
 
 
 def test_empty_identifiers_and_quotes_are_rejected_at_contract_boundary() -> None:

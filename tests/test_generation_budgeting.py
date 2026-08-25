@@ -93,6 +93,7 @@ def test_budget_rejects_a_rendered_prompt_that_exceeds_the_contract() -> None:
 
 def test_budget_prompt_injects_server_controlled_jurisdiction() -> None:
     original = pack(("E001", "u1", "The rule applies."))
+
     class CapturingTokenizer(CodepointTokenizer):
         def __init__(self) -> None:
             self.seen: list[str] = []

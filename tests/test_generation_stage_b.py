@@ -89,8 +89,7 @@ def _resolver(tmp_path: Path) -> CanonicalCorpusResolver:
     )
     chunks = tmp_path / "chunks.jsonl"
     chunks.write_text(
-        json.dumps({"chunk_id": "c1", "source_unit_ids": ["u1"], "source_spans": []})
-        + "\n",
+        json.dumps({"chunk_id": "c1", "source_unit_ids": ["u1"], "source_spans": []}) + "\n",
         encoding="utf-8",
     )
     return CanonicalCorpusResolver.from_json(canonical, chunks)

@@ -221,9 +221,7 @@ def test_ollama_identity_lock_requires_exact_tag_and_persists_digest(tmp_path: P
         ("SHA256:" + "C" * 64, "sha256:" + "c" * 64),
     ),
 )
-def test_normalize_sha256_digest_canonicalizes_api_values(
-    external: str, expected: str
-) -> None:
+def test_normalize_sha256_digest_canonicalizes_api_values(external: str, expected: str) -> None:
     assert normalize_sha256_digest(external) == expected
 
 

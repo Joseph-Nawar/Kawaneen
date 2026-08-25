@@ -147,9 +147,9 @@ def test_quote_registry_fingerprint_changes_when_context_changes() -> None:
                     changed_pack.blocks[0].model_copy(
                         update={
                             "units": (
-                                changed_pack.blocks[0].units[0].model_copy(
-                                    update={"display_text": "Changed."}
-                                ),
+                                changed_pack.blocks[0]
+                                .units[0]
+                                .model_copy(update={"display_text": "Changed."}),
                                 changed_pack.blocks[0].units[1],
                             )
                         }
@@ -362,8 +362,7 @@ def test_stage_c_ollama_schema_resolves_refs_and_persists_native_telemetry() -> 
             self.payload = payload
             return {
                 "response": (
-                    '{"decision":"answer","claims":[{"mode":"direct",'
-                    '"quote_refs":["Q001"]}]}'
+                    '{"decision":"answer","claims":[{"mode":"direct","quote_refs":["Q001"]}]}'
                 ),
                 "done": True,
                 "done_reason": "stop",

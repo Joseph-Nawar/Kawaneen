@@ -46,9 +46,7 @@ def calculate_evidence_budget(
         ).text
     )
     evidence_budget = (
-        settings.total_input_tokens
-        - non_evidence_prompt_tokens
-        - settings.safety_margin
+        settings.total_input_tokens - non_evidence_prompt_tokens - settings.safety_margin
     )
     if evidence_budget <= 0:
         raise ValueError("non-evidence prompt overhead leaves no evidence budget")

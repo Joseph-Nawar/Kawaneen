@@ -41,9 +41,7 @@ def test_default_loader_uses_exact_local_snapshot_and_never_network(
             calls.append({"args": args, "kwargs": kwargs})
             return lambda _text: {"input_ids": [1]}
 
-    monkeypatch.setattr(
-        tokenizer_module, "_resolve_local_tokenizer_snapshot", lambda *_: snapshot
-    )
+    monkeypatch.setattr(tokenizer_module, "_resolve_local_tokenizer_snapshot", lambda *_: snapshot)
     monkeypatch.setitem(
         __import__("sys").modules,
         "transformers",

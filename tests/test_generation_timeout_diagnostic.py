@@ -86,9 +86,7 @@ def test_diagnostic_transport_retains_complete_ollama_envelope(monkeypatch) -> N
 
     monkeypatch.setattr("kawaneen.generation.ollama.urlopen", lambda *_args, **_kwargs: Response())
 
-    result = UrllibOllamaTransport().post_json_diagnostic(
-        "http://localhost:11434/api/generate", {}
-    )
+    result = UrllibOllamaTransport().post_json_diagnostic("http://localhost:11434/api/generate", {})
 
     assert result.raw_text == envelope.decode("utf-8")
     assert result.parsed_json == json.loads(envelope)
@@ -145,9 +143,7 @@ def test_diagnostic_distinguishes_failure_categories(
 
 def test_timeout_classifier_unwraps_nested_urlerror_and_preserves_http_errors() -> None:
     nested = URLError(URLError(TimeoutError("timed out")))
-    http_error = HTTPError(
-        "http://localhost:11434/api/generate", 500, "server", {}, None
-    )
+    http_error = HTTPError("http://localhost:11434/api/generate", 500, "server", {}, None)
 
     assert classify_ollama_exception(nested, response_received=False) == "overall_timeout"
     assert classify_ollama_exception(http_error, response_received=True) == "http_error"
@@ -305,9 +301,10 @@ def test_offline_evaluator_rederives_old_flawed_record_without_http(tmp_path: Pa
     assert result["done_reason"] == {"stop": {"explicit_abstention": 1}}
     assert result["http_requests"] == 0
     assert result["model_calls"] == 0
-    assert result["corrected_record_provenance"][0]["original_record_sha256"] == hashlib.sha256(
-        (records / "query-private.json").read_bytes()
-    ).hexdigest()
+    assert (
+        result["corrected_record_provenance"][0]["original_record_sha256"]
+        == hashlib.sha256((records / "query-private.json").read_bytes()).hexdigest()
+    )
 
 
 def test_failure_telemetry_has_no_raw_source_or_answer_text() -> None:
@@ -373,14 +370,20 @@ def test_corrupt_diagnostic_checkpoint_is_recomputed_and_resume_reuses_valid_rec
             timeout_configuration=current_timeout_configuration(),
         )
 
-    assert run_diagnostic_cases(
-        query_ids=("query-a", "query-b"), runner=runner, root=tmp_path, resume=True
-    ) == 2
+    assert (
+        run_diagnostic_cases(
+            query_ids=("query-a", "query-b"), runner=runner, root=tmp_path, resume=True
+        )
+        == 2
+    )
     assert calls == ["query-a", "query-b"]
     (tmp_path / "records" / "query-b.json").write_text("corrupt", encoding="utf-8")
-    assert run_diagnostic_cases(
-        query_ids=("query-a", "query-b"), runner=runner, root=tmp_path, resume=True
-    ) == 2
+    assert (
+        run_diagnostic_cases(
+            query_ids=("query-a", "query-b"), runner=runner, root=tmp_path, resume=True
+        )
+        == 2
+    )
     assert calls == ["query-a", "query-b", "query-b"]
 
 

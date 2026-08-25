@@ -70,9 +70,7 @@ def _contains_source_text(value: object, *, key: str = "") -> bool:
         return True
     if isinstance(value, Mapping):
         mapping = cast(Mapping[object, object], value)
-        return any(
-            _contains_source_text(child, key=str(name)) for name, child in mapping.items()
-        )
+        return any(_contains_source_text(child, key=str(name)) for name, child in mapping.items())
     if isinstance(value, (list, tuple)):
         sequence = cast(list[object] | tuple[object, ...], value)
         return any(_contains_source_text(child, key=key) for child in sequence)

@@ -8,9 +8,7 @@ from kawaneen.generation.ollama import OllamaModelIdentity
 
 
 def test_generation_parser_exposes_status_and_resumable_dev_run() -> None:
-    status = cli.build_parser().parse_args(
-        ["generation", "status", "--generator", "qwen-ollama"]
-    )
+    status = cli.build_parser().parse_args(["generation", "status", "--generator", "qwen-ollama"])
     run = cli.build_parser().parse_args(
         ["generation", "run-dev", "--generator", "qwen-ollama", "--resume"]
     )
@@ -20,21 +18,15 @@ def test_generation_parser_exposes_status_and_resumable_dev_run() -> None:
     diagnostic = cli.build_parser().parse_args(
         ["generation", "diagnose-stage-b-timeouts", "--resume"]
     )
-    diagnostic_status = cli.build_parser().parse_args(
-        ["generation", "timeout-diagnostic-status"]
-    )
+    diagnostic_status = cli.build_parser().parse_args(["generation", "timeout-diagnostic-status"])
     diagnostic_evaluate = cli.build_parser().parse_args(
         ["generation", "evaluate-timeout-diagnostic"]
     )
-    v2_status = cli.build_parser().parse_args(
-        ["generation", "timeout-diagnostic-v2-status"]
-    )
+    v2_status = cli.build_parser().parse_args(["generation", "timeout-diagnostic-v2-status"])
     v2_run = cli.build_parser().parse_args(
         ["generation", "diagnose-stage-b-timeouts-v2", "--resume"]
     )
-    v2_evaluate = cli.build_parser().parse_args(
-        ["generation", "evaluate-timeout-diagnostic-v2"]
-    )
+    v2_evaluate = cli.build_parser().parse_args(["generation", "evaluate-timeout-diagnostic-v2"])
     stage_c_status = cli.build_parser().parse_args(
         ["generation", "status", "--generator", "qwen-ollama-stage-c"]
     )
