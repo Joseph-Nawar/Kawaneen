@@ -42,11 +42,11 @@ Demo mode is labelled persistently as `DEMO DATA`; it never masquerades as a liv
 
 ### Visual QA artifacts
 
-The four synthetic visual artifacts are release-gated at:
+The following screenshots are rendered at 1440×900 from the synthetic portfolio
+demo state. They contain no private or production legal data.
 
-- `docs/assets/ui/search.png`
-- `docs/assets/ui/ask.png`
-- `docs/assets/ui/extract.png`
-- `docs/assets/ui/evaluation.png`
+[![Synthetic Search workspace](docs/assets/ui/search.png)](docs/assets/ui/search.png)
 
-They are intentionally not checked in until real browser inspection is available. The current environment has no `agent-browser`, Playwright/Selenium installation, or connected browser automation backend; PR #9 remains unmerged pending that gate.
+| Ask | Extract | Evaluation |
+| --- | --- | --- |
+| [![Synthetic Ask workspace](docs/assets/ui/ask.png)](docs/assets/ui/ask.png) | [![Synthetic Extract workspace](docs/assets/ui/extract.png)](docs/assets/ui/extract.png) | [![Synthetic Evaluation dashboard](docs/assets/ui/evaluation.png)](docs/assets/ui/evaluation.png) |

@@ -79,7 +79,7 @@ def test_demo_ask_page_renders_grounded_answer_and_abstention(monkeypatch) -> No
     app.text_area[0].set_value("هل سأربح هذه الدعوى؟")
     app.button[0].click().run()
 
-    assert any("Grounded answer not issued" in item.value for item in app.markdown)
+    assert any("Grounded answer not issued" in item.proto.body for item in app.get("html"))
 
 
 def test_demo_extract_page_shows_experimental_label_and_downloads(monkeypatch) -> None:

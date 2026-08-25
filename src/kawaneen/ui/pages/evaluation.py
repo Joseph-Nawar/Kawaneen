@@ -34,6 +34,13 @@ def render() -> None:
     )
     root = Path(__file__).resolve().parents[4]
     snapshot = build_evaluation_snapshot(root)
+    st.markdown("### Dashboard at a glance")
+    glance = st.columns(4)
+    glance[0].metric("Mode", "Demo data" if state.status_label == "Demo data" else "Live API")
+    glance[1].metric("Retrieval", "Phase 8 frozen")
+    glance[2].metric("Generation", "Phase 10 tracked")
+    glance[3].metric("Extraction", "Protected")
+    st.caption("A compact portfolio summary; detailed tracked metrics and provenance follow below.")
     st.markdown("### Live API readiness")
     try:
         models = client.models()

@@ -27,6 +27,7 @@ def inject_css() -> None:
         .kw-status.degraded { color:#9a5d13; border-color:#e4bf87; background:#fff7e8; }
         .kw-quote { border-left:3px solid var(--gold); background:#fcfaf6;
           border-radius:0 8px 8px 0; padding:.8rem 1rem; line-height:1.8; }
+        [data-testid="stAlert"] { margin:.65rem 0; padding:.65rem .9rem; }
         .kw-rtl { direction:rtl; text-align:right; }
         .kw-ltr { direction:ltr; text-align:left; }
         .kw-meta { color:#65727c; font-size:.78rem; }

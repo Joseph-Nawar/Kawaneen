@@ -40,7 +40,7 @@ def render_product_header(state: UiSessionState) -> None:
 
 
 def render_page_intro(eyebrow: str, title: str, description: str) -> None:
-    st.markdown(f'<div class="kw-eyebrow">{html.escape(eyebrow)}</div>', unsafe_allow_html=True)
+    st.html(f'<div class="kw-eyebrow">{html.escape(eyebrow)}</div>')
     st.title(title)
     st.caption(description)
 

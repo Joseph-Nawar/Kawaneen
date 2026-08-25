@@ -4,7 +4,12 @@ import kawaneen.ui.state as state_module
 from kawaneen.ui.client import UiApiError
 from kawaneen.ui.config import ModeResolution, UiMode, UiSettings
 from kawaneen.ui.demo import DemoClient
-from kawaneen.ui.state import UiSessionState, activate_demo_mode, get_context
+from kawaneen.ui.state import (
+    UiSessionState,
+    activate_demo_mode,
+    get_context,
+    seed_visual_qa_state,
+)
 
 
 class _StreamlitState:
@@ -101,3 +106,68 @@ def test_auto_context_keeps_live_client_when_health_is_unavailable(monkeypatch) 
     assert isinstance(client, BrokenClient)
     assert session.active_mode is None
     assert session.resolution.requires_demo_activation is True
+
+
+def test_visual_qa_state_seeds_only_synthetic_demo_search(monkeypatch) -> None:
+    fake = _StreamlitState()
+    fake.query_params = {"kawaneen_demo_state": "search_arabic"}
+    monkeypatch.setattr(state_module, "st", fake)
+    demo_state = UiSessionState(
+        settings=UiSettings(mode=UiMode.DEMO),
+        resolution=ModeResolution(UiMode.DEMO, "Demo data"),
+    )
+
+    seed_visual_qa_state(DemoClient(), demo_state)
+
+    response = fake.session_state["search_response"]
+    assert response.results[0].document_id == "demo-procedure"
+    assert fake.session_state["search_query_value"] == "ما هي مدة الاعتراض؟"
+    assert fake.session_state["_visual_qa_scenario"] == "search_arabic"
+
+
+def test_visual_qa_state_cannot_seed_live_mode(monkeypatch) -> None:
+    fake = _StreamlitState()
+    fake.query_params = {"kawaneen_demo_state": "search_arabic"}
+    monkeypatch.setattr(state_module, "st", fake)
+    live_state = UiSessionState(
+        settings=UiSettings(mode=UiMode.LIVE),
+        resolution=ModeResolution(UiMode.LIVE, "Live API"),
+    )
+
+    seed_visual_qa_state(DemoClient(), live_state)
+
+    assert fake.session_state == {}
+
+
+def test_visual_qa_state_reuses_synthetic_ask_and_extract_fixtures(monkeypatch) -> None:
+    for scenario in ("ask_grounded", "extract_structured"):
+        fake = _StreamlitState()
+        fake.query_params = {"kawaneen_demo_state": scenario}
+        monkeypatch.setattr(state_module, "st", fake)
+        demo_state = UiSessionState(
+            settings=UiSettings(mode=UiMode.DEMO),
+            resolution=ModeResolution(UiMode.DEMO, "Demo data"),
+        )
+
+        seed_visual_qa_state(DemoClient(), demo_state)
+
+        assert fake.session_state["_visual_qa_scenario"] == scenario
+        if scenario == "ask_grounded":
+            assert fake.session_state["answer_response"].request_id == "demo-answer-grounded"
+        else:
+            results = fake.session_state["extraction_results"]
+            assert results[0][1].result.source_provenance.source_id == "synthetic-demo"
+
+
+def test_visual_qa_state_accepts_explicit_demo_environment_switch(monkeypatch) -> None:
+    fake = _StreamlitState()
+    monkeypatch.setattr(state_module, "st", fake)
+    monkeypatch.setenv("KAWANEEN_UI_VISUAL_QA", "ask_grounded")
+    demo_state = UiSessionState(
+        settings=UiSettings(mode=UiMode.DEMO),
+        resolution=ModeResolution(UiMode.DEMO, "Demo data"),
+    )
+
+    seed_visual_qa_state(DemoClient(), demo_state)
+
+    assert fake.session_state["_visual_qa_scenario"] == "ask_grounded"

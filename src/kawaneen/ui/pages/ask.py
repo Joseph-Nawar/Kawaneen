@@ -62,10 +62,7 @@ def render() -> None:
                 f'<div class="kw-surface kw-{direction}" style="line-height:1.9">'
                 f"{html.escape(response.answer)}</div>"
             )
-            st.markdown(
-                answer_html,
-                unsafe_allow_html=True,
-            )
+            st.html(answer_html)
         else:
             reason = html.escape(
                 response.abstention_reason or "The available evidence was insufficient."
@@ -77,10 +74,7 @@ def render() -> None:
                 '<div class="kw-meta" style="margin-top:.6rem">'
                 "Abstention is an intentional safety decision.</div></div>"
             )
-            st.markdown(
-                abstention_html,
-                unsafe_allow_html=True,
-            )
+            st.html(abstention_html)
     with evidence_col:
         st.markdown("### Evidence rail")
         if response is None:

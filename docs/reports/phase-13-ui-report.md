@@ -18,16 +18,16 @@ Phase 13 adds the recruiter-facing Streamlit interface over the Phase 12 `/v1` H
 
 | Gate | Result |
 |---|---|
-| UI helper/page tests | Included in public run: 832 passed, 1 skipped |
-| Hermetic page/component render coverage | 5 passed |
-| Streamlit AppTest | 6 page/interactions passed |
+| UI helper/page tests | Included in public run: see final handoff run |
+| Hermetic page/component render coverage | Passed |
+| Streamlit AppTest | Passed, including demo visual-state safety tests |
 | Ruff/Pyright on UI | Passed |
 | Private integration smoke | Targeted test skipped as expected without `KAWANEEN_PRIVATE_PHASE12_API_URL` |
 | `make check` | Passed: 832 passed, 1 skipped, 85.02% branch-aware coverage |
 | Fresh PR CI | `pull_request` run on final head passed: Python 3.11 and 3.12 quality jobs |
-| Browser tooling | `agent-browser` unavailable; Playwright/Selenium unavailable; Google Chrome app exists but browser backend discovery returned `[]` |
-| Browser viewport QA | Not performed because no browser automation backend is available |
-| Final screenshots | Not created; no synthetic screenshot gate was fabricated |
+| Browser tooling | Native `/Applications/Google Chrome.app/Contents/MacOS/Google Chrome` 151.0.7922.174; `agent-browser`/Playwright/Selenium unavailable |
+| Browser viewport QA | Passed with Chrome headless at 1440×900, 1280×800, and 390×844; Arabic Search, English Search, grounded Ask, abstention Ask, Extract, and Evaluation checked |
+| Final screenshots | Four committed 1440×900 synthetic screenshots; primary capture used Chrome `--headless=new --window-size=1440,900` with CDP `Page.captureScreenshot` after Streamlit hydration |
 | Push/PR | Branch rebased onto `main`, force-pushed, and [PR #9](https://github.com/Joseph-Nawar/Kawaneen/pull/9) retargeted to `main`, not merged |
 
 ## Product follow-up
@@ -36,15 +36,18 @@ Phase 13 adds the recruiter-facing Streamlit interface over the Phase 12 `/v1` H
 - Ask inspection shows exact canonical-unit context, safe verified-quote highlighting, RTL direction, metadata, and conditional real source links.
 - Extract corpus mode requests paginated document pages and shows visible bounds; findings expose summary counts, rule structure, exact deadline spans, regulated entities, exceptions, source provenance, and segment IDs.
 - Evaluation shows current capability readiness, frozen Phase 8 architecture/configuration, common tracked retrieval comparisons/deltas, Phase 10 cards, Phase 11 summary/error taxonomy, separate Search/Answer/Extract latency, and collapsed technical hashes.
+- Visual QA uses a demo-only `KAWANEEN_UI_VISUAL_QA` switch to seed populated Search, Ask, and Extract states from the existing `DemoClient` fixtures; it is ignored outside demo mode and ordinary demo behavior is unchanged when absent.
+- The final visual pass compacted the extraction input and added a non-metric portfolio summary strip to keep the recruiter-facing states legible in the primary viewport.
 
 ## History and release gate
 
 - Requested pre-rewrite head: `03cbb23fc9889d4a06f574a2b179541c7aef2161`.
-- Final rebased head: `967a8fc9da7b26abd0d2d1beab7693f98506f329`.
+- Final rebased head: recorded in the final handoff after the post-QA commit.
 - `origin/main`: `f33a0448f4de8128962995d5bc3be538300c6162`.
 - `git merge-base HEAD origin/main` equals `origin/main`.
 - `origin/main`, old Phase 12, and the frozen Phase 12 tree share tree `38cb494ea859a443efe3bff0c6225486564b12b9`.
-- PR remains unmerged and must not be merged until real rendered QA and the four screenshots are available.
+- Screenshots: `docs/assets/ui/search.png`, `docs/assets/ui/ask.png`, `docs/assets/ui/extract.png`, and `docs/assets/ui/evaluation.png`; all are synthetic portfolio demo data.
+- PR remains unmerged; rendered QA and the four screenshot gate are complete, but merge remains explicitly prohibited.
 - PR #9 is currently `CLEAN`/`MERGEABLE` against `main`; merge is still explicitly prohibited by the release gate.
 
 ## Safety confirmations

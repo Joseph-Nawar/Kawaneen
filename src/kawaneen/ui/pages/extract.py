@@ -35,7 +35,7 @@ def render() -> None:
         source_text = st.text_area(
             "Source text",
             placeholder="Paste a provision or clause here.",
-            height=220,
+            height=140,
             key="source_text",
         )
     elif source_mode == "Upload document":
