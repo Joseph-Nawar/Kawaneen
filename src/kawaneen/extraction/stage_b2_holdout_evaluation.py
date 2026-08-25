@@ -401,8 +401,7 @@ def evaluate_clean_stage_b2_holdout() -> dict[str, Any]:
                 "comparison as DEV Stage B2"
             ),
             "failed_record_treatment": (
-                "no predictions; gold contributes false negatives in the "
-                "end-to-end view"
+                "no predictions; gold contributes false negatives in the end-to-end view"
             ),
             "references": "AI-reviewed/adjudicated; not human gold",
         },

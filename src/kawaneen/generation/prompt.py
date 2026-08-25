@@ -63,7 +63,7 @@ STAGE_B_SYSTEM_PROMPT = (
 
 STAGE_B_OUTPUT_SCHEMA = (
     '{"decision":"answer | abstain","claims":[{"mode":"direct | interpretation",'
-    '"text":"required only for interpretation",' 
+    '"text":"required only for interpretation",'
     '"citations":[{"evidence_id":"E001","quoted_text":"exact source substring"}]}]}'
 )
 
@@ -96,8 +96,7 @@ STAGE_D_SYSTEM_PROMPT = (
 )
 
 STAGE_D_OUTPUT_SCHEMA = (
-    '{"decision":"answer | abstain","claims":[{"mode":"direct",'
-    '"quote_refs":["Q001"]}]}'
+    '{"decision":"answer | abstain","claims":[{"mode":"direct","quote_refs":["Q001"]}]}'
 )
 
 

@@ -2,10 +2,13 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
+
 from kawaneen.evaluation.candidates import build_draft_candidates
 from kawaneen.evaluation.corpus import freeze_evaluation_corpus, load_evaluation_units
 
 
+@pytest.mark.private_artifact
 def test_draft_builder_creates_requested_base_and_variant_counts_without_retrieval_inputs(
     tmp_path: Path,
 ) -> None:
@@ -24,6 +27,7 @@ def test_draft_builder_creates_requested_base_and_variant_counts_without_retriev
     }
 
 
+@pytest.mark.private_artifact
 def test_variants_preserve_intent_and_evidence(tmp_path: Path) -> None:
     corpus = freeze_evaluation_corpus(
         load_evaluation_units(Path("data/interim/canonical")),

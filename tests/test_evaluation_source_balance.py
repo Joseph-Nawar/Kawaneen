@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
+
 from kawaneen.evaluation.balance import build_source_balance_audit
 from kawaneen.evaluation.candidates import _allocate_source_quotas, build_draft_candidates
 from kawaneen.evaluation.corpus import freeze_evaluation_corpus, load_evaluation_units
@@ -21,6 +23,7 @@ def test_source_quotas_cover_each_available_source_without_forcing_equal_split()
     }
 
 
+@pytest.mark.private_artifact
 def test_source_balance_audit_is_sanitized_and_records_the_corrected_flow(tmp_path: Path) -> None:
     corpus = freeze_evaluation_corpus(
         load_evaluation_units(Path("data/interim/canonical")),

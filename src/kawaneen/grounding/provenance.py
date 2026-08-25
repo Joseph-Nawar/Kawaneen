@@ -75,8 +75,7 @@ class CanonicalCorpusResolver:
                 ordinal=unit.ordinal,
                 display_text=unit.text,
                 heading_path=tuple(
-                    str(value)
-                    for value in cast(list[object], raw.get("heading_path", []))
+                    str(value) for value in cast(list[object], raw.get("heading_path", []))
                 ),
                 source=document_sources.get(
                     unit.document_id,
@@ -152,9 +151,7 @@ class CanonicalCorpusResolver:
         document_ids = {unit.document_id for unit in units}
         if len(document_ids) != 1:
             raise ValueError(f"chunk spans multiple canonical documents: {chunk_id}")
-        ordered_units = tuple(
-            sorted(units, key=lambda unit: (unit.ordinal or 0, unit.unit_id))
-        )
+        ordered_units = tuple(sorted(units, key=lambda unit: (unit.ordinal or 0, unit.unit_id)))
         return ResolvedChunk(
             chunk_id=chunk_id,
             document_id=next(iter(document_ids)),
@@ -209,11 +206,7 @@ def _source_metadata(value: object) -> dict[str, object]:
         parsed = json.loads(value)
     except json.JSONDecodeError:
         return {}
-    return (
-        cast(dict[str, object], parsed)
-        if isinstance(parsed, dict)
-        else {}
-    )
+    return cast(dict[str, object], parsed) if isinstance(parsed, dict) else {}
 
 
 def _optional_text(value: object) -> str | None:

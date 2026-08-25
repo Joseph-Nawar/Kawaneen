@@ -265,11 +265,7 @@ class OllamaGenerator:
         self.immutable_digest = immutable_digest
         self.transport = transport or UrllibOllamaTransport(
             timeout_seconds=(
-                STAGE_C_TIMEOUT_SECONDS
-                if stage_c
-                else STAGE_D_TIMEOUT_SECONDS
-                if stage_d
-                else 30.0
+                STAGE_C_TIMEOUT_SECONDS if stage_c else STAGE_D_TIMEOUT_SECONDS if stage_d else 30.0
             )
         )
         self.local_lock_path = local_lock_path

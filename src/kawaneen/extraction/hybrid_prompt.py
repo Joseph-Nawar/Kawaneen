@@ -47,7 +47,9 @@ allowlist. If the allowlist is empty, return []. Never invent an ID, never put
 T/M/A/R IDs into percentage_threshold_refs, and never emit empty-string IDs.
 """
 
-_B2_INSTRUCTIONS = _INSTRUCTIONS + """
+_B2_INSTRUCTIONS = (
+    _INSTRUCTIONS
+    + """
 Stage B2 correction guidance:
 regulated_entities are exact literal source spans identifying a person, organization,
 public body, professional class, company or class of company, or other legal actor
@@ -87,6 +89,7 @@ Candidate references are optional semantic classifications. If you are not confi
 that an available candidate has the requested semantic role, return [] for that
 reference field. Do not emit candidate IDs merely because candidates are present.
 """
+)
 
 
 @dataclass(frozen=True, slots=True)

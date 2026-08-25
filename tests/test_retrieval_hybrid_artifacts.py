@@ -45,6 +45,7 @@ def test_phase8_status_does_not_load_model_or_full_corpus(
     assert result["real_reranker_loaded"] is False
 
 
+@pytest.mark.private_artifact
 def test_completed_dev_reranker_artifacts_validate_without_loading_model() -> None:
     result = orchestration.validate_phase8_dev_reranker_artifacts()
     assert result["completed_query_count"] == 160
@@ -52,6 +53,7 @@ def test_completed_dev_reranker_artifacts_validate_without_loading_model() -> No
     assert result["duplicate_candidate_query_count"] == 0
 
 
+@pytest.mark.private_artifact
 def test_completed_holdout_artifacts_validate_without_model_execution() -> None:
     result = validate_phase8_holdout_artifacts()
     assert result["status"] == "validated"

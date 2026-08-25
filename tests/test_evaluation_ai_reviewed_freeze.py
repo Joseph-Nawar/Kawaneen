@@ -4,6 +4,8 @@ import hashlib
 import json
 from pathlib import Path
 
+import pytest
+
 import kawaneen.evaluation.orchestrator as evaluation_orchestrator
 from kawaneen.evaluation.orchestrator import (
     evaluation_plan,
@@ -16,6 +18,7 @@ FINAL_ITEMS = Path(
 )
 
 
+@pytest.mark.private_artifact
 def test_ai_reviewed_release_is_byte_preserving_and_not_human_gated(tmp_path: Path) -> None:
     source_bytes = FINAL_ITEMS.read_bytes()
     source_hash = hashlib.sha256(source_bytes).hexdigest()
@@ -49,6 +52,7 @@ def test_ai_reviewed_release_is_byte_preserving_and_not_human_gated(tmp_path: Pa
     assert "gold_answer" not in json.dumps(report, ensure_ascii=False)
 
 
+@pytest.mark.private_artifact
 def test_ai_reviewed_release_rejects_mutated_existing_release(tmp_path: Path) -> None:
     release_root = tmp_path / "private-release"
     tracked_root = tmp_path / "tracked"
@@ -88,9 +92,13 @@ def test_stats_retains_pre_release_fallback(monkeypatch) -> None:
         "AI_REVIEWED_MANIFEST_PATH",
         Path("/tmp/phase6-ai-reviewed-manifest-does-not-exist.json"),
     )
+    monkeypatch.setattr(
+        evaluation_orchestrator,
+        "_active_draft_paths",
+        lambda: (Path("/tmp/missing-items.jsonl"), Path(), Path(), Path(), False),
+    )
     stats = evaluation_stats()
-    assert stats["status"] == "draft_pending_review"
-    assert stats["item_count"] == 240
+    assert stats == {"status": "missing_draft"}
 
 
 def test_stats_reports_missing_draft(monkeypatch) -> None:

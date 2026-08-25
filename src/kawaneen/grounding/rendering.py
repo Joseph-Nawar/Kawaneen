@@ -57,6 +57,4 @@ def render_context(
 def render_evidence(pack: ContextPack) -> str:
     """Render the evidence-only view used by deterministic verifier tests."""
 
-    return "\n".join(
-        f"[{item.evidence_id}] {item.display_text}" for item in pack.evidence
-    )
+    return "\n".join(f"[{item.evidence_id}] {item.display_text}" for item in pack.evidence)

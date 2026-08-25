@@ -1,5 +1,7 @@
 import json
 
+import pytest
+
 from kawaneen.cli import main
 
 
@@ -10,6 +12,7 @@ def test_corpus_plan_is_sanitized(capsys) -> None:
     assert all(row["canonical_output"].startswith("data/interim/canonical/") for row in payload)
 
 
+@pytest.mark.private_artifact
 def test_corpus_inventory_and_status_commands(capsys) -> None:
     assert main(["corpus", "inventory"]) == 0
     inventory = json.loads(capsys.readouterr().out)

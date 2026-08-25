@@ -177,9 +177,7 @@ def test_stage_b2_prompt_contains_only_synthetic_guidance() -> None:
     )
 
     text = "يجب على الجهة تقديم التقرير."
-    rendered = render_hybrid_prompt(
-        text, _registry(text), HYBRID_STAGE_B2_PROMPT_TEMPLATE_VERSION
-    )
+    rendered = render_hybrid_prompt(text, _registry(text), HYBRID_STAGE_B2_PROMPT_TEMPLATE_VERSION)
     assert "يجب على المرخص له تقديم التقرير إلى الهيئة." in rendered.text
     assert "يحظر على المنشأة إفشاء المعلومات السرية." in rendered.text
     assert "يجوز للجهة تمديد المهلة." in rendered.text

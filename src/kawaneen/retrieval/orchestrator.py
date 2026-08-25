@@ -749,9 +749,7 @@ def refresh_persisted_robustness_reports() -> dict[str, object]:
         "e5": "intfloat__multilingual-e5-small__arabic-raw-v1",
         "bge": "BAAI__bge-m3__arabic-raw-v1",
     }
-    dev_rows = {
-        label: _load_private_rows(config, name) for label, name in dev_names.items()
-    }
+    dev_rows = {label: _load_private_rows(config, name) for label, name in dev_names.items()}
     comparison["robustness_parent_minus_variant"] = {
         label: robustness_parent_variant(dev_release.split_items("dev"), rows)
         for label, rows in dev_rows.items()
@@ -763,9 +761,7 @@ def refresh_persisted_robustness_reports() -> dict[str, object]:
         recovered = replay["recovered_analysis"]
         holdout_release = load_phase7_release(allow_holdout=True)
         holdout_rows = {
-            label: _private_metric_rows(
-                json.loads(Path(path).read_text(encoding="utf-8"))
-            )
+            label: _private_metric_rows(json.loads(Path(path).read_text(encoding="utf-8")))
             for label, path in recovered["private_artifacts"].items()
         }
         recovered["robustness_parent_minus_variant"] = {

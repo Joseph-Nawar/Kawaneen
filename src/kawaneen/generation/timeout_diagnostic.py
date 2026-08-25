@@ -61,14 +61,12 @@ from kawaneen.grounding.dev import CANONICAL_DOCUMENTS, CANONICAL_UNITS, CHUNKS,
 from kawaneen.grounding.provenance import CanonicalCorpusResolver
 
 TIMEOUT_DIAGNOSTIC_EXPECTED_COUNT = 27
-TIMEOUT_DIAGNOSTIC_ROOT = (
-    Path("artifacts/private/phase10_generation/diagnostics/qwen-stage-b-timeouts")
+TIMEOUT_DIAGNOSTIC_ROOT = Path(
+    "artifacts/private/phase10_generation/diagnostics/qwen-stage-b-timeouts"
 )
 TIMEOUT_DIAGNOSTIC_RECORD_ROOT = TIMEOUT_DIAGNOSTIC_ROOT / "records"
 TIMEOUT_DIAGNOSTIC_ENVELOPE_ROOT = TIMEOUT_DIAGNOSTIC_ROOT / "envelopes"
-TIMEOUT_DIAGNOSTIC_MANIFEST = Path(
-    "data/evaluation/phase10_qwen_stage_b_timeout_diagnostic.json"
-)
+TIMEOUT_DIAGNOSTIC_MANIFEST = Path("data/evaluation/phase10_qwen_stage_b_timeout_diagnostic.json")
 TIMEOUT_DIAGNOSTIC_V2_ROOT = Path(
     "artifacts/private/phase10_generation/diagnostics/qwen-stage-b-timeouts-v2"
 )
@@ -390,9 +388,7 @@ def write_diagnostic_record(
     if error is None:
         raise ValueError("diagnostic record requires a response or error")
     category = classify_ollama_exception(error, response_received=response_received)
-    original = (
-        error.original_error if isinstance(error, OllamaDiagnosticTransportError) else error
-    )
+    original = error.original_error if isinstance(error, OllamaDiagnosticTransportError) else error
     raw_text = error.raw_text if isinstance(error, OllamaDiagnosticTransportError) else None
     return TimeoutDiagnosticRecord(
         query_id_hash=_query_hash(query_id),
@@ -469,9 +465,7 @@ def run_diagnostic_cases(
         path = _record_path(root, query_id)
         if resume and path.is_file():
             try:
-                TimeoutDiagnosticRecord.model_validate(
-                    json.loads(path.read_text(encoding="utf-8"))
-                )
+                TimeoutDiagnosticRecord.model_validate(json.loads(path.read_text(encoding="utf-8")))
                 completed += 1
                 continue
             except (OSError, json.JSONDecodeError, ValueError):
@@ -526,9 +520,7 @@ def timeout_diagnostic_status(*, root: Path = TIMEOUT_DIAGNOSTIC_ROOT) -> dict[s
     }
 
 
-def timeout_diagnostic_v2_status(
-    *, root: Path = TIMEOUT_DIAGNOSTIC_V2_ROOT
-) -> dict[str, object]:
+def timeout_diagnostic_v2_status(*, root: Path = TIMEOUT_DIAGNOSTIC_V2_ROOT) -> dict[str, object]:
     """Read only the versioned v2 namespace; never inspect v1 records."""
 
     return timeout_diagnostic_status(root=root)
@@ -658,9 +650,7 @@ def evaluate_persisted_timeout_diagnostic(
                         else:
                             counts["raw_answer_decisions"] += 1
                             outcome = "raw_answer"
-                            context_path = (
-                                STAGE_B_CONTEXT_CACHE_ROOT / f"{query_id}.json"
-                            )
+                            context_path = STAGE_B_CONTEXT_CACHE_ROOT / f"{query_id}.json"
                             if query_id in query_map and context_path.is_file():
                                 if resolver is None:
                                     resolver = CanonicalCorpusResolver.from_json(
@@ -788,7 +778,9 @@ def evaluate_persisted_timeout_diagnostic(
                 )
                 if any(item.failure_category == category for item in telemetry_records)
             },
-            "other_failures": transport_failures - http_errors - sum(
+            "other_failures": transport_failures
+            - http_errors
+            - sum(
                 item.failure_category
                 in {
                     "connect_timeout",
@@ -861,9 +853,7 @@ def evaluate_stage_b_timeout_diagnostic(
     for path in sorted(records_root.glob("*.json")) if records_root.is_dir() else ():
         try:
             records.append(
-                TimeoutDiagnosticRecord.model_validate(
-                    json.loads(path.read_text(encoding="utf-8"))
-                )
+                TimeoutDiagnosticRecord.model_validate(json.loads(path.read_text(encoding="utf-8")))
             )
         except (OSError, json.JSONDecodeError, ValueError):
             continue
@@ -1014,10 +1004,7 @@ def write_timeout_diagnostic_manifest(
             ),
             "stage_b_policy_hash": stage_b_generation_version_hash(STAGE_B_GENERATION_SETTINGS),
             "stage_b_results_hash": artifact_fingerprint(
-                sorted(
-                    path.name
-                    for path in STAGE_B_RESULTS_ROOT.glob("*.json")
-                )
+                sorted(path.name for path in STAGE_B_RESULTS_ROOT.glob("*.json"))
             ),
         },
     )
@@ -1063,9 +1050,7 @@ def write_timeout_diagnostic_v2_manifest(
                 {"version": STAGE_B_PROMPT_TEMPLATE_VERSION}
             ),
             "stage_b_schema_hash": artifact_fingerprint(generation_payload_schema()),
-            "stage_b_policy_hash": stage_b_generation_version_hash(
-                STAGE_B_GENERATION_SETTINGS
-            ),
+            "stage_b_policy_hash": stage_b_generation_version_hash(STAGE_B_GENERATION_SETTINGS),
             "stage_b_results_hash": artifact_fingerprint(
                 sorted(path.name for path in STAGE_B_RESULTS_ROOT.glob("*.json"))
             ),

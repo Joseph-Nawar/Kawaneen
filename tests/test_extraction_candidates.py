@@ -3,6 +3,14 @@
 
 from kawaneen.extraction.candidates import build_candidate_registry
 from kawaneen.extraction.contracts import Calendar, CandidateType, NormalizationStatus
+from kawaneen.extraction.normalization import (
+    normalize_date,
+    normalize_duration,
+    normalize_money,
+    normalize_number,
+    normalize_percentage,
+    normalize_reference,
+)
 
 TEXT = (
     "يلتزم المرخص له خلال ٣٠ يوماً بدفع ١٬٢٥٠٫٥٠ ريال سعودي، ونسبة ١٥٪، "
@@ -153,3 +161,46 @@ def test_v3_preserves_temporal_id_when_only_span_normalization_is_repaired() -> 
     ).candidates[0]
     assert old_identity.candidate_id == repaired.candidate_id == "T001"
     assert repaired.raw_exact_text == "(ثلاثين) يوم"
+
+
+def test_normalization_contracts_cover_conservative_boundary_cases() -> None:
+    assert normalize_number("٠١٬٢٥٠٫٥٠") == "1250.50"
+    assert normalize_number("not-a-number") is None
+
+    money, money_status = normalize_money("مائةربال")
+    assert money_status is NormalizationStatus.NORMALIZED
+    assert money.normalized_value == "100 SAR"
+    unresolved_money, unresolved_status = normalize_money("نص غامض ريال")
+    assert unresolved_status is NormalizationStatus.UNRESOLVED
+    assert unresolved_money.normalized_value is None
+
+    percentage, percentage_status = normalize_percentage("اثنين في المائة")
+    assert percentage_status is NormalizationStatus.NORMALIZED
+    assert percentage.normalized_value == "2%"
+    _, unresolved_percentage_status = normalize_percentage("نص غامض في المائة")
+    assert unresolved_percentage_status is NormalizationStatus.UNRESOLVED
+
+    invalid_date, invalid_date_status = normalize_date("31/13/2024")
+    assert invalid_date_status is NormalizationStatus.PARTIAL
+    assert invalid_date.calendar is Calendar.GREGORIAN
+    arabic_date, arabic_date_status = normalize_date("١٥ رمضان ١٤٤٥هـ")
+    assert arabic_date_status is NormalizationStatus.NORMALIZED
+    assert arabic_date.normalized_value == "1445-09-15"
+    _, unresolved_date_status = normalize_date("15 شهر غير معروف 2024")
+    assert unresolved_date_status is NormalizationStatus.UNRESOLVED
+
+    malformed_duration, duration_status = normalize_duration(") ٣٠ (يوم")
+    assert duration_status is NormalizationStatus.NORMALIZED
+    assert malformed_duration.normalized_value == "30 days"
+    singular_duration, singular_status = normalize_duration("شهر")
+    assert singular_status is NormalizationStatus.NORMALIZED
+    assert singular_duration.normalized_value == "1 month"
+    _, unresolved_duration_status = normalize_duration("مدة غير محددة")
+    assert unresolved_duration_status is NormalizationStatus.UNRESOLVED
+
+    reference, reference_status = normalize_reference("المادة (7)", "article")
+    assert reference_status is NormalizationStatus.NORMALIZED
+    assert reference.normalized_value == "7"
+    regulation, regulation_status = normalize_reference("نظام السوق المالية", "regulation")
+    assert regulation_status is NormalizationStatus.PARTIAL
+    assert regulation.normalized_value == "نظام السوق المالية"

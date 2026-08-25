@@ -4,6 +4,8 @@ import json
 import subprocess
 import sys
 
+import pytest
+
 
 def run_cli(*args: str) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
@@ -59,6 +61,7 @@ def test_data_rebuild_requires_explicit_auto_flag() -> None:
     assert "requires --auto" in result.stderr
 
 
+@pytest.mark.private_artifact
 def test_data_verify_all_reports_unacquired_sources_without_bypass() -> None:
     result = run_cli("data", "verify")
     assert result.returncode == 0
@@ -67,6 +70,7 @@ def test_data_verify_all_reports_unacquired_sources_without_bypass() -> None:
     assert moj["row_counts"]["data/train-00000-of-00001.parquet"] == 3185
 
 
+@pytest.mark.private_artifact
 def test_statutory_audit_reports_sanitized_quality_counts() -> None:
     result = run_cli("data", "audit-statutory", "saudi-moj-derived")
     assert result.returncode == 0

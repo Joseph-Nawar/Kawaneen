@@ -51,9 +51,7 @@ def audit_dev_contexts(
     query_count = len(packs)
     unique_units = sum(len(pack.units) for pack in packs)
     answerable = {
-        item.query_id: item
-        for item in items
-        if item.answerability == Answerability.ANSWERABLE
+        item.query_id: item for item in items if item.answerability == Answerability.ANSWERABLE
     }
     gold_hits = 0
     gold_total = 0
@@ -62,17 +60,14 @@ def audit_dev_contexts(
     retained_gold_hits = 0
     retained_complete_hits = 0
     input_by_query = {
-        query_id: tuple(item.chunk_id for item in rows)
-        for query_id, rows in ranked_inputs.items()
+        query_id: tuple(item.chunk_id for item in rows) for query_id, rows in ranked_inputs.items()
     }
     packs_by_query = {pack.query_id: pack for pack in packs}
     for query_id, item in answerable.items():
         input_chunks = set(input_by_query.get(query_id, ()))
         relevant = {qrel.chunk_id for qrel in item.chunk_qrels if int(qrel.grade) > 0}
         pack = packs_by_query.get(query_id)
-        pack_units: set[str] = (
-            {unit.unit_id for unit in pack.units} if pack is not None else set()
-        )
+        pack_units: set[str] = {unit.unit_id for unit in pack.units} if pack is not None else set()
         input_gold_chunks = input_chunks & relevant
         if relevant:
             gold_total += 1
@@ -126,9 +121,7 @@ def audit_dev_contexts(
         "duplication_ratio_before": (
             input_unit_occurrences / unique_units if unique_units else 0.0
         ),
-        "duplication_ratio_after": (
-            unique_units / unique_units if unique_units else 0.0
-        ),
+        "duplication_ratio_after": (unique_units / unique_units if unique_units else 0.0),
         "document_count": len(documents),
         "unresolved_source_count": unresolved,
         "ordering_violations": ordering_violations,
@@ -150,9 +143,7 @@ def audit_dev_contexts(
             "retained_queries": retained_complete_hits,
             "input_covered_queries": complete_hits,
             "assembly_representation_losses": complete_hits - retained_complete_hits,
-            "conditional_rate": (
-                retained_complete_hits / complete_hits if complete_hits else 0.0
-            ),
+            "conditional_rate": (retained_complete_hits / complete_hits if complete_hits else 0.0),
         },
         "token_budget_violations": sum(
             int(pack.token_count > pack.max_context_tokens) for pack in packs
@@ -176,9 +167,7 @@ def audit_evidence_retention(
     """
 
     answerable = {
-        item.query_id: item
-        for item in items
-        if item.answerability == Answerability.ANSWERABLE
+        item.query_id: item for item in items if item.answerability == Answerability.ANSWERABLE
     }
     budgeted_by_query = {pack.query_id: pack for pack in budgeted_packs}
     unbounded_by_query = {pack.query_id: pack for pack in unbounded_packs}
@@ -195,8 +184,7 @@ def audit_evidence_retention(
         "other": 0,
     }
     input_by_query = {
-        query_id: {row.chunk_id for row in rows}
-        for query_id, rows in ranked_inputs.items()
+        query_id: {row.chunk_id for row in rows} for query_id, rows in ranked_inputs.items()
     }
     for query_id, item in answerable.items():
         input_chunks = input_by_query.get(query_id, set())
@@ -263,9 +251,7 @@ def audit_evidence_retention(
         if not input_complete:
             continue
         input_complete_queries += 1
-        budgeted_complete_queries += int(
-            _all_evidence_groups_represented(item, budgeted_unit_ids)
-        )
+        budgeted_complete_queries += int(_all_evidence_groups_represented(item, budgeted_unit_ids))
         unbounded_complete_queries += int(
             _all_evidence_groups_represented(item, unbounded_unit_ids)
         )
@@ -300,19 +286,15 @@ def audit_evidence_retention(
         "UnboundedConditionalGoldRetention": {
             "retained_queries": unbounded_retained_queries,
             "input_covered_queries": input_gold_queries,
-            "assembly_representation_losses": input_gold_queries
-            - unbounded_retained_queries,
+            "assembly_representation_losses": input_gold_queries - unbounded_retained_queries,
             "conditional_rate": (
-                unbounded_retained_queries / input_gold_queries
-                if input_gold_queries
-                else 0.0
+                unbounded_retained_queries / input_gold_queries if input_gold_queries else 0.0
             ),
         },
         "UnboundedConditionalCompleteGoldRetention": {
             "retained_queries": unbounded_complete_queries,
             "input_covered_queries": input_complete_queries,
-            "assembly_representation_losses": input_complete_queries
-            - unbounded_complete_queries,
+            "assembly_representation_losses": input_complete_queries - unbounded_complete_queries,
             "conditional_rate": (
                 unbounded_complete_queries / input_complete_queries
                 if input_complete_queries
@@ -322,8 +304,7 @@ def audit_evidence_retention(
         "BudgetOnlyLosses": {
             "gold_representation_losses": budgeted_gold_losses - unbounded_gold_losses,
             "gold_query_losses": input_gold_queries - budgeted_retained_queries,
-            "complete_gold_query_losses": input_complete_queries
-            - budgeted_complete_queries,
+            "complete_gold_query_losses": input_complete_queries - budgeted_complete_queries,
             "counter_identity": (
                 budgeted_packs[0].token_counter_identity if budgeted_packs else None
             ),
@@ -347,8 +328,7 @@ def _input_unit_ids(
 
 def _all_evidence_groups_represented(item: DatasetItem, unit_ids: set[str]) -> bool:
     return bool(item.evidence_groups) and all(
-        any(span.unit_id in unit_ids for span in group.spans)
-        for group in item.evidence_groups
+        any(span.unit_id in unit_ids for span in group.spans) for group in item.evidence_groups
     )
 
 
@@ -367,12 +347,9 @@ def _retained_gold_query_count(
             if int(qrel.grade) > 0 and qrel.chunk_id in input_chunks
         }
         pack = packs_by_query.get(query_id)
-        pack_unit_ids: set[str] = (
-            {unit.unit_id for unit in pack.units} if pack else set()
-        )
+        pack_unit_ids: set[str] = {unit.unit_id for unit in pack.units} if pack else set()
         if relevant and any(
-            _chunk_units_in_pack(resolver, chunk_id, pack_unit_ids)
-            for chunk_id in relevant
+            _chunk_units_in_pack(resolver, chunk_id, pack_unit_ids) for chunk_id in relevant
         ):
             retained += 1
     return retained
@@ -401,8 +378,7 @@ def _chunk_units_in_pack(
 ) -> bool:
     with suppress(ValueError):
         return bool(
-            pack_unit_ids
-            & {unit.unit_id for unit in resolver.resolve_chunk(chunk_id).units}
+            pack_unit_ids & {unit.unit_id for unit in resolver.resolve_chunk(chunk_id).units}
         )
     return False
 

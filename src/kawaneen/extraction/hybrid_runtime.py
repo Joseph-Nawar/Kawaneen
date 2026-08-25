@@ -302,13 +302,15 @@ def run_hybrid_records(
             )
             has_diagnostics = bool(assembled.validation_metadata.diagnostics)
             if (
-                (has_diagnostics and not accept_field_local_diagnostics)
-                or not assembled.validation_metadata.raw_provider_schema_valid
-            ):
-                reason = "; ".join(
-                    f"{item.code}: {item.message}"
-                    for item in assembled.validation_metadata.diagnostics
-                ) or "provider proposal failed validation"
+                has_diagnostics and not accept_field_local_diagnostics
+            ) or not assembled.validation_metadata.raw_provider_schema_valid:
+                reason = (
+                    "; ".join(
+                        f"{item.code}: {item.message}"
+                        for item in assembled.validation_metadata.diagnostics
+                    )
+                    or "provider proposal failed validation"
+                )
                 write_private_json(
                     result_path,
                     {

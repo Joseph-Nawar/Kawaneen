@@ -20,8 +20,11 @@ jobs:
       - uses: astral-sh/setup-uv@v8.1.0
         with:
           enable-cache: true
-      - run: uv sync --locked --dev
-      - run: uv run ruff format --check .
-      - run: uv run ruff check .
-      - run: uv run pyright
-      - run: uv run pytest
+      - run: uv sync --locked --dev --all-extras --python "${{ matrix.python-version }}"
+      - run: |
+          .venv/bin/python --version
+          .venv/bin/python -c "import sys; expected='${{ matrix.python-version }}'; actual=f'{sys.version_info.major}.{sys.version_info.minor}'; assert actual == expected, f'expected {expected}, got {actual}'"
+      - run: .venv/bin/ruff format --check .
+      - run: .venv/bin/ruff check .
+      - run: .venv/bin/pyright
+      - run: .venv/bin/pytest -m "not private_artifact" --cov=kawaneen --cov-branch --cov-report=term-missing --cov-fail-under=85

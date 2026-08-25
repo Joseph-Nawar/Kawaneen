@@ -93,9 +93,7 @@ class OllamaExtractionProvider:
             raise ValueError("installed Ollama model differs from the local immutable lock")
 
     def propose(self, canonical_text: str, registry: CandidateRegistry) -> object:
-        prompt = render_hybrid_prompt(
-            canonical_text, registry, self.prompt_template_version
-        )
+        prompt = render_hybrid_prompt(canonical_text, registry, self.prompt_template_version)
         payload: dict[str, object] = {
             "model": self.model,
             "prompt": prompt.text,

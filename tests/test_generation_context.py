@@ -133,9 +133,7 @@ def test_codepoint_phase9_seed_is_not_consumed_as_qwen_context(tmp_path: Path) -
         tokenizer=tokenizer,
         assembler_factory=lambda budget: seed.model_copy(
             update={
-                "token_counter_identity": (
-                    "Qwen/Qwen3-4B-Instruct-2507:" + "d" * 40
-                ),
+                "token_counter_identity": ("Qwen/Qwen3-4B-Instruct-2507:" + "d" * 40),
                 "max_context_tokens": budget,
             }
         ),

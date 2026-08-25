@@ -51,9 +51,7 @@ class Phase11StructuralMetadata:
     parse_confidence: str
 
 
-def phase11_unit_eligible(
-    unit: CanonicalUnit, metadata: Phase11StructuralMetadata
-) -> bool:
+def phase11_unit_eligible(unit: CanonicalUnit, metadata: Phase11StructuralMetadata) -> bool:
     """Apply the versioned, atomic article-sized Phase 11 selection policy."""
 
     return (
@@ -141,10 +139,7 @@ def _raw_structural_metadata_by_path(raw_path: str) -> tuple[Phase11StructuralMe
 
 def _raw_structural_metadata(provenance: SourceProvenance) -> Phase11StructuralMetadata:
     raw_path = (
-        Path("data/raw")
-        / provenance.source_id
-        / provenance.source_version
-        / provenance.source_path
+        Path("data/raw") / provenance.source_id / provenance.source_version / provenance.source_path
     )
     row_index = provenance.source_row - 1
     metadata = _raw_structural_metadata_by_path(raw_path.as_posix())
@@ -339,6 +334,7 @@ def validate_annotation_record(
     candidate_ids = {candidate.candidate_id for candidate in record.candidate_registry.candidates}
     if record.human_annotations is None:
         return errors
+
     def validate_span_collection(spans: tuple[Any, ...], label: str) -> None:
         seen: set[tuple[int, int, str]] = set()
         for span in spans:

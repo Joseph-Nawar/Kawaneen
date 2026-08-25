@@ -171,8 +171,7 @@ def test_refresh_persisted_robustness_adds_keyword_without_dropping_methods(
         json.dumps(
             {
                 "queries": [
-                    {"query_id": query_id, "metrics": row}
-                    for query_id, row in dev_rows.items()
+                    {"query_id": query_id, "metrics": row} for query_id, row in dev_rows.items()
                 ]
             }
         ),

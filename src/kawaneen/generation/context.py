@@ -180,8 +180,7 @@ def _load_cached_context(
         if (
             value.get("schema_version") != CONTEXT_CACHE_SCHEMA_VERSION
             or value.get("query_id") != expected_seed.query_id
-            or value.get("phase8_selection_sha256")
-            != expected_seed.phase8_selection_sha256
+            or value.get("phase8_selection_sha256") != expected_seed.phase8_selection_sha256
             or tuple(str(item) for item in chunk_ids) != expected_seed.input_chunk_ids
             or value.get("phase9_policy_hash") != expected_phase9_hash
             or value.get("tokenizer_id") != tokenizer.fingerprint.identity

@@ -103,22 +103,14 @@ STAGE_B_GENERATOR_NAME = "qwen-ollama-stage-b"
 STAGE_B_CONTEXT_CACHE_ROOT = GENERATION_PRIVATE_ROOT / "context_packs" / STAGE_B_GENERATOR_NAME
 STAGE_B_CHECKPOINT_ROOT = GENERATION_PRIVATE_ROOT / "checkpoints" / STAGE_B_GENERATOR_NAME
 STAGE_B_RESULTS_ROOT = GENERATION_PRIVATE_ROOT / "results" / STAGE_B_GENERATOR_NAME
-STAGE_C_CONTEXT_CACHE_ROOT = (
-    GENERATION_PRIVATE_ROOT / "context_packs" / STAGE_C_GENERATOR_NAME
-)
-STAGE_C_QUOTE_REGISTRY_ROOT = (
-    GENERATION_PRIVATE_ROOT / "quote_registries" / STAGE_C_GENERATOR_NAME
-)
+STAGE_C_CONTEXT_CACHE_ROOT = GENERATION_PRIVATE_ROOT / "context_packs" / STAGE_C_GENERATOR_NAME
+STAGE_C_QUOTE_REGISTRY_ROOT = GENERATION_PRIVATE_ROOT / "quote_registries" / STAGE_C_GENERATOR_NAME
 STAGE_C_CHECKPOINT_ROOT = GENERATION_PRIVATE_ROOT / "checkpoints" / STAGE_C_GENERATOR_NAME
 STAGE_C_RESULTS_ROOT = GENERATION_PRIVATE_ROOT / "results" / STAGE_C_GENERATOR_NAME
 STAGE_C_READINESS_ROOT = GENERATION_PRIVATE_ROOT / "readiness" / STAGE_C_GENERATOR_NAME
 STAGE_C_EXPECTED_QUERY_COUNT = 160
-STAGE_D_CONTEXT_CACHE_ROOT = (
-    GENERATION_PRIVATE_ROOT / "context_packs" / STAGE_D_GENERATOR_NAME
-)
-STAGE_D_QUOTE_REGISTRY_ROOT = (
-    GENERATION_PRIVATE_ROOT / "quote_registries" / STAGE_D_GENERATOR_NAME
-)
+STAGE_D_CONTEXT_CACHE_ROOT = GENERATION_PRIVATE_ROOT / "context_packs" / STAGE_D_GENERATOR_NAME
+STAGE_D_QUOTE_REGISTRY_ROOT = GENERATION_PRIVATE_ROOT / "quote_registries" / STAGE_D_GENERATOR_NAME
 STAGE_D_CHECKPOINT_ROOT = GENERATION_PRIVATE_ROOT / "checkpoints" / STAGE_D_GENERATOR_NAME
 STAGE_D_RESULTS_ROOT = GENERATION_PRIVATE_ROOT / "results" / STAGE_D_GENERATOR_NAME
 STAGE_D_READINESS_ROOT = GENERATION_PRIVATE_ROOT / "readiness" / STAGE_D_GENERATOR_NAME
@@ -246,9 +238,7 @@ def generation_status(
             "expected": STAGE_C_EXPECTED_QUERY_COUNT,
             "generation_completed": counts["completed"],
             "generation_missing": max(
-                0,
-                STAGE_C_EXPECTED_QUERY_COUNT
-                - len(tuple(checkpoint_root.glob("*.json")))
+                0, STAGE_C_EXPECTED_QUERY_COUNT - len(tuple(checkpoint_root.glob("*.json")))
             ),
             "contexts_ready": contexts_ready,
             "quote_registries_ready": registries_ready,
@@ -392,9 +382,7 @@ def generation_readiness(
 
     # Qrels are loaded only after all generator-specific contexts are assembled.
     items = tuple(
-        item
-        for item in read_items_jsonl(RUNTIME_ITEMS)
-        if item.split == DatasetSplit.DEV
+        item for item in read_items_jsonl(RUNTIME_ITEMS) if item.split == DatasetSplit.DEV
     )
     unbounded = _assemble_unbounded_contexts(rankings, resolver, effective_tokenizer)
     retention = audit_evidence_retention(
@@ -612,8 +600,10 @@ def run_dev_generation(
             generator_name=generator_name,
         )
         result_path = results_root / f"{runtime_query.query_id}.json"
-        if resume and result_path.is_file() and checkpoints.valid(
-            runtime_query.query_id, fingerprint
+        if (
+            resume
+            and result_path.is_file()
+            and checkpoints.valid(runtime_query.query_id, fingerprint)
         ):
             counts["resumed"] = int(cast(int, counts["resumed"])) + 1
             continue
@@ -798,8 +788,10 @@ def _run_stage_c_generation(
                 policy_hash=policy_hash,
             )
         result_path = results_root / f"{runtime_query.query_id}.json"
-        if resume and result_path.is_file() and checkpoints.valid(
-            runtime_query.query_id, fingerprint
+        if (
+            resume
+            and result_path.is_file()
+            and checkpoints.valid(runtime_query.query_id, fingerprint)
         ):
             counts["resumed"] = int(cast(int, counts["resumed"])) + 1
             continue
@@ -873,11 +865,7 @@ def _run_stage_c_generation(
                     and (generation_completed or completion_kind == "pre_generation_policy")
                     else "incomplete"
                 ),
-                "completion_kind": (
-                    "generation"
-                    if generation_completed
-                    else completion_kind
-                ),
+                "completion_kind": ("generation" if generation_completed else completion_kind),
                 "context_prepared": context_prepared,
                 "generation_attempted": generation_attempted,
                 "generation_completed": generation_completed,
@@ -917,6 +905,7 @@ def _run_stage_c_generation(
         key = "answers" if result.decision is GenerationDecision.ANSWER else "abstentions"
         counts[key] = int(cast(int, counts[key])) + 1
     return counts
+
 
 def _run_stage_d_generation(
     *,
@@ -1023,14 +1012,16 @@ def _run_stage_d_generation(
                 except Exception as error:
                     preparation_error = error
         if prepared is None:
-            fingerprint = artifact_fingerprint({
-                "experiment_id": STAGE_D_GENERATOR_NAME,
-                "query_id": runtime_query.query_id,
-                "phase8_selection_sha256": seed.phase8_selection_sha256,
-                "ordered_input_chunk_ids": list(seed.input_chunk_ids),
-                "answerability_policy_hash": answerability_hash,
-                "error": type(preparation_error).__name__ if preparation_error else "missing",
-            })
+            fingerprint = artifact_fingerprint(
+                {
+                    "experiment_id": STAGE_D_GENERATOR_NAME,
+                    "query_id": runtime_query.query_id,
+                    "phase8_selection_sha256": seed.phase8_selection_sha256,
+                    "ordered_input_chunk_ids": list(seed.input_chunk_ids),
+                    "answerability_policy_hash": answerability_hash,
+                    "error": type(preparation_error).__name__ if preparation_error else "missing",
+                }
+            )
         else:
             fingerprint = stage_d_fingerprint(
                 query_id=runtime_query.query_id,
@@ -1046,8 +1037,10 @@ def _run_stage_d_generation(
                 answerability_policy_hash=answerability_hash,
             )
         result_path = results_root / f"{runtime_query.query_id}.json"
-        if resume and result_path.is_file() and checkpoints.valid(
-            runtime_query.query_id, fingerprint
+        if (
+            resume
+            and result_path.is_file()
+            and checkpoints.valid(runtime_query.query_id, fingerprint)
         ):
             counts["resumed"] = int(cast(int, counts["resumed"])) + 1
             continue
@@ -1075,13 +1068,15 @@ def _run_stage_d_generation(
         else:
             generation_attempted = True
             try:
-                result = generator.generate(GenerationRequest(
-                    query=runtime_query.query,
-                    context_pack=prepared.context_pack,
-                    settings=STAGE_D_GENERATION_SETTINGS,
-                    jurisdiction_text=outcome.jurisdiction_text,
-                    quote_registry=prepared.quote_registry,
-                ))
+                result = generator.generate(
+                    GenerationRequest(
+                        query=runtime_query.query,
+                        context_pack=prepared.context_pack,
+                        settings=STAGE_D_GENERATION_SETTINGS,
+                        jurisdiction_text=outcome.jurisdiction_text,
+                        quote_registry=prepared.quote_registry,
+                    )
+                )
                 raw_value = getattr(generator, "last_raw_response", None)
                 raw_output = raw_value if isinstance(raw_value, str) else None
                 telemetry_value = getattr(generator, "last_telemetry", {})
@@ -1127,22 +1122,24 @@ def _run_stage_d_generation(
             "rendered_answer": rendered_answer,
         }
         _write_private_result(result_path, payload)
-        checkpoints.write(QueryCheckpoint(
-            artifact_type=GENERATION_CHECKPOINT_ARTIFACT_TYPE,
-            schema_version=GENERATION_CHECKPOINT_SCHEMA_VERSION,
-            lifecycle_state=lifecycle_state,
-            completion_kind="generation" if generation_completed else completion_kind,
-            context_prepared=context_prepared,
-            generation_attempted=generation_attempted,
-            generation_completed=generation_completed,
-            final_postprocessing_completed=final_postprocessing_completed,
-            pre_generation_policy_decision=policy_decision,
-            query_id=runtime_query.query_id,
-            generator_name=STAGE_D_GENERATOR_NAME,
-            result_path=result_path.as_posix(),
-            fingerprint=fingerprint,
-            telemetry=telemetry,
-        ))
+        checkpoints.write(
+            QueryCheckpoint(
+                artifact_type=GENERATION_CHECKPOINT_ARTIFACT_TYPE,
+                schema_version=GENERATION_CHECKPOINT_SCHEMA_VERSION,
+                lifecycle_state=lifecycle_state,
+                completion_kind="generation" if generation_completed else completion_kind,
+                context_prepared=context_prepared,
+                generation_attempted=generation_attempted,
+                generation_completed=generation_completed,
+                final_postprocessing_completed=final_postprocessing_completed,
+                pre_generation_policy_decision=policy_decision,
+                query_id=runtime_query.query_id,
+                generator_name=STAGE_D_GENERATOR_NAME,
+                result_path=result_path.as_posix(),
+                fingerprint=fingerprint,
+                telemetry=telemetry,
+            )
+        )
         key = "answers" if result.decision is GenerationDecision.ANSWER else "abstentions"
         counts[key] = int(cast(int, counts[key])) + 1
     return counts
@@ -1436,12 +1433,15 @@ def stage_d_readiness() -> dict[str, object]:
     eligible_ids: set[str] = set()
     for query in queries:
         item = prepared_by_id.get(query.query_id)
-        if item is not None and evaluate_stage_d_policy(
-            query.query,
-            PolicyContext(context_pack=item.context_pack),
-            source_registry=source_registry,
-            structural_roles=structural_roles,
-        ).allowed:
+        if (
+            item is not None
+            and evaluate_stage_d_policy(
+                query.query,
+                PolicyContext(context_pack=item.context_pack),
+                source_registry=source_registry,
+                structural_roles=structural_roles,
+            ).allowed
+        ):
             eligible_ids.add(query.query_id)
     prompt_tokens = [
         item.prompt_token_count
@@ -1739,9 +1739,7 @@ def _complete_retention_rate(
             for unit in resolver.resolve_chunk(row.chunk_id).units
         }
         groups = item.evidence_groups
-        if not all(
-            any(span.unit_id in input_unit_ids for span in group.spans) for group in groups
-        ):
+        if not all(any(span.unit_id in input_unit_ids for span in group.spans) for group in groups):
             continue
         input_complete += 1
         pack_units = {unit.unit_id for unit in packs_by_query[query_id].units}

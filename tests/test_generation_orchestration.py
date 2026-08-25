@@ -150,9 +150,10 @@ def test_status_accepts_canonical_local_ollama_lock(tmp_path: Path) -> None:
     )
 
     assert load_local_model_lock(lock).digest == "sha256:" + "a" * 64
-    assert generation_status("qwen-ollama", checkpoint_root=tmp_path / "checkpoints")[
-        "model_loaded"
-    ] is False
+    assert (
+        generation_status("qwen-ollama", checkpoint_root=tmp_path / "checkpoints")["model_loaded"]
+        is False
+    )
 
 
 def test_runtime_query_loader_does_not_expose_qrels(tmp_path: Path) -> None:
@@ -228,9 +229,9 @@ def test_stage_c_resume_uses_only_stage_c_namespace_and_no_fallback(tmp_path: Pa
         "tokenizer": CodepointTokenizer(),
         "runtime_queries": (RuntimeQuery(query_id="q1", query="What is the rule?"),),
         "context_packs": {"q1": pack()},
-        "assembler_factories": {"q1": lambda budget: pack().model_copy(
-            update={"max_context_tokens": budget}
-        )},
+        "assembler_factories": {
+            "q1": lambda budget: pack().model_copy(update={"max_context_tokens": budget})
+        },
         "checkpoint_root": tmp_path / "checkpoints",
         "results_root": tmp_path / "results",
         "context_cache_root": tmp_path / "context_packs",
@@ -271,9 +272,11 @@ def test_run_dev_builds_generator_context_without_phase9_private_pack(tmp_path: 
         tokenizer=CodepointTokenizer(),
         runtime_queries=(RuntimeQuery(query_id="q1", query="What is the rule?"),),
         context_packs={"q1": seed},
-        assembler_factories={"q1": lambda budget: pack().model_copy(
-            update={"token_counter_identity": "codepoint-v1", "max_context_tokens": budget}
-        )},
+        assembler_factories={
+            "q1": lambda budget: pack().model_copy(
+                update={"token_counter_identity": "codepoint-v1", "max_context_tokens": budget}
+            )
+        },
         checkpoint_root=tmp_path / "checkpoints",
         results_root=tmp_path / "results",
         context_cache_root=tmp_path / "context_packs",
@@ -305,9 +308,11 @@ def test_run_dev_resume_reuses_generator_context_and_result(tmp_path: Path) -> N
         "tokenizer": CodepointTokenizer(),
         "runtime_queries": (RuntimeQuery(query_id="q1", query="What is the rule?"),),
         "context_packs": {"q1": seed},
-        "assembler_factories": {"q1": lambda budget: pack().model_copy(
-            update={"token_counter_identity": "codepoint-v1", "max_context_tokens": budget}
-        )},
+        "assembler_factories": {
+            "q1": lambda budget: pack().model_copy(
+                update={"token_counter_identity": "codepoint-v1", "max_context_tokens": budget}
+            )
+        },
         "checkpoint_root": tmp_path / "checkpoints",
         "results_root": tmp_path / "results",
         "context_cache_root": tmp_path / "context_packs",

@@ -1598,8 +1598,7 @@ def import_adjudicated_holdout(
     if decision_counts != {"review_1": 37, "custom": 2}:
         raise ValueError("HOLDOUT adjudication decisions are not the locked 37+2 summary")
     if any(
-        item.get("adjudication_provenance")
-        != "ai_adjudicated_after_independent_second_review"
+        item.get("adjudication_provenance") != "ai_adjudicated_after_independent_second_review"
         for item in adjudications
     ):
         raise ValueError("HOLDOUT adjudication record provenance is invalid")
