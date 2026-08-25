@@ -1,67 +1,32 @@
 from __future__ import annotations
 
-import re
-from pathlib import Path
-
 import pytest
+from phase14_support import (
+    CORRUPT_FIXTURE,
+    DOCUMENT_ID,
+    FIXTURE,
+    build_synthetic_corpus,
+    build_synthetic_units,
+    extract_synthetic_pdf_text,
+)
 
-from kawaneen.chunking.corpus import Phase5Corpus
 from kawaneen.chunking.policies import get_chunk_policy
 from kawaneen.chunking.strategies import build_chunks
-from kawaneen.corpus.models import CanonicalUnit, SourceProvenance, UnitType
-from kawaneen.corpus.statutory import parse_article_label
 from kawaneen.normalization import get_policy
 
 pytestmark = pytest.mark.integration
 
-FIXTURE = Path(__file__).parents[1] / "fixtures" / "phase14" / "synthetic_appeals_regulation.pdf"
-CORRUPT_FIXTURE = Path(__file__).parents[1] / "fixtures" / "phase14" / "corrupt.pdf"
-DOCUMENT_ID = "phase14-synthetic-appeals-regulation"
+
+def _extract_text(path):
+    return extract_synthetic_pdf_text(path)
 
 
-def _extract_text(path: Path) -> str:
-    from pypdf import PdfReader
-
-    return "\n".join(page.extract_text() or "" for page in PdfReader(str(path)).pages)
+def _units_from_pdf(path):
+    return build_synthetic_units(path)
 
 
-def _units_from_pdf(path: Path) -> tuple[CanonicalUnit, ...]:
-    lines = [line.strip() for line in _extract_text(path).splitlines() if line.strip()]
-    headings = [index for index, line in enumerate(lines) if parse_article_label(line).ordinal]
-    units: list[CanonicalUnit] = []
-    for ordinal, start in enumerate(headings, start=1):
-        end = headings[ordinal] if ordinal < len(headings) else len(lines)
-        text = "\n".join(lines[start:end])
-        label = parse_article_label(lines[start])
-        assert label.ordinal is not None
-        units.append(
-            CanonicalUnit(
-                unit_id=f"{DOCUMENT_ID}:article-{label.ordinal}",
-                document_id=DOCUMENT_ID,
-                unit_type=UnitType.ARTICLE,
-                text=text,
-                provenance=SourceProvenance(
-                    source_id="phase14-synthetic",
-                    source_version="fixture-v1",
-                    source_path="tests/fixtures/phase14/synthetic_appeals_regulation.pdf",
-                    source_row=ordinal,
-                    source_field="article",
-                ),
-                ordinal=label.ordinal,
-            )
-        )
-    return tuple(units)
-
-
-def _corpus(units: tuple[CanonicalUnit, ...]) -> Phase5Corpus:
-    return Phase5Corpus(
-        units=units,
-        document_ids=frozenset({DOCUMENT_ID}),
-        document_count_by_source={"phase14-synthetic": 1},
-        source_versions={"phase14-synthetic": "fixture-v1"},
-        document_ids_hash="synthetic-document-hash",
-        scope_hash="synthetic-scope-hash",
-    )
+def _corpus(units):
+    return build_synthetic_corpus(units)
 
 
 def test_synthetic_pdf_is_machine_readable_and_has_expected_articles() -> None:
@@ -70,7 +35,7 @@ def test_synthetic_pdf_is_machine_readable_and_has_expected_articles() -> None:
     assert "Synthetic Appeals Regulation" in text
     assert "An objection may be submitted within thirty days from notification." in text
     assert "المادة ١٤" in text
-    assert not re.search(r"scanned|ocr required", text, re.IGNORECASE)
+    assert not any(marker in text.casefold() for marker in ("scanned", "ocr required"))
 
     units = _units_from_pdf(FIXTURE)
     assert [unit.ordinal for unit in units] == [12, 13, 14]
@@ -102,6 +67,15 @@ def test_pdf_to_chunks_preserves_article_boundaries_and_deterministic_provenance
         len(chunk.source_unit_ids) == 1 and by_id[chunk.source_unit_ids[0]].ordinal in {12, 13, 14}
         for chunk in first
     )
+
+
+def test_parser_boundary_reports_embedded_text_health() -> None:
+    from kawaneen.parsing.health import probe_pdf
+
+    pages = probe_pdf(FIXTURE)
+    assert len(pages) == 1
+    assert pages[0].text_chars > 0
+    assert pages[0].image_count == 0
 
 
 def test_corrupt_pdf_fails_closed() -> None:

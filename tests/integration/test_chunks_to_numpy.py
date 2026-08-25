@@ -2,11 +2,8 @@ from __future__ import annotations
 
 import numpy as np
 import pytest
+from phase14_support import build_phase14_stack
 
-from integration.test_pdf_to_chunks import FIXTURE, _corpus, _units_from_pdf
-from kawaneen.chunking.policies import get_chunk_policy
-from kawaneen.chunking.strategies import build_chunks
-from kawaneen.normalization import get_policy
 from kawaneen.retrieval.models import RetrievalChunk
 from kawaneen.retrieval.vector_index import NumpyExactIndex
 
@@ -14,33 +11,7 @@ pytestmark = pytest.mark.integration
 
 
 def _retrieval_chunks() -> tuple[RetrievalChunk, ...]:
-    units = _units_from_pdf(FIXTURE)
-    chunks = []
-    for chunk in build_chunks(
-        units,
-        _corpus(units),
-        get_chunk_policy("legal-structure-v1"),
-        get_policy("arabic-light-v1"),
-    ):
-        chunks.append(
-            RetrievalChunk(
-                chunk_id=chunk.chunk_id,
-                document_id=chunk.provenance["document_id"]
-                if isinstance(chunk.provenance.get("document_id"), str)
-                else units[0].document_id,
-                source_id="phase14-synthetic",
-                unit_type="article",
-                display_text=chunk.display_text,
-                search_text=chunk.search_text,
-                source_unit_ids=chunk.source_unit_ids,
-                chunk_policy_hash=chunk.chunk_policy_hash,
-                normalization_policy_id=chunk.normalization_policy_id,
-                normalization_policy_hash=chunk.normalization_policy_hash,
-                token_count=chunk.token_count,
-                source_spans=tuple((span.start, span.end) for span in chunk.source_spans),
-            )
-        )
-    return tuple(chunks)
+    return build_phase14_stack().chunks
 
 
 def test_chunks_have_exact_numpy_index_correspondence_and_deterministic_ranking() -> None:

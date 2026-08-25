@@ -1,75 +1,69 @@
 from __future__ import annotations
 
-# ruff: noqa: RUF001
 import pytest
+from phase14_support import build_phase14_stack
 
-from kawaneen.retrieval.bm25 import BM25Index
-from kawaneen.retrieval.models import RetrievalChunk
 from regression.conftest import load_cases
 
 pytestmark = pytest.mark.regression
 
 
-def _chunk(article: str, text: str) -> RetrievalChunk:
-    return RetrievalChunk(
-        chunk_id=article,
-        document_id="phase14-synthetic-appeals-regulation",
-        source_id="phase14-synthetic",
-        unit_type="article",
-        display_text=text,
-        search_text=text,
-        source_unit_ids=(f"unit-{article}",),
-        chunk_policy_hash="c" * 64,
-        normalization_policy_id="arabic-light-v1",
-        normalization_policy_hash="d" * 64,
-        token_count=len(text.split()),
-    )
-
-
-CORPUS = (
-    _chunk(
-        "article-12",
-        "المادة ١٢ Article 12 مهلة الاعتراض objection appeal notification deadline "
-        "thirty days from notification ثلاثون يوماً من الإخطار synthetic regulation",
-    ),
-    _chunk(
-        "article-13",
-        "المادة ١٣ competent authority acknowledge receipt تستلم الجهة المختصة "
-        "الاعتراض إقرار استلام الطلب",
-    ),
-    _chunk(
-        "article-14",
-        "المادة ١٤ يجوز تقديم الاعتراض خلال ثلاثين يوماً من تاريخ الإخطار Article 14 objection",
-    ),
-    _chunk("article-15", "المادة ١٥ قاعدة مشتركة synthetic shared rule"),
-    _chunk("article-16", "المادة ١٦ قاعدة مشتركة synthetic shared rule"),
-    _chunk("article-17", "المادة ١٧ نص مختلف عن موضوع آخر unrelated provision"),
-)
-
-
-def test_public_regression_cases_have_stable_observable_behavior() -> None:
-    index = BM25Index.build(CORPUS, "arabic-light-v1", k1=1.2, b=0.75)
+def test_public_regression_cases_exercise_the_complete_synthetic_stack() -> None:
+    stack = build_phase14_stack()
 
     for case in load_cases():
-        hits = index.search(case["query"], top_k=3)
-        hit_ids = [hit.chunk_id for hit in hits if hit.score > 0]
-        expected_ids = case["expected_chunk_ids"]
+        result = stack.answer(case["query"])
+        repeat = stack.answer(case["query"])
+        assert tuple(item.chunk_id for item in result.retrieval.evidence) == tuple(
+            item.chunk_id for item in repeat.retrieval.evidence
+        ), case["id"]
+        assert tuple(item.score for item in result.retrieval.evidence) == tuple(
+            item.score for item in repeat.retrieval.evidence
+        ), case["id"]
+        expected = set(case["expected_article_ordinals"])
+        observed = {
+            stack.article_ordinal(evidence.chunk_id)
+            for evidence in result.retrieval.evidence[: case["top_k"]]
+        }
 
-        assert isinstance(case["answer"], bool)
         if case["answer"]:
-            assert set(expected_ids).issubset(hit_ids), case["id"]
-            if case["expected_article"] is not None:
-                assert hit_ids[0] == expected_ids[0], case["id"]
+            assert expected <= observed, case["id"]
+            assert result.answerable is True, case["id"]
+            assert result.answer, case["id"]
+            assert result.citations, case["id"]
+            if case["top1_article_ordinal"] is not None:
+                assert (
+                    stack.article_ordinal(result.retrieval.evidence[0].chunk_id)
+                    == case["top1_article_ordinal"]
+                ), case["id"]
+            cited_articles = {
+                stack.article_ordinal(
+                    next(
+                        evidence.contributing_chunk_ids[0]
+                        for evidence in stack.context_for(case["query"], result.retrieval).evidence
+                        if evidence.evidence_id == citation.evidence_id
+                    )
+                )
+                for citation in result.citations
+            }
+            assert cited_articles & expected, case["id"]
+            assert all(
+                any(citation.quoted_text == unit.text for unit in stack.units)
+                for citation in result.citations
+            ), case["id"]
         else:
-            assert expected_ids == [], case["id"]
+            assert result.answerable is False, case["id"]
+            assert result.answer is None, case["id"]
+            assert result.citations == (), case["id"]
 
 
-def test_regression_cases_are_public_synthetic_and_exclude_holdout() -> None:
+def test_public_regression_cases_are_synthetic_and_exclude_holdout() -> None:
     cases = load_cases()
 
-    assert 15 <= len(cases) <= 25
+    assert len(cases) == 20
     assert len({case["id"] for case in cases}) == len(cases)
     assert all("holdout" not in repr(case).lower() for case in cases)
+    assert all(case["top_k"] <= 8 for case in cases)
     assert {case["category"] for case in cases} >= {
         "deadline",
         "authority",

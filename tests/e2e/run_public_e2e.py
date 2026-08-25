@@ -18,22 +18,23 @@ def main() -> None:
                 raise AssertionError(f"API did not become ready: {health}")
             time.sleep(0.25)
 
-        search = client.search("ما مهلة الاعتراض؟", limit=8)
+        query = "الاعتراض خلال ثلاثين يوماً"
+        search = client.search(query, limit=8)
         assert search.results
         assert search.results[0].document_id == "phase14-synthetic-appeals-regulation"
-        assert search.results[0].article == "المادة ١٢"
+        assert search.results[0].article == "المادة ١٤"
         assert search.retrieval.sparse_top_k == 50
         assert search.retrieval.dense_top_k == 50
         assert search.retrieval.fused_candidate_count == 20
         assert search.retrieval.reranker_depth == 8
 
-        answer = client.answer("ما مهلة الاعتراض؟")
+        answer = client.answer(query)
         assert answer.answerable is True
         assert answer.answer
         assert len(answer.citations) == 1
         citation = answer.citations[0]
         assert citation.document_id == "phase14-synthetic-appeals-regulation"
-        assert citation.article == "المادة ١٢"
+        assert citation.article == "المادة ١٤"
         assert citation.page == "1"
         assert citation.quoted_text in answer.answer
 

@@ -28,6 +28,7 @@ def test_regression_lock_matches_every_authoritative_identity_and_hash() -> None
     assert _sha256(ROOT / normalization["source_path"]) == normalization["source_sha256"]
     assert _sha256(ROOT / parsing["config_path"]) == parsing["config_sha256"]
     assert _sha256(ROOT / parsing["source_path"]) == parsing["source_sha256"]
+    assert _sha256(ROOT / parsing["adapter_path"]) == parsing["adapter_sha256"]
     assert _sha256(ROOT / chunking["config_path"]) == chunking["config_sha256"]
     assert _sha256(ROOT / chunking["source_path"]) == chunking["source_sha256"]
     assert _sha256(ROOT / fixtures["pdf_path"]) == fixtures["pdf_sha256"]
@@ -68,5 +69,5 @@ def test_regression_lock_matches_authoritative_serving_configuration() -> None:
 def test_regression_cases_and_lock_are_not_auto_rewritten() -> None:
     assert CASES_PATH.name == "phase14_cases.json"
     assert LOCK_PATH.name == "phase14_regression_lock.json"
-    assert json.loads(CASES_PATH.read_text(encoding="utf-8"))["schema_version"] == 1
+    assert json.loads(CASES_PATH.read_text(encoding="utf-8"))["schema_version"] == 2
     assert load_lock()["status"] == "phase14_public_synthetic_regression_lock"

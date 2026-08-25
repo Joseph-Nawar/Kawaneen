@@ -11,8 +11,10 @@
   "parsing": {
     "config_path": "configs/parsing/default.toml",
     "config_sha256": "c01c2704d4db594aad0b7529d11aacc6af2bf21a191753e21fe709eacc514f58",
-    "source_path": "src/kawaneen/corpus/statutory.py",
-    "source_sha256": "33dfceb9c2d8f0b3dce411948e44b837a50a19ab7ce65794df43e5a0011ee62b"
+    "source_path": "src/kawaneen/parsing/health.py",
+    "source_sha256": "0d74a58849dc8860bc80ed76fa725ddbd859123f17bdfb9cb02ce094e0095d3a",
+    "adapter_path": "tests/phase14_support.py",
+    "adapter_sha256": "7eb8bd72af117baba893f4013e68676963cc082bc87d5c54d7a2dc075f033b9a"
   },
   "chunking": {
     "policy_id": "legal-structure-v1",
@@ -59,6 +61,6 @@
     "pdf_path": "tests/fixtures/phase14/synthetic_appeals_regulation.pdf",
     "pdf_sha256": "0c363a34b9b0f9ef0467f553dfde3ea7b4d71a8df488a0c0eb4241d124a4ce14",
     "cases_path": "data/regression/phase14_cases.json",
-    "cases_sha256": "05c033c8c4c186bce449c49ec562af4198238f594bb530a63408f2da20518125"
+    "cases_sha256": "feaa218c7514d761a47b2a1a45f5d31920176f80bac86118237d5f7f750e3668"
   }
 }
