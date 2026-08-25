@@ -58,6 +58,29 @@ from kawaneen.evaluation.orchestrator import (
     run_source_balance_audit,
     validate_evaluation,
 )
+from kawaneen.extraction.interactive import run_interactive_dev_annotation
+from kawaneen.extraction.orchestration import (
+    annotation_progress,
+    export_dev_annotation_batch,
+    export_dev_annotation_batch_v2,
+    export_holdout_annotation_batch,
+    extraction_status,
+    freeze_holdout_annotation_release,
+    freeze_stage_b2_configuration,
+    import_adjudicated_holdout,
+    import_reviewed_dev,
+    import_reviewed_holdout,
+    next_dev_annotation,
+    prepare_annotations,
+    run_deterministic_split,
+    run_hybrid_split,
+    save_dev_annotation,
+    validate_annotations,
+    write_dev_candidate_audit_v2,
+)
+from kawaneen.extraction.orchestration import (
+    evaluate_split as extraction_evaluate,
+)
 from kawaneen.generation.ollama import (
     LOCAL_OLLAMA_LOCK_PATH,
     UrllibOllamaTransport,
@@ -402,6 +425,109 @@ def build_parser() -> argparse.ArgumentParser:
         "evaluate-timeout-diagnostic-v2",
         help="evaluate persisted Stage-B timeout v2 envelopes offline",
     )
+    extraction_parser = subparsers.add_parser(
+        "extraction", help="Phase 11 structured regulatory extraction"
+    )
+    extraction_subparsers = extraction_parser.add_subparsers(
+        dest="extraction_command", required=True
+    )
+    extraction_subparsers.add_parser("status", help="show text-free readiness status")
+    extraction_subparsers.add_parser(
+        "prepare-annotations", help="prepare the private annotation pack"
+    )
+    extraction_subparsers.add_parser(
+        "export-dev-annotation-batch", help="export the private DEV review batch"
+    )
+    extraction_subparsers.add_parser(
+        "export-dev-annotation-batch-v2", help="export the fresh private Phase-11 v2 DEV batch"
+    )
+    extraction_subparsers.add_parser(
+        "export-holdout-annotation-batch",
+        help="export the sealed source-only HOLDOUT annotation batch",
+    )
+    extraction_subparsers.add_parser(
+        "freeze-stage-b2", help="freeze the selected B2 DEV configuration metadata"
+    )
+    extraction_subparsers.add_parser(
+        "audit-dev-candidates-v2", help="write a private deterministic v2 candidate audit"
+    )
+    import_reviewed_parser = extraction_subparsers.add_parser(
+        "import-reviewed-dev", help="import an explicit independent-AI DEV review"
+    )
+    import_reviewed_parser.add_argument("--file", type=Path, required=True)
+    import_reviewed_parser.add_argument("--partial", action="store_true")
+    import_reviewed_holdout_parser = extraction_subparsers.add_parser(
+        "import-reviewed-holdout", help="import one explicit independent-AI HOLDOUT review"
+    )
+    import_reviewed_holdout_parser.add_argument("--file", type=Path, required=True)
+    extraction_subparsers.add_parser(
+        "freeze-holdout-annotations", help="freeze the final protected HOLDOUT reference release"
+    )
+    import_adjudicated_holdout_parser = extraction_subparsers.add_parser(
+        "import-holdout-adjudication", help="apply the sealed HOLDOUT AI adjudication"
+    )
+    import_adjudicated_holdout_parser.add_argument("--file", type=Path, required=True)
+    annotate_extraction_parser = extraction_subparsers.add_parser(
+        "annotate-dev", help="inspect or save one private DEV annotation"
+    )
+    annotate_mode = annotate_extraction_parser.add_mutually_exclusive_group(required=True)
+    annotate_mode.add_argument("--next", action="store_true")
+    annotate_mode.add_argument("--save", action="store_true")
+    annotate_extraction_parser.add_argument("--interactive", action="store_true")
+    annotate_extraction_parser.add_argument("--record-id")
+    annotate_extraction_parser.add_argument("--annotation-file", type=Path)
+    progress_extraction_parser = extraction_subparsers.add_parser(
+        "annotation-progress", help="report private DEV annotation progress"
+    )
+    progress_extraction_parser.add_argument("--split", choices=("dev",), required=True)
+    validate_extraction_parser = extraction_subparsers.add_parser(
+        "validate-annotations", help="validate private annotation records"
+    )
+    validate_extraction_parser.add_argument(
+        "--split", choices=("dev", "smoke", "holdout"), required=True
+    )
+    validate_extraction_parser.add_argument("--allow-holdout", action="store_true")
+    deterministic_extraction_parser = extraction_subparsers.add_parser(
+        "run-deterministic", help="run deterministic extraction over a private split"
+    )
+    deterministic_extraction_parser.add_argument(
+        "--split", choices=("dev", "smoke", "holdout"), required=True
+    )
+    deterministic_extraction_parser.add_argument("--allow-holdout", action="store_true")
+    hybrid_extraction_parser = extraction_subparsers.add_parser(
+        "run-hybrid", help="run the locked Phase 11B hybrid extractor over DEV"
+    )
+    hybrid_extraction_parser.add_argument(
+        "--split", choices=("dev", "smoke", "holdout"), required=True
+    )
+    hybrid_extraction_parser.add_argument("--resume", action="store_true")
+    hybrid_extraction_parser.add_argument(
+        "--stage",
+        choices=("b1-clean", "b2"),
+        default="b1-clean",
+        help="select the isolated DEV experiment stage",
+    )
+    hybrid_extraction_parser.add_argument(
+        "--retry-timeouts",
+        action="store_true",
+        help="explicitly retry only first-attempt MODEL_TIMEOUT failures with --resume",
+    )
+    hybrid_extraction_parser.add_argument(
+        "--preflight-only",
+        action="store_true",
+        help="validate the clean Stage B2 namespace without making provider calls",
+    )
+    hybrid_extraction_parser.add_argument("--allow-holdout", action="store_true")
+    evaluate_extraction_parser = extraction_subparsers.add_parser(
+        "evaluate", help="evaluate only reviewed private annotations"
+    )
+    evaluate_extraction_parser.add_argument(
+        "--extractor", choices=("deterministic-v1", "hybrid-qwen-v1"), required=True
+    )
+    evaluate_extraction_parser.add_argument(
+        "--split", choices=("dev", "smoke", "holdout"), required=True
+    )
+    evaluate_extraction_parser.add_argument("--allow-holdout", action="store_true")
     return parser
 
 
@@ -820,6 +946,138 @@ def main(argv: list[str] | None = None) -> int:
                 )
         except (OSError, PermissionError, ValueError, RuntimeError) as exc:
             print(f"Generation operation failed: {exc}", file=sys.stderr)
+            return 1
+    elif args.command == "extraction":
+        try:
+            if args.extraction_command == "status":
+                print(json.dumps(extraction_status(), ensure_ascii=False, sort_keys=True))
+            elif args.extraction_command == "prepare-annotations":
+                print(json.dumps(prepare_annotations(), ensure_ascii=False, sort_keys=True))
+            elif args.extraction_command == "export-dev-annotation-batch":
+                print(json.dumps(export_dev_annotation_batch(), ensure_ascii=False, sort_keys=True))
+            elif args.extraction_command == "export-dev-annotation-batch-v2":
+                print(
+                    json.dumps(export_dev_annotation_batch_v2(), ensure_ascii=False, sort_keys=True)
+                )
+            elif args.extraction_command == "export-holdout-annotation-batch":
+                print(
+                    json.dumps(
+                        export_holdout_annotation_batch(), ensure_ascii=False, sort_keys=True
+                    )
+                )
+            elif args.extraction_command == "freeze-stage-b2":
+                print(
+                    json.dumps(freeze_stage_b2_configuration(), ensure_ascii=False, sort_keys=True)
+                )
+            elif args.extraction_command == "audit-dev-candidates-v2":
+                print(
+                    json.dumps(write_dev_candidate_audit_v2(), ensure_ascii=False, sort_keys=True)
+                )
+            elif args.extraction_command == "import-reviewed-dev":
+                print(
+                    json.dumps(
+                        import_reviewed_dev(args.file, partial=args.partial),
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                )
+            elif args.extraction_command == "import-reviewed-holdout":
+                print(
+                    json.dumps(
+                        import_reviewed_holdout(args.file),
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                )
+            elif args.extraction_command == "import-holdout-adjudication":
+                print(
+                    json.dumps(
+                        import_adjudicated_holdout(args.file),
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                )
+            elif args.extraction_command == "freeze-holdout-annotations":
+                print(
+                    json.dumps(
+                        freeze_holdout_annotation_release(),
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                )
+            elif args.extraction_command == "annotate-dev":
+                if args.next:
+                    if args.interactive:
+                        print(
+                            json.dumps(
+                                run_interactive_dev_annotation(),
+                                ensure_ascii=False,
+                                sort_keys=True,
+                            )
+                        )
+                    else:
+                        print(json.dumps(next_dev_annotation(), ensure_ascii=False, sort_keys=True))
+                else:
+                    if args.interactive:
+                        raise ValueError("--interactive requires --next")
+                    if args.record_id is None or args.annotation_file is None:
+                        raise ValueError("--save requires --record-id and --annotation-file")
+                    print(
+                        json.dumps(
+                            save_dev_annotation(args.record_id, args.annotation_file),
+                            ensure_ascii=False,
+                            sort_keys=True,
+                        )
+                    )
+            elif args.extraction_command == "annotation-progress":
+                print(
+                    json.dumps(annotation_progress(args.split), ensure_ascii=False, sort_keys=True)
+                )
+            elif args.extraction_command == "validate-annotations":
+                print(
+                    json.dumps(
+                        validate_annotations(args.split, allow_holdout=args.allow_holdout),
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                )
+            elif args.extraction_command == "run-deterministic":
+                print(
+                    json.dumps(
+                        run_deterministic_split(args.split, allow_holdout=args.allow_holdout),
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                )
+            elif args.extraction_command == "run-hybrid":
+                print(
+                    json.dumps(
+                        run_hybrid_split(
+                            args.split,
+                            stage=args.stage,
+                            resume=args.resume,
+                            retry_timeouts=args.retry_timeouts,
+                            allow_holdout=args.allow_holdout,
+                            preflight_only=args.preflight_only,
+                        ),
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                )
+            elif args.extraction_command == "evaluate":
+                print(
+                    json.dumps(
+                        extraction_evaluate(
+                            args.extractor,
+                            args.split,
+                            allow_holdout=args.allow_holdout,
+                        ),
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                )
+        except (OSError, PermissionError, ValueError, RuntimeError) as exc:
+            print(f"Extraction operation failed: {exc}", file=sys.stderr)
             return 1
     else:
         build_parser().print_help()

@@ -105,6 +105,16 @@ omit = [
     "src/kawaneen/chunking/orchestrator.py",
     "src/kawaneen/normalization/orchestrator.py",
     "src/kawaneen/normalization/sensitivity.py",
+    # Phase 11 private model-run, checkpoint, readiness, and offline evaluation tooling.
+    "src/kawaneen/extraction/annotation.py",
+    "src/kawaneen/extraction/checkpoints.py",
+    "src/kawaneen/extraction/hybrid_runtime.py",
+    "src/kawaneen/extraction/orchestration.py",
+    "src/kawaneen/extraction/prompt.py",
+    "src/kawaneen/extraction/provider.py",
+    "src/kawaneen/extraction/readiness.py",
+    "src/kawaneen/extraction/stage_b1_evaluation.py",
+    "src/kawaneen/extraction/stage_b2_holdout_evaluation.py",
 ]
 
 [tool.pyright]

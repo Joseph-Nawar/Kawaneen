@@ -1,0 +1,75 @@
+{
+  "annotation_status_counts": {
+    "human_verified": 0,
+    "unreviewed": 120
+  },
+  "artifact_type": "phase11_readiness",
+  "candidate_registry_version": "phase11-candidates-v2",
+  "deterministic_candidate_counts": {
+    "regulation": 52,
+    "temporal": 34
+  },
+  "deterministic_extractor_smoke_success": true,
+  "document_disjoint": true,
+  "eligibility_policy_version": "phase11-eligibility-v2",
+  "eligible_corpus_counts": {
+    "documents": 60,
+    "units": 2756
+  },
+  "holdout_evaluation_performed": false,
+  "holdout_sealed": true,
+  "hybrid_model_calls": 0,
+  "safety_targets": {
+    "FinalSchemaValidityRate": 1.0,
+    "InvalidCandidateReferenceAcceptanceRate": 0.0,
+    "ProvenanceCompletenessRate": 1.0,
+    "UnsupportedSpanAcceptanceRate": 0.0
+  },
+  "sampling_strata_distribution": {
+    "exception": 17,
+    "low_signal": 39,
+    "money_percentage": 2,
+    "normative": 26,
+    "penalty": 4,
+    "reference": 81,
+    "temporal": 66
+  },
+  "schema_version": 1,
+  "selected_units_containing_candidate_type": {
+    "article": 0,
+    "monetary": 0,
+    "percentage": 0,
+    "regulation": 35,
+    "temporal": 25
+  },
+  "selected_units_containing_candidate_type_percentage": {
+    "article": 0.0,
+    "monetary": 0.0,
+    "percentage": 0.0,
+    "regulation": 29.1667,
+    "temporal": 20.8333
+  },
+  "selection_counts": {
+    "dev": 80,
+    "holdout": 40,
+    "smoke": 10,
+    "total": 120
+  },
+  "selection_version": "phase11-selection-v2",
+  "semantic_extraction_performance_reported": false,
+  "source_governance": {
+    "permission_gate_authoritative": true,
+    "private_source_text": true,
+    "regulatory_only": true,
+    "source_universe": "governed_primary_statutory_corpus"
+  },
+  "text_length_distribution": {
+    "count_over_1000": 7,
+    "count_over_1500": 0,
+    "max": 1415,
+    "min": 63,
+    "p50": 236,
+    "p95": 1052
+  },
+  "tracked_source_text_leakage": 0
+}

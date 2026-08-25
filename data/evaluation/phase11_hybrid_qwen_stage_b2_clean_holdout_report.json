@@ -1,0 +1,736 @@
+{
+  "annotation_release_fingerprint": "5fe335d2910bb1ea2662bdc912ec8bab4d73b15870b1a777b8a947a3315278c9",
+  "annotation_release_sha256": "2a5ade4acbc897bdca9456083970ada5809e8d0baf45d3ebc559472905b220b9",
+  "artifact_type": "phase11_hybrid_stage_b2_clean_holdout_evaluation",
+  "candidate_policy": "phase11-candidates-v3",
+  "candidate_policy_hash": "dcc40496967242ee1cba99576bebce9eca3520d639f4ae25a6bb2fe0797cd675",
+  "completed_record_count": 39,
+  "complexity_breakdown": {
+    "candidate_count": {
+      "0": {
+        "clause_exact_match_rate": 0.21428571428571427,
+        "completed_predictions": 13,
+        "records": 14,
+        "semantic_micro_F1": 0.06382978723404255
+      },
+      "1-2": {
+        "clause_exact_match_rate": 0.11538461538461539,
+        "completed_predictions": 26,
+        "records": 26,
+        "semantic_micro_F1": 0.21839080459770116
+      }
+    },
+    "gold_rule_count": {
+      "0": {
+        "clause_exact_match_rate": 0.8571428571428571,
+        "completed_predictions": 7,
+        "records": 7,
+        "semantic_micro_F1": 0.0
+      },
+      "1": {
+        "clause_exact_match_rate": 0.0,
+        "completed_predictions": 18,
+        "records": 18,
+        "semantic_micro_F1": 0.12048192771084339
+      },
+      "2": {
+        "clause_exact_match_rate": 0.0,
+        "completed_predictions": 4,
+        "records": 4,
+        "semantic_micro_F1": 0.25806451612903225
+      },
+      "3+": {
+        "clause_exact_match_rate": 0.0,
+        "completed_predictions": 10,
+        "records": 11,
+        "semantic_micro_F1": 0.1793103448275862
+      }
+    },
+    "source_length": {
+      "1001-1500": {
+        "clause_exact_match_rate": 0.0,
+        "completed_predictions": 0,
+        "records": 1,
+        "semantic_micro_F1": 0.0
+      },
+      "251-500": {
+        "clause_exact_match_rate": 0.09090909090909091,
+        "completed_predictions": 11,
+        "records": 11,
+        "semantic_micro_F1": 0.21739130434782608
+      },
+      "501-1000": {
+        "clause_exact_match_rate": 0.0,
+        "completed_predictions": 3,
+        "records": 3,
+        "semantic_micro_F1": 0.15
+      },
+      "<=250": {
+        "clause_exact_match_rate": 0.2,
+        "completed_predictions": 25,
+        "records": 25,
+        "semantic_micro_F1": 0.16216216216216217
+      }
+    }
+  },
+  "conditional_39_record_view": {
+    "candidate_selection_metrics": {
+      "deadlines": {
+        "F1": 0.4444444444444445,
+        "FN": 5,
+        "FP": 0,
+        "TP": 2,
+        "precision": 1.0,
+        "recall": 0.2857142857142857,
+        "support": 7
+      },
+      "effective_dates": {
+        "F1": 0.0,
+        "F1_status": "not_estimable",
+        "FN": 0,
+        "FP": 1,
+        "TP": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "recall_status": "not_estimable",
+        "support": 0
+      },
+      "monetary_thresholds": {
+        "F1": 0.0,
+        "F1_status": "not_estimable",
+        "FN": 0,
+        "FP": 0,
+        "TP": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "recall_status": "not_estimable",
+        "support": 0
+      },
+      "percentage_thresholds": {
+        "F1": 0.0,
+        "F1_status": "not_estimable",
+        "FN": 0,
+        "FP": 0,
+        "TP": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "recall_status": "not_estimable",
+        "support": 0
+      }
+    },
+    "clause_exact_match": {
+      "matched_records": 6,
+      "rate": 0.15384615384615385
+    },
+    "field_metrics": {
+      "actions": {
+        "F1": 0.09411764705882353,
+        "FN": 60,
+        "FP": 17,
+        "TP": 4,
+        "precision": 0.19047619047619047,
+        "recall": 0.0625,
+        "support": 64
+      },
+      "actors": {
+        "F1": 0.22222222222222227,
+        "FN": 31,
+        "FP": 4,
+        "TP": 5,
+        "precision": 0.5555555555555556,
+        "recall": 0.1388888888888889,
+        "support": 36
+      },
+      "conditions": {
+        "F1": 0.3,
+        "FN": 19,
+        "FP": 9,
+        "TP": 6,
+        "precision": 0.4,
+        "recall": 0.24,
+        "support": 25
+      },
+      "deadlines": {
+        "F1": 0.4444444444444445,
+        "FN": 5,
+        "FP": 0,
+        "TP": 2,
+        "precision": 1.0,
+        "recall": 0.2857142857142857,
+        "support": 7
+      },
+      "effective_dates": {
+        "F1": 0.0,
+        "F1_status": "not_estimable",
+        "FN": 0,
+        "FP": 1,
+        "TP": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "recall_status": "not_estimable",
+        "support": 0
+      },
+      "exceptions": {
+        "F1": 0.0,
+        "FN": 10,
+        "FP": 2,
+        "TP": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "support": 10
+      },
+      "monetary_thresholds": {
+        "F1": 0.0,
+        "F1_status": "not_estimable",
+        "FN": 0,
+        "FP": 0,
+        "TP": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "recall_status": "not_estimable",
+        "support": 0
+      },
+      "penalties": {
+        "F1": 0.0,
+        "FN": 1,
+        "FP": 0,
+        "TP": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "support": 1
+      },
+      "percentage_thresholds": {
+        "F1": 0.0,
+        "F1_status": "not_estimable",
+        "FN": 0,
+        "FP": 0,
+        "TP": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "recall_status": "not_estimable",
+        "support": 0
+      },
+      "regulated_entities": {
+        "F1": 0.2,
+        "FN": 30,
+        "FP": 10,
+        "TP": 5,
+        "precision": 0.3333333333333333,
+        "recall": 0.14285714285714285,
+        "support": 35
+      }
+    },
+    "gold_rule_count": 64,
+    "macro_F1": 0.126078431372549,
+    "micro": {
+      "F1": 0.18106995884773663,
+      "FN": 156,
+      "FP": 43,
+      "TP": 22,
+      "precision": 0.3384615384615385,
+      "recall": 0.12359550561797752,
+      "support": 178
+    },
+    "normative": {
+      "action": {
+        "F1": 0.09411764705882353,
+        "FN": 60,
+        "FP": 17,
+        "TP": 4,
+        "precision": 0.19047619047619047,
+        "recall": 0.0625,
+        "support": 64
+      },
+      "actor": {
+        "F1": 0.22222222222222227,
+        "FN": 31,
+        "FP": 4,
+        "TP": 5,
+        "precision": 0.5555555555555556,
+        "recall": 0.1388888888888889,
+        "support": 36
+      },
+      "full_rule_exact_match": {
+        "F1": 0.023529411764705882,
+        "FN": 63,
+        "FP": 20,
+        "TP": 1,
+        "precision": 0.047619047619047616,
+        "recall": 0.015625,
+        "support": 64
+      },
+      "modality_accuracy": 0.6666666666666666,
+      "modality_by_class": {
+        "obligation": {
+          "F1": 0.35294117647058826,
+          "FN": 31,
+          "FP": 2,
+          "TP": 9,
+          "matched": 9,
+          "precision": 0.8181818181818182,
+          "recall": 0.225,
+          "recall_status": "estimable",
+          "support": 40
+        },
+        "permission": {
+          "F1": 0.1818181818181818,
+          "FN": 16,
+          "FP": 2,
+          "TP": 2,
+          "matched": 2,
+          "precision": 0.5,
+          "recall": 0.1111111111111111,
+          "recall_status": "estimable",
+          "support": 18
+        },
+        "prohibition": {
+          "F1": 0.16666666666666666,
+          "FN": 5,
+          "FP": 5,
+          "TP": 1,
+          "matched": 1,
+          "precision": 0.16666666666666666,
+          "recall": 0.16666666666666666,
+          "recall_status": "estimable",
+          "support": 6
+        }
+      },
+      "modality_comparable": 18,
+      "modality_confusion": {
+        "obligation": {
+          "obligation": 9,
+          "permission": 2,
+          "prohibition": 1
+        },
+        "permission": {
+          "obligation": 2,
+          "permission": 2,
+          "prohibition": 1
+        },
+        "prohibition": {
+          "obligation": 0,
+          "permission": 0,
+          "prohibition": 1
+        }
+      },
+      "modality_unmatched_gold": {
+        "obligation": 28,
+        "permission": 13,
+        "prohibition": 5
+      },
+      "modality_unmatched_predicted": {
+        "obligation": 0,
+        "permission": 0,
+        "prohibition": 3
+      }
+    },
+    "predicted_rule_count": 21,
+    "record_count": 39,
+    "records_with_predictions": 39
+  },
+  "configuration_sha256": "1455845866edb8ef21925b8009c607ada561d2343fedcb2e218c20a976f5689b",
+  "end_to_end_40_record_view": {
+    "candidate_selection_metrics": {
+      "deadlines": {
+        "F1": 0.4444444444444445,
+        "FN": 5,
+        "FP": 0,
+        "TP": 2,
+        "precision": 1.0,
+        "recall": 0.2857142857142857,
+        "support": 7
+      },
+      "effective_dates": {
+        "F1": 0.0,
+        "F1_status": "not_estimable",
+        "FN": 0,
+        "FP": 1,
+        "TP": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "recall_status": "not_estimable",
+        "support": 0
+      },
+      "monetary_thresholds": {
+        "F1": 0.0,
+        "F1_status": "not_estimable",
+        "FN": 0,
+        "FP": 0,
+        "TP": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "recall_status": "not_estimable",
+        "support": 0
+      },
+      "percentage_thresholds": {
+        "F1": 0.0,
+        "F1_status": "not_estimable",
+        "FN": 0,
+        "FP": 0,
+        "TP": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "recall_status": "not_estimable",
+        "support": 0
+      }
+    },
+    "clause_exact_match": {
+      "matched_records": 6,
+      "rate": 0.15
+    },
+    "field_metrics": {
+      "actions": {
+        "F1": 0.0851063829787234,
+        "FN": 69,
+        "FP": 17,
+        "TP": 4,
+        "precision": 0.19047619047619047,
+        "recall": 0.0547945205479452,
+        "support": 73
+      },
+      "actors": {
+        "F1": 0.18867924528301888,
+        "FN": 39,
+        "FP": 4,
+        "TP": 5,
+        "precision": 0.5555555555555556,
+        "recall": 0.11363636363636363,
+        "support": 44
+      },
+      "conditions": {
+        "F1": 0.27906976744186046,
+        "FN": 22,
+        "FP": 9,
+        "TP": 6,
+        "precision": 0.4,
+        "recall": 0.21428571428571427,
+        "support": 28
+      },
+      "deadlines": {
+        "F1": 0.4444444444444445,
+        "FN": 5,
+        "FP": 0,
+        "TP": 2,
+        "precision": 1.0,
+        "recall": 0.2857142857142857,
+        "support": 7
+      },
+      "effective_dates": {
+        "F1": 0.0,
+        "F1_status": "not_estimable",
+        "FN": 0,
+        "FP": 1,
+        "TP": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "recall_status": "not_estimable",
+        "support": 0
+      },
+      "exceptions": {
+        "F1": 0.0,
+        "FN": 11,
+        "FP": 2,
+        "TP": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "support": 11
+      },
+      "monetary_thresholds": {
+        "F1": 0.0,
+        "F1_status": "not_estimable",
+        "FN": 0,
+        "FP": 0,
+        "TP": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "recall_status": "not_estimable",
+        "support": 0
+      },
+      "penalties": {
+        "F1": 0.0,
+        "FN": 1,
+        "FP": 0,
+        "TP": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "support": 1
+      },
+      "percentage_thresholds": {
+        "F1": 0.0,
+        "F1_status": "not_estimable",
+        "FN": 0,
+        "FP": 0,
+        "TP": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "recall_status": "not_estimable",
+        "support": 0
+      },
+      "regulated_entities": {
+        "F1": 0.18518518518518517,
+        "FN": 34,
+        "FP": 10,
+        "TP": 5,
+        "precision": 0.3333333333333333,
+        "recall": 0.1282051282051282,
+        "support": 39
+      }
+    },
+    "gold_rule_count": 73,
+    "macro_F1": 0.11824850253332324,
+    "micro": {
+      "F1": 0.16417910447761197,
+      "FN": 181,
+      "FP": 43,
+      "TP": 22,
+      "precision": 0.3384615384615385,
+      "recall": 0.10837438423645321,
+      "support": 203
+    },
+    "normative": {
+      "action": {
+        "F1": 0.0851063829787234,
+        "FN": 69,
+        "FP": 17,
+        "TP": 4,
+        "precision": 0.19047619047619047,
+        "recall": 0.0547945205479452,
+        "support": 73
+      },
+      "actor": {
+        "F1": 0.18867924528301888,
+        "FN": 39,
+        "FP": 4,
+        "TP": 5,
+        "precision": 0.5555555555555556,
+        "recall": 0.11363636363636363,
+        "support": 44
+      },
+      "full_rule_exact_match": {
+        "F1": 0.02127659574468085,
+        "FN": 72,
+        "FP": 20,
+        "TP": 1,
+        "precision": 0.047619047619047616,
+        "recall": 0.0136986301369863,
+        "support": 73
+      },
+      "modality_accuracy": 0.6666666666666666,
+      "modality_by_class": {
+        "obligation": {
+          "F1": 0.30508474576271183,
+          "FN": 39,
+          "FP": 2,
+          "TP": 9,
+          "matched": 9,
+          "precision": 0.8181818181818182,
+          "recall": 0.1875,
+          "recall_status": "estimable",
+          "support": 48
+        },
+        "permission": {
+          "F1": 0.17391304347826086,
+          "FN": 17,
+          "FP": 2,
+          "TP": 2,
+          "matched": 2,
+          "precision": 0.5,
+          "recall": 0.10526315789473684,
+          "recall_status": "estimable",
+          "support": 19
+        },
+        "prohibition": {
+          "F1": 0.16666666666666666,
+          "FN": 5,
+          "FP": 5,
+          "TP": 1,
+          "matched": 1,
+          "precision": 0.16666666666666666,
+          "recall": 0.16666666666666666,
+          "recall_status": "estimable",
+          "support": 6
+        }
+      },
+      "modality_comparable": 18,
+      "modality_confusion": {
+        "obligation": {
+          "obligation": 9,
+          "permission": 2,
+          "prohibition": 1
+        },
+        "permission": {
+          "obligation": 2,
+          "permission": 2,
+          "prohibition": 1
+        },
+        "prohibition": {
+          "obligation": 0,
+          "permission": 0,
+          "prohibition": 1
+        }
+      },
+      "modality_unmatched_gold": {
+        "obligation": 36,
+        "permission": 14,
+        "prohibition": 5
+      },
+      "modality_unmatched_predicted": {
+        "obligation": 0,
+        "permission": 0,
+        "prohibition": 3
+      }
+    },
+    "predicted_rule_count": 21,
+    "record_count": 40,
+    "records_with_predictions": 39
+  },
+  "error_taxonomy": {
+    "ANNOTATION_AMBIGUITY": 0,
+    "DUPLICATE_EXTRACTION": 0,
+    "MISSED_EXTRACTION": 46,
+    "PIPELINE_FAILURE": 1,
+    "SPAN_BOUNDARY_ERROR": 0,
+    "SPURIOUS_EXTRACTION": 3,
+    "UNSUPPORTED_MODEL_SPAN": 19,
+    "WRONG_ACTOR_ACTION_ASSOCIATION": 3,
+    "WRONG_CANDIDATE_CLASSIFICATION": 6,
+    "WRONG_MODALITY": 6
+  },
+  "failed_record_count": 1,
+  "failure_diagnostics": [
+    {
+      "attempt_count": 2,
+      "attempt_history": [
+        {
+          "attempt_number": 1,
+          "failure_type": "MODEL_TIMEOUT",
+          "lifecycle_state": "failed",
+          "retry_reason": null
+        },
+        {
+          "attempt_number": 2,
+          "failure_type": "PROVIDER_VALIDATION_FAILURE",
+          "lifecycle_state": "failed",
+          "retry_reason": "authorized_timeout_retry"
+        }
+      ],
+      "candidate_reference_stage": "not_reached",
+      "exact_span_stage": "not_reached",
+      "failure_reason": "INVALID_PROVIDER_JSON: Unterminated string starting at: line 136 column 7 (char 3646)",
+      "failure_subcategory": "OUTPUT_TRUNCATED",
+      "final_failure_category": "INVALID_PROVIDER_JSON",
+      "json_parse_status": "invalid",
+      "prior_failure_type": "MODEL_TIMEOUT",
+      "provider_schema_status": "invalid",
+      "raw_response_length": 3647,
+      "raw_response_received": true,
+      "record_id": "f52c0c03-a024-513c-ac04-f79b16e9a234",
+      "retry_reason": "authorized_timeout_retry",
+      "truncation_evidence": true
+    }
+  ],
+  "field_local_rejection_diagnostics": {
+    "ambiguous_or_repeated_occurrences_rejected": 2,
+    "conditions_dropped": 15,
+    "diagnostic_code_counts": {
+      "AMBIGUOUS_OR_INVALID_OCCURRENCE": 2,
+      "INVALID_CANDIDATE_REFERENCE": 4,
+      "INVALID_OCCURRENCE_CORRECTED": 48,
+      "INVALID_PROVIDER_JSON": 1,
+      "UNSUPPORTED_MODEL_SPAN": 19,
+      "conditions_dropped": 15,
+      "entities_dropped": 12,
+      "exceptions_dropped": 1,
+      "invalid_action_rules_dropped": 11
+    },
+    "entities_dropped": 12,
+    "exceptions_dropped": 1,
+    "final_regulated_entities_accepted": 15,
+    "final_rules_accepted": 21,
+    "invalid_candidate_references_dropped": 4,
+    "invalid_candidate_references_proposed": 4,
+    "invalid_rules_dropped_because_action_invalid": 11,
+    "penalties_dropped": 0,
+    "provider_semantic_bodies_fully_empty": 17,
+    "raw_regulated_entity_proposals": 17,
+    "raw_rule_proposals": 32,
+    "unique_occurrence_server_corrections": 48,
+    "unsupported_spans_dropped": 19,
+    "unsupported_spans_proposed": 19,
+    "valid_empty_extraction_results": 23
+  },
+  "method_notes": {
+    "failed_record_treatment": "no predictions; gold contributes false negatives in the end-to-end view",
+    "references": "AI-reviewed/adjudicated; not human gold",
+    "rule_matching": "same strict rule-key matching and index-aligned modality comparison as DEV Stage B2"
+  },
+  "model": "qwen3:4b-instruct-2507-q4_K_M",
+  "model_digest": "sha256:0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+  "record_count": 40,
+  "reference_status": "AI-reviewed/adjudicated reference; not human gold",
+  "result_set_sha256": "0fba9650e08256339499438d993401d49366d0caf3b8daa071a6a254fad30f16",
+  "safety_structural_metrics": {
+    "FinalSchemaValidityRate": {
+      "completed_outputs": {
+        "count": 39,
+        "denominator": 39,
+        "rate": 1.0
+      },
+      "end_to_end": {
+        "count": 39,
+        "denominator": 40,
+        "rate": 0.975
+      }
+    },
+    "InvalidCandidateReferenceAcceptanceRate": {
+      "count": 0,
+      "denominator": 4,
+      "rate": 0.0
+    },
+    "InvalidCandidateReferenceProposalRate": {
+      "count": 4,
+      "denominator": 11,
+      "rate": 0.36363636363636365
+    },
+    "PipelineCompletionRate": {
+      "count": 39,
+      "denominator": 40,
+      "rate": 0.975
+    },
+    "ProvenanceCompletenessRate": {
+      "completed_outputs": {
+        "count": 39,
+        "denominator": 39,
+        "rate": 1.0
+      },
+      "end_to_end": {
+        "count": 39,
+        "denominator": 40,
+        "rate": 0.975
+      }
+    },
+    "RawProviderSchemaValidityRate": {
+      "count": 39,
+      "denominator": 40,
+      "rate": 0.975
+    },
+    "UnsupportedSpanAcceptanceRate": {
+      "count": 0,
+      "denominator": 19,
+      "rate": 0.0
+    },
+    "UnsupportedSpanProposalRate": {
+      "count": 19,
+      "denominator": 96,
+      "rate": 0.19791666666666666
+    }
+  },
+  "schema_sha256": "7e1e0287c0a384d09fddc419964e3422b95a1540d2a7fc92aca58fa692d03ee0",
+  "schema_version": 1,
+  "selected_configuration_manifest_sha256": "419ffae3ed746d8a90feca001bf17c977c1a372cd5dfed3a0bb8cd8af946228e",
+  "selection_fingerprint": "98a698a82ac8d444ad35cb037bb7fadb5e1c4ca1c1d63e5cee13a9e273107f05",
+  "split": "holdout",
+  "stage": "hybrid-qwen-v1-stage-b2",
+  "template_sha256": "72d8e6b613b56ddb61cf536df55760b2220f6e570c2f09b8536e7263d0c1f9bf",
+  "template_version": "phase11-hybrid-qwen-stage-b2-prompt-v1"
+}

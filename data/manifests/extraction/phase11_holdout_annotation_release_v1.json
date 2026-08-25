@@ -1,0 +1,39 @@
+{
+  "adjudication_artifact_sha256": "61fb85de41036b214ff776790dd9b696cbd48b83e50b590c66ad5e7293ad1ef0",
+  "aggregate_annotation_counts": {
+    "deadline_refs": 7,
+    "effective_date_refs": 0,
+    "empty_records": 3,
+    "exceptions": 11,
+    "monetary_threshold_refs": 0,
+    "penalties": 1,
+    "percentage_threshold_refs": 0,
+    "regulated_entities": 39,
+    "rules": 73
+  },
+  "annotation_release_fingerprint": "5fe335d2910bb1ea2662bdc912ec8bab4d73b15870b1a777b8a947a3315278c9",
+  "annotation_schema_version": "phase11-proposal-v1",
+  "artifact_type": "phase11_holdout_annotation_release",
+  "candidate_collection_fingerprint": "c07f6ee4d8493925574a38861954950e6e8a75615d35105d8cb31997ad5207ce",
+  "candidate_policy_hash": "dcc40496967242ee1cba99576bebce9eca3520d639f4ae25a6bb2fe0797cd675",
+  "candidate_policy_version": "phase11-candidates-v3",
+  "corpus_fingerprint": "be72320f3becb024b8accc9753dd3770c87423861a252ae931db247a1fa90f8e",
+  "evaluation_performed": 0,
+  "human_gold": false,
+  "human_verified": 0,
+  "private_release_sha256": "2a5ade4acbc897bdca9456083970ada5809e8d0baf45d3ebc559472905b220b9",
+  "provenance_state_counts": {
+    "ai_adjudicated_after_independent_second_review": 39,
+    "dual_ai_agreed": 1,
+    "human_verified": 0,
+    "independent_ai_review": 0
+  },
+  "record_count": 40,
+  "release_version": "phase11-holdout-annotation-release-v1",
+  "schema_version": 1,
+  "selection_fingerprint": "98a698a82ac8d444ad35cb037bb7fadb5e1c4ca1c1d63e5cee13a9e273107f05",
+  "selection_manifest_sha256": "2155a2b596e7e6be326480fa97f1b6e62db43dd97d2f95e169e04773f63d0a9a",
+  "source_batch_sha256": "578a3044d03b1d52231c9b59ac3888398d4fa581d3cc16614decd25c5502747a",
+  "split": "holdout",
+  "status": "HOLDOUT_REFERENCE_FROZEN"
+}

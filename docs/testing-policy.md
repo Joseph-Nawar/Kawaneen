@@ -21,6 +21,10 @@ pytest -m private_artifact --no-cov
 
 The public coverage denominator omits only named offline corpus/evaluation,
 persisted-artifact, and model/provider experiment modules whose behavior
-intrinsically requires those untracked assets. Public acquisition, parsing,
-retrieval primitives, validation, and normal application logic remain in the
-coverage scope. The CI threshold remains 85%.
+intrinsically requires those untracked assets. This includes Phase 11 private
+annotation-pack preparation, model-run, checkpoint, readiness, orchestration,
+prompt/provider, and offline evaluation tooling, including the frozen HOLDOUT
+evaluator; Phase 11 contracts, span validation, candidate generation,
+normalization, and deterministic/hybrid assembly remain in the coverage scope.
+Public acquisition, parsing, retrieval primitives, validation, and normal
+application logic remain in the coverage scope. The CI threshold remains 85%.

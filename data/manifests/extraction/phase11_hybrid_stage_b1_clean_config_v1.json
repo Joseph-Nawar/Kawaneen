@@ -1,0 +1,366 @@
+{
+  "artifact_type": "phase11_hybrid_dev_configuration",
+  "automatic_retries": 0,
+  "candidate_compatible_release_fingerprint": "b06fd5088e0e97250e6951064087a2c3a3a3f930213e73c7e10d7a996ef74e40",
+  "candidate_policy_hash": "dcc40496967242ee1cba99576bebce9eca3520d639f4ae25a6bb2fe0797cd675",
+  "candidate_policy_version": "phase11-candidates-v3",
+  "checkpoint_root": "artifacts/private/phase11_extraction/checkpoints/hybrid-qwen-v1/dev",
+  "hf_model": "Qwen/Qwen3-4B-Instruct-2507",
+  "hf_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+  "holdout_access": 0,
+  "lifecycle_state": "complete",
+  "model": "qwen3:4b-instruct-2507-q4_K_M",
+  "model_calls": 2,
+  "ollama_digest": "sha256:0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+  "ollama_tag": "qwen3:4b-instruct-2507-q4_K_M",
+  "record_count": 80,
+  "result_root": "artifacts/private/phase11_extraction/results/hybrid-qwen-v1/dev",
+  "run": {
+    "completed": 1,
+    "failed": 1,
+    "model_calls": 2,
+    "provider_calls_attempted": 2,
+    "raw_responses_received": 2,
+    "record_count": 80,
+    "skipped": 78,
+    "statuses": [
+      {
+        "record_id": "846069fa-11e2-5c77-aaec-3c25fb04df7e",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "044c940e-26ec-5af0-8834-36f2dc7591c5",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "4c369578-0daa-53bd-afb7-8b4cb7f324b1",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "3a6672be-6da8-5e56-9522-09f15df3ccdc",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "0dcd9759-c24f-5706-a763-02b436a7348b",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "9bf76be1-3a59-5692-8916-dcee9a16e7f4",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "babe5bf2-606e-5e34-a89d-8aef691e7703",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "87a350bd-c026-57f8-91bf-a109be263cef",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "67935a9e-54d1-589f-a7d4-9ddad2ec0e16",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "9c68c267-1afe-568c-b289-9baee0d2e6cc",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "a01a08ba-3ae2-5ea3-afe7-a4e20a622779",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "7b75c9e6-6faa-5432-9959-031cfae2889c",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "f04eb690-f4c4-5a33-934c-6a5331bb1321",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "4ee619a5-1934-5cba-95d7-16db8588cce7",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "4c36192b-ede1-5ea3-b759-efa742042d84",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "d076ae95-736d-58b5-8776-9fc12df9ad05",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "8968230f-4aad-572b-9be9-98c34505aca0",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "dc88af64-0752-5c39-a3cb-1b86925b2ae7",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "4c6079bf-f0c2-586e-96f7-bb8df1194915",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "a3fefb4f-5f31-5014-91c9-6730574ced63",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "a7ff1897-95be-52cf-8f5d-d9ff9af56421",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "f4ad452d-2cbb-5dad-89c6-e4ecf72ebb04",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "d596db90-3aca-54bc-be7e-4584e4ec4149",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "9c82e3c4-3428-5cf2-8ba6-0bd3d5e0f513",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "20a7c17f-c92f-5a2e-ac56-ccf93432f9fd",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "bb1bdcc7-5ea3-5576-a2d9-a8233e56ab50",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "c0a0a9f3-b9cb-520f-a6dc-84acde670036",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "b2d08db8-d4b5-5ac0-abce-7ee39dc3b5f0",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "0693e435-dd07-5f90-ba17-a3fb0f85fd1b",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "e4372741-4200-5ac4-b95e-8c12e07c2d77",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "51924524-5b4d-57de-833e-ebdc0520b1cf",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "d63860ff-4e6e-51a9-89c4-fb52fb3a9e54",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "a363a009-026a-5eb5-9761-0f0b4aca2b8e",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "a9aac19b-3686-5440-9648-7e14e63e094b",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "aa45ed67-c42e-5794-ba67-b071357e0438",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "4ed7e7b0-3aa0-5e8b-bf31-d7bcac75f14f",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "53a5b5ea-d8d8-5cb8-b81f-5d253e1d4f87",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "bfa3279d-d012-56d5-a65d-0ac52ac5efb7",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "42fd4133-f604-5ca3-9207-4694caaaefcd",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "6fecfa61-a5d3-56f2-b138-eb2019e28d6f",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "de597c32-df4d-56df-86ac-7257761b64c6",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "e50c9575-09f7-5599-9fab-b81c5298c378",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "67088b68-159c-585c-bc57-441037123354",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "1095d693-c9e5-508f-863c-0d4ee50abd38",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "32218c01-383d-59dd-a81b-3cd2d608c521",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "0a3aca62-4ab0-5c0d-8c6c-c1f0c69475e2",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "565f3911-e741-5e0f-9cad-ef1b6782f6f2",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "b0fda842-b3e2-5a79-8f88-9f63ae94a14c",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "f2f0d665-2dd8-58ac-9753-63fd5da3c82a",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "44467988-6455-5b71-be29-493a212abd96",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "40056685-be34-5ac1-bf7c-747dc8bb460e",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "e2af5532-77dd-52e4-8a64-45048868771e",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "be218554-2ab3-5636-b232-7ae3207deaf8",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "e252d8c9-fb3e-5ee9-80d8-9eb69cd237b9",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "941bc6fc-89b2-5eaa-9382-3765332bd7d7",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "3c45f8f6-6af1-5e68-85f1-4d81e8c8d549",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "bbad7cad-7034-5c5c-a11c-9fe3ad995468",
+        "status": "complete"
+      },
+      {
+        "record_id": "31c38c04-53fe-592f-87e9-c58998ccc2d1",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "8a2d3ba3-2c1e-5087-9b60-d73d234b75bd",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "70671bf5-d8bc-584b-b19c-756aac4c29ab",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "92623d3f-02aa-50cb-9f41-42deb7f5488f",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "e528fa1d-fb4a-5902-b56d-a31a315dc63f",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "9cbf6ac0-fc46-59cd-8818-6ce4452ffada",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "67b86a34-d937-5ca6-be73-2c17bf898eaa",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "20b0f2b5-fe33-58ec-bca4-d004dcd1367e",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "e7868e4b-2716-538f-9cfe-2891ba943d0f",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "ab4cd2a8-6f07-5f8e-92ee-61ee4ce5cd4a",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "d2658a7d-5561-582c-8699-0919ae882f26",
+        "status": "failed"
+      },
+      {
+        "record_id": "3b25dede-9f16-5ec6-88b0-9950d4b5044e",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "0474c851-8c78-5a3a-bcad-d31ffe5f3db6",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "f2c3243c-f7a9-51ac-81a4-10dff797a428",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "378eb4ab-bec3-5c02-b036-d37e0cc9378d",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "2026b804-79a3-57ba-ba43-43c9533b8f36",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "0fb54d97-bcff-530e-ba55-8501a8842ce6",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "2cd6da18-e13a-5f03-ac33-830ee6678954",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "a0cfdf74-c4cb-5afd-bb99-5d7572444ec9",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "cc594a14-8f34-589b-b982-f35152ea1d1e",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "4743245d-9b0e-5fea-a31d-7cad384f4626",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "dbc971c0-bea1-57f9-92af-64c29c8a696e",
+        "status": "skipped_complete"
+      },
+      {
+        "record_id": "f7588125-a3f2-532b-8bf0-81e195a3be6f",
+        "status": "skipped_complete"
+      }
+    ],
+    "timeouts": 0
+  },
+  "runtime_settings": {
+    "automatic_retries": 0,
+    "num_predict": 1024,
+    "seed": 0,
+    "temperature": 0.0,
+    "top_p": 1.0
+  },
+  "schema_sha256": "7e1e0287c0a384d09fddc419964e3422b95a1540d2a7fc92aca58fa692d03ee0",
+  "schema_version": 1,
+  "selection_fingerprint": "98a698a82ac8d444ad35cb037bb7fadb5e1c4ca1c1d63e5cee13a9e273107f05",
+  "semantic_release_fingerprint": "a48be5b6cacb4b0a1d2a45c82d4f4b2b12ec80c725447d9ff20d2e8355c80f04",
+  "semantic_release_sha256": "9e0f60baa9b19c7841c729643f257bb5be8a9f993e51b2d95660909421af53c1",
+  "split": "dev",
+  "template_sha256": "6cf49ae83d9917621d8487f91c0f176dfb316f2d0b3cf0f8867330ba6c1daf58",
+  "template_version": "phase11-hybrid-qwen-stage-b1-prompt-v1",
+  "tokenizer_revision": "cdbee75f17c01a7cc42f958dc650907174af0554"
+}
