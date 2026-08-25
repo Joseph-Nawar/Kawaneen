@@ -1,6 +1,6 @@
 # Phase 12 API Serving Boundary Report
 
-Status: implementation branch `phase12/api-serving-boundary`; PR is intentionally not merged by the implementation agent.
+Status: implementation branch `phase12/api-serving-boundary`; PR [#8](https://github.com/Joseph-Nawar/Kawaneen/pull/8) is open and intentionally not merged by the implementation agent.
 
 ## Architecture
 
@@ -18,8 +18,9 @@ The API exposes `/v1/search`, `/v1/answer`, `/v1/extract`, `/v1/documents`, `/v1
 - Branch coverage: 85.12% (required threshold 85%)
 - Ruff format/lint: clean (`uv run ruff format --check .`; `uv run ruff check .`)
 - Pyright: clean (`0 errors, 0 warnings, 0 informations`)
-- Python 3.11 / 3.12 GitHub Actions jobs: pending push
-- Final commit SHA / PR number/status: pending push
+- Implementation commit SHA: `b1c5f5b`
+- Python 3.11 / 3.12 GitHub Actions jobs: pending GitHub run creation
+- PR: #8, open, not merged
 
 Safety confirmations for the final run:
 
