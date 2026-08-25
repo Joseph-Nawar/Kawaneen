@@ -15,6 +15,7 @@ from kawaneen.phase15.evidence import (
 )
 from kawaneen.phase15.selection import (
     ReviewCandidate,
+    build_dialect_manifest,
     select_dialect_base_intents,
     select_generator_subset,
     select_review_cases,
@@ -81,3 +82,25 @@ def test_review_selection_is_exact_and_rejects_holdout() -> None:
 
     with pytest.raises(ValueError, match="HOLDOUT"):
         select_review_cases([candidates[0].model_copy(update={"holdout": True})], seed=1)
+    with pytest.raises(ValueError, match="exactly 120"):
+        select_review_cases(candidates, count=1)
+    with pytest.raises(ValueError, match="at least 120"):
+        select_review_cases(candidates[:1])
+
+
+def test_dialect_manifest_and_selection_requirements() -> None:
+    with pytest.raises(ValueError, match="at least 20"):
+        select_dialect_base_intents([{"id": "one", "split": "dev"}])
+    with pytest.raises(ValueError, match="Egyptian"):
+        build_dialect_manifest([], {"egyptian": [], "gulf": [], "levantine": []})
+    base_ids = [f"base-{i}" for i in range(20)]
+    manifest = build_dialect_manifest(
+        base_ids,
+        {
+            "egyptian": [f"eg-{i}" for i in range(20)],
+            "gulf_saudi": [f"gulf-{i}" for i in range(20)],
+            "levantine": [f"lev-{i}" for i in range(20)],
+        },
+        {"eg-0": "hash"},
+    )
+    assert manifest.dialect_counts == {"egyptian": 20, "gulf_saudi": 20, "levantine": 20}

@@ -8,6 +8,8 @@ import pytest
 from kawaneen.phase15.contracts import ErrorCategory, ReviewCase, ReviewDecision
 from kawaneen.phase15.review import (
     ReviewStore,
+    build_review_manifest,
+    default_review_paths,
     prepare_review_packet,
 )
 
@@ -57,3 +59,23 @@ def test_finalize_hard_fails_before_100_unique_decisions(tmp_path: Path) -> None
     store = ReviewStore(packet_path, tmp_path / "progress.json")
     with pytest.raises(RuntimeError, match="100"):
         store.require_finalize_ready()
+
+
+def test_review_store_status_and_packet_guards(tmp_path: Path) -> None:
+    cases = _cases()
+    packet_path = tmp_path / "packet.json"
+    prepare_review_packet(cases, packet_path, tmp_path / "manifest.json")
+    store = ReviewStore(packet_path, tmp_path / "progress.json")
+    assert len(store.cases()) == 120
+    assert store.next_unreviewed() is not None
+    assert store.decision_for("missing") is None
+    status = store.status()
+    assert status["progress"] == "0 / 120"
+    assert status["finalize_ready"] is False
+    assert default_review_paths(tmp_path)[0].as_posix().endswith("review/review_packet.json")
+    with pytest.raises(ValueError, match="unknown immutable"):
+        store.save_decision(ReviewDecision(case_id="missing", primary=ErrorCategory.OCR_FAILURE))
+
+    assert build_review_manifest(cases)["holdout_case_count"] == 0
+    with pytest.raises(ValueError, match="exactly 120"):
+        build_review_manifest(cases[:1])
