@@ -37,6 +37,11 @@ retrieval = [
     "faiss-cpu>=1.9,<2; platform_machine != 'arm64' or sys_platform != 'darwin'",
     "sentence-transformers>=3.3,<6",
 ]
+ui = [
+    "httpx>=0.28,<1",
+    "pypdf>=5,<6",
+    "streamlit>=1.61,<2",
+]
 
 [dependency-groups]
 dev = [

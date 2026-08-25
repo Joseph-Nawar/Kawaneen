@@ -1,0 +1,66 @@
+{
+  "extraction": {
+    "completion": 0.975,
+    "error_taxonomy": {
+      "ANNOTATION_AMBIGUITY": 0,
+      "DUPLICATE_EXTRACTION": 0,
+      "MISSED_EXTRACTION": 46,
+      "PIPELINE_FAILURE": 1,
+      "SPAN_BOUNDARY_ERROR": 0,
+      "SPURIOUS_EXTRACTION": 3,
+      "UNSUPPORTED_MODEL_SPAN": 19,
+      "WRONG_ACTOR_ACTION_ASSOCIATION": 3,
+      "WRONG_CANDIDATE_CLASSIFICATION": 6,
+      "WRONG_MODALITY": 6
+    },
+    "full_rule_exact_f1": 0.02127659574468085,
+    "micro_f1": 0.16417910447761197,
+    "micro_precision": 0.3384615384615385,
+    "micro_recall": 0.10837438423645321,
+    "provenance_completeness": 0.975,
+    "schema_validity": 0.975,
+    "scope_note": "Phase 11 protected HOLDOUT summary from the tracked sanitized report."
+  },
+  "generation": {
+    "ClaimCitationCoverage": 1.0,
+    "FalseAnswerRate": 0.05263157894736842,
+    "ValidCitationRate": 1.0,
+    "final_answer_coverage": 0.59375,
+    "invalid_generation_rate": 0.0
+  },
+  "retrieval": {
+    "dev": {
+      "bge": {"MRR@10": 0.061955420466058765, "Recall@10": 0.09574468085106383, "nDCG@10": 0.06713099780908378},
+      "bm25": {"MRR@10": 0.125, "Recall@10": 0.20567375886524822, "nDCG@10": 0.1385309486290192},
+      "rrf": {"MRR@10": 0.14103343465045592, "Recall@10": 0.20212765957446807, "nDCG@10": 0.14806354881595257},
+      "rrf_reranked": {"MRR@10": 0.2069824383654171, "Recall@10": 0.25886524822695034, "nDCG@10": 0.21324084873418195}
+    },
+    "holdout": {
+      "bge": {"MRR@10": 0.016891891891891893, "Recall@10": 0.060810810810810814, "nDCG@10": 0.02634681795502928},
+      "bm25": {"MRR@10": 0.061068211068211066, "Recall@10": 0.12162162162162163, "nDCG@10": 0.07528786533388118},
+      "rrf": {"MRR@10": 0.0646932646932647, "Recall@10": 0.10810810810810811, "nDCG@10": 0.07461102886799806},
+      "rrf_reranked": {"MRR@10": 0.11524024024024025, "Recall@10": 0.16216216216216217, "nDCG@10": 0.12634828713497717}
+    },
+    "scope_note": "Common tracked Phase 8 metrics; DEV and holdout are split labels.",
+    "selected_deltas": {
+      "bm25_to_final_reranked": {
+        "dev": {"CompleteEvidenceRecall@10": 0.049645390070921974, "MRR@10": 0.0819824383654171, "Recall@10": 0.05319148936170212, "nDCG@10": 0.07470990010516274},
+        "holdout": {"CompleteEvidenceRecall@10": 0.04054054054054054, "MRR@10": 0.054172029172029186, "Recall@10": 0.04054054054054054, "nDCG@10": 0.05106042180109599}
+      },
+      "bm25_to_rrf": {
+        "dev": {"CompleteEvidenceRecall@10": -0.007092198581560294, "MRR@10": 0.016033434650455924, "Recall@10": -0.003546099290780147, "nDCG@10": 0.00953260018693336},
+        "holdout": {"CompleteEvidenceRecall@10": -0.013513513513513514, "MRR@10": 0.00362505362505363, "Recall@10": -0.013513513513513514, "nDCG@10": -0.0006768364658831239}
+      },
+      "rrf_to_reranker": {
+        "dev": {"CompleteEvidenceRecall@10": 0.05673758865248227, "MRR@10": 0.06594900371496118, "Recall@10": 0.05673758865248227, "nDCG@10": 0.06517729991822938},
+        "holdout": {"CompleteEvidenceRecall@10": 0.05405405405405406, "MRR@10": 0.050546975546975556, "Recall@10": 0.05405405405405406, "nDCG@10": 0.051737258266979114}
+      }
+    }
+  },
+  "schema_version": "phase13-evaluation-v1",
+  "sources": [
+    {"path": "data/evaluation/phase8_comparison.json", "sha256": "7196afc2db9dfa5616638b870979dbaa69014f6e3936890ac12f2efd869abd38"},
+    {"path": "data/evaluation/phase10_qwen_stage_d_metrics.json", "sha256": "b19196f62c83e51ae05d2694bad0840f0b0f87ae6ab45adab3bcf2a77b51e45e"},
+    {"path": "data/evaluation/phase11_hybrid_qwen_stage_b2_clean_holdout_report.json", "sha256": "653565f0e9d76b8776c1f32b5b5ff3d3a8e67031ab7469b803cb78f57b79a36f"}
+  ]
+}
