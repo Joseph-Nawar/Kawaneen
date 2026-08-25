@@ -26,7 +26,7 @@ Phase 13 adds the recruiter-facing Streamlit interface over the Phase 12 `/v1` H
 | `make check` | Passed: 824 passed, 1 skipped, 85.01% branch-aware coverage |
 | Browser viewport QA | Blocked: no browser backend is available in this environment |
 | Final screenshots | Blocked by browser availability; none fabricated |
-| Push/PR | Pending browser gate and final verification |
+| Push/PR | Branch pushed; [PR #9](https://github.com/Joseph-Nawar/Kawaneen/pull/9) open, not merged |
 
 ## Safety confirmations
 
