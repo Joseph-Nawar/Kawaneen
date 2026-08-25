@@ -10,6 +10,7 @@ from kawaneen.ui.client import HttpUiClient, UiApiError
 
 
 @pytest.mark.private_artifact
+@pytest.mark.e2e
 def test_private_phase12_ui_smoke_uses_only_normal_serving_paths() -> None:
     base_url = os.environ.get("KAWANEEN_PRIVATE_PHASE12_API_URL")
     if not base_url:

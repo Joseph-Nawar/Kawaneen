@@ -5,6 +5,7 @@ from fastapi.testclient import TestClient
 
 
 @pytest.mark.private_artifact
+@pytest.mark.e2e
 def test_real_local_serving_composition_smoke() -> None:
     """Exercise only bounded, non-evaluation serving requests on local assets."""
 

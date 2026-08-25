@@ -71,6 +71,10 @@ indent-style = "space"
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 markers = [
+    "integration: deterministic public subsystem integration tests",
+    "regression: deterministic public behavioral regression tests",
+    "model_artifact: requires an existing local frozen model cache; never downloads",
+    "e2e: Docker or application-level end-to-end tests",
     "private_artifact: requires intentionally untracked local corpora, frozen private experiment artifacts, or model caches",
 ]
 
