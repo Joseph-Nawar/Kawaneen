@@ -37,7 +37,7 @@ synthetic text only.
 The authoritative base SHA is
 `294c8c171abc0e93d826ffbb6d2cf019c63e6d44`. The implementation head verified
 by the fresh remote run is
-`2247e788f909d316e25655722d4ccbd3c5e54756`.
+`f2745950438b5f91bcbcf01b52d403c772ac4834`.
 
 Local verification on macOS/Python 3.12:
 
@@ -55,9 +55,9 @@ PR and remote CI:
 - PR [#10](https://github.com/Joseph-Nawar/Kawaneen/pull/10) is open against
   `main`, not merged, with merge state `CLEAN`/`MERGEABLE` at verification.
 - Workflow run
-  [32890984816](https://github.com/Joseph-Nawar/Kawaneen/actions/runs/32890984816)
-  passed all three jobs: quality Python 3.11 (1m54s), quality Python 3.12
-  (2m08s), and `e2e-compose` (37s).
+  [32891307151](https://github.com/Joseph-Nawar/Kawaneen/actions/runs/32891307151)
+  passed all three jobs: quality Python 3.11 (1m40s), quality Python 3.12
+  (1m56s), and `e2e-compose` (31s).
 - The successful Compose job exercised health, search, grounded answer,
   verified citation/display, and deliberate abstention in the public
   synthetic stack.
