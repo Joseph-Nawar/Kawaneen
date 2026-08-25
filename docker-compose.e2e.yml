@@ -1,0 +1,22 @@
+# Test-only deterministic harness. This is not production deployment infrastructure.
+services:
+  api:
+    build:
+      context: .
+      dockerfile: docker/e2e/Dockerfile
+    command: ["uvicorn", "tests.e2e.public_stack:app", "--host", "0.0.0.0", "--port", "8000"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/v1/health', timeout=2)"]
+      interval: 2s
+      timeout: 3s
+      retries: 15
+      start_period: 3s
+
+  e2e:
+    build:
+      context: .
+      dockerfile: docker/e2e/Dockerfile
+    depends_on:
+      api:
+        condition: service_healthy
+    command: ["python", "-m", "tests.e2e.run_public_e2e"]

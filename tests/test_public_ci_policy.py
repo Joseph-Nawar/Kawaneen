@@ -9,6 +9,8 @@ def test_tracked_tests_have_no_machine_specific_paths() -> None:
     offenders = []
     machine_path_fragments = ("/" + "Users/", "/" + "Volumes/")
     for filename in files:
+        if Path(filename).suffix.lower() in {".pdf", ".png", ".jpg", ".jpeg"}:
+            continue
         text = Path(filename).read_text(encoding="utf-8")
         if any(fragment in text for fragment in machine_path_fragments):
             offenders.append(filename)

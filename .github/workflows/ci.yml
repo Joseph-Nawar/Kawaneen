@@ -27,4 +27,17 @@ jobs:
       - run: .venv/bin/ruff format --check .
       - run: .venv/bin/ruff check .
       - run: .venv/bin/pyright
-      - run: .venv/bin/pytest -m "not private_artifact" --cov=kawaneen --cov-branch --cov-report=term-missing --cov-fail-under=85
+      - run: .venv/bin/pytest -m "not private_artifact and not model_artifact and not e2e" --cov=kawaneen --cov-branch --cov-report=term-missing --cov-fail-under=85
+
+  e2e-compose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Build and run public deterministic Compose E2E
+        run: docker compose -f docker-compose.e2e.yml up --build --abort-on-container-exit --exit-code-from e2e
+      - name: Preserve Compose logs on failure
+        if: failure()
+        run: docker compose -f docker-compose.e2e.yml logs --no-color
+      - name: Tear down Compose E2E
+        if: always()
+        run: docker compose -f docker-compose.e2e.yml down -v --remove-orphans

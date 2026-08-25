@@ -1,4 +1,4 @@
-.PHONY: help install format lint typecheck test test-public test-private check doctor api-serve ui-serve ui-demo sources-validate sources-summary data-plan data-acquire-alarb data-import-arabiccr data-verify data-audit data-audit-statutory data-manifest data-status data-rebuild-auto data-rebuild corpus-plan corpus-build corpus-validate corpus-inventory corpus-statutory-status corpus-duplicate-diagnostics corpus-gaps parsing-preflight parsing-benchmark parsing-diagnose normalization-plan normalization-run normalization-validate normalization-sensitivity chunking-plan chunking-build chunking-experiment chunking-validate evaluation-plan evaluation-build-draft evaluation-build-draft-v3 evaluation-build-draft-v4 evaluation-build-draft-v5 evaluation-build-final-candidate evaluation-export-review evaluation-import-review evaluation-validate evaluation-freeze evaluation-freeze-ai-reviewed evaluation-stats extraction-status extraction-prepare extraction-validate extraction-deterministic clean
+.PHONY: help install format lint typecheck test test-unit test-integration test-regression test-model-regression test-e2e test-e2e-private test-public test-private check doctor api-serve ui-serve ui-demo sources-validate sources-summary data-plan data-acquire-alarb data-import-arabiccr data-verify data-audit data-audit-statutory data-manifest data-status data-rebuild-auto data-rebuild corpus-plan corpus-build corpus-validate corpus-inventory corpus-statutory-status corpus-duplicate-diagnostics corpus-gaps parsing-preflight parsing-benchmark parsing-diagnose normalization-plan normalization-run normalization-validate normalization-sensitivity chunking-plan chunking-build chunking-experiment chunking-validate evaluation-plan evaluation-build-draft evaluation-build-draft-v3 evaluation-build-draft-v4 evaluation-build-draft-v5 evaluation-build-final-candidate evaluation-export-review evaluation-import-review evaluation-validate evaluation-freeze evaluation-freeze-ai-reviewed evaluation-stats extraction-status extraction-prepare extraction-validate extraction-deterministic clean
 
 help:
 	@printf '%s\n' 'Kawaneen development commands:'
@@ -7,6 +7,12 @@ help:
 	@printf '%s\n' '  make lint      uv run ruff check .'
 	@printf '%s\n' '  make typecheck uv run pyright'
 	@printf '%s\n' '  make test      uv run pytest'
+	@printf '%s\n' '  make test-unit  fast public unit tests only'
+	@printf '%s\n' '  make test-integration  public deterministic integration tests'
+	@printf '%s\n' '  make test-regression  public hermetic regression suite'
+	@printf '%s\n' '  make test-model-regression  cache-only frozen model regression'
+	@printf '%s\n' '  make test-e2e  Docker Compose public deterministic E2E'
+	@printf '%s\n' '  make test-e2e-private  optional local private Phase 12 smoke'
 	@printf '%s\n' '  make test-public  public hermetic tests with the 85% coverage gate'
 	@printf '%s\n' '  make test-private  local private-artifact integration tests (set private roots as needed)'
 	@printf '%s\n' '  make check     format check, lint, typecheck, tests'
@@ -77,8 +83,26 @@ typecheck:
 test:
 	uv run pytest
 
+test-unit:
+	uv run pytest -m "not integration and not regression and not model_artifact and not e2e and not private_artifact" --no-cov
+
+test-integration:
+	uv run pytest -m integration --no-cov
+
+test-regression:
+	uv run pytest -m regression --no-cov
+
+test-model-regression:
+	uv run pytest -m model_artifact --no-cov
+
+test-e2e:
+	trap 'docker compose -f docker-compose.e2e.yml down -v --remove-orphans' EXIT; docker compose -f docker-compose.e2e.yml up --build --abort-on-container-exit --exit-code-from e2e
+
+test-e2e-private:
+	uv run pytest -m "e2e and private_artifact" --no-cov
+
 test-public:
-	uv run pytest -m "not private_artifact" --cov=kawaneen --cov-branch --cov-report=term-missing --cov-fail-under=85
+	uv run pytest -m "not private_artifact and not model_artifact and not e2e" --cov=kawaneen --cov-branch --cov-report=term-missing --cov-fail-under=85
 
 test-private:
 	uv run pytest -m private_artifact --no-cov

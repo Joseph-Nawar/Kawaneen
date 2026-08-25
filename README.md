@@ -16,6 +16,10 @@ make check
 
 See [the API guide](docs/api.md), [development.md](docs/development.md), and [the Phase 12 report](docs/reports/phase-12-api-report.md) for the serving contract and verification record.
 
+Testing layers and the public synthetic harness are documented in
+[docs/testing.md](docs/testing.md). Run `make test-regression` for the hermetic
+behavior lock or `make test-e2e` for the Docker Compose E2E harness.
+
 ## Product Interface
 
 Phase 13 adds a recruiter-facing Streamlit workspace over the Phase 12 HTTP API. It is an evidence-first legal research interface—not a chatbot—with four screens:

@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "status": "phase14_public_synthetic_regression_lock",
+  "normalization": {
+    "policy_id": "arabic-light-v1",
+    "version": 1,
+    "policy_hash": "78e262b833d1de1229d5f1c8618d91ba8d3d0916929386e3fbbdaed7352b5120",
+    "source_path": "src/kawaneen/normalization/policies.py",
+    "source_sha256": "d6d31d2720ad4a6b7786fce1981e866c2196453fa89e79eb2ba31f8dfaecf561"
+  },
+  "parsing": {
+    "config_path": "configs/parsing/default.toml",
+    "config_sha256": "c01c2704d4db594aad0b7529d11aacc6af2bf21a191753e21fe709eacc514f58",
+    "source_path": "src/kawaneen/parsing/health.py",
+    "source_sha256": "0d74a58849dc8860bc80ed76fa725ddbd859123f17bdfb9cb02ce094e0095d3a",
+    "adapter_path": "tests/phase14_support.py",
+    "adapter_sha256": "7eb8bd72af117baba893f4013e68676963cc082bc87d5c54d7a2dc075f033b9a"
+  },
+  "chunking": {
+    "policy_id": "legal-structure-v1",
+    "config_path": "configs/chunking/policies.toml",
+    "config_sha256": "b956c2e4103e098cf5c31411f7be9626da7a78a9ccc54f1b2b879b226651d7a2",
+    "source_path": "src/kawaneen/chunking/strategies.py",
+    "source_sha256": "7f0ba856d27eae7ce2d598c0d38ab2890cb27fe30a64d15debc7ceeba18b2e2c"
+  },
+  "dense_model": {
+    "model_id": "BAAI/bge-m3",
+    "revision": "5617a9f61b028005a4858fdac845db406aefb181",
+    "lock_path": "data/manifests/retrieval/phase7_model_lock.json"
+  },
+  "reranker": {
+    "model_id": "BAAI/bge-reranker-v2-m3",
+    "revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+    "lock_path": "data/manifests/retrieval/phase8_model_lock.json",
+    "lock_sha256": "a9dcb9f6ab6396d9ce68507c200533d8eadc7e2565d995b5c15d5c719deb21d9"
+  },
+  "fusion": {
+    "sparse_top_k": 50,
+    "dense_top_k": 50,
+    "sparse_weight": 1.0,
+    "dense_weight": 0.25,
+    "rrf_k": 60,
+    "candidate_k": 20,
+    "serving_depth": 8,
+    "scoring_contract": "raw-logit-v1",
+    "config_path": "configs/retrieval/phase8_hybrid.toml",
+    "config_sha256": "5a45d8a8dcb350a6b1ecc7c1ae850bead9afeb701f995739b6cdec2c64884afe"
+  },
+  "generation": {
+    "configuration_path": "data/manifests/generation/phase10_generation_policy.json",
+    "configuration_sha256": "24bf0929be74f32014129697c2d48f6b57f97477432228cbc008c7c6f93fe9ea",
+    "prompt_identity": "phase10-prompt-template-v1",
+    "system_rules_identity": "phase10-system-v1"
+  },
+  "answerability": {
+    "policy_identity": "phase10-stage-d-answerability-policy-v1",
+    "source_path": "src/kawaneen/generation/answerability.py",
+    "source_sha256": "f7edcd3a5a24cb3a2d6abd62e2d8ce54d24cb811f6076691fed2e6b516df2eab"
+  },
+  "fixtures": {
+    "pdf_path": "tests/fixtures/phase14/synthetic_appeals_regulation.pdf",
+    "pdf_sha256": "0c363a34b9b0f9ef0467f553dfde3ea7b4d71a8df488a0c0eb4241d124a4ce14",
+    "cases_path": "data/regression/phase14_cases.json",
+    "cases_sha256": "feaa218c7514d761a47b2a1a45f5d31920176f80bac86118237d5f7f750e3668"
+  }
+}
