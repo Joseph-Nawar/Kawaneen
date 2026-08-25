@@ -2,11 +2,12 @@
 
 from __future__ import annotations
 
-from collections import Counter
-from hashlib import sha256
 import json
+from collections import Counter
+from collections.abc import Iterable
+from hashlib import sha256
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any
 
 from .contracts import ReviewCase, ReviewDecision
 from .evidence import write_json_atomic
@@ -30,6 +31,7 @@ def build_review_manifest(cases: Iterable[ReviewCase]) -> dict[str, Any]:
         raise ValueError("Phase 15 review case IDs must be unique")
     if any(case.holdout for case in case_list):
         raise ValueError("Phase 15 review packet cannot contain HOLDOUT cases")
+
     def counts(field: str) -> dict[str, int]:
         return dict(sorted(Counter(str(getattr(case, field)) for case in case_list).items()))
 
@@ -73,7 +75,10 @@ class ReviewStore:
     def cases(self) -> tuple[ReviewCase, ...]:
         payload = json.loads(self.packet_path.read_text(encoding="utf-8"))
         cases = tuple(ReviewCase.model_validate(item) for item in payload.get("cases", ()))
-        if len(cases) != REVIEW_CASE_COUNT or len({case.case_id for case in cases}) != REVIEW_CASE_COUNT:
+        if (
+            len(cases) != REVIEW_CASE_COUNT
+            or len({case.case_id for case in cases}) != REVIEW_CASE_COUNT
+        ):
             raise ValueError("review packet must contain exactly 120 unique cases")
         return cases
 
@@ -105,6 +110,9 @@ class ReviewStore:
     def reviewed_count(self) -> int:
         return len(self._decisions())
 
+    def decision_for(self, case_id: str) -> ReviewDecision | None:
+        return self._decisions().get(case_id)
+
     def status(self) -> dict[str, Any]:
         reviewed = self.reviewed_count()
         return {
@@ -125,7 +133,8 @@ class ReviewStore:
         reviewed = self.reviewed_count()
         if reviewed < MINIMUM_FINAL_REVIEWS:
             raise RuntimeError(
-                f"phase15 finalize requires >= {MINIMUM_FINAL_REVIEWS} unique human review decisions; got {reviewed}"
+                f"phase15 finalize requires >= {MINIMUM_FINAL_REVIEWS} unique human review "
+                f"decisions; got {reviewed}"
             )
 
 

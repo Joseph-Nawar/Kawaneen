@@ -110,6 +110,16 @@ from kawaneen.normalization.orchestrator import (
 from kawaneen.normalization.sensitivity import run_sensitivity_validation
 from kawaneen.parsing.benchmark import preflight_pdfs, qualification_status
 from kawaneen.parsing.diagnostics import diagnose_docling
+from kawaneen.phase15.orchestrator import (
+    phase15_finalize,
+    phase15_freeze,
+    phase15_model_lock,
+    phase15_plan,
+    phase15_review_prepare,
+    phase15_review_status,
+    phase15_synthesize,
+    phase15_unavailable_experiment,
+)
 from kawaneen.retrieval.hybrid.finalization import finalize_phase8_holdout
 from kawaneen.retrieval.hybrid.orchestration import (
     finalize_phase8_dev_selection,
@@ -533,6 +543,44 @@ def build_parser() -> argparse.ArgumentParser:
         "--split", choices=("dev", "smoke", "holdout"), required=True
     )
     evaluate_extraction_parser.add_argument("--allow-holdout", action="store_true")
+    phase15_parser = subparsers.add_parser(
+        "phase15", help="Phase 15 frozen-evidence and DEV-only evaluation workflow"
+    )
+    phase15_subparsers = phase15_parser.add_subparsers(dest="phase15_command", required=True)
+    phase15_commands = (
+        "plan",
+        "freeze",
+        "synthesize",
+        "embedding",
+        "dialect-prepare",
+        "dialect-evaluate",
+        "reranking",
+        "generation-preflight",
+        "generation-run",
+        "counterfactuals",
+        "latency",
+        "review-prepare",
+        "review-status",
+        "finalize",
+    )
+    phase15_help = {
+        "plan": "show the frozen Phase 15 research plan",
+        "freeze": "freeze the plan, evidence registry, and model identities",
+        "synthesize": "verify historical frozen evidence without creating a report",
+        "embedding": "run the registered Arabic embedding DEV comparison",
+        "dialect-prepare": "prepare and validate the private dialect packet",
+        "dialect-evaluate": "evaluate the frozen dialect packet on DEV",
+        "reranking": "analyze the frozen hard-query reranking slice",
+        "generation-preflight": "run the bounded local ALLaM 4-bit preflight",
+        "generation-run": "run the matched-80 DEV generator comparison",
+        "counterfactuals": "run offline citation and abstention counterfactuals",
+        "latency": "run the fixed batch-1 latency-quality protocol",
+        "review-prepare": "prepare the private 120-case review packet",
+        "review-status": "show private human-review progress",
+        "finalize": "finalize only after the human review gate",
+    }
+    for command in phase15_commands:
+        phase15_subparsers.add_parser(command, help=phase15_help[command])
     return parser
 
 
@@ -738,6 +786,28 @@ def main(argv: list[str] | None = None) -> int:
                 print(json.dumps(evaluation_stats(), ensure_ascii=False, sort_keys=True))
         except (OSError, PermissionError, ValueError, RuntimeError) as exc:
             print(f"Evaluation operation failed: {exc}", file=sys.stderr)
+            return 1
+    elif args.command == "phase15":
+        try:
+            if args.phase15_command == "plan":
+                result = phase15_plan()
+            elif args.phase15_command == "freeze":
+                result = phase15_freeze()
+            elif args.phase15_command == "synthesize":
+                result = phase15_synthesize()
+            elif args.phase15_command == "review-prepare":
+                result = phase15_review_prepare()
+            elif args.phase15_command == "review-status":
+                result = phase15_review_status()
+            elif args.phase15_command == "finalize":
+                result = phase15_finalize()
+            elif args.phase15_command == "generation-preflight":
+                result = phase15_model_lock()
+            else:
+                result = phase15_unavailable_experiment(Path("."), args.phase15_command)
+            print(json.dumps(result, ensure_ascii=False, sort_keys=True))
+        except (OSError, PermissionError, ValueError, RuntimeError) as exc:
+            print(f"Phase 15 operation failed: {exc}", file=sys.stderr)
             return 1
     elif args.command == "retrieval":
         try:

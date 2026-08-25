@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 import random
-from typing import Sequence, TypeVar
+from collections.abc import Sequence
+from dataclasses import dataclass
+from typing import TypeVar
 
 PHASE15_SEED = 20260826
 
@@ -32,12 +33,14 @@ class RiskDifferenceResult:
     paired_bootstrap: BootstrapResult
 
 
-def _paired_values(left: Sequence[Number], right: Sequence[Number]) -> tuple[tuple[float, ...], ...]:
+def _paired_values(
+    left: Sequence[Number], right: Sequence[Number]
+) -> tuple[tuple[float, ...], ...]:
     if not left or not right:
         raise ValueError("paired inputs must be non-empty")
     if len(left) != len(right):
         raise ValueError("paired inputs must have equal length")
-    return tuple(tuple(float(value) for value in pair) for pair in zip(left, right))
+    return tuple(tuple(float(value) for value in pair) for pair in zip(left, right, strict=True))
 
 
 def _quantile(values: Sequence[float], probability: float) -> float:
@@ -139,7 +142,7 @@ def cohens_kappa(left: Sequence[Label], right: Sequence[Label]) -> float:
     if len(left) != len(right):
         raise ValueError("paired labels must have equal length")
     categories = set(left) | set(right)
-    observed = sum(a == b for a, b in zip(left, right)) / len(left)
+    observed = sum(a == b for a, b in zip(left, right, strict=True)) / len(left)
     expected = sum(
         (sum(label == category for label in left) / len(left))
         * (sum(label == category for label in right) / len(right))

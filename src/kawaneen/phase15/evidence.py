@@ -2,12 +2,13 @@
 
 from __future__ import annotations
 
-from hashlib import sha256
 import json
 import os
-from pathlib import Path
 import tempfile
-from typing import Any, Mapping
+from collections.abc import Mapping
+from hashlib import sha256
+from pathlib import Path
+from typing import Any
 
 from .contracts import (
     PHASE15_BASE_SHA,
@@ -90,17 +91,18 @@ def _historical_paths(root: Path) -> tuple[Path, ...]:
     )
 
 
-def build_evidence_registry(
-    root: Path, *, base_sha: str = PHASE15_BASE_SHA
-) -> EvidenceRegistry:
+def build_evidence_registry(root: Path, *, base_sha: str = PHASE15_BASE_SHA) -> EvidenceRegistry:
     """Hash frozen tracked artifacts without reading private query/source text."""
 
-    entries = []
+    entries: list[ArtifactHash] = []
     seen_phases: set[str] = set()
     for path in _historical_paths(root):
         relative = path.relative_to(root).as_posix()
         phase = next(
-            (part.removeprefix("phase").split("_")[0].split("-")[0] for part in path.name.split(".")[:1]),
+            (
+                part.removeprefix("phase").split("_")[0].split("-")[0]
+                for part in path.name.split(".")[:1]
+            ),
             "unknown",
         )
         if not phase.isdigit():
@@ -135,5 +137,7 @@ def verify_evidence_registry(root: Path, registry_path: Path) -> bool:
             raise ValueError(f"private evidence path is registered: {entry.path}")
         actual = sha256_file(path)
         if actual != entry.sha256:
-            raise ValueError(f"hash mismatch for {entry.path}: expected {entry.sha256}, got {actual}")
+            raise ValueError(
+                f"hash mismatch for {entry.path}: expected {entry.sha256}, got {actual}"
+            )
     return True

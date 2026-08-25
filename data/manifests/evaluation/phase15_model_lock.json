@@ -1,0 +1,53 @@
+{
+  "allam": {
+    "artifact_sha256": null,
+    "bounded_preflight": "not_run",
+    "context_limit": 4096,
+    "device": "M5-16GB",
+    "disk_footprint_bytes": null,
+    "full_precision_forbidden": true,
+    "model_id": "humain-ai/ALLaM-7B-Instruct-preview",
+    "output_limit": 256,
+    "quantization_bits": 4,
+    "revision": "a28dd1e67420cde72d3629c8633a974cf7d9c366",
+    "runtime": null,
+    "status": "BLOCKED_BEFORE_SCORING_NO_TRUSTWORTHY_4BIT_LOCAL_ARTIFACT"
+  },
+  "arabic_embedding": {
+    "batch_size": 1,
+    "config_sha256": null,
+    "device": "cpu",
+    "dimension": 768,
+    "dtype": "float32",
+    "model_id": "omarelshehy/Arabic-Retrieval-v1.0",
+    "normalize_embeddings": false,
+    "passage_prefix": "",
+    "pooling": "mean_tokens",
+    "preflight": null,
+    "quantization": null,
+    "query_prefix": "",
+    "revision": "899f6e1b765915a72d5e4ace6bb2b221715550d8",
+    "runtime": "sentence-transformers",
+    "tokenizer_revision": null
+  },
+  "fallback_preregistered_before_results": {
+    "batch_size": 1,
+    "config_sha256": null,
+    "device": "cpu-or-mps",
+    "dimension": null,
+    "dtype": "bf16",
+    "model_id": "hammh0a/Hala-1.2B",
+    "normalize_embeddings": null,
+    "passage_prefix": null,
+    "pooling": null,
+    "preflight": null,
+    "quantization": null,
+    "query_prefix": null,
+    "revision": "10e586c0899f9b97c5764e6520ccd7c199ae0e60",
+    "runtime": "transformers",
+    "tokenizer_revision": null
+  },
+  "no_model_shopping_after_dev_results": true,
+  "provenance": "PHASE15_DEV",
+  "schema_version": "phase15-model-lock-v1"
+}

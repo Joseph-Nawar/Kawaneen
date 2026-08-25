@@ -3,8 +3,7 @@
 from __future__ import annotations
 
 from collections import Counter
-from pathlib import Path
-from typing import Mapping, Sequence
+from collections.abc import Mapping, Sequence
 
 from .contracts import ALLAM_MODEL, GeneratorSubsetManifest, ModelLock, Phase15Model
 
@@ -16,7 +15,9 @@ class MatchedGeneratorOutput(Phase15Model):
     outcomes: tuple[Mapping[str, object], ...]
 
 
-def validate_matched_outputs(outputs: Sequence[MatchedGeneratorOutput], subset: GeneratorSubsetManifest) -> None:
+def validate_matched_outputs(
+    outputs: Sequence[MatchedGeneratorOutput], subset: GeneratorSubsetManifest
+) -> None:
     expected = tuple(
         subset.answerable_gold_present_ids
         + subset.answerable_gold_absent_ids
@@ -89,7 +90,13 @@ def summarize_generator_outputs(outputs: Sequence[MatchedGeneratorOutput]) -> di
     return summary
 
 
-def model_lock_from_preflight(preflight: Mapping[str, object], *, context_limit: int, output_limit: int, disk_footprint_bytes: int) -> ModelLock:
+def model_lock_from_preflight(
+    preflight: Mapping[str, object],
+    *,
+    context_limit: int,
+    output_limit: int,
+    disk_footprint_bytes: int,
+) -> ModelLock:
     return ModelLock(
         model_id=str(preflight["model_id"]),
         revision=str(preflight["revision"]),

@@ -1,4 +1,4 @@
-.PHONY: help install format lint typecheck test test-unit test-integration test-regression test-model-regression test-e2e test-e2e-private test-public test-private check doctor api-serve ui-serve ui-demo sources-validate sources-summary data-plan data-acquire-alarb data-import-arabiccr data-verify data-audit data-audit-statutory data-manifest data-status data-rebuild-auto data-rebuild corpus-plan corpus-build corpus-validate corpus-inventory corpus-statutory-status corpus-duplicate-diagnostics corpus-gaps parsing-preflight parsing-benchmark parsing-diagnose normalization-plan normalization-run normalization-validate normalization-sensitivity chunking-plan chunking-build chunking-experiment chunking-validate evaluation-plan evaluation-build-draft evaluation-build-draft-v3 evaluation-build-draft-v4 evaluation-build-draft-v5 evaluation-build-final-candidate evaluation-export-review evaluation-import-review evaluation-validate evaluation-freeze evaluation-freeze-ai-reviewed evaluation-stats extraction-status extraction-prepare extraction-validate extraction-deterministic clean
+.PHONY: help install format lint typecheck test test-unit test-integration test-regression test-model-regression test-e2e test-e2e-private test-public test-private check doctor api-serve ui-serve ui-demo sources-validate sources-summary data-plan data-acquire-alarb data-import-arabiccr data-verify data-audit data-audit-statutory data-manifest data-status data-rebuild-auto data-rebuild corpus-plan corpus-build corpus-validate corpus-inventory corpus-statutory-status corpus-duplicate-diagnostics corpus-gaps parsing-preflight parsing-benchmark parsing-diagnose normalization-plan normalization-run normalization-validate normalization-sensitivity chunking-plan chunking-build chunking-experiment chunking-validate evaluation-plan evaluation-build-draft evaluation-build-draft-v3 evaluation-build-draft-v4 evaluation-build-draft-v5 evaluation-build-final-candidate evaluation-export-review evaluation-import-review evaluation-validate evaluation-freeze evaluation-freeze-ai-reviewed evaluation-stats extraction-status extraction-prepare extraction-validate extraction-deterministic phase15-plan phase15-freeze phase15-synthesize phase15-embedding phase15-dialect phase15-reranking phase15-generation-preflight phase15-generation phase15-counterfactuals phase15-latency phase15-review-prepare phase15-review phase15-review-status phase15-finalize clean
 
 help:
 	@printf '%s\n' 'Kawaneen development commands:'
@@ -66,6 +66,11 @@ help:
 	@printf '%s\n' '  make extraction-prepare        uv run kawaneen extraction prepare-annotations'
 	@printf '%s\n' '  make extraction-validate       uv run kawaneen extraction validate-annotations --split dev'
 	@printf '%s\n' '  make extraction-deterministic  uv run kawaneen extraction run-deterministic --split dev'
+	@printf '%s\n' '  make phase15-freeze            uv run kawaneen phase15 freeze'
+	@printf '%s\n' '  make phase15-review-prepare    uv run kawaneen phase15 review-prepare'
+	@printf '%s\n' '  make phase15-review            uv run streamlit run src/kawaneen/phase15/review_app.py'
+	@printf '%s\n' '  make phase15-review-status     uv run kawaneen phase15 review-status'
+	@printf '%s\n' '  make phase15-finalize           uv run kawaneen phase15 finalize'
 	@printf '%s\n' '  make clean     remove safe local build and test artifacts'
 
 install:
@@ -262,6 +267,49 @@ extraction-validate:
 
 extraction-deterministic:
 	uv run kawaneen extraction run-deterministic --split dev
+
+phase15-plan:
+	uv run kawaneen phase15 plan
+
+phase15-freeze:
+	uv run kawaneen phase15 freeze
+
+phase15-synthesize:
+	uv run kawaneen phase15 synthesize
+
+phase15-embedding:
+	uv run kawaneen phase15 embedding
+
+phase15-dialect:
+	uv run kawaneen phase15 dialect-prepare
+	uv run kawaneen phase15 dialect-evaluate
+
+phase15-reranking:
+	uv run kawaneen phase15 reranking
+
+phase15-generation-preflight:
+	uv run kawaneen phase15 generation-preflight
+
+phase15-generation:
+	uv run kawaneen phase15 generation-run
+
+phase15-counterfactuals:
+	uv run kawaneen phase15 counterfactuals
+
+phase15-latency:
+	uv run kawaneen phase15 latency
+
+phase15-review-prepare:
+	uv run kawaneen phase15 review-prepare
+
+phase15-review:
+	uv run streamlit run src/kawaneen/phase15/review_app.py
+
+phase15-review-status:
+	uv run kawaneen phase15 review-status
+
+phase15-finalize:
+	uv run kawaneen phase15 finalize
 
 clean:
 	find . -maxdepth 1 -type d \( -name .pytest_cache -o -name .ruff_cache -o -name htmlcov -o -name dist -o -name build \) -exec rm -rf {} +

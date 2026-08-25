@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
+from collections.abc import Callable, Sequence
 from dataclasses import dataclass
 from statistics import median
 from time import monotonic_ns
-from typing import Callable, Sequence
 
 
 @dataclass(frozen=True)
@@ -24,13 +24,17 @@ def _percentile(values: Sequence[float], probability: float) -> float:
 
 
 def measure_latency(
-    operation: Callable[[], object], *, samples: int = 10, warmups: int = 3, clock: Callable[[], int] = monotonic_ns
+    operation: Callable[[], object],
+    *,
+    samples: int = 10,
+    warmups: int = 3,
+    clock: Callable[[], int] = monotonic_ns,
 ) -> LatencySummary:
     if samples <= 0 or warmups < 3:
         raise ValueError("latency protocol requires positive samples and at least three warmups")
     for _ in range(warmups):
         operation()
-    measurements = []
+    measurements: list[float] = []
     for _ in range(samples):
         start = clock()
         operation()

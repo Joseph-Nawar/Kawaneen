@@ -1,0 +1,34 @@
+{
+  "ai_preclassification_cases": 0,
+  "answerability_distribution": {
+    "answerable_gold_absent_from_top8": 26,
+    "answerable_gold_in_top8": 21,
+    "explicitly_unanswerable": 18,
+    "unknown": 55
+  },
+  "case_count": 120,
+  "case_ids_sha256": "587a378dff82c99a1762564747637560c929b78a6435c10672e8f0744d239861",
+  "holdout_case_count": 0,
+  "language_distribution": {
+    "ar": 82,
+    "unknown": 38
+  },
+  "legal_category_distribution": {
+    "authority": 13,
+    "case_holding": 4,
+    "conditions": 8,
+    "regulatory": 55,
+    "unanswerable": 2,
+    "unknown": 38
+  },
+  "pipeline_stage_distribution": {
+    "extraction": 55,
+    "generation": 65
+  },
+  "provenance": "PHASE15_DEV",
+  "schema_version": "phase15-review-v1",
+  "severity_distribution": {
+    "high": 74,
+    "medium": 46
+  }
+}

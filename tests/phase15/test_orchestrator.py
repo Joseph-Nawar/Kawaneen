@@ -3,7 +3,11 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from kawaneen.phase15.orchestrator import phase15_freeze, phase15_plan
+from kawaneen.phase15.orchestrator import (
+    phase15_freeze,
+    phase15_plan,
+    write_phase15_status_artifacts,
+)
 
 
 def test_plan_and_freeze_write_only_governance_artifacts(tmp_path: Path) -> None:
@@ -23,3 +27,12 @@ def test_plan_and_freeze_write_only_governance_artifacts(tmp_path: Path) -> None
         (tmp_path / "data/manifests/evaluation/phase15_experiment_plan.json").read_text()
     )
     assert stored["base_sha"] == "03f58284426c84c6c813be2b1e1bbbbbfd1c9a2d"
+
+
+def test_status_artifacts_are_aggregate_and_do_not_claim_results(tmp_path: Path) -> None:
+    result = write_phase15_status_artifacts(tmp_path)
+    assert len(result) == 9
+    for path in result:
+        payload = json.loads(Path(path).read_text())
+        assert payload["status"] == "NOT_RUN"
+        assert payload["provenance"] == "PHASE15_DEV"

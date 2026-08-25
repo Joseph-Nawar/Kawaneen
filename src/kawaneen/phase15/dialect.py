@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
-import re
+from typing import Any
 
 from .contracts import Phase15Model
 from .statistics import paired_bootstrap_delta
@@ -21,16 +21,15 @@ class DialectVariant(Phase15Model):
     text: str
 
 
-def _numeric_tokens(value: str) -> tuple[str, ...]:
-    return tuple(re.findall(r"\d+", value))
-
-
 def validate_variants_before_outcomes(
-    base_records: Mapping[str, Mapping[str, object]], variants: Sequence[DialectVariant]
+    base_records: Mapping[str, Mapping[str, Any]], variants: Sequence[DialectVariant]
 ) -> None:
     if len(variants) != 60 or len({item.variant_id for item in variants}) != 60:
         raise ValueError("exactly 60 unique dialect variants are required")
-    counts = {dialect: sum(item.dialect == dialect for item in variants) for dialect in ("egyptian", "gulf_saudi", "levantine")}
+    counts = {
+        dialect: sum(item.dialect == dialect for item in variants)
+        for dialect in ("egyptian", "gulf_saudi", "levantine")
+    }
     if counts != {"egyptian": 20, "gulf_saudi": 20, "levantine": 20}:
         raise ValueError("dialect variants require 20 variants per dialect")
     for item in variants:
@@ -69,9 +68,7 @@ def evaluate_dialect_runs(
                 baseline = msa_by_system[system].get(metric)
                 if baseline is None:
                     raise ValueError(f"missing MSA metric {metric} for system {system}")
-                metric_result[metric] = paired_bootstrap_delta(
-                    values, baseline, seed=seed
-                ).__dict__
+                metric_result[metric] = paired_bootstrap_delta(values, baseline, seed=seed).__dict__
             dialect_result[system] = metric_result
         dialects[dialect] = dialect_result
     output["dialects"] = dialects

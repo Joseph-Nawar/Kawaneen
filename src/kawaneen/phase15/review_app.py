@@ -47,12 +47,14 @@ def main() -> None:
         st.caption("This suggestion is not ground truth and must not replace human review.")
         st.write(case.ai_suggestion.value if case.ai_suggestion else "No suggestion")
 
-    current = store._decisions().get(case.case_id)  # noqa: SLF001 - local UI reads private progress.
+    current = store.decision_for(case.case_id)
     primary_values = list(ErrorCategory)
     primary_default = primary_values.index(current.primary) if current else 0
     primary = st.selectbox("Primary root cause", primary_values, index=primary_default)
     secondary = st.selectbox("Optional secondary root cause", [None, *primary_values], index=0)
-    confidence = st.slider("Confidence", min_value=1, max_value=5, value=current.confidence or 3 if current else 3)
+    confidence = st.slider(
+        "Confidence", min_value=1, max_value=5, value=current.confidence or 3 if current else 3
+    )
     note = st.text_area("Optional note", value=current.note or "" if current else "")
     if st.button("Save decision"):
         store.save_decision(

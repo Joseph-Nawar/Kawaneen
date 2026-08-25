@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from collections import defaultdict
 import hashlib
-from typing import Any, Mapping, Sequence
+from collections import defaultdict
+from collections.abc import Callable, Mapping, Sequence
+from typing import Any
 
 from pydantic import Field
 
@@ -38,19 +39,17 @@ def select_dialect_base_intents(
     """Select exactly 20 unique DEV intent IDs before dialect outcomes exist."""
 
     identifiers = {
-        str(record["id"])
-        for record in records
-        if _is_dev(record) and record.get("id") is not None
+        str(record["id"]) for record in records if _is_dev(record) and record.get("id") is not None
     }
     if len(identifiers) < 20:
         raise ValueError("at least 20 unique DEV intent IDs are required")
-    return tuple(item[1] for item in sorted((_stable_order(item, seed) for item in identifiers))[:20])
+    return tuple(item[1] for item in sorted(_stable_order(item, seed) for item in identifiers)[:20])
 
 
 def _select_group(
     records: Sequence[Mapping[str, Any]],
     *,
-    predicate: Any,
+    predicate: Callable[[Mapping[str, Any]], bool],
     count: int,
     seed: int,
     group_name: str,
@@ -61,8 +60,12 @@ def _select_group(
         if _is_dev(record) and record.get("id") is not None and predicate(record)
     }
     if len(candidates) < count:
-        raise ValueError(f"not enough DEV records for {group_name}: need {count}, got {len(candidates)}")
-    return tuple(item[1] for item in sorted((_stable_order(item, seed) for item in candidates))[:count])
+        raise ValueError(
+            f"not enough DEV records for {group_name}: need {count}, got {len(candidates)}"
+        )
+    return tuple(
+        item[1] for item in sorted(_stable_order(item, seed) for item in candidates)[:count]
+    )
 
 
 def select_generator_subset(
@@ -72,16 +75,18 @@ def select_generator_subset(
 
     present = _select_group(
         records,
-        predicate=lambda item: bool(item.get("answerable"))
-        and bool(item.get("gold_present_in_top8")),
+        predicate=lambda item: (
+            bool(item.get("answerable")) and bool(item.get("gold_present_in_top8"))
+        ),
         count=31,
         seed=seed,
         group_name="answerable gold-present",
     )
     absent = _select_group(
         records,
-        predicate=lambda item: bool(item.get("answerable"))
-        and not bool(item.get("gold_present_in_top8")),
+        predicate=lambda item: (
+            bool(item.get("answerable")) and not bool(item.get("gold_present_in_top8"))
+        ),
         count=30,
         seed=seed + 1,
         group_name="answerable gold-absent",

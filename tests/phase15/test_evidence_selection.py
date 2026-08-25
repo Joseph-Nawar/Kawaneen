@@ -6,8 +6,6 @@ from pathlib import Path
 import pytest
 
 from kawaneen.phase15.contracts import (
-    PHASE15_BASE_SHA,
-    DialectManifest,
     GeneratorSubsetManifest,
 )
 from kawaneen.phase15.evidence import (
@@ -38,7 +36,9 @@ def test_evidence_registry_hashes_tracked_historical_files_only(tmp_path: Path) 
     write_json_atomic(tmp_path / "registry.json", registry.model_dump(mode="json"))
     assert verify_evidence_registry(tmp_path, tmp_path / "registry.json") is True
 
-    (tmp_path / "data" / "evaluation" / "phase3_frozen.json").write_text("changed", encoding="utf-8")
+    (tmp_path / "data" / "evaluation" / "phase3_frozen.json").write_text(
+        "changed", encoding="utf-8"
+    )
     with pytest.raises(ValueError, match="hash mismatch"):
         verify_evidence_registry(tmp_path, tmp_path / "registry.json")
 

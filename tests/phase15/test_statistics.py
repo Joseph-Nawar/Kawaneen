@@ -37,7 +37,10 @@ def test_rank_biserial_handles_ties_and_all_wins() -> None:
 def test_paired_binary_risk_difference_and_kappa() -> None:
     result = paired_risk_difference((1, 1, 0, 0), (0, 1, 0, 0), seed=20260826)
     assert result.risk_difference == pytest.approx(-0.25)
-    assert result.discordant_pairs == {"before_positive_after_negative": 1, "before_negative_after_positive": 0}
+    assert result.discordant_pairs == {
+        "before_positive_after_negative": 1,
+        "before_negative_after_positive": 0,
+    }
     assert cohens_kappa(("a", "b", "a"), ("a", "b", "a")) == 1.0
 
 

@@ -1,0 +1,756 @@
+{
+  "base_sha": "03f58284426c84c6c813be2b1e1bbbbbfd1c9a2d",
+  "entries": [
+    {
+      "path": "data/evaluation/phase10_extractive_dev_metrics.json",
+      "phase": "10",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "2198e584b38ec4c48d532dc791e260d011f7a5a035eca7282490c306183908f9"
+    },
+    {
+      "path": "data/evaluation/phase10_qwen_dev_metrics.json",
+      "phase": "10",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "d421e4a49f59a1b4a4f3b07195ef184bba0b12f041c94d3e6ab1310020429e78"
+    },
+    {
+      "path": "data/evaluation/phase10_qwen_dev_outcome_audit.json",
+      "phase": "10",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "0d1c3c3af5ecffa75d8f7007d290c55ade5336acd4d3645168c414591999b7c7"
+    },
+    {
+      "path": "data/evaluation/phase10_qwen_dev_report.json",
+      "phase": "10",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "276e96ae543930bc7d57ebe144250537d7d231cc2bb3c47192aaef40d7b6d4e3"
+    },
+    {
+      "path": "data/evaluation/phase10_qwen_failure_forensics.json",
+      "phase": "10",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "9261eb7ae7b0f688ab782806db3b81e9494c0cf3ccb3255cd646b3c0308b7fa3"
+    },
+    {
+      "path": "data/evaluation/phase10_qwen_population_outcomes.json",
+      "phase": "10",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "b75116c66334123ad5c36d85bebb02f523648e2603d89974a52adcc3d3c0d409"
+    },
+    {
+      "path": "data/evaluation/phase10_qwen_stage_b_metrics.json",
+      "phase": "10",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "7e847881e3b43b6cb16723a5018ddd8990588ec43403897e172e02a5adf5afbe"
+    },
+    {
+      "path": "data/evaluation/phase10_qwen_stage_b_outcome_audit.json",
+      "phase": "10",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "d4c66b1a8cef85e3ccc153ed6e676708d5c4c36ea1a75a5b26f836cac7ede4bb"
+    },
+    {
+      "path": "data/evaluation/phase10_qwen_stage_b_report.json",
+      "phase": "10",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "809c377192f3825b60459b43dd9cf08e95ec88a08ff38b587ab0ea26952ed1ad"
+    },
+    {
+      "path": "data/evaluation/phase10_qwen_stage_b_timeout_diagnostic.json",
+      "phase": "10",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "bd9f67bbb03eada664e1b4543764b9d636b3b0eb8597041b1d75a413c9a017df"
+    },
+    {
+      "path": "data/evaluation/phase10_qwen_stage_b_timeout_diagnostic_v2.json",
+      "phase": "10",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "5ee58c9b80b9c83c926194127a4ddb6cb307d93ed845ca265951f1192dbbda82"
+    },
+    {
+      "path": "data/evaluation/phase10_qwen_stage_b_timeout_truncation_forensics.json",
+      "phase": "10",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "ee6c1062a407611f9ebe0d3fab97d1933ba88c23983a9aba74f640123c772692"
+    },
+    {
+      "path": "data/evaluation/phase10_qwen_stage_b_vs_baselines.json",
+      "phase": "10",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "18c57df440850f4079430e138c64df1a96eb52c5ba2258dc879c7e24775e62a0"
+    },
+    {
+      "path": "data/evaluation/phase10_qwen_stage_c_metrics.json",
+      "phase": "10",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "1b22b1d47282ba99c051a93bab80a21edae8faef91645118d0e36dc0ad29c631"
+    },
+    {
+      "path": "data/evaluation/phase10_qwen_stage_c_outcome_audit.json",
+      "phase": "10",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "6ce758a19ae03718d337a10da63d5bea14b6904059e767d4c4c445f8d50b6069"
+    },
+    {
+      "path": "data/evaluation/phase10_qwen_stage_c_readiness.json",
+      "phase": "10",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "42af6725664ff2fd03add34d61bbfeabf36a02315298387e634d4386b535d4cb"
+    },
+    {
+      "path": "data/evaluation/phase10_qwen_stage_c_report.json",
+      "phase": "10",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "b72a3331160acbe2ac65dbfba2051ccaefe603f465b590a0aecad616774157ed"
+    },
+    {
+      "path": "data/evaluation/phase10_qwen_stage_c_vs_prior.json",
+      "phase": "10",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "8f40ff396e5972838b2b1e762f89f4fb5de42b42c90b099b52dcece2dfbd0670"
+    },
+    {
+      "path": "data/evaluation/phase10_qwen_stage_d_metrics.json",
+      "phase": "10",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "b19196f62c83e51ae05d2694bad0840f0b0f87ae6ab45adab3bcf2a77b51e45e"
+    },
+    {
+      "path": "data/evaluation/phase10_qwen_stage_d_outcome_audit.json",
+      "phase": "10",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "7c65856ced969fd505e2b705eaf70cc0e1a968864b178285fca9b4d084163d28"
+    },
+    {
+      "path": "data/evaluation/phase10_qwen_stage_d_policy_audit.json",
+      "phase": "10",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "0139b1e86f06d53beb56158e89f55183d4224e048c30aa927cd5129859c87566"
+    },
+    {
+      "path": "data/evaluation/phase10_qwen_stage_d_readiness.json",
+      "phase": "10",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "647a006d8c3de8c02ea476a6513ebcf14a2b39bba1e0833cd7ccfc0be4bcb4dd"
+    },
+    {
+      "path": "data/evaluation/phase10_qwen_stage_d_report.json",
+      "phase": "10",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "cc398cf1b1a652c90be60a399952a66f297c07ffa81f9b7949060e7485ced664"
+    },
+    {
+      "path": "data/evaluation/phase10_qwen_stage_d_vs_prior.json",
+      "phase": "10",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "d3fca1785d294a2211f71b338a0e0b5b5337422a895efc86c2cb6ef89816a681"
+    },
+    {
+      "path": "data/evaluation/phase10_qwen_vs_extractive.json",
+      "phase": "10",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "5abe1c805ec1ce51557b0a1e6bf6ae3074d5c1bb06c953f2454fca4ea5d7a642"
+    },
+    {
+      "path": "data/evaluation/phase10_retrieval_sufficiency_calibration.json",
+      "phase": "10",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "9c7f4db3d96eee9aff68623f118861be4f5600a7c8363d270a42952bda2e7a93"
+    },
+    {
+      "path": "data/evaluation/phase11_deterministic_dev_candidate_metrics_v3.json",
+      "phase": "11",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "ab1ada69f2b2943cb9a14c6f182096829c5aafe9cc6a296ee39aaf78a403ba5b"
+    },
+    {
+      "path": "data/evaluation/phase11_deterministic_dev_metrics_v1.json",
+      "phase": "11",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "5391faa4e5e34183d7f3e78e495293e6cd7a3d7253d32439cb9be7cf9368e76c"
+    },
+    {
+      "path": "data/evaluation/phase11_hybrid_dev_failure_forensics_v1.json",
+      "phase": "11",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "ee92ac0016ca53c84d79325a6d7ea539ab3b0857ea8ef081c17a5ec9befddf20"
+    },
+    {
+      "path": "data/evaluation/phase11_hybrid_qwen_stage_b1_clean_dev_report.json",
+      "phase": "11",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "a985a5e7143d0945654202b14267a5ea4357f9988d8504dc035c801a4c8e32ca"
+    },
+    {
+      "path": "data/evaluation/phase11_hybrid_qwen_stage_b1_clean_under_extraction_summary.json",
+      "phase": "11",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "02fc391c79fc7319ea382a51d6615201385328d06ffc6900b74d24d207f5e569"
+    },
+    {
+      "path": "data/evaluation/phase11_hybrid_qwen_stage_b2_clean_dev_report.json",
+      "phase": "11",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "99d0304772e26b7fb8ae2b4c2a9ad7edabb4fc7acae502232833fecd58b355b9"
+    },
+    {
+      "path": "data/evaluation/phase11_hybrid_qwen_stage_b2_clean_holdout_report.json",
+      "phase": "11",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "653565f0e9d76b8776c1f32b5b5ff3d3a8e67031ab7469b803cb78f57b79a36f"
+    },
+    {
+      "path": "data/evaluation/phase11_readiness.json",
+      "phase": "11",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "52d966de531a3ad4aeb3766f79ab9034b2c50b596efb0553bbe236f05ad1a351"
+    },
+    {
+      "path": "data/evaluation/phase11_stage_b1_vs_b2_selection_v1.json",
+      "phase": "11",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "90771d3e51cf117acf4e6c84bb92419cfa1341d186cd81834ddca6d4fa1fcfd7"
+    },
+    {
+      "path": "data/evaluation/phase11_stage_b2_dev_vs_holdout_comparison_v1.json",
+      "phase": "11",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "18f57165a6ef4ee2ea9e6bde8a8bba2a87a1deaf84cc7821a7715db135d4f939"
+    },
+    {
+      "path": "data/evaluation/phase3_split.json",
+      "phase": "3",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "db1d411a8921208fa74d242cc43e0e9c2c8a39efd1b06629ede2898a2213850f"
+    },
+    {
+      "path": "data/evaluation/phase4_normalization_metrics.json",
+      "phase": "4",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "17c20e5313405dcd3f6a90d4a3ffb3afc3cb69e7130e8412b49357f425195ef4"
+    },
+    {
+      "path": "data/evaluation/phase4_sensitivity_metrics.json",
+      "phase": "4",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "4e5fce99f118f18012ea831095d8457922dcb6000d85a8ff6c0800f33fb9dff7"
+    },
+    {
+      "path": "data/evaluation/phase5_chunking_metrics.json",
+      "phase": "5",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "c2285894c4e036a9e9d2dc92bd07033b56ea06ca1f479e478182818a88ccf00a"
+    },
+    {
+      "path": "data/evaluation/phase6_retrieval_eval_ai_reviewed_v1_report.json",
+      "phase": "6",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "a5d0ee9f24ad7d7b4df8c265bb61c3a751ab85a0f03a59d3e69446c14eae39ab"
+    },
+    {
+      "path": "data/evaluation/phase6_retrieval_eval_draft_v3_summary.json",
+      "phase": "6",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "cea79a069eae710e72881fb6f5ca17fad229de19700c4dddf7894828a1476f98"
+    },
+    {
+      "path": "data/evaluation/phase6_retrieval_eval_draft_v4_summary.json",
+      "phase": "6",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "527771a539d5b6b929e9f284fdb25d8e62ef2d2246febd82be16e7d40da570f3"
+    },
+    {
+      "path": "data/evaluation/phase6_retrieval_eval_draft_v5_summary.json",
+      "phase": "6",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "246b9503475e0e28893e6bc019f2eb10441ca3c7a721cd7892152487c8e5d952"
+    },
+    {
+      "path": "data/evaluation/phase6_retrieval_eval_final_candidate_v1_summary.json",
+      "phase": "6",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "9dbe65be1371ffc86461168f75f50a96e4e8ec42366af75879b00fc5782b0cec"
+    },
+    {
+      "path": "data/evaluation/phase6_retrieval_eval_summary.json",
+      "phase": "6",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "5220582104a03f1c3107b8e10f603dc587c4dffbd31b9885d5c35277a523773e"
+    },
+    {
+      "path": "data/evaluation/phase6_source_balance_audit.json",
+      "phase": "6",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "d965dc21aa7cbba4c759b84f657fd511d06c81030bbab636628009d082187334"
+    },
+    {
+      "path": "data/evaluation/phase6_v3_source_balance_audit.json",
+      "phase": "6",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "2637cf03b284142f452c4121be56f9fb5a611d35f77d9e49f4b6ad91fd2dc916"
+    },
+    {
+      "path": "data/evaluation/phase7_baseline_comparison.json",
+      "phase": "7",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "0d04450d4bd0fafe6059b3c4aeb2a6387096239c21eae672074324e81c3b11d6"
+    },
+    {
+      "path": "data/evaluation/phase7_dev_metrics.json",
+      "phase": "7",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "f99811d632dfd26efd6840163b70f77a624a25460335db37b0cece3eb6c10dce"
+    },
+    {
+      "path": "data/evaluation/phase7_final_report.json",
+      "phase": "7",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "23cf26eb6820b45584bcca6071e1eea6485bf5a1c699e0c8a995f560bcf2f275"
+    },
+    {
+      "path": "data/evaluation/phase7_holdout_metrics.json",
+      "phase": "7",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "c5765e070ff8861ef199d9495f5aeaee5c3e46001079b355a9990157eaef3776"
+    },
+    {
+      "path": "data/evaluation/phase7_holdout_replay.json",
+      "phase": "7",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "cdc0fd3d0966aba5a5d61602783b9022657053d6a879eea9dbad0735a6907470"
+    },
+    {
+      "path": "data/evaluation/phase8_comparison.json",
+      "phase": "8",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "7196afc2db9dfa5616638b870979dbaa69014f6e3936890ac12f2efd869abd38"
+    },
+    {
+      "path": "data/evaluation/phase8_dev_fusion_metrics.json",
+      "phase": "8",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "0a067936ab76d9c1396895ae4ca3eca502c26ebf2111e338e29777274d0a1b60"
+    },
+    {
+      "path": "data/evaluation/phase8_dev_reranker_metrics.json",
+      "phase": "8",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "6827de75b63c2101f658d4b29f99d6dae59e08f04f7c3e8d13a959c0e6a37dc3"
+    },
+    {
+      "path": "data/evaluation/phase8_final_report.json",
+      "phase": "8",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "64da716e478c2ac3a0862b7ef32ffd9238914e1519fdef75890ea9d70d75c4bd"
+    },
+    {
+      "path": "data/evaluation/phase8_holdout_metrics.json",
+      "phase": "8",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "5fe3d5f7df061334010a138d876d8f89e14ce09bbbb5e7a53a2e44d8849c79e9"
+    },
+    {
+      "path": "data/evaluation/phase9_citation_integrity_audit.json",
+      "phase": "9",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "97d1e66e1a0e929ff13f888c8cde1257bff893f95ae331aeed5c437785175c8c"
+    },
+    {
+      "path": "data/evaluation/phase9_dev_context_audit.json",
+      "phase": "9",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "ebd469ad17985fd85743f22b47ca1ba5f8b4fe650e5d8012ccbb6bae89c1f365"
+    },
+    {
+      "path": "data/evaluation/phase9_grounding_report.json",
+      "phase": "9",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "507a49ab171cb85ac89479635f30155e7a7e5d6062bb57ae0f101514e05189c7"
+    },
+    {
+      "path": "data/manifests/chunking/phase5_chunking_manifest.json",
+      "phase": "5",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "68099086f993db58699f5eb17706a1c5e529170f30746de899441fb0febad6b3"
+    },
+    {
+      "path": "data/manifests/chunking/phase5_corpus_manifest.json",
+      "phase": "5",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "73049d2887f8d94c2b2b85c52d418374d7e3495fc0f440db8aba7875b47d3a1d"
+    },
+    {
+      "path": "data/manifests/evaluation/phase6_ai_reviewed_v1_manifest.json",
+      "phase": "6",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "1b50e262fce2a0e09f75b9ad4d7bf14bf24bfaea0247f18f87e875f0d4bf6ddd"
+    },
+    {
+      "path": "data/manifests/evaluation/phase6_corpus_summary.json",
+      "phase": "6",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "cb9bf1aaafe7fe9f34d4028051343f0c911ef92c18387d8bf7a521f9be693d46"
+    },
+    {
+      "path": "data/manifests/evaluation/phase6_draft_summary.json",
+      "phase": "6",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "3c75a8cea208c598071361cb61e81c3145c82199b9eecfc416df914f50257ebe"
+    },
+    {
+      "path": "data/manifests/evaluation/phase6_draft_v3_summary.json",
+      "phase": "6",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "cea79a069eae710e72881fb6f5ca17fad229de19700c4dddf7894828a1476f98"
+    },
+    {
+      "path": "data/manifests/evaluation/phase6_draft_v4_summary.json",
+      "phase": "6",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "527771a539d5b6b929e9f284fdb25d8e62ef2d2246febd82be16e7d40da570f3"
+    },
+    {
+      "path": "data/manifests/evaluation/phase6_draft_v5_summary.json",
+      "phase": "6",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "246b9503475e0e28893e6bc019f2eb10441ca3c7a721cd7892152487c8e5d952"
+    },
+    {
+      "path": "data/manifests/evaluation/phase6_final_candidate_v1_summary.json",
+      "phase": "6",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "9dbe65be1371ffc86461168f75f50a96e4e8ec42366af75879b00fc5782b0cec"
+    },
+    {
+      "path": "data/manifests/extraction/phase11_annotation_selection.json",
+      "phase": "11",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "2155a2b596e7e6be326480fa97f1b6e62db43dd97d2f95e169e04773f63d0a9a"
+    },
+    {
+      "path": "data/manifests/extraction/phase11_annotation_selection_v1_superseded.json",
+      "phase": "11",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "04c528ec3b7b9180ca62c0ff50f62c0efa0d45e80cb451e7746b10b87fa20245"
+    },
+    {
+      "path": "data/manifests/extraction/phase11_annotation_unit_policy_v2.json",
+      "phase": "11",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "4f7ee846c84e53d57e63a2cab8a4e1b3235b10150cd5fb78617f83bd40ad08ee"
+    },
+    {
+      "path": "data/manifests/extraction/phase11_dev_annotation_release_v1.json",
+      "phase": "11",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "9e0f60baa9b19c7841c729643f257bb5be8a9f993e51b2d95660909421af53c1"
+    },
+    {
+      "path": "data/manifests/extraction/phase11_dev_candidate_compatible_release_v1.json",
+      "phase": "11",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "958986c890ca75362ef8c2737cf1c64cbf6e472d021990283996386595aded72"
+    },
+    {
+      "path": "data/manifests/extraction/phase11_holdout_annotation_release_v1.json",
+      "phase": "11",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "274f6eae1d37f8d55e80470c25f738a362194614f6e9f54b647bdda703f45a10"
+    },
+    {
+      "path": "data/manifests/extraction/phase11_hybrid_dev_config_v1.json",
+      "phase": "11",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "b5177968fbec633a1d6ea1536cbc7fe03c091fa6360b0d87d81b4db9db2bb653"
+    },
+    {
+      "path": "data/manifests/extraction/phase11_hybrid_stage_b1_clean_config_v1.json",
+      "phase": "11",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "00138737fb60f1158f64cf1c79fc333d01739eb7864acdd25e5d5ff11a88d81b"
+    },
+    {
+      "path": "data/manifests/extraction/phase11_hybrid_stage_b1_config_v1.json",
+      "phase": "11",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "e697c3a3e2c9d7b0ddf5eaba18ae00f259591daffe1c426fc742039a6681e478"
+    },
+    {
+      "path": "data/manifests/extraction/phase11_hybrid_stage_b1_offline_replay_v1.json",
+      "phase": "11",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "4aeb547c66c31dfc8e7c933d2ab52aef2b9acb138d85e77b759ab49e9ffb33a7"
+    },
+    {
+      "path": "data/manifests/extraction/phase11_hybrid_stage_b2_clean_config_v1.json",
+      "phase": "11",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "0d3736250a3b72f582d75720ea02fbb60a4762f3157006f741520b2f2eaab25e"
+    },
+    {
+      "path": "data/manifests/extraction/phase11_hybrid_stage_b2_clean_holdout_config_v1.json",
+      "phase": "11",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "1455845866edb8ef21925b8009c607ada561d2343fedcb2e218c20a976f5689b"
+    },
+    {
+      "path": "data/manifests/extraction/phase11_readiness.json",
+      "phase": "11",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "52d966de531a3ad4aeb3766f79ab9034b2c50b596efb0553bbe236f05ad1a351"
+    },
+    {
+      "path": "data/manifests/extraction/phase11_selected_configuration_v1.json",
+      "phase": "11",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "2b5e7bcfabf192521ed5ac3c40cffe8b017017fa0ef1939fcbe4b7481b2299bb"
+    },
+    {
+      "path": "data/manifests/generation/phase10_experiment_registry.json",
+      "phase": "10",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "a73984228350f3445dcf21a97b7819946107738b7d76fe4ef682ac44d83ea21c"
+    },
+    {
+      "path": "data/manifests/generation/phase10_generation_policy.json",
+      "phase": "10",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "24bf0929be74f32014129697c2d48f6b57f97477432228cbc008c7c6f93fe9ea"
+    },
+    {
+      "path": "data/manifests/generation/phase10_jurisdiction_scope.json",
+      "phase": "10",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "94f0bbbf7ab1f438805e9a4a521e303e11553fef1f5d364f8eb57070bc3451a0"
+    },
+    {
+      "path": "data/manifests/generation/phase10_model_generator_lock.json",
+      "phase": "10",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "47214b257d5a2f341086976327f424023c0b2f2d5c1c6f13fcd48238f23ce408"
+    },
+    {
+      "path": "data/manifests/generation/phase10_selected_configuration.json",
+      "phase": "10",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "3d23050022e8b7daa1507218cf07c84a0c2947d6bedf359934d52f73b54c3056"
+    },
+    {
+      "path": "data/manifests/generation/phase10_stage_b_generation_policy.json",
+      "phase": "10",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "9443cebf0d5fecc20ef9c4f2d08bff7c940cb018f77f400c049c22d0c2abc2cd"
+    },
+    {
+      "path": "data/manifests/generation/phase10_tokenizer_budget.json",
+      "phase": "10",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "5c44cdebc552cbe719abf1f7e8e318aabd9699829a03b2ad41a767f1bf5cc3fe"
+    },
+    {
+      "path": "data/manifests/grounding/phase9_citation_schema.json",
+      "phase": "9",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "0dba620b02433d266ebf5968fdb4941832435d958445a8c9413c3371f35a80ce"
+    },
+    {
+      "path": "data/manifests/grounding/phase9_context_policy.json",
+      "phase": "9",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "be7324808180d4a0797154c2b3c46050ff67b41790da3fcc04f17c60383347dc"
+    },
+    {
+      "path": "data/manifests/normalization/phase4_manifest.json",
+      "phase": "4",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "f48305a52a260824b33598463283a3cc871153b1535847f8d27eb581f981e495"
+    },
+    {
+      "path": "data/manifests/normalization/phase4_sensitivity_manifest.json",
+      "phase": "4",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "ebf330218a341fee38aa2d4792443cc3f2463ce7542c74433e3ced5fac72735a"
+    },
+    {
+      "path": "data/manifests/retrieval/phase7_corpus_manifest.json",
+      "phase": "7",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "28a7fb56c11c1afd12c4d06515861c5a1df8704e531b062899cb03b3f46eeb06"
+    },
+    {
+      "path": "data/manifests/retrieval/phase7_dev_sanity_audit.json",
+      "phase": "7",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "9317a58e7b30206e75a5eb188b74a8438d58e53395d5d0e538bc276c5baed109"
+    },
+    {
+      "path": "data/manifests/retrieval/phase7_dev_selection.json",
+      "phase": "7",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "bb9c58833f30ca9f4066bbb55339e2f74663fcaeae1a623892b6ce441b3a5fae"
+    },
+    {
+      "path": "data/manifests/retrieval/phase7_final_manifest.json",
+      "phase": "7",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "4e5c684f1d2b97fa2f8981b0a3fe5360fba9b7a8f8d9998221dbd885a72e5313"
+    },
+    {
+      "path": "data/manifests/retrieval/phase7_model_lock.json",
+      "phase": "7",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "c3487b5701dc8e93b8aa050c41464fdacfedb8b9a25a7b64b13b0103bb34e1a7"
+    },
+    {
+      "path": "data/manifests/retrieval/phase8_dev_fusion_selection.json",
+      "phase": "8",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "5bf154cd815e17cb95d7d34ced3c0aa85444827b6c34c1a895edc5f583933476"
+    },
+    {
+      "path": "data/manifests/retrieval/phase8_dev_selection.json",
+      "phase": "8",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "a62cc772f2b71883355c7935da7e7b87ab4d22b3746553148b4f64ef20f28b0b"
+    },
+    {
+      "path": "data/manifests/retrieval/phase8_final_manifest.json",
+      "phase": "8",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "cf11a95cfc0ddbd035c7399d7403f993ad42b58740893048d55d26e3a4fc3f89"
+    },
+    {
+      "path": "data/manifests/retrieval/phase8_holdout_readiness.json",
+      "phase": "8",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "867576649d2cb17ca535e47af702b9655c155fd3e6184826b168d4d484074975"
+    },
+    {
+      "path": "data/manifests/retrieval/phase8_metadata_coverage.json",
+      "phase": "8",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "02ea9bd74b22cb257e4c1648165246023f235fc6637e269d0e8496d1429d82dc"
+    },
+    {
+      "path": "data/manifests/retrieval/phase8_model_lock.json",
+      "phase": "8",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "a9dcb9f6ab6396d9ce68507c200533d8eadc7e2565d995b5c15d5c719deb21d9"
+    },
+    {
+      "path": "data/manifests/testing/phase14_regression_lock.json",
+      "phase": "14",
+      "provenance": "HISTORICAL_FROZEN",
+      "read_only": true,
+      "sha256": "430b2bdc08151775ddbbf73d04302866e17b5b96458cc3cdba3cdeaea4d7ad7e"
+    }
+  ],
+  "holdout_private_paths": [],
+  "registry_read_only": true
+}

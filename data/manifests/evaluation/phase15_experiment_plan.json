@@ -1,0 +1,32 @@
+{
+  "arabic_embedding_model": "omarelshehy/Arabic-Retrieval-v1.0",
+  "base_sha": "03f58284426c84c6c813be2b1e1bbbbbfd1c9a2d",
+  "bootstrap_replicates": 2000,
+  "confidence": 0.95,
+  "hard_prohibitions": [
+    "No protected Phase 3, Phase 8, or Phase 11 HOLDOUT reruns or access for tuning.",
+    "Historical HOLDOUT metrics may be cited only from already frozen tracked artifacts.",
+    "Do not mutate frozen Phase 3-14 result artifacts.",
+    "Do not change production retrieval, chunking, generator, API, UI, or Stage-D policy.",
+    "No ALLaM or threshold production promotion.",
+    "No model shopping after DEV outcomes are visible.",
+    "Phase 6 AI-reviewed data is not human gold or expert gold.",
+    "No external upload of private query or source text.",
+    "Tracked new outputs must be aggregate and text-free.",
+    "Negative and inconclusive findings remain in the report."
+  ],
+  "holdout_access_permitted": false,
+  "model_shopping_after_dev_results": false,
+  "production_change_permitted": false,
+  "provenance": "PHASE15_DEV",
+  "research_questions": [
+    "Does structure-aware chunking outperform fixed chunks for Arabic legal retrieval?",
+    "How much does light Arabic normalization affect lexical and dense retrieval?",
+    "Does hybrid retrieval outperform dense-only retrieval across Arabic and English queries?",
+    "How much does reranking improve hard legal queries?",
+    "How robust is retrieval to dialectal paraphrasing?",
+    "Can citation verification meaningfully reduce unsupported answers?",
+    "How accurately can a zero-cost local model answer from Arabic legal evidence?"
+  ],
+  "seed": 20260826
+}

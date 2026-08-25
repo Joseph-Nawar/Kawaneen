@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
+from collections.abc import Mapping, Sequence
 from enum import StrEnum
 from statistics import median
-from typing import Mapping, Sequence
 
 from .contracts import ARABIC_EMBEDDING_MODEL, ModelLock, Phase15Model
 from .statistics import paired_bootstrap_delta
@@ -24,7 +24,9 @@ class EmbeddingRun(Phase15Model):
     metrics: Mapping[str, tuple[float, ...]]
     latencies_ms: tuple[float, ...] = ()
 
-    def validate_identity(self, expected_query_ids: Sequence[str], expected_qrel_ids: Sequence[str]) -> None:
+    def validate_identity(
+        self, expected_query_ids: Sequence[str], expected_qrel_ids: Sequence[str]
+    ) -> None:
         if self.query_ids != tuple(expected_query_ids) or self.qrel_ids != tuple(expected_qrel_ids):
             raise ValueError("embedding runs must use identical DEV query and qrel identities")
         if len(self.query_ids) != len(self.qrel_ids):
