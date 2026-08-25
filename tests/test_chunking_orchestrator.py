@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import json
 
+import pytest
+
 from kawaneen.chunking.corpus import freeze_phase5_documents
 from kawaneen.chunking.models import CitationAnchor, LegalChunk, SourceSpan
 from kawaneen.chunking.orchestrator import (
@@ -79,6 +81,7 @@ def test_corpus_manifest_preserves_canonical_hashes() -> None:
     assert manifest["ocr_included"] is False
 
 
+@pytest.mark.private_artifact
 def test_phase3_canonical_hash_inventory_is_read_only_and_complete() -> None:
     hashes = _phase3_canonical_hashes()
     assert len(hashes) == 8

@@ -3,17 +3,18 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
+from private_support import external_review_path, private_repo_path
 
 from kawaneen.evaluation.models import QueryCategory, SemanticTarget
 
-REVIEW = Path("/Users/nawar/Downloads/phase6_v3_external_ai_review_adjudication.jsonl")
-FINAL_REVIEW = Path("/Users/nawar/Downloads/phase6_v4_final_external_ai_adjudication.jsonl")
 
-
+@pytest.mark.private_artifact
 def test_external_review_has_exact_bounded_dispositions() -> None:
     from kawaneen.evaluation.adjudication_v4 import load_v3_adjudication
 
-    decisions = load_v3_adjudication(REVIEW)
+    decisions = load_v3_adjudication(
+        external_review_path("phase6_v3_external_ai_review_adjudication.jsonl")
+    )
     counts = {decision.decision: 0 for decision in decisions}
     for decision in decisions:
         counts[decision.decision] += 1
@@ -26,16 +27,17 @@ def test_external_review_has_exact_bounded_dispositions() -> None:
     }
 
 
+@pytest.mark.private_artifact
 def test_v4_application_covers_bounded_record_transform() -> None:
     from kawaneen.evaluation.adjudication_v4 import apply_v3_adjudication, load_v3_adjudication
     from kawaneen.evaluation.corpus import freeze_evaluation_corpus, load_evaluation_units
     from kawaneen.evaluation.serialization import read_items_jsonl
 
     v3_items = read_items_jsonl(
-        Path("artifacts/private/phase6_evaluation/draft-v3/draft/selected_and_variants.jsonl")
+        private_repo_path("phase6_evaluation", "draft-v3", "draft", "selected_and_variants.jsonl")
     )
     pool = read_items_jsonl(
-        Path("artifacts/private/phase6_evaluation/draft-v3/draft/base_candidates.jsonl")
+        private_repo_path("phase6_evaluation", "draft-v3", "draft", "base_candidates.jsonl")
     )
     corpus = freeze_evaluation_corpus(
         load_evaluation_units(Path("data/interim/canonical")),
@@ -44,7 +46,9 @@ def test_v4_application_covers_bounded_record_transform() -> None:
     result = apply_v3_adjudication(
         v3_items,
         corpus,
-        load_v3_adjudication(REVIEW),
+        load_v3_adjudication(
+            external_review_path("phase6_v3_external_ai_review_adjudication.jsonl")
+        ),
         pool,
     )
     assert len(result.base_pool) >= len(pool)
@@ -255,10 +259,13 @@ def test_v5_multi_evidence_rejects_redundant_single_group() -> None:
     )
 
 
+@pytest.mark.private_artifact
 def test_final_v5_adjudication_has_exact_bounded_dispositions_and_extensions() -> None:
     from kawaneen.evaluation.adjudication_v5 import load_v4_final_adjudication
 
-    decisions = load_v4_final_adjudication(FINAL_REVIEW)
+    decisions = load_v4_final_adjudication(
+        external_review_path("phase6_v4_final_external_ai_adjudication.jsonl")
+    )
     counts = {decision: 0 for decision in ("accept", "correct", "replace", "regenerate_variant")}
     for decision in decisions:
         counts[decision.decision] += 1
@@ -271,13 +278,16 @@ def test_final_v5_adjudication_has_exact_bounded_dispositions_and_extensions() -
     assert sum(item.evidence_action == "extend_same_unit" for item in decisions) == 3
 
 
+@pytest.mark.private_artifact
 def test_v5_build_writes_changed_review_candidate_without_verifying_records() -> None:
     from kawaneen.evaluation.orchestrator import run_build_draft_v5
     from kawaneen.evaluation.serialization import read_items_jsonl
 
-    summary = run_build_draft_v5(review_file=FINAL_REVIEW)
+    summary = run_build_draft_v5(
+        review_file=external_review_path("phase6_v4_final_external_ai_adjudication.jsonl")
+    )
     items = read_items_jsonl(
-        Path("artifacts/private/phase6_evaluation/draft-v5/draft/selected_and_variants.jsonl")
+        private_repo_path("phase6_evaluation", "draft-v5", "draft", "selected_and_variants.jsonl")
     )
     assert summary["item_count"] == 240
     assert summary["validation"]["valid"] is True

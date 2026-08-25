@@ -97,6 +97,7 @@ def test_diagnostic_transport_retains_complete_ollama_envelope(monkeypatch) -> N
     }
 
 
+@pytest.mark.private_artifact
 def test_frozen_timeout_cohort_is_exactly_27_and_excludes_non_timeouts() -> None:
     cohort = select_frozen_stage_b_timeout_cohort()
 
@@ -249,6 +250,7 @@ def test_malformed_inner_json_is_classified_without_network() -> None:
     assert record.parse_outcome == "invalid_pydantic_or_json"
 
 
+@pytest.mark.private_artifact
 def test_offline_evaluator_fails_closed_when_envelopes_are_absent(tmp_path: Path) -> None:
     result = evaluate_persisted_timeout_diagnostic(root=tmp_path)
 
@@ -387,6 +389,7 @@ def test_corrupt_diagnostic_checkpoint_is_recomputed_and_resume_reuses_valid_rec
     assert calls == ["query-a", "query-b", "query-b"]
 
 
+@pytest.mark.private_artifact
 def test_v2_cohort_namespace_and_hash_are_frozen() -> None:
     cohort = select_frozen_stage_b_timeout_cohort()
 
@@ -417,6 +420,7 @@ def test_v2_envelope_persistence_is_private_and_immutable(tmp_path: Path) -> Non
     assert (tmp_path / "envelopes" / "query-a.json").is_file()
 
 
+@pytest.mark.private_artifact
 def test_v2_manifest_is_text_free_and_does_not_touch_v1(tmp_path: Path) -> None:
     manifest = tmp_path / "v2-manifest.json"
     write_timeout_diagnostic_v2_manifest(path=manifest)
@@ -427,6 +431,7 @@ def test_v2_manifest_is_text_free_and_does_not_touch_v1(tmp_path: Path) -> None:
     assert "query_ids" not in json.dumps(payload)
 
 
+@pytest.mark.private_artifact
 def test_v2_status_and_evaluator_are_network_and_model_free(tmp_path: Path, monkeypatch) -> None:
     def fail(*_args, **_kwargs):
         raise AssertionError("network/model access is forbidden")
@@ -459,6 +464,7 @@ def test_v2_runner_asserts_frozen_cohort_before_execution(monkeypatch, tmp_path:
         run_stage_b_timeout_diagnostic_v2(resume=True, root=tmp_path)
 
 
+@pytest.mark.private_artifact
 def test_diagnostic_records_are_separate_from_frozen_stage_b_results(tmp_path: Path) -> None:
     frozen = Path(
         "artifacts/private/phase10_generation/results/qwen-ollama-stage-b/"

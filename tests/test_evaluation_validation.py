@@ -49,7 +49,7 @@ def test_source_span_validation_rejects_unknown_unit_and_out_of_bounds() -> None
         validate_source_spans((_item(),), {"u": "نص"})
 
 
-def test_evidence_maps_to_deterministic_legal_structure_qrel() -> None:
+def test_evidence_maps_to_deterministic_legal_structure_qrel(tmp_path) -> None:
     from kawaneen.corpus.models import CanonicalUnit, SourceProvenance, UnitType
     from kawaneen.evaluation.corpus import freeze_evaluation_corpus
 
@@ -66,9 +66,9 @@ def test_evidence_maps_to_deterministic_legal_structure_qrel() -> None:
             source_field="facts",
         ),
     )
-    corpus = freeze_evaluation_corpus(
-        (unit,), canonical_root=__import__("pathlib").Path("data/interim/canonical")
-    )
+    inventory = tmp_path / "inventory.json"
+    inventory.write_text('{"sources": []}', encoding="utf-8")
+    corpus = freeze_evaluation_corpus((unit,), canonical_root=tmp_path, inventory_path=inventory)
     item = _item().model_copy(update={"source_document_ids": ("d",)})
     mapped = map_items_to_chunks((item,), corpus)
     assert mapped[0].chunk_policy_hash

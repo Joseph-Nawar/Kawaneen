@@ -26,5 +26,5 @@ jobs:
           .venv/bin/python -c "import sys; expected='${{ matrix.python-version }}'; actual=f'{sys.version_info.major}.{sys.version_info.minor}'; assert actual == expected, f'expected {expected}, got {actual}'"
       - run: .venv/bin/ruff format --check .
       - run: .venv/bin/ruff check .
-      - run: uv run --no-sync pyright
-      - run: .venv/bin/pytest
+      - run: .venv/bin/pyright
+      - run: .venv/bin/pytest -m "not private_artifact" --cov=kawaneen --cov-branch --cov-report=term-missing --cov-fail-under=85

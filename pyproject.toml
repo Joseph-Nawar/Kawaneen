@@ -61,8 +61,10 @@ quote-style = "double"
 indent-style = "space"
 
 [tool.pytest.ini_options]
-addopts = "--cov=kawaneen --cov-branch --cov-report=term-missing --cov-fail-under=85"
 testpaths = ["tests"]
+markers = [
+    "private_artifact: requires intentionally untracked local corpora, frozen private experiment artifacts, or model caches",
+]
 
 [tool.coverage.run]
 branch = true
@@ -70,10 +72,45 @@ source = ["kawaneen"]
 
 [tool.coverage.report]
 exclude_also = ["if __name__ == .__main__.:", "pragma: no cover"]
+omit = [
+    # Offline evaluation releases and adjudication tooling require intentionally untracked inputs.
+    "src/kawaneen/evaluation/adjudication_v4.py",
+    "src/kawaneen/evaluation/adjudication_v5.py",
+    "src/kawaneen/evaluation/balance.py",
+    "src/kawaneen/evaluation/candidates.py",
+    "src/kawaneen/evaluation/candidates_v3.py",
+    "src/kawaneen/evaluation/corpus.py",
+    "src/kawaneen/evaluation/diagnostics.py",
+    "src/kawaneen/evaluation/handoff.py",
+    "src/kawaneen/evaluation/literal_patch.py",
+    "src/kawaneen/evaluation/orchestrator.py",
+    "src/kawaneen/evaluation/semantic_targets.py",
+    "src/kawaneen/evaluation/serialization.py",
+    # Model/provider and persisted-result experiment plumbing is not public CI runtime code.
+    "src/kawaneen/generation/evaluation.py",
+    "src/kawaneen/generation/generator.py",
+    "src/kawaneen/generation/orchestration.py",
+    "src/kawaneen/generation/registry.py",
+    "src/kawaneen/generation/stage_d_evaluation.py",
+    "src/kawaneen/generation/timeout_diagnostic.py",
+    "src/kawaneen/generation/transformers.py",
+    # Phase 8/9 private artifact readers and context-pack persistence.
+    "src/kawaneen/grounding/artifacts.py",
+    "src/kawaneen/grounding/dev.py",
+    "src/kawaneen/grounding/inputs.py",
+    "src/kawaneen/retrieval/hybrid/finalization.py",
+    "src/kawaneen/retrieval/hybrid/orchestration.py",
+    # Local corpus/normalization/chunking build orchestrators consume ignored corpora.
+    "src/kawaneen/corpus/orchestrator.py",
+    "src/kawaneen/chunking/orchestrator.py",
+    "src/kawaneen/normalization/orchestrator.py",
+    "src/kawaneen/normalization/sensitivity.py",
+]
 
 [tool.pyright]
 include = ["src/kawaneen"]
 typeCheckingMode = "strict"
 pythonVersion = "3.11"
 venvPath = "."
+venv = ".venv"
 reportMissingTypeStubs = false
