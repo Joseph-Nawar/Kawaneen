@@ -19,12 +19,14 @@ The API exposes `/v1/search`, `/v1/answer`, `/v1/extract`, `/v1/documents`, `/v1
 - Ruff format/lint: clean (`uv run ruff format --check .`; `uv run ruff check .`)
 - Pyright: clean (`0 errors, 0 warnings, 0 informations`)
 - Implementation commit SHA: `b1c5f5b`
-- Python 3.11 / 3.12 GitHub Actions jobs: pending GitHub run creation
+- GitHub Actions run [32851587491](https://github.com/Joseph-Nawar/Kawaneen/actions/runs/32851587491): success
+  - `quality (3.11)`, job `97813553522`: success
+  - `quality (3.12)`, job `97813553404`: success
 - PR: #8, open, not merged
 
 Safety confirmations for the final run:
 
-- No Qwen/Ollama calls: required
-- No HOLDOUT/protected-query access: required
-- Phase 10 and Phase 11 frozen results/metrics unchanged: required
-- No private artifacts, model outputs/caches, secrets, or machine-specific paths committed: required
+- No Qwen/Ollama calls were made during implementation or verification.
+- No HOLDOUT/protected-query access was made during implementation or verification.
+- Phase 10 and Phase 11 frozen results/metrics are unchanged.
+- No private artifacts, model outputs/caches, secrets, or new machine-specific paths were committed.
