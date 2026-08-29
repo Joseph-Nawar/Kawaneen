@@ -111,10 +111,18 @@ from kawaneen.normalization.sensitivity import run_sensitivity_validation
 from kawaneen.parsing.benchmark import preflight_pdfs, qualification_status
 from kawaneen.parsing.diagnostics import diagnose_docling
 from kawaneen.phase15.orchestrator import (
+    phase15_abstention,
+    phase15_counterfactuals,
+    phase15_dialect_evaluate,
+    phase15_dialect_prepare,
+    phase15_embedding,
     phase15_finalize,
     phase15_freeze,
+    phase15_generation_run,
+    phase15_latency,
     phase15_model_lock,
     phase15_plan,
+    phase15_reranking,
     phase15_review_prepare,
     phase15_review_status,
     phase15_synthesize,
@@ -546,6 +554,12 @@ def build_parser() -> argparse.ArgumentParser:
     phase15_parser = subparsers.add_parser(
         "phase15", help="Phase 15 frozen-evidence and DEV-only evaluation workflow"
     )
+    phase15_parser.add_argument(
+        "--historical-input-root",
+        type=Path,
+        default=None,
+        help="read-only original-repository artifacts/private root for DEV inputs",
+    )
     phase15_subparsers = phase15_parser.add_subparsers(dest="phase15_command", required=True)
     phase15_commands = (
         "plan",
@@ -558,6 +572,7 @@ def build_parser() -> argparse.ArgumentParser:
         "generation-preflight",
         "generation-run",
         "counterfactuals",
+        "abstention",
         "latency",
         "review-prepare",
         "review-status",
@@ -574,6 +589,7 @@ def build_parser() -> argparse.ArgumentParser:
         "generation-preflight": "run the bounded local ALLaM 4-bit preflight",
         "generation-run": "run the matched-80 DEV generator comparison",
         "counterfactuals": "run offline citation and abstention counterfactuals",
+        "abstention": "run the DEV-only score-gate sensitivity analysis",
         "latency": "run the fixed batch-1 latency-quality protocol",
         "review-prepare": "prepare the private 120-case review packet",
         "review-status": "show private human-review progress",
@@ -796,13 +812,29 @@ def main(argv: list[str] | None = None) -> int:
             elif args.phase15_command == "synthesize":
                 result = phase15_synthesize()
             elif args.phase15_command == "review-prepare":
-                result = phase15_review_prepare()
+                result = phase15_review_prepare(Path("."), args.historical_input_root)
             elif args.phase15_command == "review-status":
                 result = phase15_review_status()
             elif args.phase15_command == "finalize":
                 result = phase15_finalize()
             elif args.phase15_command == "generation-preflight":
                 result = phase15_model_lock()
+            elif args.phase15_command == "embedding":
+                result = phase15_embedding(Path("."), args.historical_input_root)
+            elif args.phase15_command == "reranking":
+                result = phase15_reranking(Path("."), args.historical_input_root)
+            elif args.phase15_command == "counterfactuals":
+                result = phase15_counterfactuals(Path("."), args.historical_input_root)
+            elif args.phase15_command == "generation-run":
+                result = phase15_generation_run(Path("."), args.historical_input_root)
+            elif args.phase15_command == "latency":
+                result = phase15_latency(Path("."), args.historical_input_root)
+            elif args.phase15_command == "abstention":
+                result = phase15_abstention(Path("."), args.historical_input_root)
+            elif args.phase15_command == "dialect-prepare":
+                result = phase15_dialect_prepare(Path("."), args.historical_input_root)
+            elif args.phase15_command == "dialect-evaluate":
+                result = phase15_dialect_evaluate(Path("."), args.historical_input_root)
             else:
                 result = phase15_unavailable_experiment(Path("."), args.phase15_command)
             print(json.dumps(result, ensure_ascii=False, sort_keys=True))

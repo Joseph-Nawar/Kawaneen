@@ -1,5 +1,180 @@
 {
+  "arabic_retrieval": {
+    "model_id": "omarelshehy/Arabic-Retrieval-v1.0",
+    "normalizations": [
+      "raw",
+      "light",
+      "aggressive"
+    ],
+    "reason": "Exact locked Arabic-Retrieval-v1.0 revision is not present locally; bounded model load attempted at the locked revision and was interrupted during weight download.",
+    "revision": "899f6e1b765915a72d5e4ace6bb2b221715550d8",
+    "scoring_started": false,
+    "status": "BLOCKED"
+  },
+  "baseline": "bge-m3",
+  "bootstrap_replicates": 2000,
+  "device_runtime": {
+    "bge-m3": "cpu/frozen-phase7-ranking",
+    "multilingual-e5-small": "cpu/frozen-phase7-ranking"
+  },
+  "paired_deltas": {
+    "multilingual-e5-small-vs-bge-m3": {
+      "CompleteEvidenceRecall@10": {
+        "ci95": [
+          -0.06382978723404255,
+          0.04964539007092199
+        ],
+        "confidence": 0.95,
+        "delta": -0.0070921985815602835,
+        "losses": 9,
+        "replicates": 2000,
+        "seed": 20260826,
+        "ties": 124,
+        "wins": 8
+      },
+      "CompleteEvidenceRecall@5": {
+        "ci95": [
+          -0.09219858156028368,
+          0.028546099290779173
+        ],
+        "confidence": 0.95,
+        "delta": -0.028368794326241134,
+        "losses": 11,
+        "replicates": 2000,
+        "seed": 20260826,
+        "ties": 123,
+        "wins": 7
+      },
+      "MRR@10": {
+        "ci95": [
+          -0.0664827479455139,
+          0.00015063886074523553
+        ],
+        "confidence": 0.95,
+        "delta": -0.031242260497579645,
+        "losses": 13,
+        "replicates": 2000,
+        "seed": 20260826,
+        "ties": 119,
+        "wins": 9
+      },
+      "Recall@1": {
+        "ci95": [
+          -0.06028368794326241,
+          -0.0070921985815602835
+        ],
+        "confidence": 0.95,
+        "delta": -0.031914893617021274,
+        "losses": 5,
+        "replicates": 2000,
+        "seed": 20260826,
+        "ties": 136,
+        "wins": 0
+      },
+      "Recall@10": {
+        "ci95": [
+          -0.06028368794326241,
+          0.05319148936170213
+        ],
+        "confidence": 0.95,
+        "delta": -0.0035460992907801418,
+        "losses": 9,
+        "replicates": 2000,
+        "seed": 20260826,
+        "ties": 124,
+        "wins": 8
+      },
+      "Recall@5": {
+        "ci95": [
+          -0.07446808510638298,
+          0.03900709219858156
+        ],
+        "confidence": 0.95,
+        "delta": -0.01773049645390071,
+        "losses": 10,
+        "replicates": 2000,
+        "seed": 20260826,
+        "ties": 124,
+        "wins": 7
+      },
+      "nDCG@10": {
+        "ci95": [
+          -0.060921588752333077,
+          0.011516778506971382
+        ],
+        "confidence": 0.95,
+        "delta": -0.022556080638248016,
+        "losses": 13,
+        "replicates": 2000,
+        "seed": 20260826,
+        "ties": 119,
+        "wins": 9
+      }
+    }
+  },
   "provenance": "PHASE15_DEV",
-  "reason": "No new Phase 15 DEV scoring was executed before the mandatory human-review stop; this status is not a metric result.",
-  "status": "NOT_RUN"
+  "seed": 20260826,
+  "status": "RUN",
+  "systems": {
+    "bge-m3": {
+      "CompleteEvidenceRecall@10": {
+        "mean": 0.10638297872340426,
+        "n": 141
+      },
+      "CompleteEvidenceRecall@5": {
+        "mean": 0.09219858156028368,
+        "n": 141
+      },
+      "MRR@10": {
+        "mean": 0.061955420466058765,
+        "n": 141
+      },
+      "Recall@1": {
+        "mean": 0.03900709219858156,
+        "n": 141
+      },
+      "Recall@10": {
+        "mean": 0.09574468085106383,
+        "n": 141
+      },
+      "Recall@5": {
+        "mean": 0.08156028368794327,
+        "n": 141
+      },
+      "nDCG@10": {
+        "mean": 0.06713099780908378,
+        "n": 141
+      }
+    },
+    "multilingual-e5-small": {
+      "CompleteEvidenceRecall@10": {
+        "mean": 0.09929078014184398,
+        "n": 141
+      },
+      "CompleteEvidenceRecall@5": {
+        "mean": 0.06382978723404255,
+        "n": 141
+      },
+      "MRR@10": {
+        "mean": 0.03071315996847912,
+        "n": 141
+      },
+      "Recall@1": {
+        "mean": 0.0070921985815602835,
+        "n": 141
+      },
+      "Recall@10": {
+        "mean": 0.09219858156028368,
+        "n": 141
+      },
+      "Recall@5": {
+        "mean": 0.06382978723404255,
+        "n": 141
+      },
+      "nDCG@10": {
+        "mean": 0.04457491717083577,
+        "n": 141
+      }
+    }
+  }
 }

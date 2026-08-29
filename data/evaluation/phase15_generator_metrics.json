@@ -1,5 +1,18 @@
 {
+  "fallback": {
+    "license": "apache-2.0",
+    "model_id": "abdelrahman-alkhodary/qwen2.5-1.5b-arabic-instruct",
+    "revision": "06d27020b3ac3d9058b7eebded9754c8e10fa6bd",
+    "scoring_started": false
+  },
+  "matched_80": {
+    "answerable_gold_absent": 30,
+    "answerable_gold_present": 31,
+    "explicit_unanswerable": 19
+  },
   "provenance": "PHASE15_DEV",
-  "reason": "No new Phase 15 DEV scoring was executed before the mandatory human-review stop; this status is not a metric result.",
-  "status": "NOT_RUN"
+  "qwen3_and_extractive": "not scored by this Phase 15 runner; persisted outputs require fingerprint match",
+  "reason": "fallback weights are not locally available for offline scoring: /Users/nawar/.cache/huggingface/hub/models--abdelrahman-alkhodary--qwen2.5-1.5b-arabic-instruct",
+  "same_context_blocks_required": true,
+  "status": "BLOCKED"
 }

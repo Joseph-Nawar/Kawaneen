@@ -1,5 +1,20 @@
 {
+  "gates": {
+    "bottom10": {
+      "status": "BLOCKED"
+    },
+    "bottom25": {
+      "status": "BLOCKED"
+    },
+    "bottom50": {
+      "status": "BLOCKED"
+    },
+    "none": {
+      "status": "BLOCKED"
+    }
+  },
+  "production_stage_d_unchanged": true,
   "provenance": "PHASE15_DEV",
-  "reason": "No new Phase 15 DEV scoring was executed before the mandatory human-review stop; this status is not a metric result.",
-  "status": "NOT_RUN"
+  "reason": "required score-only DEV artifact is absent: /Volumes/JOSEPH/projects/Kawaneen/artifacts/private/phase8_retrieval/dev/scores.json",
+  "status": "BLOCKED"
 }

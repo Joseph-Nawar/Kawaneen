@@ -1,5 +1,12 @@
 {
+  "available_generator_telemetry": "not reported until matched generator scoring runs",
+  "protocol": {
+    "batch_size": 1,
+    "device": "unavailable",
+    "fixed_subset": "20 DEV query IDs",
+    "warmups": 3
+  },
   "provenance": "PHASE15_DEV",
-  "reason": "No new Phase 15 DEV scoring was executed before the mandatory human-review stop; this status is not a metric result.",
-  "status": "NOT_RUN"
+  "reason": "Phase 7-10 private DEV artifacts contain no per-operation latency samples; no cross-device proxy is reported",
+  "status": "BLOCKED"
 }

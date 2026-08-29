@@ -19,6 +19,7 @@
     "device": "cpu",
     "dimension": 768,
     "dtype": "float32",
+    "license": null,
     "model_id": "omarelshehy/Arabic-Retrieval-v1.0",
     "normalize_embeddings": false,
     "passage_prefix": "",

@@ -1,5 +1,74 @@
 {
+  "hard_query_count": 19,
+  "hard_query_ids_sha256": "b4dab848ffc82ed59fc2d9158d4a7e936bb3a2e03dc0669af4cc1b0de9ce1052",
+  "hard_query_rule": {
+    "authority": true,
+    "cross_language": true,
+    "deadline": true,
+    "exact_provision": true,
+    "long_query": true,
+    "max_pre_rerank_relevant_rank": 20,
+    "multi_evidence": true
+  },
+  "metrics": {
+    "CompleteEvidenceRecall@10": {
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "confidence": 0.95,
+      "delta": 0.0,
+      "losses": 0,
+      "rank_biserial": 0.0,
+      "replicates": 2000,
+      "seed": 20260826,
+      "ties": 19,
+      "wins": 0
+    },
+    "MRR@10": {
+      "ci95": [
+        0.0,
+        0.0052631578947368455
+      ],
+      "confidence": 0.95,
+      "delta": 0.0017543859649122818,
+      "losses": 0,
+      "rank_biserial": 0.05263157894736842,
+      "replicates": 2000,
+      "seed": 20260826,
+      "ties": 18,
+      "wins": 1
+    },
+    "Recall@10": {
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "confidence": 0.95,
+      "delta": 0.0,
+      "losses": 0,
+      "rank_biserial": 0.0,
+      "replicates": 2000,
+      "seed": 20260826,
+      "ties": 19,
+      "wins": 0
+    },
+    "nDCG@10": {
+      "ci95": [
+        0.0,
+        0.002966885676494531
+      ],
+      "confidence": 0.95,
+      "delta": 0.0009889618921648437,
+      "losses": 0,
+      "rank_biserial": 0.05263157894736842,
+      "replicates": 2000,
+      "seed": 20260826,
+      "ties": 18,
+      "wins": 1
+    }
+  },
   "provenance": "PHASE15_DEV",
-  "reason": "No new Phase 15 DEV scoring was executed before the mandatory human-review stop; this status is not a metric result.",
-  "status": "NOT_RUN"
+  "seed": 20260826,
+  "status": "RUN"
 }

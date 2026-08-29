@@ -7,6 +7,7 @@ from kawaneen.phase15.orchestrator import (
     phase15_freeze,
     phase15_model_lock,
     phase15_plan,
+    phase15_review_prepare,
     write_phase15_status_artifacts,
 )
 
@@ -53,3 +54,30 @@ def test_fallback_lock_uses_permissive_arabic_candidate(tmp_path: Path) -> None:
         "06d27020b3ac3d9058b7eebded9754c8e10fa6bd"
     )
     assert lock["fallback_preregistered_before_results"]["license"] == "apache-2.0"
+
+
+def test_review_prepare_regenerates_only_when_progress_is_zero(tmp_path: Path) -> None:
+    from kawaneen.phase15.contracts import ReviewCase
+
+    cases = [
+        ReviewCase(
+            case_id=f"case-{i}",
+            language="ar",
+            pipeline_stage="retrieval",
+            legal_category="regulatory",
+            answerability="answerable",
+            severity="medium",
+        ).model_dump(mode="json")
+        for i in range(120)
+    ]
+    candidate_path = tmp_path / "artifacts/private/phase15_evaluation/review_candidates.json"
+    candidate_path.parent.mkdir(parents=True, exist_ok=True)
+    candidate_path.write_text(json.dumps({"cases": cases}), encoding="utf-8")
+    first = phase15_review_prepare(tmp_path)
+    assert first["status"] == "prepared"
+    cases[0]["pipeline_stage"] = "generation"
+    candidate_path.write_text(json.dumps({"cases": cases}), encoding="utf-8")
+    regenerated = phase15_review_prepare(tmp_path)
+    assert regenerated["status"] == "regenerated"
+    packet = json.loads(Path(first["packet"]).read_text(encoding="utf-8"))
+    assert packet["cases"][0]["pipeline_stage"] == "generation"

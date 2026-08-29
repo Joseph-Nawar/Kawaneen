@@ -1,5 +1,33 @@
 {
+  "absolute_risk_reduction": 0.125,
+  "absolute_risk_reduction_ci95": [
+    0.075,
+    0.1751562499999997
+  ],
+  "allam": {
+    "counterfactual_scoring_started": false,
+    "status": "BLOCKED_BEFORE_SCORING_NO_TRUSTWORTHY_4BIT_LOCAL_ARTIFACT"
+  },
+  "coverage_cost": 0.125,
+  "discordant_pairs": {
+    "before_negative_after_positive": 0,
+    "before_positive_after_negative": 20
+  },
+  "n": 160,
+  "operational_definition": {
+    "post_verification": "persisted answer decision with at least one verified claim",
+    "pre_verification": "non-empty persisted candidate response"
+  },
+  "post_unsafe_acceptance": 0.8375,
+  "pre_unsafe_acceptance": 0.9625,
   "provenance": "PHASE15_DEV",
-  "reason": "No new Phase 15 DEV scoring was executed before the mandatory human-review stop; this status is not a metric result.",
-  "status": "NOT_RUN"
+  "rejection_outcome_taxonomy": {
+    "CURRENTNESS_UNVERIFIED": 6,
+    "INVALID_GENERATION": 9,
+    "unknown": 11
+  },
+  "relative_risk_reduction": 0.12987012987012986,
+  "seed": 20260826,
+  "stage": "phase10-qwen-stage-c",
+  "status": "RUN"
 }
