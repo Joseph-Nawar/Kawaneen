@@ -5,6 +5,7 @@ from pathlib import Path
 
 from kawaneen.phase15.orchestrator import (
     phase15_freeze,
+    phase15_model_lock,
     phase15_plan,
     write_phase15_status_artifacts,
 )
@@ -39,3 +40,16 @@ def test_status_artifacts_are_aggregate_and_do_not_claim_results(tmp_path: Path)
         payload = json.loads(Path(path).read_text())
         assert payload["status"] == "NOT_RUN"
         assert payload["provenance"] == "PHASE15_DEV"
+
+
+def test_fallback_lock_uses_permissive_arabic_candidate(tmp_path: Path) -> None:
+    payload = phase15_model_lock(tmp_path)
+    assert payload["allam_status"].startswith("BLOCKED_BEFORE_SCORING")
+    lock = json.loads((tmp_path / "data/manifests/evaluation/phase15_model_lock.json").read_text())
+    assert lock["fallback_preregistered_before_results"]["model_id"] == (
+        "abdelrahman-alkhodary/qwen2.5-1.5b-arabic-instruct"
+    )
+    assert lock["fallback_preregistered_before_results"]["revision"] == (
+        "06d27020b3ac3d9058b7eebded9754c8e10fa6bd"
+    )
+    assert lock["fallback_preregistered_before_results"]["license"] == "apache-2.0"

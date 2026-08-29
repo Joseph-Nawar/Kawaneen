@@ -124,6 +124,7 @@ class ExperimentPlan(Phase15Model):
 class ModelLock(Phase15Model):
     model_id: str
     revision: str
+    license: str | None = None
     config_sha256: str | None = None
     tokenizer_revision: str | None = None
     pooling: str | None = None
