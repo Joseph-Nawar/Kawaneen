@@ -1,20 +1,58 @@
 {
   "gates": {
     "bottom10": {
-      "status": "BLOCKED"
+      "coverage": 0.8936170212765957,
+      "derived_without_relevance_labels": true,
+      "quality": {
+        "CompleteEvidenceRecall@10": 0.23015873015873015,
+        "MRR@10": 0.1578231292517007,
+        "Recall@10": 0.2261904761904762,
+        "nDCG@10": 0.16569016177023263
+      },
+      "retained_count": 126,
+      "threshold": 0.3275248408317566
     },
     "bottom25": {
-      "status": "BLOCKED"
+      "coverage": 0.7446808510638298,
+      "derived_without_relevance_labels": true,
+      "quality": {
+        "CompleteEvidenceRecall@10": 0.22857142857142856,
+        "MRR@10": 0.14875283446712018,
+        "Recall@10": 0.22380952380952382,
+        "nDCG@10": 0.15896121123711993
+      },
+      "retained_count": 105,
+      "threshold": 0.8356379866600037
     },
     "bottom50": {
-      "status": "BLOCKED"
+      "coverage": 0.49645390070921985,
+      "derived_without_relevance_labels": true,
+      "quality": {
+        "CompleteEvidenceRecall@10": 0.21428571428571427,
+        "MRR@10": 0.1627551020408163,
+        "Recall@10": 0.22142857142857142,
+        "nDCG@10": 0.17341452273307287
+      },
+      "retained_count": 70,
+      "threshold": 0.9614129662513733
     },
     "none": {
-      "status": "BLOCKED"
+      "coverage": 1.0,
+      "derived_without_relevance_labels": true,
+      "quality": {
+        "CompleteEvidenceRecall@10": 0.20567375886524822,
+        "MRR@10": 0.14103343465045592,
+        "Recall@10": 0.20212765957446807,
+        "nDCG@10": 0.14806354881595257
+      },
+      "retained_count": 141,
+      "threshold": null
     }
   },
+  "method": "uncalibrated score-gate sensitivity analysis",
   "production_stage_d_unchanged": true,
   "provenance": "PHASE15_DEV",
-  "reason": "required score-only DEV artifact is absent: /Volumes/JOSEPH/projects/Kawaneen/artifacts/private/phase8_retrieval/dev/scores.json",
-  "status": "BLOCKED"
+  "score_count": 141,
+  "score_source": "phase8_retrieval/rerank/query-*.json persisted DEV candidate scores",
+  "status": "RUN"
 }

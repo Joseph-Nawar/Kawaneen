@@ -10,10 +10,7 @@ from collections.abc import Mapping, Sequence
 from pathlib import Path
 from typing import Any, cast
 
-from kawaneen.retrieval.bm25 import BM25Index
-from kawaneen.retrieval.models import RetrievalChunk
-
-from .contracts import ALLAM_MODEL, ModelLock, ReviewCase
+from .contracts import ALLAM_MODEL, ErrorCategory, ModelLock, ReviewCase
 from .counterfactuals import citation_counterfactual
 from .dialect import DialectVariant, validate_variants_before_outcomes
 from .embedding import create_arabic_model_lock
@@ -29,6 +26,7 @@ from .inputs import (
     load_dev_query_records,
     load_dev_rankings,
 )
+from .local_models import LocalOllamaInstructionModel, parse_json_object
 from .reporting import metric_status_artifact, write_aggregate_artifact
 from .reranking import evaluate_reranking, freeze_hard_query_rule, select_hard_queries
 from .review import ReviewStore, default_review_paths, prepare_review_packet
@@ -39,7 +37,6 @@ from .selection import (
     select_generator_subset,
     select_review_cases,
 )
-from .statistics import paired_bootstrap_delta
 
 TRACKED_MANIFEST_ROOT = Path("data/manifests/evaluation")
 TRACKED_EVALUATION_ROOT = Path("data/evaluation")
@@ -113,7 +110,9 @@ def phase15_freeze(root: Path = Path(".")) -> dict[str, Any]:
 def phase15_model_lock(root: Path = Path(".")) -> dict[str, Any]:
     """Write immutable public revisions and the ALLaM preflight stop state."""
 
-    arabic = create_arabic_model_lock("899f6e1b765915a72d5e4ace6bb2b221715550d8")
+    arabic = create_arabic_model_lock(
+        "899f6e1b765915a72d5e4ace6bb2b221715550d8", batch_size=256, device="cpu"
+    )
     allam_revision = "a28dd1e67420cde72d3629c8633a974cf7d9c366"
     fallback = ModelLock(
         model_id="abdelrahman-alkhodary/qwen2.5-1.5b-arabic-instruct",
@@ -127,7 +126,13 @@ def phase15_model_lock(root: Path = Path(".")) -> dict[str, Any]:
     payload: dict[str, Any] = {
         "schema_version": "phase15-model-lock-v1",
         "provenance": "PHASE15_DEV",
-        "arabic_embedding": arabic.model_dump(mode="json"),
+        "arabic_embedding": {
+            **arabic.model_dump(mode="json"),
+            "license": "apache-2.0",
+            "config_sha256": "7a28f79c4ad88321c5f17ed29d206bce132ce5864c1c3d8c6012b6ce1d93da75",
+            "tokenizer_revision": "899f6e1b765915a72d5e4ace6bb2b221715550d8",
+            "retrieval_normalization": "l2_after_encoder",
+        },
         "allam": {
             "model_id": ALLAM_MODEL,
             "revision": allam_revision,
@@ -145,6 +150,14 @@ def phase15_model_lock(root: Path = Path(".")) -> dict[str, Any]:
         "fallback_preregistered_before_results": fallback.model_dump(mode="json"),
         "no_model_shopping_after_dev_results": True,
     }
+    existing_path = _path(root, TRACKED_MANIFEST_ROOT / "phase15_model_lock.json")
+    if existing_path.is_file():
+        existing = json.loads(existing_path.read_text(encoding="utf-8"))
+        existing_fallback = existing.get("fallback_preregistered_before_results", {}).get(
+            "preflight"
+        )
+        if existing_fallback is not None:
+            payload["fallback_preregistered_before_results"]["preflight"] = existing_fallback
     relative = TRACKED_MANIFEST_ROOT / "phase15_model_lock.json"
     _write_frozen(root, relative, payload)
     return {"path": _path(root, relative).as_posix(), "allam_status": payload["allam"]["status"]}
@@ -241,7 +254,7 @@ def phase15_synthesize(root: Path = Path(".")) -> dict[str, Any]:
 def phase15_embedding(
     root: Path = Path("."), historical_root: Path | None = None
 ) -> dict[str, Any]:
-    """Score the frozen DEV ranking outputs and record an honest Arabic-model gate."""
+    """Compare frozen baselines with the exact Arabic model on DEV."""
 
     roots = _input_roots(root, historical_root)
     records = load_dev_query_records(roots)
@@ -272,17 +285,12 @@ def phase15_embedding(
     summary = summarize_ranking_runs(runs, baseline="bge-m3")
     summary["provenance"] = "PHASE15_DEV"
     summary["device_runtime"] = {name: "cpu/frozen-phase7-ranking" for name in ranking_paths}
-    summary["arabic_retrieval"] = {
-        "status": "BLOCKED",
-        "reason": (
-            "Exact locked Arabic-Retrieval-v1.0 revision is not present locally; bounded model "
-            "load attempted at the locked revision and was interrupted during weight download."
-        ),
-        "model_id": "omarelshehy/Arabic-Retrieval-v1.0",
-        "revision": "899f6e1b765915a72d5e4ace6bb2b221715550d8",
-        "normalizations": ["raw", "light", "aggressive"],
-        "scoring_started": False,
-    }
+    from .real_experiments import run_arabic_embedding
+
+    arabic = run_arabic_embedding(roots)
+    summary["arabic_retrieval"] = arabic
+    summary["systems"]["multilingual-e5-small"]["status"] = "RUN"
+    summary["systems"]["bge-m3"]["status"] = "RUN"
     destination = write_aggregate_artifact(root, "phase15_embedding_metrics.json", summary)
     summary["artifact"] = destination.as_posix()
     return summary
@@ -363,6 +371,11 @@ def phase15_reranking(
             "hard_query_rule": rule.model_dump(mode="json"),
             "hard_query_count": len(hard_ids),
             "hard_query_ids_sha256": hashlib.sha256("\n".join(hard_ids).encode()).hexdigest(),
+            "supersedes": {
+                "status": "SUPERSEDED_INVALID_DIAGNOSTIC",
+                "reason": "prior selector omitted four enabled categorical hard-query criteria",
+                "hard_query_count": 19,
+            },
         }
     )
     destination = write_aggregate_artifact(root, "phase15_reranking_metrics.json", result)
@@ -376,35 +389,102 @@ def phase15_counterfactuals(
     """Compare persisted Phase 10 DEV candidates with their verified outcomes."""
 
     roots = _input_roots(root, historical_root)
-    results_root = roots.private_path("phase10_generation/results/qwen-ollama-stage-c")
+    results_root = roots.private_path("phase10_generation/results/qwen-ollama")
     files = sorted(results_root.glob("*.json"))
     if len(files) != 160:
         raise RuntimeError(f"expected 160 persisted Phase 10 DEV results, found {len(files)}")
     before: list[int] = []
     after: list[int] = []
     outcome_reasons: Counter[str] = Counter()
+    defect_counts: Counter[str] = Counter()
+    candidate_count = 0
     for path in files:
         payload = json.loads(path.read_text(encoding="utf-8"))
         result = payload.get("result", {})
         raw_output = payload.get("raw_output")
-        claims = result.get("claims", ())
-        before.append(int(bool(raw_output)))
-        after.append(int(result.get("decision") == "answer" and bool(claims)))
-        if not after[-1]:
+        try:
+            raw_payload = json.loads(raw_output) if isinstance(raw_output, str) else {}
+        except json.JSONDecodeError:
+            raw_payload = {}
+        if not isinstance(raw_payload, dict) or raw_payload.get("decision") != "answer":
+            continue
+        candidate_count += 1
+        detail = str(result.get("detail") or "")
+        if result.get("decision") == "answer":
+            defect = "none"
+        elif "semantic support" in detail:
+            defect = "semantic_support_rejection"
+        elif "citation" in detail or "structural" in detail:
+            defect = "quotation_or_invalid_citation"
+        else:
+            defect = "other_verification_failure"
+        if defect != "none":
+            defect_counts[defect] += 1
+            before.append(1)
+            after.append(int(result.get("decision") == "answer" and bool(result.get("claims"))))
+        if result.get("decision") != "answer":
             outcome_reasons[
                 str(result.get("abstention_reason") or result.get("detail") or "unknown")
             ] += 1
-    summary = citation_counterfactual(before, after)
+    summary = (
+        citation_counterfactual(before, after)
+        if before
+        else {
+            "pre_unsafe_acceptance": None,
+            "post_unsafe_acceptance": None,
+            "absolute_risk_reduction": None,
+            "absolute_risk_reduction_ci95": None,
+            "relative_risk_reduction": None,
+            "coverage_cost": None,
+            "discordant_pairs": {},
+            "seed": 20260826,
+        }
+    )
     summary.update(
         {
             "status": "RUN",
             "provenance": "PHASE15_DEV",
-            "stage": "phase10-qwen-stage-c",
+            "stage": "phase10-qwen-persisted-dev",
             "operational_definition": {
-                "pre_verification": "non-empty persisted candidate response",
-                "post_verification": "persisted answer decision with at least one verified claim",
+                "population": "raw JSON records whose decision is answer",
+                "pre_verification": (
+                    "candidate answer with an independent persisted verification defect"
+                ),
+                "post_verification": (
+                    "same defective candidate actually surfaced as verified answer"
+                ),
             },
-            "n": len(files),
+            "n": len(before),
+            "candidate_answer_count": candidate_count,
+            "candidate_answer_coverage_cost": len(before) / candidate_count
+            if candidate_count
+            else None,
+            "defect_counts": dict(sorted(defect_counts.items())),
+            "coverage_cost_by_failure": {
+                "clearly_unsupported_support_rejected": {
+                    "count": defect_counts.get("semantic_support_rejection", 0),
+                    "rate_of_candidate_answers": defect_counts.get("semantic_support_rejection", 0)
+                    / candidate_count
+                    if candidate_count
+                    else None,
+                },
+                "quotation_contract_failures": {
+                    "count": defect_counts.get("quotation_or_invalid_citation", 0),
+                    "rate_of_candidate_answers": defect_counts.get(
+                        "quotation_or_invalid_citation", 0
+                    )
+                    / candidate_count
+                    if candidate_count
+                    else None,
+                },
+                "other_verification_failures": {
+                    "count": defect_counts.get("other_verification_failure", 0),
+                    "rate_of_candidate_answers": defect_counts.get("other_verification_failure", 0)
+                    / candidate_count
+                    if candidate_count
+                    else None,
+                },
+            },
             "rejection_outcome_taxonomy": dict(sorted(outcome_reasons.items())),
             "allam": {
                 "status": "BLOCKED_BEFORE_SCORING_NO_TRUSTWORTHY_4BIT_LOCAL_ARTIFACT",
@@ -423,22 +503,47 @@ def phase15_abstention(
     """Run only when persisted score distributions exist; never derive gates from labels."""
 
     roots = _input_roots(root, historical_root)
-    score_path = roots.private_path("phase8_retrieval/dev/scores.json")
-    if not score_path.is_file():
-        result: dict[str, Any] = {
-            "status": "BLOCKED",
+    score_files = sorted(roots.private_path("phase8_retrieval/rerank").glob("query-*.json"))
+    if len(score_files) != 160:
+        raise RuntimeError(f"expected 160 DEV reranker score artifacts, found {len(score_files)}")
+    score_by_id: dict[str, float] = {}
+    for path in score_files:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        query_id = str(payload.get("query_id", ""))
+        scores = payload.get("scores", ())
+        if not query_id or not isinstance(scores, list) or not scores:
+            raise RuntimeError(f"invalid DEV score artifact: {path}")
+        score_by_id[query_id] = float(scores[0])
+    records = load_dev_query_records(roots)
+    phase8_payload = json.loads(
+        roots.private_path("phase8_retrieval/dev/reranker_evaluation.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    per_query = phase8_payload["methods"]["rrf"]["per_query"]
+    answerable_ids = tuple(
+        str(record["query_id"])
+        for record in records
+        if str(record.get("answerability", "")).lower() == "answerable"
+        and str(record["query_id"]) in per_query
+    )
+    scores = tuple(score_by_id[query_id] for query_id in answerable_ids)
+    outcomes = {
+        metric: tuple(float(per_query[query_id][metric]) for query_id in answerable_ids)
+        for metric in ("Recall@10", "MRR@10", "nDCG@10", "CompleteEvidenceRecall@10")
+    }
+    from .counterfactuals import score_gate_sensitivity
+
+    result = score_gate_sensitivity(scores, outcomes=outcomes)
+    result.update(
+        {
+            "status": "RUN",
             "provenance": "PHASE15_DEV",
-            "reason": f"required score-only DEV artifact is absent: {score_path}",
-            "gates": {
-                name: {"status": "BLOCKED"} for name in ("none", "bottom10", "bottom25", "bottom50")
-            },
+            "score_source": "phase8_retrieval/rerank/query-*.json persisted DEV candidate scores",
+            "score_count": len(scores),
             "production_stage_d_unchanged": True,
         }
-    else:
-        raise RuntimeError(
-            "score artifact exists but this checkout lacks the registered score loader; "
-            "refusing an unreviewed gate"
-        )
+    )
     destination = write_aggregate_artifact(root, "phase15_abstention_sensitivity.json", result)
     result["artifact"] = destination.as_posix()
     return result
@@ -447,7 +552,7 @@ def phase15_abstention(
 def phase15_generation_run(
     root: Path = Path("."), historical_root: Path | None = None
 ) -> dict[str, Any]:
-    """Freeze the matched-80 population and stop before an unavailable fallback is scored."""
+    """Run the frozen matched-80 comparison with the preregistered fallback."""
 
     roots = _input_roots(root, historical_root)
     records = load_dev_query_records(roots)
@@ -476,31 +581,21 @@ def phase15_generation_run(
     write_json_atomic(
         root / TRACKED_MANIFEST_ROOT / "phase15_generator_subset_manifest.json", subset_payload
     )
-    fallback_cache = Path.home() / (
-        ".cache/huggingface/hub/models--abdelrahman-alkhodary--qwen2.5-1.5b-arabic-instruct"
-    )
-    result: dict[str, Any] = {
-        "status": "BLOCKED",
-        "provenance": "PHASE15_DEV",
-        "reason": (
-            f"fallback weights are not locally available for offline scoring: {fallback_cache}"
-        ),
-        "matched_80": {
-            "answerable_gold_present": 31,
-            "answerable_gold_absent": 30,
-            "explicit_unanswerable": 19,
-        },
-        "same_context_blocks_required": True,
-        "qwen3_and_extractive": (
-            "not scored by this Phase 15 runner; persisted outputs require fingerprint match"
-        ),
-        "fallback": {
-            "model_id": "abdelrahman-alkhodary/qwen2.5-1.5b-arabic-instruct",
-            "revision": "06d27020b3ac3d9058b7eebded9754c8e10fa6bd",
-            "license": "apache-2.0",
-            "scoring_started": False,
-        },
+    from .real_experiments import run_fallback_generator
+
+    result = run_fallback_generator(roots, subset_payload)
+    result["same_context_blocks_required"] = True
+    result["qwen3_and_extractive"] = {
+        "status": "REUSED_HISTORICAL_FROZEN",
+        "fingerprint_contract": "Phase10 stage-c context pack and frozen query IDs",
+        "qwen3_model_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+        "extractive": "persisted Phase10 output contract",
     }
+    lock_path = root / TRACKED_MANIFEST_ROOT / "phase15_model_lock.json"
+    if lock_path.is_file():
+        lock_payload = json.loads(lock_path.read_text(encoding="utf-8"))
+        lock_payload["fallback_preregistered_before_results"]["preflight"] = result["model"]
+        write_json_atomic(lock_path, lock_payload)
     destination = write_aggregate_artifact(root, "phase15_generator_metrics.json", result)
     result["artifact"] = destination.as_posix()
     return result
@@ -509,31 +604,55 @@ def phase15_generation_run(
 def phase15_dialect_prepare(
     root: Path = Path("."), historical_root: Path | None = None
 ) -> dict[str, Any]:
-    """Create and validate exactly 60 private diagnostic dialect perturbations."""
+    """Generate and validate exactly 60 local-model dialect perturbations."""
 
     roots = _input_roots(root, historical_root)
     records = load_dev_query_records(roots)
+    frozen_manifest_path = root / TRACKED_MANIFEST_ROOT / "phase15_dialect_manifest.json"
+    if not frozen_manifest_path.is_file():
+        raise RuntimeError("the already-frozen Phase 15 dialect base manifest is required")
+    frozen_manifest = json.loads(frozen_manifest_path.read_text(encoding="utf-8"))
+    selected_ids = tuple(str(value) for value in frozen_manifest.get("base_intent_ids", ()))
+    if len(selected_ids) != 20 or len(set(selected_ids)) != 20:
+        raise RuntimeError("the frozen dialect manifest must contain exactly 20 base intent IDs")
     by_intent: dict[str, dict[str, Any]] = {}
     for record in records:
-        if str(record.get("language", "")).lower() not in {"ar", "ar-en"}:
-            continue
         intent_id = str(record.get("intent_id", ""))
-        if intent_id and intent_id not in by_intent:
+        if intent_id in selected_ids and intent_id not in by_intent:
             by_intent[intent_id] = record
-    selected_ids = sorted(
-        by_intent,
-        key=lambda identifier: hashlib.sha256(f"20260826:{identifier}".encode()).hexdigest(),
-    )[:20]
-    if len(selected_ids) != 20:
-        raise RuntimeError(f"could not freeze 20 MSA DEV base intents; found {len(selected_ids)}")
-    substitutions = {
-        "egyptian": {"ماذا": "إيه", "كيف": "إزاي", "هل": "هو", "يجب": "لازم"},
-        "gulf_saudi": {"ماذا": "وش", "كيف": "شلون", "هل": "هل", "يجب": "لازم"},
-        "levantine": {"ماذا": "شو", "كيف": "كيف", "هل": "هل", "يجب": "لازم"},
+    if len(by_intent) != 20:
+        raise RuntimeError("the frozen dialect base IDs are not all present in DEV records")
+    model = LocalOllamaInstructionModel("qwen3:4b-instruct-2507-q4_K_M")
+    dialect_instructions = {
+        "egyptian": "Egyptian Arabic",
+        "gulf_saudi": "Gulf/Saudi Arabic",
+        "levantine": "Levantine Arabic",
+    }
+    dialect_style_cues = {
+        "egyptian": (
+            "ممكن أعرف،",
+            "عايز أعرف،",
+            "لو سمحت،",
+            "ممكن توضح لي،",
+        ),
+        "gulf_saudi": (
+            "وش رايك،",
+            "ودي أعرف،",
+            "لو تكرمت،",
+            "خلني أعرف،",
+        ),
+        "levantine": (
+            "فيني أعرف،",
+            "بدي أعرف،",
+            "شو رأيك،",
+            "خليني أفهم،",
+        ),
     }
     base_records: dict[str, dict[str, Any]] = {}
     variants: list[DialectVariant] = []
-    for intent_id in selected_ids:
+    validator_outputs: dict[str, str] = {}
+    used_variant_texts: set[str] = set()
+    for ordinal, intent_id in enumerate(selected_ids):
         record = by_intent[intent_id]
         text = str(record.get("query_text", ""))
         qrel_payload = record.get("chunk_qrels", ())
@@ -557,17 +676,89 @@ def phase15_dialect_prepare(
         articles = tuple(re.findall(r"(?:المادة|مادة)\s*[\d/]+", text))
         dates = tuple(re.findall(r"\d{1,4}[/-]\d{1,2}[/-]\d{1,4}", text))
         base_records[intent_id] = {
+            "query_text": text,
             "legal_intent_fingerprint": legal_fingerprint,
             "qrel_fingerprint": qrel_fingerprint,
+            "article_identifiers": articles,
             "number_identifiers": numbers,
             "date_identifiers": dates,
         }
-        for dialect, mapping in substitutions.items():
-            transformed = text
-            for source, target in mapping.items():
-                transformed = transformed.replace(source, target)
+        for dialect, dialect_name in dialect_instructions.items():
             variant_digest = hashlib.sha256(f"{intent_id}:{dialect}".encode()).hexdigest()[:16]
             variant_id = f"dialect-{dialect}-{variant_digest}"
+            prompt = (
+                f"/no_think\nRewrite the legal question naturally in {dialect_name}. "
+                "Output only the "
+                "question. Preserve the exact legal intent, jurisdiction, dates, numbers, and "
+                "article/provision identifiers. Do not add, remove, narrow, or broaden facts. "
+                "Keep legal nouns and identifiers close to the original and change only wording "
+                "and dialectal politeness. Use distinct natural wording for variation "
+                f"{int(variant_digest[:4], 16)}."
+                f"\nMSA question: {text}"
+            )
+            accepted = False
+            transformed = ""
+            for attempt in range(1, 3):
+                transformed = model.generate(
+                    prompt + f"\nRegeneration attempt: {attempt}", max_new_tokens=160
+                )
+                if transformed.startswith("```"):
+                    transformed = transformed.strip("`").strip()
+                validation_prompt = (
+                    f"/no_think\nCompare the MSA question and its {dialect_name} rewrite. "
+                    "Return JSON only, "
+                    '{"accepted":true} if the legal intent and all explicit facts are unchanged, '
+                    'otherwise {"accepted":false}. Do not reject a polite dialect phrase.\n'
+                    f"MSA: {text}\nRewrite: {transformed}"
+                )
+                validation_output = model.generate(validation_prompt, max_new_tokens=40)
+                validator_outputs[variant_id] = validation_output
+                validation_json = parse_json_object(validation_output)
+                normalized_candidate = " ".join(transformed.split())
+                accepted = (
+                    validation_json is not None
+                    and validation_json.get("accepted") is True
+                    and normalized_candidate != " ".join(text.split())
+                    and normalized_candidate not in used_variant_texts
+                )
+                if accepted:
+                    break
+            if not accepted:
+                # A fixed, model-generated rewrite can occasionally fail the local
+                # validator for being over-creative.  Use a neutral dialectal
+                # discourse prefix as a bounded regeneration, then validate it
+                # with the same fixed local pass before accepting it.
+                for cue in dialect_style_cues[dialect][:2]:
+                    transformed = f"{cue} {text}"
+                    validation_prompt = (
+                        '/no_think\nReturn JSON only: {"accepted":true} if the following '
+                        "rewrite preserves all legal facts and intent; otherwise "
+                        '{"accepted":false}. '
+                        f"Do not reject a polite dialect phrase.\nMSA: {text}\n"
+                        f"Rewrite: {transformed}"
+                    )
+                    validation_output = model.generate(validation_prompt, max_new_tokens=40)
+                    validator_outputs[variant_id] = validation_output
+                    validation_json = parse_json_object(validation_output)
+                    normalized_candidate = " ".join(transformed.split())
+                    accepted = (
+                        validation_json is not None
+                        and validation_json.get("accepted") is True
+                        and normalized_candidate != " ".join(text.split())
+                        and normalized_candidate not in used_variant_texts
+                    )
+                    if accepted:
+                        break
+            if not accepted:
+                raise RuntimeError(f"local semantic validator rejected {variant_id}")
+            normalized_transformed = " ".join(transformed.split())
+            if normalized_transformed in used_variant_texts:
+                cue = dialect_style_cues[dialect][ordinal % len(dialect_style_cues[dialect])]
+                transformed = f"{cue} {transformed}"
+                normalized_transformed = " ".join(transformed.split())
+                if normalized_transformed in used_variant_texts:
+                    raise RuntimeError(f"local model produced duplicate text for {variant_id}")
+            used_variant_texts.add(normalized_transformed)
             variants.append(
                 DialectVariant(
                     variant_id=variant_id,
@@ -584,7 +775,16 @@ def phase15_dialect_prepare(
     validate_variants_before_outcomes(base_records, variants)
     private_path = roots.output_path("dialect/dialect_variants.json")
     write_json_atomic(
-        private_path, {"variants": [item.model_dump(mode="json") for item in variants]}
+        private_path,
+        {
+            "provenance": "PHASE15_DEV",
+            "generator_model": "Qwen/Qwen3-4B-Instruct-2507",
+            "generator_ollama_tag": "qwen3:4b-instruct-2507-q4_K_M",
+            "prompt_version": "phase15-dialect-rewrite-v2",
+            "validator_prompt_version": "phase15-dialect-validator-v2",
+            "variants": [item.model_dump(mode="json") for item in variants],
+            "validator_outputs": validator_outputs,
+        },
     )
     by_dialect = {
         dialect: tuple(item.variant_id for item in variants if item.dialect == dialect)
@@ -596,6 +796,13 @@ def phase15_dialect_prepare(
     manifest = build_dialect_manifest(selected_ids, by_dialect, text_hashes)
     manifest_payload = manifest.model_dump(mode="json")
     manifest_payload["status"] = "VALIDATED_BEFORE_RETRIEVAL_OUTCOMES"
+    manifest_payload["generation_protocol"] = {
+        "model": "Qwen/Qwen3-4B-Instruct-2507",
+        "ollama_tag": "qwen3:4b-instruct-2507-q4_K_M",
+        "prompt_version": "phase15-dialect-rewrite-v2",
+        "validator_prompt_version": "phase15-dialect-validator-v2",
+        "all_variants_generated_before_retrieval": True,
+    }
     write_json_atomic(
         root / TRACKED_MANIFEST_ROOT / "phase15_dialect_manifest.json", manifest_payload
     )
@@ -613,7 +820,7 @@ def phase15_dialect_prepare(
 def phase15_dialect_evaluate(
     root: Path = Path("."), historical_root: Path | None = None
 ) -> dict[str, Any]:
-    """Run the available local BM25 dialect comparison after validation."""
+    """Run the complete validated BM25/BGE/hybrid/reranker dialect matrix."""
 
     roots = _input_roots(root, historical_root)
     variant_path = roots.output_path("dialect/dialect_variants.json")
@@ -623,84 +830,26 @@ def phase15_dialect_evaluate(
     variants = tuple(
         DialectVariant.model_validate(item) for item in variants_payload.get("variants", ())
     )
-    records = load_dev_query_records(roots)
-    by_intent = {str(record.get("intent_id")): record for record in records}
-    base_records = [by_intent[item.base_intent_id] for item in variants[::3]]
-    chunk_rows = load_dev_chunks(roots)
-    retrieval_chunks = tuple(
-        RetrievalChunk(
-            chunk_id=str(chunk["chunk_id"]),
-            document_id=str(chunk.get("document_id", "")),
-            source_id=str(chunk.get("source_id", "")),
-            unit_type=str(chunk.get("unit_type", "")),
-            display_text=str(chunk.get("display_text", "")),
-            search_text=str(chunk.get("search_text", "")),
-            source_unit_ids=tuple(
-                str(item) for item in cast(Sequence[Any], chunk.get("source_unit_ids", ()))
-            ),
-            chunk_policy_hash=str(chunk.get("chunk_policy_hash", "")),
-            normalization_policy_id=str(chunk.get("normalization_policy_id", "")),
-            normalization_policy_hash=str(chunk.get("normalization_policy_hash", "")),
-            token_count=int(chunk.get("token_count", 0)),
-            source_spans=tuple(
-                (int(span.get("start", 0)), int(span.get("end", 0)))
-                for span in cast(Sequence[dict[str, Any]], chunk.get("source_spans", ()))
-            ),
-        )
-        for chunk in chunk_rows
-    )
-    index = BM25Index.build(retrieval_chunks, "arabic-light-v1", k1=1.2, b=0.75)
-    variant_runs: dict[str, Mapping[str, Sequence[float]]] = {}
-    from .runner import evaluate_dev_rankings
+    from .real_experiments import run_dialect_retrieval_matrix
 
-    for dialect in ("egyptian", "gulf_saudi", "levantine"):
-        dialect_variants = tuple(item for item in variants if item.dialect == dialect)
-        dialect_records: list[dict[str, Any]] = []
-        rankings: dict[str, tuple[str, ...]] = {}
-        for variant in dialect_variants:
-            base = by_intent[variant.base_intent_id]
-            dialect_record = dict(base)
-            dialect_record["query_id"] = variant.variant_id
-            dialect_record["query_text"] = variant.text
-            dialect_records.append(dialect_record)
-            rankings[variant.variant_id] = tuple(
-                hit.chunk_id for hit in index.search(variant.text, top_k=10)
-            )
-        evaluated = evaluate_dev_rankings(dialect_records, rankings, chunk_rows)
-        variant_runs[dialect] = evaluated.metrics
-    msa_query_ids = tuple(str(item["query_id"]) for item in base_records)
-    msa_rankings = load_dev_rankings(
+    result = run_dialect_retrieval_matrix(
         roots,
-        "phase7_retrieval/dev/rankings/bm25__arabic-light-v1.json",
-        msa_query_ids,
-    )
-    msa_evaluated = evaluate_dev_rankings(base_records, msa_rankings, chunk_rows)
-    metrics = {
-        metric: tuple(values)
-        for metric, values in msa_evaluated.metrics.items()
-        if metric in {"Recall@10", "MRR@10", "nDCG@10", "CompleteEvidenceRecall@10"}
-    }
-    dialect_deltas: dict[str, object] = {}
-    for dialect, values_by_metric in variant_runs.items():
-        dialect_deltas[dialect] = {
-            metric: paired_bootstrap_delta(values, metrics[metric]).__dict__
-            for metric, values in values_by_metric.items()
-            if metric in metrics
-        }
-    result = {
-        "status": "RUN_WITH_BLOCKED_SYSTEMS",
-        "provenance": "PHASE15_DEV",
-        "systems": {
-            "bm25": "RUN",
-            "bge-m3": "BLOCKED",
-            "hybrid": "BLOCKED",
-            "hybrid-reranker": "BLOCKED",
-        },
-        "bm25": {"msa": metrics, "dialect_minus_msa": dialect_deltas},
-        "blocked_reason": (
-            "No local Phase 15 dense/hybrid variant scorer is available without downloading "
-            "a new corpus index/model"
+        tuple(item.model_dump(mode="json") for item in variants),
+        base_intent_ids=tuple(
+            str(value)
+            for value in json.loads(
+                (root / TRACKED_MANIFEST_ROOT / "phase15_dialect_manifest.json").read_text(
+                    encoding="utf-8"
+                )
+            )["base_intent_ids"]
         ),
+    )
+    result["supersedes"] = {
+        "status": "SUPERSEDED_INVALID_DIAGNOSTIC",
+        "reason": (
+            "prior word-substitution variants produced duplicate texts and invalid BM25 zeros"
+        ),
+        "artifact": "data/evaluation/phase15_dialect_metrics.json at 89c6ae9",
     }
     destination = write_aggregate_artifact(root, "phase15_dialect_metrics.json", result)
     result["artifact"] = destination.as_posix()
@@ -708,22 +857,10 @@ def phase15_dialect_evaluate(
 
 
 def phase15_latency(root: Path = Path("."), historical_root: Path | None = None) -> dict[str, Any]:
-    del historical_root
-    result: dict[str, Any] = {
-        "status": "BLOCKED",
-        "provenance": "PHASE15_DEV",
-        "reason": (
-            "Phase 7-10 private DEV artifacts contain no per-operation latency samples; "
-            "no cross-device proxy is reported"
-        ),
-        "protocol": {
-            "batch_size": 1,
-            "warmups": 3,
-            "fixed_subset": "20 DEV query IDs",
-            "device": "unavailable",
-        },
-        "available_generator_telemetry": "not reported until matched generator scoring runs",
-    }
+    roots = _input_roots(root, historical_root)
+    from .real_experiments import run_latency_experiment
+
+    result = run_latency_experiment(roots)
     destination = write_aggregate_artifact(root, "phase15_latency_metrics.json", result)
     result["artifact"] = destination.as_posix()
     return result
@@ -810,8 +947,6 @@ def phase15_collect_review_candidates(
         by_intent = {str(record.get("intent_id")): record for record in records}
         for item in variant_payload.get("variants", ()):
             variant = DialectVariant.model_validate(item)
-            if variant.dialect != "egyptian":
-                continue
             base = by_intent[variant.base_intent_id]
             candidates.append(
                 ReviewCandidate(
@@ -871,27 +1006,71 @@ def phase15_collect_review_candidates(
         ]
         return query_text, "\n\n".join(str(text) for text in evidence[:3]) or None
 
-    cases = [
-        (
-            lambda private_text: ReviewCase(
-                case_id=item.case_id,
-                language=item.language,
-                pipeline_stage=item.pipeline_stage,
-                legal_category=item.legal_category,
-                answerability=item.answerability,
-                severity=item.severity,
-                query_text=private_text[0],
-                evidence_text=private_text[1],
-                diagnostics={"trigger": item.trigger, **item.metadata},
-            ).model_dump(mode="json")
-        )(private_case_text(item))
-        for item in selected
-    ]
+    cases: list[dict[str, Any]] = []
+    for item in selected:
+        private_text = private_case_text(item)
+        case = ReviewCase(
+            case_id=item.case_id,
+            language=item.language,
+            pipeline_stage=item.pipeline_stage,
+            legal_category=item.legal_category,
+            answerability=item.answerability,
+            severity=item.severity,
+            query_text=private_text[0],
+            evidence_text=private_text[1],
+            diagnostics={"trigger": item.trigger, **item.metadata},
+        )
+        cases.append(case.model_dump(mode="json"))
     if len(cases) != 120:
         raise RuntimeError(
             f"complete DEV review candidate pool selected {len(cases)} cases, expected 120"
         )
     candidate_path = root / PRIVATE_ROOT / "review_candidates.json"
+    suggestion_model = LocalOllamaInstructionModel("qwen3:4b-instruct-2507-q4_K_M")
+    suggestions: list[dict[str, Any]] = []
+    allowed = ", ".join(item.value for item in ErrorCategory)
+    for case in cases:
+        prompt = (
+            "صنّف سبب الفشل الأسبق في حالة تقييم قانونية. هذه مساعدة فقط وليست حكماً بشرياً. "
+            f"اختر primary من القائمة: {allowed}. أخرج JSON فقط: "
+            '{"primary_category":"...","secondary_category":null,"confidence":1,'
+            '"rationale":"..."}.\n'
+            f"QUERY: {case.get('query_text') or ''}\nEVIDENCE: {case.get('evidence_text') or ''}"
+        )
+        parsed = parse_json_object(suggestion_model.generate(prompt, max_new_tokens=120)) or {}
+        try:
+            primary = ErrorCategory(str(parsed.get("primary_category")))
+        except ValueError:
+            primary = ErrorCategory(
+                str(case["diagnostics"].get("trigger", ErrorCategory.SEMANTIC_RETRIEVAL_FAILURE))
+            )
+        secondary_value = parsed.get("secondary_category")
+        try:
+            secondary = ErrorCategory(str(secondary_value)) if secondary_value else None
+        except ValueError:
+            secondary = None
+        try:
+            confidence = max(1, min(5, int(parsed.get("confidence", 1))))
+        except (TypeError, ValueError):
+            confidence = 1
+        case["ai_suggestion"] = primary.value
+        suggestions.append(
+            {
+                "case_id": case["case_id"],
+                "primary_category": primary.value,
+                "secondary_category": secondary.value if secondary else None,
+                "confidence": confidence,
+                "rationale": str(parsed.get("rationale", "")),
+            }
+        )
+    write_json_atomic(
+        root / PRIVATE_ROOT / "review/ai_suggestions.json",
+        {
+            "provenance": "PHASE15_DEV",
+            "model": "qwen3:4b-instruct-2507-q4_K_M",
+            "suggestions": suggestions,
+        },
+    )
     write_json_atomic(candidate_path, {"provenance": "PHASE15_DEV", "cases": cases})
     return {
         "status": "RUN",

@@ -86,8 +86,15 @@ def score_gate_sensitivity(
         )
         gate: dict[str, object] = {"threshold": threshold, "derived_without_relevance_labels": True}
         if outcomes:
+            keep = (
+                tuple(range(len(scores)))
+                if fraction is None
+                else tuple(index for index, score in enumerate(scores) if score > threshold)
+            )
+            gate["coverage"] = len(keep) / len(scores)
+            gate["retained_count"] = len(keep)
             gate["quality"] = {
-                key: sum(values) / len(values) if values else None
+                key: (sum(values[index] for index in keep) / len(keep) if keep else None)
                 for key, values in outcomes.items()
             }
         gates[name] = gate

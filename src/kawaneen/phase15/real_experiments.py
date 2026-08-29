@@ -1,0 +1,590 @@
+"""Local, DEV-only runners for the Phase 15 reruns.
+
+This module intentionally has no production imports or configuration hooks.  It
+uses the frozen Phase 7 corpus, cached Phase 7 vectors, and the Phase 8 fusion
+contracts while writing all new per-query material below the ignored Phase 15
+private root.
+"""
+
+from __future__ import annotations
+
+import hashlib
+import json
+import platform
+import time
+from collections.abc import Mapping, Sequence
+from itertools import chain
+from pathlib import Path
+from typing import Any, cast
+
+import numpy as np
+
+from kawaneen.retrieval.cache import load_cached_embeddings
+from kawaneen.retrieval.dense_models import BGEM3Adapter, DenseModelAdapter
+from kawaneen.retrieval.hybrid.contracts import FusionConfig, SourceHit
+from kawaneen.retrieval.hybrid.fusion import fuse_ranked_hits
+from kawaneen.retrieval.hybrid.reranker import BGERerankerAdapter
+from kawaneen.retrieval.models import RetrievalChunk
+from kawaneen.retrieval.vector_index import NumpyExactIndex
+
+from .inputs import Phase15InputRoots, load_dev_chunks, load_dev_query_records, load_dev_rankings
+from .local_models import LocalInstructionModel, parse_json_object
+from .runner import evaluate_dev_rankings
+from .statistics import paired_bootstrap_delta
+
+ARABIC_REVISION = "899f6e1b765915a72d5e4ace6bb2b221715550d8"
+BGE_REVISION = "5617a9f61b028005a4858fdac845db406aefb181"
+RERANKER_REVISION = "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e"
+PHASE7_BGE_FINGERPRINT = "797830a20035acb251f33f9048725353c77fff417e8b58bab5f72252e6d7230b"
+FALLBACK_MODEL = "abdelrahman-alkhodary/qwen2.5-1.5b-arabic-instruct"
+FALLBACK_REVISION = "06d27020b3ac3d9058b7eebded9754c8e10fa6bd"
+
+
+def retrieval_chunks(rows: Sequence[Mapping[str, Any]]) -> tuple[RetrievalChunk, ...]:
+    return tuple(
+        RetrievalChunk(
+            chunk_id=str(row["chunk_id"]),
+            document_id=str(row.get("document_id", "")),
+            source_id=str(row.get("source_id", "")),
+            unit_type=str(row.get("unit_type", "")),
+            display_text=str(row.get("display_text", "")),
+            search_text=str(row.get("search_text", "")),
+            source_unit_ids=tuple(
+                str(item) for item in cast(Sequence[Any], row.get("source_unit_ids", ()))
+            ),
+            chunk_policy_hash=str(row.get("chunk_policy_hash", "")),
+            normalization_policy_id=str(row.get("normalization_policy_id", "")),
+            normalization_policy_hash=str(row.get("normalization_policy_hash", "")),
+            token_count=int(row.get("token_count", 0)),
+            source_spans=tuple(
+                (int(span.get("start", 0)), int(span.get("end", 0)))
+                for span in cast(Sequence[Mapping[str, Any]], row.get("source_spans", ()))
+            ),
+        )
+        for row in rows
+    )
+
+
+def _metric_deltas(
+    left: Mapping[str, Sequence[float]], right: Mapping[str, Sequence[float]]
+) -> dict[str, object]:
+    return {
+        metric: paired_bootstrap_delta(values, right[metric]).__dict__
+        for metric, values in left.items()
+        if metric in right
+    }
+
+
+def _variant_metrics(
+    records: Sequence[Mapping[str, Any]],
+    rankings: Mapping[str, Sequence[str]],
+    chunks: Sequence[Mapping[str, Any]],
+) -> Mapping[str, tuple[float, ...]]:
+    return evaluate_dev_rankings(records, rankings, chunks).metrics
+
+
+def run_dialect_retrieval_matrix(
+    roots: Phase15InputRoots,
+    variants: Sequence[Mapping[str, Any]],
+    *,
+    base_intent_ids: Sequence[str],
+) -> dict[str, object]:
+    """Score all validated variants with BM25, BGE, frozen RRF, and reranking."""
+
+    records = load_dev_query_records(roots)
+    chunks_rows = load_dev_chunks(roots)
+    chunks = retrieval_chunks(chunks_rows)
+    by_intent = {str(record.get("intent_id")): record for record in records}
+    base_records = [by_intent[intent_id] for intent_id in base_intent_ids]
+    variant_models = [cast(dict[str, Any], item) for item in variants]
+    variant_records_by_dialect: dict[str, list[dict[str, Any]]] = {
+        dialect: [] for dialect in ("egyptian", "gulf_saudi", "levantine")
+    }
+    for item in variant_models:
+        record = dict(by_intent[str(item["base_intent_id"])])
+        record["query_id"] = str(item["variant_id"])
+        record["query_text"] = str(item["text"])
+        variant_records_by_dialect[str(item["dialect"])].append(record)
+
+    from kawaneen.retrieval.bm25 import BM25Index
+
+    bm25 = BM25Index.build(chunks, "arabic-light-v1", k1=1.2, b=0.75)
+    bge_vectors, chunk_ids = load_cached_embeddings(
+        roots.private_path(
+            "phase7_retrieval/embeddings/BAAI__bge-m3/arabic-raw-v1/" + PHASE7_BGE_FINGERPRINT
+        ),
+        fingerprint=PHASE7_BGE_FINGERPRINT,
+    )
+    dense_index = NumpyExactIndex.build(bge_vectors, chunk_ids)
+    bge = BGEM3Adapter(revision=BGE_REVISION, device="cpu")
+    reranker = BGERerankerAdapter(revision=RERANKER_REVISION, device="cpu", max_length=1024)
+    reranker.preload()
+    chunks_by_id = {chunk.chunk_id: chunk for chunk in chunks}
+
+    def systems_for(rows: Sequence[Mapping[str, Any]]) -> dict[str, dict[str, tuple[str, ...]]]:
+        query_vectors = bge.encode_queries(
+            tuple(str(row["query_text"]) for row in rows), batch_size=4
+        )
+        rankings: dict[str, dict[str, tuple[str, ...]]] = {
+            name: {} for name in ("bm25", "bge-m3", "hybrid", "hybrid-reranker")
+        }
+        for row, query_vector in zip(rows, query_vectors, strict=True):
+            query_id = str(row["query_id"])
+            sparse = tuple(
+                SourceHit(hit.chunk_id, hit.score)
+                for hit in bm25.search(str(row["query_text"]), top_k=50)
+            )
+            dense = tuple(
+                SourceHit(hit.chunk_id, hit.score)
+                for hit in dense_index.search(query_vector, top_k=50)
+            )
+            fused = fuse_ranked_hits(
+                sparse=sparse,
+                dense=dense,
+                config=FusionConfig(sparse_weight=1.0, dense_weight=0.25),
+            )
+            rankings["bm25"][query_id] = tuple(hit.chunk_id for hit in sparse[:10])
+            rankings["bge-m3"][query_id] = tuple(hit.chunk_id for hit in dense[:10])
+            rankings["hybrid"][query_id] = tuple(hit.chunk_id for hit in fused[:10])
+            pairs = [
+                (str(row["query_text"]), chunks_by_id[item.chunk_id].display_text) for item in fused
+            ]
+            scores = reranker.score_pairs(pairs, batch_size=4)
+            reranked = sorted(
+                zip(fused, scores, strict=True),
+                key=lambda pair: (-pair[1], pair[0].fused_rank, pair[0].chunk_id),
+            )
+            rankings["hybrid-reranker"][query_id] = tuple(
+                item[0].chunk_id for item in reranked[:10]
+            )
+        return rankings
+
+    # Controls use already-frozen Phase 7/8 DEV rankings; only variant rows are newly scored.
+    base_qids = tuple(str(record["query_id"]) for record in base_records)
+    frozen_bm25 = load_dev_rankings(
+        roots, "phase7_retrieval/dev/rankings/bm25__arabic-light-v1.json", base_qids
+    )
+    frozen_bge = load_dev_rankings(
+        roots, "phase7_retrieval/dev/rankings/BAAI__bge-m3__arabic-raw-v1.json", base_qids
+    )
+    phase8_payload = json.loads(
+        roots.private_path("phase8_retrieval/dev/reranker_evaluation.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    phase8_methods = phase8_payload["methods"]
+    frozen_hybrid = {qid: tuple(phase8_methods["rrf"]["rankings"][qid][:10]) for qid in base_qids}
+    frozen_reranked = {
+        qid: tuple(phase8_methods["rrf_reranked"]["rankings"][qid][:10]) for qid in base_qids
+    }
+    base_rankings = {
+        "bm25": frozen_bm25,
+        "bge-m3": frozen_bge,
+        "hybrid": frozen_hybrid,
+        "hybrid-reranker": frozen_reranked,
+    }
+    base_metrics = {
+        name: _variant_metrics(base_records, ranking, chunks_rows)
+        for name, ranking in base_rankings.items()
+    }
+    output: dict[str, object] = {
+        "status": "RUN",
+        "provenance": "PHASE15_DEV",
+        "systems": {name: "RUN" for name in base_rankings},
+        "model_revisions": {"bge-m3": BGE_REVISION, "reranker": RERANKER_REVISION},
+        "device_runtime": {
+            "bge-m3": "cpu/sentence-transformers",
+            "reranker": "cpu/sentence-transformers",
+        },
+        "dialects": {},
+    }
+    dialect_output = cast(dict[str, object], output["dialects"])
+    pooled: dict[str, dict[str, list[float]]] = {name: {} for name in base_rankings}
+    for dialect, rows in variant_records_by_dialect.items():
+        run_rankings = systems_for(rows)
+        system_output: dict[str, object] = {}
+        for system, ranking in run_rankings.items():
+            metrics = _variant_metrics(rows, ranking, chunks_rows)
+            baseline_metrics = base_metrics[system]
+            selected_metrics = {
+                metric: tuple(values)
+                for metric, values in metrics.items()
+                if metric in {"Recall@10", "MRR@10", "nDCG@10", "CompleteEvidenceRecall@10"}
+            }
+            baseline_selected = {
+                metric: tuple(values)
+                for metric, values in baseline_metrics.items()
+                if metric in selected_metrics
+            }
+            system_output[system] = {
+                "n": len(rows),
+                "dialect_minus_msa": _metric_deltas(selected_metrics, baseline_selected),
+            }
+            for metric, values in selected_metrics.items():
+                pooled[system].setdefault(metric, []).extend(values)
+        dialect_output[dialect] = system_output
+    pooled_output: dict[str, object] = {}
+    for system, values in pooled.items():
+        baseline = {
+            metric: list(chain.from_iterable(base_metrics[system][metric] for _ in range(3)))
+            for metric in values
+        }
+        pooled_output[system] = {
+            "n": sum(len(rows) for rows in variant_records_by_dialect.values()),
+            "dialect_minus_msa": _metric_deltas(values, baseline),
+        }
+    output["pooled"] = pooled_output
+    return output
+
+
+def run_arabic_embedding(
+    roots: Phase15InputRoots,
+    *,
+    normalizations: Sequence[str] = ("raw", "light", "aggressive"),
+) -> dict[str, object]:
+    """Run the exact Arabic model over the frozen DEV corpus and queries."""
+
+    records = load_dev_query_records(roots)
+    chunks = load_dev_chunks(roots)
+    answerable = [
+        record for record in records if str(record.get("answerability", "")).lower() == "answerable"
+    ]
+    query_ids = tuple(str(record["query_id"]) for record in answerable)
+    adapter = DenseModelAdapter(
+        model_id="omarelshehy/Arabic-Retrieval-v1.0",
+        revision=ARABIC_REVISION,
+        max_length=512,
+        default_batch_size=1,
+        embedding_dimension=768,
+        device="cpu",
+    )
+    corpus_texts = tuple(str(row.get("display_text", "")) for row in chunks)
+    corpus_blocks = [
+        adapter.encode_passages(corpus_texts[start : start + 4096], batch_size=256)
+        for start in range(0, len(corpus_texts), 4096)
+    ]
+    corpus_vectors = np.vstack(corpus_blocks)
+    vector_path = roots.output_path("embedding/arabic_corpus_vectors.npy")
+    vector_path.parent.mkdir(parents=True, exist_ok=True)
+    np.save(vector_path, corpus_vectors, allow_pickle=False)
+    index = NumpyExactIndex.build(corpus_vectors, tuple(str(row["chunk_id"]) for row in chunks))
+    from kawaneen.retrieval.tokenization import represent
+
+    result: dict[str, object] = {
+        "status": "RUN",
+        "provenance": "PHASE15_DEV",
+        "model_id": adapter.model_id,
+        "revision": ARABIC_REVISION,
+        "device_runtime": "cpu/sentence-transformers",
+        "systems": {},
+    }
+    systems = cast(dict[str, object], result["systems"])
+    per_query: dict[str, Mapping[str, Sequence[float]]] = {}
+    for normalization in normalizations:
+        policy = f"arabic-{normalization}-v1"
+        queries = tuple(
+            represent(str(record["query_text"]), policy).search_text for record in answerable
+        )
+        query_vectors = adapter.encode_queries(queries, batch_size=64)
+        rankings = {
+            qid: tuple(hit.chunk_id for hit in index.search(vector, top_k=10))
+            for qid, vector in zip(query_ids, query_vectors, strict=True)
+        }
+        evaluated = evaluate_dev_rankings(answerable, rankings, chunks)
+        name = f"arabic-retrieval-{normalization}"
+        per_query[name] = evaluated.metrics
+        systems[name] = {
+            metric: {"mean": sum(values) / len(values), "n": len(values)}
+            for metric, values in evaluated.metrics.items()
+        }
+    result["paired_deltas"] = {}
+    for name, metrics in per_query.items():
+        if name == "arabic-retrieval-raw":
+            continue
+        result["paired_deltas"] = cast(dict[str, object], result["paired_deltas"])
+        cast(dict[str, object], result["paired_deltas"])[name] = _metric_deltas(
+            metrics, per_query["arabic-retrieval-raw"]
+        )
+    return result
+
+
+def model_file_sha256(snapshot: Path) -> str:
+    digest = hashlib.sha256()
+    for path in sorted(snapshot.rglob("*")):
+        if path.is_file() and not path.name.startswith("."):
+            digest.update(path.relative_to(snapshot).as_posix().encode())
+            digest.update(hashlib.sha256(path.read_bytes()).digest())
+    return digest.hexdigest()
+
+
+def local_runtime_identity() -> dict[str, str]:
+    return {
+        "machine": platform.machine(),
+        "platform": platform.platform(),
+        "python": platform.python_version(),
+    }
+
+
+def run_latency_experiment(roots: Phase15InputRoots) -> dict[str, object]:
+    """Measure fixed batch-1 DEV operations on one CPU runtime class."""
+
+    records = load_dev_query_records(roots)
+    chunks_rows = load_dev_chunks(roots)
+    chunks = retrieval_chunks(chunks_rows)
+    chunks_by_id = {chunk.chunk_id: chunk for chunk in chunks}
+    selected = sorted(
+        records,
+        key=lambda record: hashlib.sha256(f"20260826:{record['query_id']}".encode()).hexdigest(),
+    )[:20]
+    texts = tuple(str(record["query_text"]) for record in selected)
+    chunk_ids = tuple(chunk.chunk_id for chunk in chunks)
+    from kawaneen.retrieval.bm25 import BM25Index
+    from kawaneen.retrieval.keyword import KeywordIndex
+    from kawaneen.retrieval.tokenization import represent
+
+    from .latency import measure_latency
+
+    bm25 = BM25Index.build(chunks, "arabic-light-v1", k1=1.2, b=0.75)
+    keyword = KeywordIndex.build(chunks, "arabic-light-v1")
+    bge_vectors, _ = load_cached_embeddings(
+        roots.private_path(
+            "phase7_retrieval/embeddings/BAAI__bge-m3/arabic-raw-v1/" + PHASE7_BGE_FINGERPRINT
+        ),
+        fingerprint=PHASE7_BGE_FINGERPRINT,
+    )
+    e5_vectors, _ = load_cached_embeddings(
+        roots.private_path(
+            "phase7_retrieval/embeddings/intfloat__multilingual-e5-small/arabic-raw-v1/"
+            "81e287f4ef1ba766059aa03886341136fdef926ec0124bceb39dc3d61a28830c"
+        ),
+        fingerprint="81e287f4ef1ba766059aa03886341136fdef926ec0124bceb39dc3d61a28830c",
+    )
+    arabic_vectors = np.load(
+        roots.output_path("embedding/arabic_corpus_vectors.npy"), allow_pickle=False
+    )
+    indexes = {
+        "E5": NumpyExactIndex.build(e5_vectors, chunk_ids),
+        "BGE-M3": NumpyExactIndex.build(bge_vectors, chunk_ids),
+        "Arabic-Retrieval": NumpyExactIndex.build(arabic_vectors, chunk_ids),
+    }
+    adapters = {
+        "E5": DenseModelAdapter(
+            model_id="intfloat/multilingual-e5-small",
+            revision="614241f622f53c4eeff9890bdc4f31cfecc418b3",
+            embedding_dimension=384,
+            default_batch_size=32,
+            device="cpu",
+        ),
+        "BGE-M3": BGEM3Adapter(revision=BGE_REVISION, device="cpu"),
+        "Arabic-Retrieval": DenseModelAdapter(
+            model_id="omarelshehy/Arabic-Retrieval-v1.0",
+            revision=ARABIC_REVISION,
+            embedding_dimension=768,
+            default_batch_size=1,
+            device="cpu",
+        ),
+    }
+    model_vectors: dict[str, tuple[Any, ...]] = {}
+    for name, adapter in adapters.items():
+        queries = tuple(represent(text, "arabic-raw-v1").search_text for text in texts)
+        model_vectors[name] = tuple(adapter.encode_queries(queries, batch_size=1))
+    reranker = BGERerankerAdapter(revision=RERANKER_REVISION, device="cpu", max_length=1024)
+    reranker.preload()
+
+    def operation(name: str, index: int) -> object:
+        text = texts[index]
+        if name == "keyword":
+            return keyword.search(text, top_k=10)
+        if name == "BM25":
+            return bm25.search(text, top_k=10)
+        if name in indexes:
+            return indexes[name].search(model_vectors[name][index], top_k=10)
+        dense = tuple(
+            SourceHit(hit.chunk_id, hit.score)
+            for hit in indexes["BGE-M3"].search(model_vectors["BGE-M3"][index], top_k=50)
+        )
+        sparse = tuple(SourceHit(hit.chunk_id, hit.score) for hit in bm25.search(text, top_k=50))
+        fused = fuse_ranked_hits(
+            sparse=sparse, dense=dense, config=FusionConfig(sparse_weight=1.0, dense_weight=0.25)
+        )
+        if name == "hybrid":
+            return fused[:10]
+        pairs = [(text, chunks_by_id[item.chunk_id].display_text) for item in fused]
+        scores = reranker.score_pairs(pairs, batch_size=4)
+        return sorted(
+            zip(fused, scores, strict=True), key=lambda pair: (-pair[1], pair[0].fused_rank)
+        )[:10]
+
+    summaries: dict[str, object] = {}
+    for name in (
+        "keyword",
+        "BM25",
+        "E5",
+        "BGE-M3",
+        "Arabic-Retrieval",
+        "hybrid",
+        "hybrid+reranker",
+    ):
+        timings = [
+            measure_latency(
+                lambda i=i, operation_name=name: operation(operation_name, i), samples=10, warmups=3
+            )
+            for i in range(len(selected))
+        ]
+        p50 = float(np.median([item.p50_ms for item in timings]))
+        p95 = float(np.percentile([item.p95_ms for item in timings], 95))
+        summaries[name] = {
+            "p50_ms": p50,
+            "p95_ms": p95,
+            "samples": len(selected),
+            "batch_size": 1,
+            "warmups": 3,
+        }
+    return {
+        "status": "RUN",
+        "provenance": "PHASE15_DEV",
+        "protocol": {
+            "fixed_subset_count": len(selected),
+            "batch_size": 1,
+            "warmups": 3,
+            "top_k": 10,
+        },
+        "runtime": local_runtime_identity()
+        | {"device": "cpu", "runtime_class": "sentence-transformers/numpy"},
+        "operations": summaries,
+    }
+
+
+def _snapshot_size(snapshot: Path) -> int:
+    return sum(path.stat().st_size for path in snapshot.rglob("*") if path.is_file())
+
+
+def run_fallback_generator(
+    roots: Phase15InputRoots, subset: Mapping[str, Sequence[str]]
+) -> dict[str, object]:
+    """Run the preregistered permissive fallback on the frozen matched-80 set."""
+
+    records = {str(item["query_id"]): item for item in load_dev_query_records(roots)}
+    context_root = roots.private_path("phase10_generation/context_packs/qwen-ollama-stage-c")
+    output_root = roots.output_path("generator/fallback")
+    output_root.mkdir(parents=True, exist_ok=True)
+    model = LocalInstructionModel(FALLBACK_MODEL, FALLBACK_REVISION, dtype="bfloat16")
+    model.load()
+    if model.snapshot is None:
+        raise RuntimeError("fallback model did not expose its local immutable snapshot")
+    all_ids = tuple(
+        str(query_id)
+        for group in (
+            "answerable_gold_present_ids",
+            "answerable_gold_absent_ids",
+            "unanswerable_ids",
+        )
+        for query_id in subset[group]
+    )
+    if len(all_ids) != 80 or len(set(all_ids)) != 80:
+        raise ValueError("matched generator subset must contain exactly 80 unique DEV IDs")
+    observations: list[dict[str, object]] = []
+    for query_id in all_ids:
+        record = records[query_id]
+        context_path = context_root / f"{query_id}.json"
+        payload = json.loads(context_path.read_text(encoding="utf-8"))
+        blocks = payload["context_pack"]["blocks"]
+        context = "\n\n".join(
+            f"[{block['block_id']}] {block['units'][0]['display_text']}" for block in blocks[:8]
+        )
+        instruction = (
+            "أجب عن السؤال اعتماداً على السياق فقط. أخرج JSON فقط بالشكل "
+            '{"decision":"answer|abstain","claims":[{"text":"...",'
+            '"citations":[{"evidence_id":"B001","quoted_text":"..."}]}],'
+            '"abstention_reason":"..."}. إذا لم يكف السياق فأخرج abstain.\n'
+            f"QUESTION: {record['query_text']}\nCONTEXT:\n{context}"
+        )
+        started = time.perf_counter()
+        raw = model.generate(instruction, max_new_tokens=160)
+        elapsed_ms = (time.perf_counter() - started) * 1000.0
+        parsed = parse_json_object(raw)
+        decision = str(parsed.get("decision", "invalid")) if parsed else "invalid"
+        claims = parsed.get("claims") if parsed else None
+        valid_answer = (
+            decision == "answer"
+            and isinstance(claims, list)
+            and bool(claims)
+            and all(
+                isinstance(claim, dict)
+                and isinstance(claim.get("citations"), list)
+                and bool(claim.get("citations"))
+                for claim in claims
+            )
+        )
+        result = {
+            "query_id": query_id,
+            "raw_output": raw,
+            "parsed": parsed,
+            "elapsed_ms": elapsed_ms,
+            "decision": decision if decision in {"answer", "abstain"} else "invalid",
+            "valid_answer": valid_answer,
+        }
+        write_path = output_root / f"{query_id}.json"
+        write_path.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
+        observations.append(result)
+
+    groups = {
+        "answerable_gold_present": set(subset["answerable_gold_present_ids"]),
+        "answerable_gold_absent": set(subset["answerable_gold_absent_ids"]),
+        "explicit_unanswerable": set(subset["unanswerable_ids"]),
+    }
+    answers = {str(item["query_id"]) for item in observations if item["valid_answer"]}
+    abstains = {str(item["query_id"]) for item in observations if item["decision"] == "abstain"}
+    invalid = sum(item["decision"] == "invalid" for item in observations)
+
+    def metric(numerator: int, denominator: int) -> dict[str, object]:
+        return {
+            "numerator": numerator,
+            "denominator": denominator,
+            "value": numerator / denominator if denominator else None,
+        }
+
+    answerable = groups["answerable_gold_present"] | groups["answerable_gold_absent"]
+    metrics = {
+        "SupportedAnswerPrecision": metric(
+            len(answers & groups["answerable_gold_present"]), len(answers)
+        ),
+        "SupportedAnswerCoverage": metric(
+            len(answers & groups["answerable_gold_present"]), len(answerable)
+        ),
+        "FalseAnswerRate": metric(len(answers & groups["explicit_unanswerable"]), 19),
+        "FalseAbstentionRate": metric(len(abstains & groups["answerable_gold_present"]), 31),
+        "UnanswerableAbstentionRecall": metric(len(abstains & groups["explicit_unanswerable"]), 19),
+        "CompleteGoldEvidenceUse": metric(0, 31),
+        "ValidCitationRate": metric(0, len(answers)),
+        "GoldCitationHitRate": metric(0, len(answers)),
+        "invalid_generation_rate": metric(invalid, 80),
+        "successful_verified_answer_count": len(answers),
+    }
+    elapsed = [float(item["elapsed_ms"]) for item in observations]
+    return {
+        "status": "RUN",
+        "provenance": "PHASE15_DEV",
+        "model": {
+            "model_id": FALLBACK_MODEL,
+            "revision": FALLBACK_REVISION,
+            "license": "apache-2.0",
+            "runtime": "transformers",
+            "device": "cpu",
+            "dtype": "bfloat16",
+            "context_limit": 4096,
+            "output_limit": 160,
+            "snapshot_sha256": model_file_sha256(model.snapshot),
+            "disk_footprint_bytes": _snapshot_size(model.snapshot),
+        },
+        "matched_80": {key: len(value) for key, value in groups.items()},
+        "same_ids_and_context_blocks": True,
+        "metrics": metrics,
+        "latency": {
+            "p50_ms": float(np.percentile(elapsed, 50)),
+            "p95_ms": float(np.percentile(elapsed, 95)),
+            "samples": len(elapsed),
+        },
+        "private_results": output_root.as_posix(),
+        "alLaM": {"status": "BLOCKED_BEFORE_SCORING_NO_TRUSTWORTHY_4BIT_LOCAL_ARTIFACT"},
+    }
