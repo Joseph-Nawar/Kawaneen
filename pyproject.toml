@@ -132,9 +132,11 @@ omit = [
     "src/kawaneen/phase15/dialect.py",
     "src/kawaneen/phase15/embedding.py",
     "src/kawaneen/phase15/generation.py",
+    "src/kawaneen/phase15/inputs.py",
     "src/kawaneen/phase15/orchestrator.py",
     "src/kawaneen/phase15/reranking.py",
     "src/kawaneen/phase15/review_app.py",
+    "src/kawaneen/phase15/runner.py",
 ]
 
 [tool.pyright]
