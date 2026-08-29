@@ -7,6 +7,13 @@ from collections.abc import Mapping, Sequence
 from .statistics import paired_risk_difference
 
 
+def is_candidate_answer(record: Mapping[str, object]) -> bool:
+    """Return whether a persisted record contains a schema-parsed answer decision."""
+
+    result = record.get("result")
+    return isinstance(result, Mapping) and str(result.get("decision", "")).lower() == "answer"
+
+
 def citation_counterfactual(
     would_surface_without_verifier: Sequence[int],
     actual_verifier_outcome: Sequence[int],
@@ -33,6 +40,30 @@ def citation_counterfactual(
         "discordant_pairs": result.discordant_pairs,
         "seed": seed,
     }
+
+
+def candidate_answer_counterfactual(
+    candidate_answers: Sequence[int],
+    verified_unsafe_answers: Sequence[int],
+    *,
+    defect_counts: Mapping[str, int] | None = None,
+    seed: int = 20260826,
+) -> dict[str, object]:
+    """Measure verifier protection for candidate answers, never raw output presence.
+
+    Both inputs are aligned candidate-answer rows.  A raw abstention or malformed
+    response therefore cannot enter this population merely because it is non-empty.
+    ``verified_unsafe_answers`` is sourced from persisted verifier/failure evidence.
+    """
+
+    result = citation_counterfactual(candidate_answers, verified_unsafe_answers, seed=seed)
+    result.update(
+        {
+            "population_definition": "schema-parsed candidate answer decisions only",
+            "defect_counts": dict(sorted((defect_counts or {}).items())),
+        }
+    )
+    return result
 
 
 def score_gate_sensitivity(

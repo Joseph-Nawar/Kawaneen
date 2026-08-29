@@ -2,7 +2,12 @@ from __future__ import annotations
 
 import pytest
 
-from kawaneen.phase15.counterfactuals import citation_counterfactual, score_gate_sensitivity
+from kawaneen.phase15.counterfactuals import (
+    candidate_answer_counterfactual,
+    citation_counterfactual,
+    is_candidate_answer,
+    score_gate_sensitivity,
+)
 from kawaneen.phase15.dialect import DialectVariant, validate_variants_before_outcomes
 from kawaneen.phase15.embedding import EmbeddingRun, create_arabic_model_lock
 from kawaneen.phase15.generation import validate_allam_preflight
@@ -61,6 +66,8 @@ def test_dialect_validator_runs_before_retrieval_results() -> None:
         "q": {
             "legal_intent_fingerprint": "intent",
             "qrel_fingerprint": "qrel",
+            "query_text": "ما هي المادة 12 في النظام؟",
+            "article_identifiers": ("المادة 12",),
             "number_identifiers": (),
             "date_identifiers": (),
         }
@@ -72,12 +79,104 @@ def test_dialect_validator_runs_before_retrieval_results() -> None:
             dialect=dialect,
             legal_intent_fingerprint="intent",
             qrel_fingerprint="qrel",
-            text="variant",
+            article_identifiers=("المادة 12",),
+            text=f"صياغة {dialect} مختلفة {i}",
         )
         for dialect in ("egyptian", "gulf_saudi", "levantine")
         for i in range(20)
     ]
     validate_variants_before_outcomes(base, variants)
+
+
+def test_dialect_validator_rejects_changed_article_identifiers() -> None:
+    base = {
+        "q": {
+            "legal_intent_fingerprint": "intent",
+            "qrel_fingerprint": "qrel",
+            "query_text": "ما هي المادة 12؟",
+            "article_identifiers": ("المادة 12",),
+            "number_identifiers": (),
+            "date_identifiers": (),
+        }
+    }
+    variants = _dialect_variants(base, article_identifiers=("المادة 13",))
+    with pytest.raises(ValueError, match="article identifiers"):
+        validate_variants_before_outcomes(base, variants)
+
+
+def test_dialect_validator_rejects_duplicates_and_base_text() -> None:
+    base = {
+        "q": {
+            "legal_intent_fingerprint": "intent",
+            "qrel_fingerprint": "qrel",
+            "query_text": "ما هي المادة 12؟",
+            "article_identifiers": ("المادة 12",),
+            "number_identifiers": (),
+            "date_identifiers": (),
+        }
+    }
+    with pytest.raises(ValueError, match="identical"):
+        validate_variants_before_outcomes(base, _dialect_variants(base, text="ما هي المادة 12؟"))
+    duplicate = list(_dialect_variants(base))
+    duplicate[-1] = duplicate[-1].model_copy(update={"text": duplicate[0].text})
+    with pytest.raises(ValueError, match="duplicates"):
+        validate_variants_before_outcomes(base, duplicate)
+
+
+def _dialect_variants(
+    base: dict[str, dict[str, object]],
+    *,
+    text: str | None = None,
+    article_identifiers: tuple[str, ...] | None = None,
+) -> list[DialectVariant]:
+    return [
+        DialectVariant(
+            variant_id=f"{dialect}-{i}",
+            base_intent_id="q",
+            dialect=dialect,
+            legal_intent_fingerprint="intent",
+            qrel_fingerprint="qrel",
+            article_identifiers=article_identifiers or ("المادة 12",),
+            text=text or f"صياغة {dialect} مختلفة {i}",
+        )
+        for dialect in ("egyptian", "gulf_saudi", "levantine")
+        for i in range(20)
+    ]
+
+
+def test_candidate_counterfactual_excludes_non_answer_json() -> None:
+    raw_abstention = {"raw_output": '{"decision":"abstain"}', "result": {"decision": "abstain"}}
+    candidate = {"raw_output": '{"decision":"answer"}', "result": {"decision": "answer"}}
+    assert is_candidate_answer(raw_abstention) is False
+    assert is_candidate_answer(candidate) is True
+    result = candidate_answer_counterfactual((1,), (0,), defect_counts={"quotation": 1})
+    assert result["pre_unsafe_acceptance"] == 1.0
+    assert result["population_definition"].startswith("schema-parsed")
+
+
+def test_hard_query_rule_uses_each_enabled_criterion_and_disables_others() -> None:
+    from kawaneen.phase15.reranking import HardQueryRule, select_hard_queries
+
+    fields = (
+        "multi_evidence",
+        "exact_provision",
+        "authority",
+        "deadline",
+        "cross_language",
+        "long_query",
+    )
+    for field in fields:
+        row = {"id": field, **{name: False for name in fields}, "pre_rerank_relevant_rank": 1}
+        row[field] = True
+        rule = HardQueryRule(
+            **{name: name == field for name in fields},
+            min_pre_rerank_relevant_rank_for_hard=20,
+        )
+        assert select_hard_queries((row,), rule=rule) == (field,)
+    rank_row = {"id": "rank", **{name: False for name in fields}, "pre_rerank_relevant_rank": 20}
+    assert select_hard_queries(
+        (rank_row,), rule=HardQueryRule(**{name: False for name in fields})
+    ) == ("rank",)
 
 
 def test_reranking_returns_paired_effects() -> None:

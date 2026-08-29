@@ -21,6 +21,10 @@ class DialectVariant(Phase15Model):
     text: str
 
 
+def _base_text(record: Mapping[str, Any]) -> str:
+    return str(record.get("query_text", record.get("text", ""))).strip()
+
+
 def validate_variants_before_outcomes(
     base_records: Mapping[str, Mapping[str, Any]], variants: Sequence[DialectVariant]
 ) -> None:
@@ -32,6 +36,7 @@ def validate_variants_before_outcomes(
     }
     if counts != {"egyptian": 20, "gulf_saudi": 20, "levantine": 20}:
         raise ValueError("dialect variants require 20 variants per dialect")
+    normalized_texts: dict[str, str] = {}
     for item in variants:
         base = base_records.get(item.base_intent_id)
         if base is None:
@@ -44,8 +49,19 @@ def validate_variants_before_outcomes(
             raise ValueError(f"numeric identifiers changed for {item.variant_id}")
         if tuple(item.date_identifiers) != tuple(base.get("date_identifiers", ())):
             raise ValueError(f"date identifiers changed for {item.variant_id}")
+        if tuple(item.article_identifiers) != tuple(base.get("article_identifiers", ())):
+            raise ValueError(f"article identifiers changed for {item.variant_id}")
         if not item.text:
             raise ValueError(f"empty dialect text for {item.variant_id}")
+        base_text = _base_text(base)
+        if base_text and " ".join(item.text.split()) == " ".join(base_text.split()):
+            raise ValueError(f"dialect text is identical to MSA base for {item.variant_id}")
+        normalized = " ".join(item.text.split())
+        if normalized in normalized_texts:
+            raise ValueError(
+                f"dialect text duplicates {normalized_texts[normalized]} for {item.variant_id}"
+            )
+        normalized_texts[normalized] = item.variant_id
 
 
 def evaluate_dialect_runs(
