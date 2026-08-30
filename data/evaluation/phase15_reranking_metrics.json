@@ -70,5 +70,10 @@
   },
   "provenance": "PHASE15_DEV",
   "seed": 20260826,
-  "status": "RUN"
+  "status": "RUN",
+  "supersedes": {
+    "hard_query_count": 19,
+    "reason": "prior selector omitted four enabled categorical hard-query criteria",
+    "status": "SUPERSEDED_INVALID_DIAGNOSTIC"
+  }
 }

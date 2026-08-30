@@ -1,5 +1,7 @@
 """Offline citation-verifier and score-gate counterfactuals."""
 
+# pyright: basic
+
 from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
@@ -89,7 +91,11 @@ def score_gate_sensitivity(
             keep = (
                 tuple(range(len(scores)))
                 if fraction is None
-                else tuple(index for index, score in enumerate(scores) if score > threshold)
+                else tuple(
+                    index
+                    for index, score in enumerate(scores)
+                    if threshold is not None and score > threshold
+                )
             )
             gate["coverage"] = len(keep) / len(scores)
             gate["retained_count"] = len(keep)

@@ -9,11 +9,21 @@
     "status": "BLOCKED_BEFORE_SCORING_NO_TRUSTWORTHY_4BIT_LOCAL_ARTIFACT"
   },
   "candidate_answer_count": 40,
+  "candidate_answer_coverage_cost": 0.725,
   "coverage_cost": 1.0,
   "coverage_cost_by_failure": {
-    "clearly_unsupported_support_rejected": 18,
-    "other_verification_failures": 1,
-    "quotation_contract_failures": 10
+    "clearly_unsupported_support_rejected": {
+      "count": 18,
+      "rate_of_candidate_answers": 0.45
+    },
+    "other_verification_failures": {
+      "count": 1,
+      "rate_of_candidate_answers": 0.025
+    },
+    "quotation_contract_failures": {
+      "count": 10,
+      "rate_of_candidate_answers": 0.25
+    }
   },
   "defect_counts": {
     "other_verification_failure": 1,

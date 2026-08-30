@@ -1,5 +1,7 @@
 """Phase 15 command orchestration with explicit DEV-only gates."""
 
+# pyright: basic
+
 from __future__ import annotations
 
 import hashlib
@@ -121,7 +123,7 @@ def phase15_model_lock(root: Path = Path(".")) -> dict[str, Any]:
         dtype="bf16",
         batch_size=1,
         runtime="transformers",
-        device="cpu-or-mps",
+        device="mps",
     )
     payload: dict[str, Any] = {
         "schema_version": "phase15-model-lock-v1",
@@ -132,6 +134,7 @@ def phase15_model_lock(root: Path = Path(".")) -> dict[str, Any]:
             "config_sha256": "7a28f79c4ad88321c5f17ed29d206bce132ce5864c1c3d8c6012b6ce1d93da75",
             "tokenizer_revision": "899f6e1b765915a72d5e4ace6bb2b221715550d8",
             "retrieval_normalization": "l2_after_encoder",
+            "max_sequence_length": 128,
         },
         "allam": {
             "model_id": ALLAM_MODEL,
@@ -289,8 +292,9 @@ def phase15_embedding(
 
     arabic = run_arabic_embedding(roots)
     summary["arabic_retrieval"] = arabic
-    summary["systems"]["multilingual-e5-small"]["status"] = "RUN"
-    summary["systems"]["bge-m3"]["status"] = "RUN"
+    systems = cast(dict[str, Any], summary["systems"])
+    systems["multilingual-e5-small"]["status"] = "RUN"
+    systems["bge-m3"]["status"] = "RUN"
     destination = write_aggregate_artifact(root, "phase15_embedding_metrics.json", summary)
     summary["artifact"] = destination.as_posix()
     return summary
@@ -1029,40 +1033,56 @@ def phase15_collect_review_candidates(
     suggestion_model = LocalOllamaInstructionModel("qwen3:4b-instruct-2507-q4_K_M")
     suggestions: list[dict[str, Any]] = []
     allowed = ", ".join(item.value for item in ErrorCategory)
-    for case in cases:
+    for start in range(0, len(cases), 20):
+        batch = cases[start : start + 20]
+        compact = "\n".join(
+            f"{case['case_id']} | {case['pipeline_stage']} | "
+            f"{case['diagnostics'].get('trigger', '')} | {case.get('query_text') or ''}"
+            for case in batch
+        )
         prompt = (
-            "صنّف سبب الفشل الأسبق في حالة تقييم قانونية. هذه مساعدة فقط وليست حكماً بشرياً. "
-            f"اختر primary من القائمة: {allowed}. أخرج JSON فقط: "
-            '{"primary_category":"...","secondary_category":null,"confidence":1,'
-            '"rationale":"..."}.\n'
-            f"QUERY: {case.get('query_text') or ''}\nEVIDENCE: {case.get('evidence_text') or ''}"
+            "/no_think\nClassify the earliest root cause for each legal evaluation case. "
+            "This is assistance, not a human label. Return JSON only as "
+            '{"suggestions":[{"case_id":"...","primary_category":"...",'
+            '"secondary_category":null,"confidence":1,"rationale":"..."}]}. '
+            f"Choose primary from: {allowed}.\nCASES:\n{compact}"
         )
-        parsed = parse_json_object(suggestion_model.generate(prompt, max_new_tokens=120)) or {}
-        try:
-            primary = ErrorCategory(str(parsed.get("primary_category")))
-        except ValueError:
-            primary = ErrorCategory(
-                str(case["diagnostics"].get("trigger", ErrorCategory.SEMANTIC_RETRIEVAL_FAILURE))
-            )
-        secondary_value = parsed.get("secondary_category")
-        try:
-            secondary = ErrorCategory(str(secondary_value)) if secondary_value else None
-        except ValueError:
-            secondary = None
-        try:
-            confidence = max(1, min(5, int(parsed.get("confidence", 1))))
-        except (TypeError, ValueError):
-            confidence = 1
-        case["ai_suggestion"] = primary.value
-        suggestions.append(
+        parsed = parse_json_object(suggestion_model.generate(prompt, max_new_tokens=640)) or {}
+        rows = parsed.get("suggestions", [])
+        by_case_id = (
             {
-                "case_id": case["case_id"],
-                "primary_category": primary.value,
-                "secondary_category": secondary.value if secondary else None,
-                "confidence": confidence,
-                "rationale": str(parsed.get("rationale", "")),
+                str(row.get("case_id")): row
+                for row in rows
+                if isinstance(row, dict) and row.get("case_id")
             }
+            if isinstance(rows, list)
+            else {}
         )
+        for case in batch:
+            parsed = by_case_id.get(case["case_id"], {})
+            try:
+                primary = ErrorCategory(str(parsed.get("primary_category")))
+            except ValueError:
+                primary = ErrorCategory.SEMANTIC_RETRIEVAL_FAILURE
+            secondary_value = parsed.get("secondary_category")
+            try:
+                secondary = ErrorCategory(str(secondary_value)) if secondary_value else None
+            except ValueError:
+                secondary = None
+            try:
+                confidence = max(1, min(5, int(parsed.get("confidence", 1))))
+            except (TypeError, ValueError):
+                confidence = 1
+            case["ai_suggestion"] = primary.value
+            suggestions.append(
+                {
+                    "case_id": case["case_id"],
+                    "primary_category": primary.value,
+                    "secondary_category": secondary.value if secondary else None,
+                    "confidence": confidence,
+                    "rationale": str(parsed.get("rationale", "")),
+                }
+            )
     write_json_atomic(
         root / PRIVATE_ROOT / "review/ai_suggestions.json",
         {

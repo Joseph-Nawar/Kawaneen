@@ -1,5 +1,7 @@
 """Lazy local-only text model adapter used by Phase 15 diagnostics."""
 
+# pyright: basic
+
 from __future__ import annotations
 
 import json
@@ -11,10 +13,13 @@ from typing import Any
 class LocalInstructionModel:
     """Deterministic Transformers adapter; never downloads during scoring."""
 
-    def __init__(self, model_id: str, revision: str, *, dtype: str = "bfloat16") -> None:
+    def __init__(
+        self, model_id: str, revision: str, *, dtype: str = "bfloat16", device: str = "cpu"
+    ) -> None:
         self.model_id = model_id
         self.revision = revision
         self.dtype = dtype
+        self.device = device
         self._tokenizer: Any | None = None
         self._model: Any | None = None
         self.snapshot: Path | None = None
@@ -42,7 +47,7 @@ class LocalInstructionModel:
             torch_dtype=torch_dtype,
             low_cpu_mem_usage=True,
         )
-        self._model.to("cpu")
+        self._model.to(self.device)
         self._model.eval()
 
     def generate(self, instruction: str, *, max_new_tokens: int = 160) -> str:
@@ -57,6 +62,7 @@ class LocalInstructionModel:
             tokenize=True,
             return_tensors="pt",
         )
+        encoded = encoded.to(self.device)
         with torch.inference_mode():
             output = self._model.generate(
                 encoded,

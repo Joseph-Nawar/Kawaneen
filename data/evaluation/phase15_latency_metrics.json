@@ -1,12 +1,69 @@
 {
-  "available_generator_telemetry": "not reported until matched generator scoring runs",
+  "operations": {
+    "Arabic-Retrieval": {
+      "batch_size": 1,
+      "p50_ms": 76.507042,
+      "p95_ms": 645.15081875,
+      "samples": 20,
+      "warmups": 3
+    },
+    "BGE-M3": {
+      "batch_size": 1,
+      "p50_ms": 78.3423335,
+      "p95_ms": 655.0028316,
+      "samples": 20,
+      "warmups": 3
+    },
+    "BM25": {
+      "batch_size": 1,
+      "p50_ms": 74.517437,
+      "p95_ms": 652.36834615,
+      "samples": 20,
+      "warmups": 3
+    },
+    "E5": {
+      "batch_size": 1,
+      "p50_ms": 74.627916,
+      "p95_ms": 643.5484024,
+      "samples": 20,
+      "warmups": 3
+    },
+    "hybrid": {
+      "batch_size": 1,
+      "p50_ms": 731.1325420000001,
+      "p95_ms": 743.98970625,
+      "samples": 20,
+      "warmups": 3
+    },
+    "hybrid+reranker": {
+      "batch_size": 1,
+      "p50_ms": 10046.8694165,
+      "p95_ms": 12544.332631600002,
+      "samples": 20,
+      "warmups": 3
+    },
+    "keyword": {
+      "batch_size": 1,
+      "p50_ms": 451.3467915,
+      "p95_ms": 1031.02097645,
+      "samples": 20,
+      "warmups": 3
+    }
+  },
   "protocol": {
     "batch_size": 1,
-    "device": "unavailable",
-    "fixed_subset": "20 DEV query IDs",
+    "fixed_subset_count": 20,
+    "samples_per_query": 3,
+    "top_k": 10,
     "warmups": 3
   },
   "provenance": "PHASE15_DEV",
-  "reason": "Phase 7-10 private DEV artifacts contain no per-operation latency samples; no cross-device proxy is reported",
-  "status": "BLOCKED"
+  "runtime": {
+    "device": "cpu",
+    "machine": "arm64",
+    "platform": "macOS-26.4-arm64-arm-64bit",
+    "python": "3.12.13",
+    "runtime_class": "sentence-transformers/numpy"
+  },
+  "status": "RUN"
 }

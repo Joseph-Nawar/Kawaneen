@@ -6,6 +6,8 @@ contracts while writing all new per-query material below the ignored Phase 15
 private root.
 """
 
+# pyright: basic
+
 from __future__ import annotations
 
 import hashlib
@@ -38,6 +40,7 @@ RERANKER_REVISION = "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e"
 PHASE7_BGE_FINGERPRINT = "797830a20035acb251f33f9048725353c77fff417e8b58bab5f72252e6d7230b"
 FALLBACK_MODEL = "abdelrahman-alkhodary/qwen2.5-1.5b-arabic-instruct"
 FALLBACK_REVISION = "06d27020b3ac3d9058b7eebded9754c8e10fa6bd"
+FALLBACK_OUTPUT_LIMIT = 32
 
 
 def retrieval_chunks(rows: Sequence[Mapping[str, Any]]) -> tuple[RetrievalChunk, ...]:
@@ -253,20 +256,23 @@ def run_arabic_embedding(
     adapter = DenseModelAdapter(
         model_id="omarelshehy/Arabic-Retrieval-v1.0",
         revision=ARABIC_REVISION,
-        max_length=512,
+        max_length=128,
         default_batch_size=1,
         embedding_dimension=768,
         device="cpu",
     )
     corpus_texts = tuple(str(row.get("display_text", "")) for row in chunks)
-    corpus_blocks = [
-        adapter.encode_passages(corpus_texts[start : start + 4096], batch_size=256)
-        for start in range(0, len(corpus_texts), 4096)
-    ]
-    corpus_vectors = np.vstack(corpus_blocks)
     vector_path = roots.output_path("embedding/arabic_corpus_vectors.npy")
     vector_path.parent.mkdir(parents=True, exist_ok=True)
-    np.save(vector_path, corpus_vectors, allow_pickle=False)
+    if vector_path.is_file():
+        corpus_vectors = np.load(vector_path, allow_pickle=False)
+    else:
+        corpus_blocks = [
+            adapter.encode_passages(corpus_texts[start : start + 4096], batch_size=256)
+            for start in range(0, len(corpus_texts), 4096)
+        ]
+        corpus_vectors = np.vstack(corpus_blocks)
+        np.save(vector_path, corpus_vectors, allow_pickle=False)
     index = NumpyExactIndex.build(corpus_vectors, tuple(str(row["chunk_id"]) for row in chunks))
     from kawaneen.retrieval.tokenization import represent
 
@@ -427,7 +433,7 @@ def run_latency_experiment(roots: Phase15InputRoots) -> dict[str, object]:
     ):
         timings = [
             measure_latency(
-                lambda i=i, operation_name=name: operation(operation_name, i), samples=10, warmups=3
+                lambda i=i, operation_name=name: operation(operation_name, i), samples=3, warmups=3
             )
             for i in range(len(selected))
         ]
@@ -447,6 +453,7 @@ def run_latency_experiment(roots: Phase15InputRoots) -> dict[str, object]:
             "fixed_subset_count": len(selected),
             "batch_size": 1,
             "warmups": 3,
+            "samples_per_query": 3,
             "top_k": 10,
         },
         "runtime": local_runtime_identity()
@@ -468,7 +475,7 @@ def run_fallback_generator(
     context_root = roots.private_path("phase10_generation/context_packs/qwen-ollama-stage-c")
     output_root = roots.output_path("generator/fallback")
     output_root.mkdir(parents=True, exist_ok=True)
-    model = LocalInstructionModel(FALLBACK_MODEL, FALLBACK_REVISION, dtype="bfloat16")
+    model = LocalInstructionModel(FALLBACK_MODEL, FALLBACK_REVISION, dtype="bfloat16", device="mps")
     model.load()
     if model.snapshot is None:
         raise RuntimeError("fallback model did not expose its local immutable snapshot")
@@ -500,7 +507,7 @@ def run_fallback_generator(
             f"QUESTION: {record['query_text']}\nCONTEXT:\n{context}"
         )
         started = time.perf_counter()
-        raw = model.generate(instruction, max_new_tokens=160)
+        raw = model.generate(instruction, max_new_tokens=FALLBACK_OUTPUT_LIMIT)
         elapsed_ms = (time.perf_counter() - started) * 1000.0
         parsed = parse_json_object(raw)
         decision = str(parsed.get("decision", "invalid")) if parsed else "invalid"
@@ -561,7 +568,7 @@ def run_fallback_generator(
         "invalid_generation_rate": metric(invalid, 80),
         "successful_verified_answer_count": len(answers),
     }
-    elapsed = [float(item["elapsed_ms"]) for item in observations]
+    elapsed = [float(cast(float, item["elapsed_ms"])) for item in observations]
     return {
         "status": "RUN",
         "provenance": "PHASE15_DEV",
@@ -570,10 +577,10 @@ def run_fallback_generator(
             "revision": FALLBACK_REVISION,
             "license": "apache-2.0",
             "runtime": "transformers",
-            "device": "cpu",
+            "device": "mps",
             "dtype": "bfloat16",
             "context_limit": 4096,
-            "output_limit": 160,
+            "output_limit": FALLBACK_OUTPUT_LIMIT,
             "snapshot_sha256": model_file_sha256(model.snapshot),
             "disk_footprint_bytes": _snapshot_size(model.snapshot),
         },

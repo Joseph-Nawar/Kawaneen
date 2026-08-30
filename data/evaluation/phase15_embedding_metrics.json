@@ -1,15 +1,290 @@
 {
   "arabic_retrieval": {
+    "device_runtime": "cpu/sentence-transformers",
     "model_id": "omarelshehy/Arabic-Retrieval-v1.0",
-    "normalizations": [
-      "raw",
-      "light",
-      "aggressive"
-    ],
-    "reason": "Exact locked Arabic-Retrieval-v1.0 revision is not present locally; bounded model load attempted at the locked revision and was interrupted during weight download.",
+    "paired_deltas": {
+      "arabic-retrieval-aggressive": {
+        "CompleteEvidenceRecall@10": {
+          "ci95": [
+            -0.07092198581560284,
+            -0.0070921985815602835
+          ],
+          "confidence": 0.95,
+          "delta": -0.03546099290780142,
+          "losses": 5,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 136,
+          "wins": 0
+        },
+        "CompleteEvidenceRecall@5": {
+          "ci95": [
+            -0.07801418439716312,
+            0.0
+          ],
+          "confidence": 0.95,
+          "delta": -0.03546099290780142,
+          "losses": 6,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 134,
+          "wins": 1
+        },
+        "MRR@10": {
+          "ci95": [
+            -0.07444986209613869,
+            -0.008875450298322643
+          ],
+          "confidence": 0.95,
+          "delta": -0.03931385793087921,
+          "losses": 14,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 123,
+          "wins": 4
+        },
+        "Recall@1": {
+          "ci95": [
+            -0.06746453900709204,
+            0.0
+          ],
+          "confidence": 0.95,
+          "delta": -0.031914893617021274,
+          "losses": 6,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 134,
+          "wins": 1
+        },
+        "Recall@10": {
+          "ci95": [
+            -0.07446808510638298,
+            -0.010638297872340425
+          ],
+          "confidence": 0.95,
+          "delta": -0.03900709219858156,
+          "losses": 6,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 135,
+          "wins": 0
+        },
+        "Recall@5": {
+          "ci95": [
+            -0.07801418439716312,
+            0.0
+          ],
+          "confidence": 0.95,
+          "delta": -0.03546099290780142,
+          "losses": 6,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 134,
+          "wins": 1
+        },
+        "nDCG@10": {
+          "ci95": [
+            -0.06972257429328498,
+            -0.010693683846688538
+          ],
+          "confidence": 0.95,
+          "delta": -0.03768905861304957,
+          "losses": 14,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 123,
+          "wins": 4
+        }
+      },
+      "arabic-retrieval-light": {
+        "CompleteEvidenceRecall@10": {
+          "ci95": [
+            0.0,
+            0.02127659574468085
+          ],
+          "confidence": 0.95,
+          "delta": 0.0070921985815602835,
+          "losses": 0,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 140,
+          "wins": 1
+        },
+        "CompleteEvidenceRecall@5": {
+          "ci95": [
+            -0.014184397163120567,
+            0.03546099290780142
+          ],
+          "confidence": 0.95,
+          "delta": 0.0070921985815602835,
+          "losses": 1,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 138,
+          "wins": 2
+        },
+        "MRR@10": {
+          "ci95": [
+            -0.029147247551502872,
+            0.021194275582573443
+          ],
+          "confidence": 0.95,
+          "delta": -0.002963525835866261,
+          "losses": 5,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 129,
+          "wins": 7
+        },
+        "Recall@1": {
+          "ci95": [
+            -0.04964539007092199,
+            0.01773049645390071
+          ],
+          "confidence": 0.95,
+          "delta": -0.014184397163120567,
+          "losses": 4,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 134,
+          "wins": 3
+        },
+        "Recall@10": {
+          "ci95": [
+            -0.010638297872340425,
+            0.010638297872340425
+          ],
+          "confidence": 0.95,
+          "delta": 0.0,
+          "losses": 1,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 139,
+          "wins": 1
+        },
+        "Recall@5": {
+          "ci95": [
+            -0.01773049645390071,
+            0.024822695035460994
+          ],
+          "confidence": 0.95,
+          "delta": 0.0035460992907801418,
+          "losses": 1,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 138,
+          "wins": 2
+        },
+        "nDCG@10": {
+          "ci95": [
+            -0.023724050104224775,
+            0.011671645076038113
+          ],
+          "confidence": 0.95,
+          "delta": -0.005068314340157874,
+          "losses": 5,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 129,
+          "wins": 7
+        }
+      }
+    },
+    "provenance": "PHASE15_DEV",
     "revision": "899f6e1b765915a72d5e4ace6bb2b221715550d8",
-    "scoring_started": false,
-    "status": "BLOCKED"
+    "status": "RUN",
+    "systems": {
+      "arabic-retrieval-aggressive": {
+        "CompleteEvidenceRecall@10": {
+          "mean": 0.11347517730496454,
+          "n": 141
+        },
+        "CompleteEvidenceRecall@5": {
+          "mean": 0.07801418439716312,
+          "n": 141
+        },
+        "MRR@10": {
+          "mean": 0.06359056625014073,
+          "n": 141
+        },
+        "Recall@1": {
+          "mean": 0.03546099290780142,
+          "n": 141
+        },
+        "Recall@10": {
+          "mean": 0.10283687943262411,
+          "n": 141
+        },
+        "Recall@5": {
+          "mean": 0.07446808510638298,
+          "n": 141
+        },
+        "nDCG@10": {
+          "mean": 0.06690316499578149,
+          "n": 141
+        }
+      },
+      "arabic-retrieval-light": {
+        "CompleteEvidenceRecall@10": {
+          "mean": 0.15602836879432624,
+          "n": 141
+        },
+        "CompleteEvidenceRecall@5": {
+          "mean": 0.12056737588652482,
+          "n": 141
+        },
+        "MRR@10": {
+          "mean": 0.09994089834515367,
+          "n": 141
+        },
+        "Recall@1": {
+          "mean": 0.05319148936170213,
+          "n": 141
+        },
+        "Recall@10": {
+          "mean": 0.14184397163120568,
+          "n": 141
+        },
+        "Recall@5": {
+          "mean": 0.11347517730496454,
+          "n": 141
+        },
+        "nDCG@10": {
+          "mean": 0.09952390926867317,
+          "n": 141
+        }
+      },
+      "arabic-retrieval-raw": {
+        "CompleteEvidenceRecall@10": {
+          "mean": 0.14893617021276595,
+          "n": 141
+        },
+        "CompleteEvidenceRecall@5": {
+          "mean": 0.11347517730496454,
+          "n": 141
+        },
+        "MRR@10": {
+          "mean": 0.10290442418101993,
+          "n": 141
+        },
+        "Recall@1": {
+          "mean": 0.0673758865248227,
+          "n": 141
+        },
+        "Recall@10": {
+          "mean": 0.14184397163120568,
+          "n": 141
+        },
+        "Recall@5": {
+          "mean": 0.1099290780141844,
+          "n": 141
+        },
+        "nDCG@10": {
+          "mean": 0.10459222360883105,
+          "n": 141
+        }
+      }
+    }
   },
   "baseline": "bge-m3",
   "bootstrap_replicates": 2000,
@@ -144,7 +419,8 @@
       "nDCG@10": {
         "mean": 0.06713099780908378,
         "n": 141
-      }
+      },
+      "status": "RUN"
     },
     "multilingual-e5-small": {
       "CompleteEvidenceRecall@10": {
@@ -174,7 +450,8 @@
       "nDCG@10": {
         "mean": 0.04457491717083577,
         "n": 141
-      }
+      },
+      "status": "RUN"
     }
   }
 }
