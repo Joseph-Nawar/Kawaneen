@@ -19,6 +19,7 @@ from kawaneen.phase15.orchestrator import (
 )
 from kawaneen.phase15.real_experiments import (
     FALLBACK_OUTPUT_LIMIT,
+    _metric_observation_count,
     normalized_embedding_texts,
     timed_result_chunk_ids,
 )
@@ -185,6 +186,10 @@ def test_latency_quality_unwraps_reranker_pairs() -> None:
         chunk_id = "chunk-1"
 
     assert timed_result_chunk_ids((Hit(), (Hit(), 0.5))) == ("chunk-1", "chunk-1")
+
+
+def test_pooled_metric_observation_count_counts_queries_not_metric_names() -> None:
+    assert _metric_observation_count({"Recall@10": (1.0,) * 54, "MRR@10": (0.5,) * 54}) == 54
 
 
 def test_ai_suggestion_budget_leaves_room_for_valid_json() -> None:

@@ -5,7 +5,7 @@
       "gulf_saudi": 18,
       "levantine": 18
     },
-    "retrieval_metric_n_pooled": 4,
+    "retrieval_metric_n_pooled": 54,
     "selected_base_intents": 20
   },
   "device_runtime": {

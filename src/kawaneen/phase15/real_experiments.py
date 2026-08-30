@@ -99,6 +99,12 @@ def _variant_metrics(
     return evaluate_dev_rankings(records, rankings, chunks).metrics
 
 
+def _metric_observation_count(values: Mapping[str, Sequence[float]]) -> int:
+    """Return the number of per-query observations in a metric mapping."""
+
+    return len(next(iter(values.values()), ()))
+
+
 def run_dialect_retrieval_matrix(
     roots: Phase15InputRoots,
     variants: Sequence[Mapping[str, Any]],
@@ -258,7 +264,7 @@ def run_dialect_retrieval_matrix(
     output["denominators"] = {
         "selected_base_intents": len(base_records),
         "retrieval_metric_n_by_dialect": metric_n_by_dialect,
-        "retrieval_metric_n_pooled": len(next(iter(pooled.values()), [])),
+        "retrieval_metric_n_pooled": _metric_observation_count(next(iter(pooled.values()), {})),
     }
     output["pooled"] = pooled_output
     write_json_atomic(
