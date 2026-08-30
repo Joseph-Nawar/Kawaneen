@@ -12,6 +12,7 @@ from kawaneen.phase15.dialect import DialectVariant, validate_variants_before_ou
 from kawaneen.phase15.embedding import EmbeddingRun, create_arabic_model_lock
 from kawaneen.phase15.generation import validate_allam_preflight
 from kawaneen.phase15.latency import measure_latency
+from kawaneen.phase15.real_experiments import FALLBACK_OUTPUT_LIMIT, normalized_embedding_texts
 from kawaneen.phase15.reranking import evaluate_reranking
 
 
@@ -123,6 +124,36 @@ def test_dialect_validator_rejects_duplicates_and_base_text() -> None:
         validate_variants_before_outcomes(base, duplicate)
 
 
+def test_dialect_validator_rejects_prefix_only_rewrite() -> None:
+    base = {
+        "q": {
+            "legal_intent_fingerprint": "intent",
+            "qrel_fingerprint": "qrel",
+            "query_text": "ما هي المادة 12؟",
+            "article_identifiers": ("المادة 12",),
+            "number_identifiers": (),
+            "date_identifiers": (),
+        }
+    }
+    variants = _dialect_variants(base)
+    variants[0] = variants[0].model_copy(update={"text": "ممكن أعرف، ما هي المادة 12؟"})
+    with pytest.raises(ValueError, match="prefix-only"):
+        validate_variants_before_outcomes(base, variants)
+
+
+def test_embedding_normalization_applies_to_each_text() -> None:
+    texts = ("أَحكامٌ  المادة 12", "مادة 13")
+    assert normalized_embedding_texts(texts, "arabic-light-v1") == (
+        "احكام المادة 12",
+        "مادة 13",
+    )
+    assert normalized_embedding_texts(texts, "arabic-raw-v1") != texts
+
+
+def test_fallback_generation_uses_approved_output_budget() -> None:
+    assert FALLBACK_OUTPUT_LIMIT == 512
+
+
 def _dialect_variants(
     base: dict[str, dict[str, object]],
     *,
@@ -152,6 +183,17 @@ def test_candidate_counterfactual_excludes_non_answer_json() -> None:
     result = candidate_answer_counterfactual((1,), (0,), defect_counts={"quotation": 1})
     assert result["pre_unsafe_acceptance"] == 1.0
     assert result["population_definition"].startswith("schema-parsed")
+
+
+def test_candidate_counterfactual_reports_full_candidate_population() -> None:
+    result = candidate_answer_counterfactual(
+        (1,) * 29 + (0,) * 11,
+        (0,) * 40,
+        defect_counts={"semantic_support_rejection": 18},
+    )
+    assert result["candidate_count"] == 40
+    assert result["defective_candidate_count"] == 29
+    assert result["pre_defect_surface_rate"] == 29 / 40
 
 
 def test_hard_query_rule_uses_each_enabled_criterion_and_disables_others() -> None:

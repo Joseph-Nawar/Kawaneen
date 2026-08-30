@@ -25,6 +25,17 @@ def _base_text(record: Mapping[str, Any]) -> str:
     return str(record.get("query_text", record.get("text", ""))).strip()
 
 
+def is_prefix_only_rewrite(base_text: str, variant_text: str) -> bool:
+    """Identify a dialect prefix followed by an unchanged MSA question."""
+
+    base = " ".join(base_text.split())
+    variant = " ".join(variant_text.split())
+    if not base or variant == base or not variant.endswith(base):
+        return False
+    prefix = variant[: -len(base)].strip()
+    return bool(prefix)
+
+
 def validate_variants_before_outcomes(
     base_records: Mapping[str, Mapping[str, Any]], variants: Sequence[DialectVariant]
 ) -> None:
@@ -56,6 +67,8 @@ def validate_variants_before_outcomes(
         base_text = _base_text(base)
         if base_text and " ".join(item.text.split()) == " ".join(base_text.split()):
             raise ValueError(f"dialect text is identical to MSA base for {item.variant_id}")
+        if is_prefix_only_rewrite(base_text, item.text):
+            raise ValueError(f"prefix-only dialect rewrite for {item.variant_id}")
         normalized = " ".join(item.text.split())
         if normalized in normalized_texts:
             raise ValueError(

@@ -59,9 +59,21 @@ def candidate_answer_counterfactual(
     """
 
     result = citation_counterfactual(candidate_answers, verified_unsafe_answers, seed=seed)
+    candidate_count = len(candidate_answers)
+    defective_count = sum(int(value) for value in candidate_answers)
     result.update(
         {
             "population_definition": "schema-parsed candidate answer decisions only",
+            "candidate_count": candidate_count,
+            "defective_candidate_count": defective_count,
+            "pre_defect_surface_rate": defective_count / candidate_count
+            if candidate_count
+            else None,
+            "post_defect_surface_rate": sum(int(value) for value in verified_unsafe_answers)
+            / candidate_count
+            if candidate_count
+            else None,
+            "retained_non_defective_candidate_count": candidate_count - defective_count,
             "defect_counts": dict(sorted((defect_counts or {}).items())),
         }
     )

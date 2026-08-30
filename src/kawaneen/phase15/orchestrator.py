@@ -9,11 +9,12 @@ import json
 import re
 from collections import Counter
 from collections.abc import Mapping, Sequence
+from difflib import SequenceMatcher
 from pathlib import Path
 from typing import Any, cast
 
 from .contracts import ALLAM_MODEL, ErrorCategory, ModelLock, ReviewCase
-from .counterfactuals import citation_counterfactual
+from .counterfactuals import candidate_answer_counterfactual
 from .dialect import DialectVariant, validate_variants_before_outcomes
 from .embedding import create_arabic_model_lock
 from .evidence import (
@@ -150,17 +151,10 @@ def phase15_model_lock(root: Path = Path(".")) -> dict[str, Any]:
             "disk_footprint_bytes": None,
             "bounded_preflight": "not_run",
         },
-        "fallback_preregistered_before_results": fallback.model_dump(mode="json"),
+        "fallback_preregistered_before_results": fallback.model_dump(mode="json")
+        | {"context_limit": 4096, "output_limit": 512},
         "no_model_shopping_after_dev_results": True,
     }
-    existing_path = _path(root, TRACKED_MANIFEST_ROOT / "phase15_model_lock.json")
-    if existing_path.is_file():
-        existing = json.loads(existing_path.read_text(encoding="utf-8"))
-        existing_fallback = existing.get("fallback_preregistered_before_results", {}).get(
-            "preflight"
-        )
-        if existing_fallback is not None:
-            payload["fallback_preregistered_before_results"]["preflight"] = existing_fallback
     relative = TRACKED_MANIFEST_ROOT / "phase15_model_lock.json"
     _write_frozen(root, relative, payload)
     return {"path": _path(root, relative).as_posix(), "allam_status": payload["allam"]["status"]}
@@ -397,8 +391,8 @@ def phase15_counterfactuals(
     files = sorted(results_root.glob("*.json"))
     if len(files) != 160:
         raise RuntimeError(f"expected 160 persisted Phase 10 DEV results, found {len(files)}")
-    before: list[int] = []
-    after: list[int] = []
+    pre_defective_surface: list[int] = []
+    post_defective_surface: list[int] = []
     outcome_reasons: Counter[str] = Counter()
     defect_counts: Counter[str] = Counter()
     candidate_count = 0
@@ -424,25 +418,22 @@ def phase15_counterfactuals(
             defect = "other_verification_failure"
         if defect != "none":
             defect_counts[defect] += 1
-            before.append(1)
-            after.append(int(result.get("decision") == "answer" and bool(result.get("claims"))))
+        pre_defective_surface.append(int(defect != "none"))
+        post_defective_surface.append(
+            int(
+                defect != "none"
+                and result.get("decision") == "answer"
+                and bool(result.get("claims"))
+            )
+        )
         if result.get("decision") != "answer":
             outcome_reasons[
                 str(result.get("abstention_reason") or result.get("detail") or "unknown")
             ] += 1
-    summary = (
-        citation_counterfactual(before, after)
-        if before
-        else {
-            "pre_unsafe_acceptance": None,
-            "post_unsafe_acceptance": None,
-            "absolute_risk_reduction": None,
-            "absolute_risk_reduction_ci95": None,
-            "relative_risk_reduction": None,
-            "coverage_cost": None,
-            "discordant_pairs": {},
-            "seed": 20260826,
-        }
+    summary = candidate_answer_counterfactual(
+        pre_defective_surface,
+        post_defective_surface,
+        defect_counts=defect_counts,
     )
     summary.update(
         {
@@ -452,15 +443,17 @@ def phase15_counterfactuals(
             "operational_definition": {
                 "population": "raw JSON records whose decision is answer",
                 "pre_verification": (
-                    "candidate answer with an independent persisted verification defect"
+                    "all schema-parsed candidate answer decisions; defect is independently "
+                    "identified "
+                    "from persisted verifier/failure evidence"
                 ),
                 "post_verification": (
                     "same defective candidate actually surfaced as verified answer"
                 ),
             },
-            "n": len(before),
+            "n": len(pre_defective_surface),
             "candidate_answer_count": candidate_count,
-            "candidate_answer_coverage_cost": len(before) / candidate_count
+            "candidate_answer_coverage_cost": len(pre_defective_surface) / candidate_count
             if candidate_count
             else None,
             "defect_counts": dict(sorted(defect_counts.items())),
@@ -514,9 +507,19 @@ def phase15_abstention(
     for path in score_files:
         payload = json.loads(path.read_text(encoding="utf-8"))
         query_id = str(payload.get("query_id", ""))
+        ranked_ids = payload.get("ranked_chunk_ids", ())
         scores = payload.get("scores", ())
-        if not query_id or not isinstance(scores, list) or not scores:
+        if (
+            not query_id
+            or not isinstance(ranked_ids, list)
+            or not isinstance(scores, list)
+            or not ranked_ids
+            or len(ranked_ids) != len(scores)
+        ):
             raise RuntimeError(f"invalid DEV score artifact: {path}")
+        # Phase-8's DEV checkpoint writer emits scores in ranked_chunk_ids order.
+        # The first value is therefore the final reranked rank-1 score, not an
+        # arbitrary candidate score.
         score_by_id[query_id] = float(scores[0])
     records = load_dev_query_records(roots)
     phase8_payload = json.loads(
@@ -524,7 +527,7 @@ def phase15_abstention(
             encoding="utf-8"
         )
     )
-    per_query = phase8_payload["methods"]["rrf"]["per_query"]
+    per_query = phase8_payload["methods"]["rrf_reranked"]["per_query"]
     answerable_ids = tuple(
         str(record["query_id"])
         for record in records
@@ -543,7 +546,12 @@ def phase15_abstention(
         {
             "status": "RUN",
             "provenance": "PHASE15_DEV",
-            "score_source": "phase8_retrieval/rerank/query-*.json persisted DEV candidate scores",
+            "score_source": "phase8_retrieval/rerank/query-*.json final reranked rank-1 scores",
+            "score_ordering": (
+                "scores[i] corresponds to ranked_chunk_ids[i], verified from the Phase-8 "
+                "DEV writer contract"
+            ),
+            "quality_source": "phase8 methods.rrf_reranked.per_query",
             "score_count": len(scores),
             "production_stage_d_unchanged": True,
         }
@@ -595,11 +603,14 @@ def phase15_generation_run(
         "qwen3_model_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
         "extractive": "persisted Phase10 output contract",
     }
-    lock_path = root / TRACKED_MANIFEST_ROOT / "phase15_model_lock.json"
-    if lock_path.is_file():
-        lock_payload = json.loads(lock_path.read_text(encoding="utf-8"))
-        lock_payload["fallback_preregistered_before_results"]["preflight"] = result["model"]
-        write_json_atomic(lock_path, lock_payload)
+    runtime_audit = {
+        "status": "RUN",
+        "provenance": "PHASE15_DEV",
+        "model_runtime_observations": result["model"],
+        "preflight_and_post_run_observations_are_not_preregistration": True,
+    }
+    runtime_audit_path = write_aggregate_artifact(root, "phase15_runtime_audit.json", runtime_audit)
+    result["runtime_audit_artifact"] = runtime_audit_path.as_posix()
     destination = write_aggregate_artifact(root, "phase15_generator_metrics.json", result)
     result["artifact"] = destination.as_posix()
     return result
@@ -632,31 +643,12 @@ def phase15_dialect_prepare(
         "gulf_saudi": "Gulf/Saudi Arabic",
         "levantine": "Levantine Arabic",
     }
-    dialect_style_cues = {
-        "egyptian": (
-            "ممكن أعرف،",
-            "عايز أعرف،",
-            "لو سمحت،",
-            "ممكن توضح لي،",
-        ),
-        "gulf_saudi": (
-            "وش رايك،",
-            "ودي أعرف،",
-            "لو تكرمت،",
-            "خلني أعرف،",
-        ),
-        "levantine": (
-            "فيني أعرف،",
-            "بدي أعرف،",
-            "شو رأيك،",
-            "خليني أفهم،",
-        ),
-    }
     base_records: dict[str, dict[str, Any]] = {}
     variants: list[DialectVariant] = []
     validator_outputs: dict[str, str] = {}
+    generation_audit: dict[str, dict[str, object]] = {}
     used_variant_texts: set[str] = set()
-    for ordinal, intent_id in enumerate(selected_ids):
+    for intent_id in selected_ids:
         record = by_intent[intent_id]
         text = str(record.get("query_text", ""))
         qrel_payload = record.get("chunk_qrels", ())
@@ -695,16 +687,19 @@ def phase15_dialect_prepare(
                 "Output only the "
                 "question. Preserve the exact legal intent, jurisdiction, dates, numbers, and "
                 "article/provision identifiers. Do not add, remove, narrow, or broaden facts. "
-                "Keep legal nouns and identifiers close to the original and change only wording "
-                "and dialectal politeness. Use distinct natural wording for variation "
+                "Keep legal nouns and identifiers close to the original, but perform a genuine "
+                "lexical or syntactic rewrite; a discourse prefix before unchanged MSA is not "
+                "acceptable. Use distinct natural wording for variation "
                 f"{int(variant_digest[:4], 16)}."
                 f"\nMSA question: {text}"
             )
             accepted = False
             transformed = ""
-            for attempt in range(1, 3):
+            for attempt in range(1, 6):
                 transformed = model.generate(
-                    prompt + f"\nRegeneration attempt: {attempt}", max_new_tokens=160
+                    prompt + f"\nRegeneration attempt: {attempt}. Rewrite verbs, question words, "
+                    "word order, or dialect vocabulary while preserving every identifier.",
+                    max_new_tokens=160,
                 )
                 if transformed.startswith("```"):
                     transformed = transformed.strip("`").strip()
@@ -728,41 +723,18 @@ def phase15_dialect_prepare(
                 if accepted:
                     break
             if not accepted:
-                # A fixed, model-generated rewrite can occasionally fail the local
-                # validator for being over-creative.  Use a neutral dialectal
-                # discourse prefix as a bounded regeneration, then validate it
-                # with the same fixed local pass before accepting it.
-                for cue in dialect_style_cues[dialect][:2]:
-                    transformed = f"{cue} {text}"
-                    validation_prompt = (
-                        '/no_think\nReturn JSON only: {"accepted":true} if the following '
-                        "rewrite preserves all legal facts and intent; otherwise "
-                        '{"accepted":false}. '
-                        f"Do not reject a polite dialect phrase.\nMSA: {text}\n"
-                        f"Rewrite: {transformed}"
-                    )
-                    validation_output = model.generate(validation_prompt, max_new_tokens=40)
-                    validator_outputs[variant_id] = validation_output
-                    validation_json = parse_json_object(validation_output)
-                    normalized_candidate = " ".join(transformed.split())
-                    accepted = (
-                        validation_json is not None
-                        and validation_json.get("accepted") is True
-                        and normalized_candidate != " ".join(text.split())
-                        and normalized_candidate not in used_variant_texts
-                    )
-                    if accepted:
-                        break
-            if not accepted:
                 raise RuntimeError(f"local semantic validator rejected {variant_id}")
             normalized_transformed = " ".join(transformed.split())
             if normalized_transformed in used_variant_texts:
-                cue = dialect_style_cues[dialect][ordinal % len(dialect_style_cues[dialect])]
-                transformed = f"{cue} {transformed}"
-                normalized_transformed = " ".join(transformed.split())
-                if normalized_transformed in used_variant_texts:
-                    raise RuntimeError(f"local model produced duplicate text for {variant_id}")
+                raise RuntimeError(f"local model produced duplicate text for {variant_id}")
             used_variant_texts.add(normalized_transformed)
+            generation_audit[variant_id] = {
+                "attempt_count": attempt,
+                "fallback_needed": False,
+                "normalized_edit_ratio": 1.0
+                - SequenceMatcher(None, " ".join(text.split()), normalized_transformed).ratio(),
+                "validator_accepted": True,
+            }
             variants.append(
                 DialectVariant(
                     variant_id=variant_id,
@@ -788,6 +760,7 @@ def phase15_dialect_prepare(
             "validator_prompt_version": "phase15-dialect-validator-v2",
             "variants": [item.model_dump(mode="json") for item in variants],
             "validator_outputs": validator_outputs,
+            "generation_audit": generation_audit,
         },
     )
     by_dialect = {
@@ -806,6 +779,19 @@ def phase15_dialect_prepare(
         "prompt_version": "phase15-dialect-rewrite-v2",
         "validator_prompt_version": "phase15-dialect-validator-v2",
         "all_variants_generated_before_retrieval": True,
+        "fallback_policy": "none; prefix-only fallback removed",
+        "diagnostics": {
+            "total_variants": len(variants),
+            "base_identical": 0,
+            "cross_variant_duplicates": 0,
+            "prefix_only_variants": 0,
+            "min_normalized_edit_ratio": min(
+                float(item["normalized_edit_ratio"]) for item in generation_audit.values()
+            ),
+            "median_normalized_edit_ratio": sorted(
+                float(item["normalized_edit_ratio"]) for item in generation_audit.values()
+            )[len(generation_audit) // 2],
+        },
     }
     write_json_atomic(
         root / TRACKED_MANIFEST_ROOT / "phase15_dialect_manifest.json", manifest_payload
@@ -893,45 +879,70 @@ def phase15_collect_review_candidates(
     rrf_payload = json.loads(rrf_path.read_text(encoding="utf-8"))
     methods = rrf_payload["methods"]
     generation_root = roots.private_path("phase10_generation/results/qwen-ollama-stage-c")
-    generation_failures: dict[str, str] = {}
+    generation_diagnostics: dict[str, dict[str, Any]] = {}
     for result_path in generation_root.glob("*.json"):
         result_payload = json.loads(result_path.read_text(encoding="utf-8"))
         generation_result = result_payload.get("result", {})
-        if generation_result.get("decision") != "answer" or not generation_result.get("claims"):
-            generation_failures[str(result_payload["query_id"])] = str(
-                generation_result.get("abstention_reason") or "invalid generation"
-            )
+        generation_diagnostics[str(result_payload["query_id"])] = {
+            "decision": generation_result.get("decision"),
+            "claims": bool(generation_result.get("claims")),
+            "reason": str(
+                generation_result.get("abstention_reason") or generation_result.get("detail") or ""
+            ),
+        }
+    fallback_diagnostics: dict[str, dict[str, Any]] = {}
+    fallback_root = roots.output_path("generator/fallback")
+    for result_path in fallback_root.glob("*.json"):
+        payload = json.loads(result_path.read_text(encoding="utf-8"))
+        fallback_diagnostics[str(payload["query_id"])] = {
+            "parsed_decision": payload.get("parsed_decision"),
+            "final_result": payload.get("final_result"),
+            "verification_reason": payload.get("verification_reason"),
+        }
     candidates: list[ReviewCandidate] = []
-    for index, record in enumerate(records):
+    normalization_path = roots.output_path("embedding/per_query_rankings.json")
+    normalization_rankings = (
+        json.loads(normalization_path.read_text(encoding="utf-8")).get("rankings", {})
+        if normalization_path.is_file()
+        else {}
+    )
+    dialect_rankings_path = roots.output_path("dialect/per_query_rankings.json")
+    dialect_rankings = (
+        json.loads(dialect_rankings_path.read_text(encoding="utf-8")).get("rankings", {})
+        if dialect_rankings_path.is_file()
+        else {}
+    )
+
+    def language_for(record: Mapping[str, Any]) -> str:
+        value = str(record.get("language") or "").strip().lower()
+        if value and value != "unknown":
+            return value
+        text = str(record.get("query_text") or "")
+        if any("\u0600" <= char <= "\u06ff" for char in text):
+            return "ar"
+        if any(char.isalpha() for char in text):
+            return "en"
+        return "unknown"
+
+    def append_candidate(
+        record: Mapping[str, Any],
+        *,
+        stage: str,
+        trigger: str,
+        suffix: str,
+        metadata: dict[str, Any],
+    ) -> None:
         query_id = str(record["query_id"])
-        language = str(record.get("language") or "unknown")
+        language = language_for(record)
         answerability = (
             "answerable"
             if str(record.get("answerability", "")).lower() == "answerable"
             else "unanswerable"
         )
         category = str(record.get("category") or "unknown")
-        before_row = methods["rrf"]["per_query"].get(query_id, {})
-        after_row = methods["rrf_reranked"]["per_query"].get(query_id, {})
-        stage = "retrieval"
-        trigger = "semantic retrieval failure"
-        if query_id in generation_failures:
-            stage, trigger = "generation", generation_failures[query_id]
-        elif float(after_row.get("Recall@10", 0.0)) < float(before_row.get("Recall@10", 0.0)):
-            stage, trigger = "reranking", "reranker failure"
-        elif index < 20 and bm25[query_id][:10] != bge[query_id][:10]:
-            stage, trigger = "normalization", "normalization failure"
-        elif str(record.get("answerability", "")).lower() == "unanswerable":
-            stage, trigger = "generation", "ambiguous question"
-        elif not set(bge[query_id][:10]) & {
-            str(item["chunk_id"])
-            for item in cast(Sequence[dict[str, Any]], record.get("chunk_qrels", ()))
-            if "chunk_id" in item
-        }:
-            stage, trigger = "retrieval", "semantic retrieval failure"
         candidates.append(
             ReviewCandidate(
-                case_id=f"phase15-dev-{query_id}",
+                case_id=f"phase15-dev-{query_id}-{suffix}",
                 language=language,
                 pipeline_stage=stage,
                 legal_category=category,
@@ -942,9 +953,156 @@ def phase15_collect_review_candidates(
                     else "medium"
                 ),
                 trigger=trigger,
-                metadata={"query_id": query_id, "source": "phase7-8-dev"},
+                metadata={"query_id": query_id, "source": "phase15-dev-diagnostic", **metadata},
             )
         )
+
+    for record in records:
+        query_id = str(record["query_id"])
+        qrels = {
+            str(item["chunk_id"])
+            for item in cast(Sequence[dict[str, Any]], record.get("chunk_qrels", ()))
+            if "chunk_id" in item
+        }
+        if str(record.get("answerability", "")).lower() == "answerable" and qrels:
+            ranking_sources = {
+                "bm25": bm25.get(query_id, ()),
+                "bge": bge.get(query_id, ()),
+                "hybrid": methods["rrf"]["rankings"].get(query_id, ()),
+                "hybrid-reranked": methods["rrf_reranked"]["rankings"].get(query_id, ()),
+            }
+            for system, ranking in ranking_sources.items():
+                relevant_ranks = [
+                    index + 1 for index, chunk_id in enumerate(ranking[:10]) if chunk_id in qrels
+                ]
+                if not relevant_ranks:
+                    append_candidate(
+                        record,
+                        stage="retrieval",
+                        trigger=f"{system} miss: relevant evidence absent from top10",
+                        suffix=f"{system}-miss",
+                        metadata={"system": system, "relevant_rank": None},
+                    )
+                elif min(relevant_ranks) >= 8:
+                    append_candidate(
+                        record,
+                        stage="retrieval",
+                        trigger=(
+                            f"{system} borderline: relevant evidence at rank {min(relevant_ranks)}"
+                        ),
+                        suffix=f"{system}-borderline",
+                        metadata={"system": system, "relevant_rank": min(relevant_ranks)},
+                    )
+            if (
+                not set(ranking_sources["bm25"][:10]) & qrels
+                and set(ranking_sources["bge"][:10]) & qrels
+            ):
+                append_candidate(
+                    record,
+                    stage="retrieval",
+                    trigger="BM25 miss, dense hit",
+                    suffix="bm25-dense",
+                    metadata={},
+                )
+            if (
+                not set(ranking_sources["bge"][:10]) & qrels
+                and set(ranking_sources["bm25"][:10]) & qrels
+            ):
+                append_candidate(
+                    record,
+                    stage="retrieval",
+                    trigger="dense miss, BM25 hit",
+                    suffix="dense-bm25",
+                    metadata={},
+                )
+            if not set(ranking_sources["hybrid"][:10]) & qrels and (
+                set(ranking_sources["bm25"][:10]) & qrels
+                or set(ranking_sources["bge"][:10]) & qrels
+            ):
+                append_candidate(
+                    record,
+                    stage="retrieval",
+                    trigger="hybrid miss despite component hit",
+                    suffix="hybrid-miss",
+                    metadata={},
+                )
+        before_row = methods["rrf"]["per_query"].get(query_id, {})
+        after_row = methods["rrf_reranked"]["per_query"].get(query_id, {})
+        if float(after_row.get("Recall@10", 0.0)) < float(before_row.get("Recall@10", 0.0)):
+            append_candidate(
+                record,
+                stage="reranking",
+                trigger="reranker worsened Recall@10",
+                suffix="reranker-worsened",
+                metadata={
+                    "before_recall": before_row.get("Recall@10"),
+                    "after_recall": after_row.get("Recall@10"),
+                },
+            )
+        raw_norm = normalization_rankings.get("arabic-retrieval-raw", {})
+        for norm in ("light", "aggressive"):
+            norm_rows = normalization_rankings.get(f"arabic-retrieval-{norm}", {})
+            if (
+                query_id in raw_norm
+                and query_id in norm_rows
+                and tuple(raw_norm[query_id][:10]) != tuple(norm_rows[query_id][:10])
+            ):
+                append_candidate(
+                    record,
+                    stage="normalization",
+                    trigger=f"Arabic embedding {norm} changed top10 behavior",
+                    suffix=f"normalization-{norm}",
+                    metadata={"normalization": norm},
+                )
+        generation = generation_diagnostics.get(query_id)
+        if generation is not None:
+            decision = str(generation["decision"])
+            is_answerable = str(record.get("answerability", "")).lower() == "answerable"
+            generation_trigger = None
+            if decision not in {"answer", "abstain"}:
+                generation_trigger = "generator invalid or malformed output"
+            elif is_answerable and decision == "abstain":
+                generation_trigger = "generator false abstention or verifier rejection"
+            elif not is_answerable and decision == "answer":
+                generation_trigger = "generator answer on explicit unanswerable query"
+            elif "citation" in str(generation["reason"]).lower():
+                generation_trigger = "generator quotation or citation rejection"
+            elif "support" in str(generation["reason"]).lower():
+                generation_trigger = "generator semantic-support rejection"
+            if generation_trigger:
+                append_candidate(
+                    record,
+                    stage="generation",
+                    trigger=generation_trigger,
+                    suffix="generation",
+                    metadata=generation,
+                )
+        fallback = fallback_diagnostics.get(query_id)
+        if fallback is not None:
+            parsed_decision = str(fallback["parsed_decision"])
+            final_result = fallback["final_result"]
+            is_answerable = str(record.get("answerability", "")).lower() == "answerable"
+            fallback_trigger = None
+            if parsed_decision == "invalid":
+                fallback_trigger = "fallback generator invalid or malformed output"
+            elif is_answerable and (
+                not isinstance(final_result, dict) or final_result.get("decision") != "answer"
+            ):
+                fallback_trigger = "fallback generator false abstention or verifier rejection"
+            elif (
+                not is_answerable
+                and isinstance(final_result, dict)
+                and final_result.get("decision") == "answer"
+            ):
+                fallback_trigger = "fallback generator answer on explicit unanswerable query"
+            if fallback_trigger:
+                append_candidate(
+                    record,
+                    stage="generation",
+                    trigger=fallback_trigger,
+                    suffix="fallback-generation",
+                    metadata={"generator": "phase15-fallback", **fallback},
+                )
     variant_path = roots.output_path("dialect/dialect_variants.json")
     if variant_path.is_file():
         variant_payload = json.loads(variant_path.read_text(encoding="utf-8"))
@@ -952,22 +1110,57 @@ def phase15_collect_review_candidates(
         for item in variant_payload.get("variants", ()):
             variant = DialectVariant.model_validate(item)
             base = by_intent[variant.base_intent_id]
-            candidates.append(
-                ReviewCandidate(
-                    case_id=f"phase15-{variant.variant_id}",
-                    language=f"ar-{variant.dialect}",
-                    pipeline_stage="dialect",
-                    legal_category=str(base.get("category") or "unknown"),
-                    answerability=(
-                        "answerable"
-                        if str(base.get("answerability", "")).lower() == "answerable"
-                        else "unanswerable"
-                    ),
-                    severity="high",
-                    trigger="dialect degradation diagnostic",
-                    metadata={"variant_id": variant.variant_id, "source": "phase15-dialect-dev"},
+            if str(base.get("answerability", "")).lower() != "answerable":
+                continue
+            base_qid = str(base["query_id"])
+            qrels = {
+                str(row["chunk_id"])
+                for row in cast(Sequence[dict[str, Any]], base.get("chunk_qrels", ()))
+                if "chunk_id" in row
+            }
+            degraded: list[str] = []
+            dialect_systems = dialect_rankings.get(variant.dialect, {})
+            base_systems = {
+                "bm25": bm25,
+                "bge-m3": bge,
+                "hybrid": methods["rrf"]["rankings"],
+                "hybrid-reranker": methods["rrf_reranked"]["rankings"],
+            }
+            for system, base_ranking in base_systems.items():
+                variant_ranking = dialect_systems.get(system, {}).get(variant.variant_id, ())
+                base_ranking = base_ranking.get(base_qid, ())
+                base_hits = [
+                    index + 1
+                    for index, chunk_id in enumerate(base_ranking[:10])
+                    if chunk_id in qrels
+                ]
+                variant_hits = [
+                    index + 1
+                    for index, chunk_id in enumerate(variant_ranking[:10])
+                    if chunk_id in qrels
+                ]
+                if (not variant_hits and base_hits) or (
+                    variant_hits and base_hits and min(variant_hits) > min(base_hits)
+                ):
+                    degraded.append(system)
+            if degraded:
+                candidates.append(
+                    ReviewCandidate(
+                        case_id=f"phase15-{variant.variant_id}",
+                        language=f"ar-{variant.dialect}",
+                        pipeline_stage="dialect",
+                        legal_category=str(base.get("category") or "unknown"),
+                        answerability="answerable",
+                        severity="high",
+                        trigger="dialect retrieval behavior worsened versus matched MSA",
+                        metadata={
+                            "variant_id": variant.variant_id,
+                            "base_intent_id": variant.base_intent_id,
+                            "systems": degraded,
+                            "source": "phase15-dialect-dev",
+                        },
+                    )
                 )
-            )
     selected = select_review_cases(candidates)
     records_by_query = {str(record["query_id"]): record for record in records}
     variants_by_id: dict[str, DialectVariant] = {}
@@ -1036,8 +1229,19 @@ def phase15_collect_review_candidates(
     for start in range(0, len(cases), 20):
         batch = cases[start : start + 20]
         compact = "\n".join(
-            f"{case['case_id']} | {case['pipeline_stage']} | "
-            f"{case['diagnostics'].get('trigger', '')} | {case.get('query_text') or ''}"
+            json.dumps(
+                {
+                    "case_id": case["case_id"],
+                    "query": case.get("query_text"),
+                    "expected_evidence": case.get("evidence_text"),
+                    "stage": case["pipeline_stage"],
+                    "category": case["legal_category"],
+                    "answerability": case["answerability"],
+                    "diagnostics": case["diagnostics"],
+                },
+                ensure_ascii=False,
+                sort_keys=True,
+            )
             for case in batch
         )
         prompt = (
@@ -1047,7 +1251,20 @@ def phase15_collect_review_candidates(
             '"secondary_category":null,"confidence":1,"rationale":"..."}]}. '
             f"Choose primary from: {allowed}.\nCASES:\n{compact}"
         )
-        parsed = parse_json_object(suggestion_model.generate(prompt, max_new_tokens=640)) or {}
+        parsed: dict[str, Any] | None = None
+        for attempt in range(2):
+            parsed = parse_json_object(
+                suggestion_model.generate(
+                    prompt
+                    + (
+                        "\nRetry: return one valid suggestion for every case ID." if attempt else ""
+                    ),
+                    max_new_tokens=640,
+                )
+            )
+            if isinstance(parsed, dict) and isinstance(parsed.get("suggestions"), list):
+                break
+        parsed = parsed or {}
         rows = parsed.get("suggestions", [])
         by_case_id = (
             {
@@ -1062,8 +1279,17 @@ def phase15_collect_review_candidates(
             parsed = by_case_id.get(case["case_id"], {})
             try:
                 primary = ErrorCategory(str(parsed.get("primary_category")))
-            except ValueError:
-                primary = ErrorCategory.SEMANTIC_RETRIEVAL_FAILURE
+            except (TypeError, ValueError):
+                suggestions.append(
+                    {
+                        "case_id": case["case_id"],
+                        "primary_category": None,
+                        "secondary_category": None,
+                        "confidence": None,
+                        "rationale": "suggestion unavailable",
+                    }
+                )
+                continue
             secondary_value = parsed.get("secondary_category")
             try:
                 secondary = ErrorCategory(str(secondary_value)) if secondary_value else None
@@ -1072,7 +1298,16 @@ def phase15_collect_review_candidates(
             try:
                 confidence = max(1, min(5, int(parsed.get("confidence", 1))))
             except (TypeError, ValueError):
-                confidence = 1
+                suggestions.append(
+                    {
+                        "case_id": case["case_id"],
+                        "primary_category": None,
+                        "secondary_category": None,
+                        "confidence": None,
+                        "rationale": "suggestion unavailable",
+                    }
+                )
+                continue
             case["ai_suggestion"] = primary.value
             suggestions.append(
                 {

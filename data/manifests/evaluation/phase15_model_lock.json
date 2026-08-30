@@ -35,6 +35,7 @@
   },
   "fallback_preregistered_before_results": {
     "batch_size": 1,
+    "context_limit": 4096,
     "config_sha256": null,
     "device": "mps",
     "dimension": null,
@@ -44,22 +45,12 @@
     "normalize_embeddings": null,
     "passage_prefix": null,
     "pooling": null,
-    "preflight": {
-      "context_limit": 4096,
-      "device": "mps",
-      "disk_footprint_bytes": 3103349403,
-      "dtype": "bfloat16",
-      "license": "apache-2.0",
-      "model_id": "abdelrahman-alkhodary/qwen2.5-1.5b-arabic-instruct",
-      "output_limit": 32,
-      "revision": "06d27020b3ac3d9058b7eebded9754c8e10fa6bd",
-      "runtime": "transformers",
-      "snapshot_sha256": "c02e79f4144941896a07db8b8975eec52fd7886e6d7950c91513aa6f5c223ac3"
-    },
+    "preflight": null,
     "quantization": null,
     "query_prefix": null,
     "revision": "06d27020b3ac3d9058b7eebded9754c8e10fa6bd",
     "runtime": "transformers",
+    "output_limit": 512,
     "tokenizer_revision": null
   },
   "no_model_shopping_after_dev_results": true,
