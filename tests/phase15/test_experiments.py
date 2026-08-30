@@ -63,6 +63,15 @@ def test_counterfactual_and_gate_do_not_change_serving_policy() -> None:
     assert sensitivity["gates"]["bottom50"]["derived_without_relevance_labels"] is True
 
 
+def test_candidate_counterfactual_uses_candidate_answers_not_raw_output_presence() -> None:
+    assert not is_candidate_answer({"raw_output": '{"decision":"abstain"}'})
+    assert is_candidate_answer({"result": {"decision": "answer"}})
+    result = candidate_answer_counterfactual((1, 0), (0, 0))
+    assert result["candidate_answer_count"] == 2
+    assert result["defective_candidate_count"] == 1
+    assert "candidate_answer_coverage_cost" not in result
+
+
 def test_latency_requires_three_warmups() -> None:
     with pytest.raises(ValueError):
         measure_latency(lambda: None, warmups=2)

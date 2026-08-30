@@ -1,5 +1,7 @@
 {
-  "ai_preclassification_cases": 120,
+  "ai_preclassification_attempted": 120,
+  "ai_preclassification_successful": 90,
+  "ai_preclassification_unavailable": 30,
   "answerability_distribution": {
     "answerable": 117,
     "unanswerable": 3
@@ -32,7 +34,7 @@
     "retrieval": 41
   },
   "provenance": "PHASE15_DEV",
-  "schema_version": "phase15-review-v1",
+  "schema_version": "phase15-review-v2",
   "severity_distribution": {
     "high": 17,
     "medium": 103

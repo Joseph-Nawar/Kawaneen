@@ -9,7 +9,7 @@ from hashlib import sha256
 from pathlib import Path
 from typing import Any
 
-from .contracts import ReviewCase, ReviewDecision
+from .contracts import ReviewCase, ReviewDecision, ReviewOutcome
 from .evidence import write_json_atomic
 
 REVIEW_CASE_COUNT = 120
@@ -36,7 +36,7 @@ def build_review_manifest(cases: Iterable[ReviewCase]) -> dict[str, Any]:
         return dict(sorted(Counter(str(getattr(case, field)) for case in case_list).items()))
 
     return {
-        "schema_version": "phase15-review-v1",
+        "schema_version": "phase15-review-v2",
         "case_count": REVIEW_CASE_COUNT,
         "case_ids_sha256": _case_id_digest(case.case_id for case in case_list),
         "holdout_case_count": 0,
@@ -45,9 +45,15 @@ def build_review_manifest(cases: Iterable[ReviewCase]) -> dict[str, Any]:
         "legal_category_distribution": counts("legal_category"),
         "answerability_distribution": counts("answerability"),
         "severity_distribution": counts("severity"),
-        "ai_preclassification_cases": sum(
+        "ai_preclassification_attempted": sum(
             case.ai_preclassification_attempted or case.ai_suggestion is not None
             for case in case_list
+        ),
+        "ai_preclassification_successful": sum(
+            case.ai_suggestion is not None for case in case_list
+        ),
+        "ai_preclassification_unavailable": sum(
+            case.ai_preclassification_attempted and case.ai_suggestion is None for case in case_list
         ),
         "provenance": "PHASE15_DEV",
     }
@@ -59,13 +65,63 @@ def prepare_review_packet(
     case_list = tuple(cases)
     manifest = build_review_manifest(case_list)
     packet = {
-        "schema_version": "phase15-review-v1",
+        "schema_version": "phase15-review-v2",
         "case_ids": [case.case_id for case in case_list],
         "cases": [case.model_dump(mode="json") for case in case_list],
     }
     write_json_atomic(packet_path, packet)
     write_json_atomic(manifest_path, manifest)
     return manifest
+
+
+def aggregate_review_decisions(
+    decisions: Iterable[ReviewDecision],
+) -> dict[str, Any]:
+    """Aggregate human outcomes, counting failure taxonomy only for confirmed failures."""
+
+    decision_list = tuple(decisions)
+    outcome_counts = Counter(decision.outcome.value for decision in decision_list)
+    confirmed = tuple(
+        decision
+        for decision in decision_list
+        if decision.outcome is ReviewOutcome.CONFIRMED_FAILURE
+    )
+    taxonomy = Counter(
+        decision.primary.value for decision in confirmed if decision.primary is not None
+    )
+    return {
+        "human_reviewed_count": len(decision_list),
+        "review_outcome_distribution": dict(sorted(outcome_counts.items())),
+        "confirmed_failure_count": len(confirmed),
+        "confirmed_failure_taxonomy": dict(sorted(taxonomy.items())),
+        "borderline_no_confirmed_failure_count": outcome_counts.get(
+            ReviewOutcome.BORDERLINE_NO_CONFIRMED_FAILURE.value, 0
+        ),
+        "uncertain_count": outcome_counts.get(ReviewOutcome.UNCERTAIN.value, 0),
+    }
+
+
+def ai_human_agreement(
+    cases: Iterable[ReviewCase], decisions: Iterable[ReviewDecision]
+) -> dict[str, Any]:
+    """Compare AI suggestions only with confirmed human root-cause labels."""
+
+    ai_by_case = {
+        case.case_id: case.ai_suggestion for case in cases if case.ai_suggestion is not None
+    }
+    eligible = tuple(
+        decision
+        for decision in decisions
+        if decision.outcome is ReviewOutcome.CONFIRMED_FAILURE
+        and decision.primary is not None
+        and decision.case_id in ai_by_case
+    )
+    agreement_count = sum(ai_by_case[decision.case_id] is decision.primary for decision in eligible)
+    return {
+        "eligible_count": len(eligible),
+        "agreement_count": agreement_count,
+        "agreement_rate": agreement_count / len(eligible) if eligible else None,
+    }
 
 
 class ReviewStore:
@@ -103,7 +159,7 @@ class ReviewStore:
         write_json_atomic(
             self.progress_path,
             {
-                "schema_version": "phase15-review-progress-v1",
+                "schema_version": "phase15-review-progress-v2",
                 "decisions": {
                     key: value.model_dump(mode="json") for key, value in sorted(decisions.items())
                 },

@@ -205,7 +205,7 @@ def phase15_review_prepare(
     if not progress_path.exists():
         write_json_atomic(
             progress_path,
-            {"schema_version": "phase15-review-progress-v1", "decisions": {}},
+            {"schema_version": "phase15-review-progress-v2", "decisions": {}},
         )
     return {
         "status": "regenerated" if was_prepared else "prepared",
@@ -466,9 +466,6 @@ def phase15_counterfactuals(
             },
             "n": len(pre_defective_surface),
             "candidate_answer_count": candidate_count,
-            "candidate_answer_coverage_cost": len(pre_defective_surface) / candidate_count
-            if candidate_count
-            else None,
             "defect_counts": dict(sorted(defect_counts.items())),
             "coverage_cost_by_failure": {
                 "clearly_unsupported_support_rejected": {
@@ -1352,6 +1349,8 @@ def phase15_collect_review_candidates(
             json.dumps(
                 {
                     "case_id": case["case_id"],
+                    "query": case.get("query_text"),
+                    "expected_evidence": case.get("evidence_text"),
                     "stage": case["pipeline_stage"],
                     "category": case["legal_category"],
                     "answerability": case["answerability"],

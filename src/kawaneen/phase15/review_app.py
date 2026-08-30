@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from .contracts import ErrorCategory, ReviewDecision
+from .contracts import ErrorCategory, ReviewDecision, ReviewOutcome
 from .review import ReviewStore, default_review_paths
 
 
@@ -48,18 +48,45 @@ def main() -> None:
         st.write(case.ai_suggestion.value if case.ai_suggestion else "No suggestion")
 
     current = store.decision_for(case.case_id)
-    primary_values = list(ErrorCategory)
-    primary_default = primary_values.index(current.primary) if current else 0
-    primary = st.selectbox("Primary root cause", primary_values, index=primary_default)
-    secondary = st.selectbox("Optional secondary root cause", [None, *primary_values], index=0)
+    outcome_values = [None, *list(ReviewOutcome)]
+    outcome_default = outcome_values.index(current.outcome) if current else 0
+    selected_outcome = st.selectbox("Review outcome", outcome_values, index=outcome_default)
+    outcome = ReviewOutcome(selected_outcome) if selected_outcome is not None else None
+
+    primary: ErrorCategory | None = None
+    secondary: ErrorCategory | None = None
+    if outcome is ReviewOutcome.CONFIRMED_FAILURE:
+        primary_values = [None, *list(ErrorCategory)]
+        primary_default = (
+            primary_values.index(current.primary) if current and current.primary else 0
+        )
+        primary_value = st.selectbox("Primary root cause", primary_values, index=primary_default)
+        primary = ErrorCategory(primary_value) if primary_value is not None else None
+        secondary_values = [None, *list(ErrorCategory)]
+        secondary_default = (
+            secondary_values.index(current.secondary)
+            if current and current.secondary is not None
+            else 0
+        )
+        secondary_value = st.selectbox(
+            "Optional secondary root cause", secondary_values, index=secondary_default
+        )
+        secondary = ErrorCategory(secondary_value) if secondary_value is not None else None
+    else:
+        st.caption("Select an outcome before choosing a root-cause category.")
+
     confidence = st.slider(
-        "Confidence", min_value=1, max_value=5, value=current.confidence or 3 if current else 3
+        "Confidence", min_value=1, max_value=5, value=current.confidence if current else 3
     )
-    note = st.text_area("Optional note", value=current.note or "" if current else "")
-    if st.button("Save decision"):
+    note = st.text_area("Optional note", value=current.note if current and current.note else "")
+    can_save = outcome is not None and (
+        outcome is not ReviewOutcome.CONFIRMED_FAILURE or primary is not None
+    )
+    if st.button("Save decision", disabled=not can_save) and outcome is not None:
         store.save_decision(
             ReviewDecision(
                 case_id=case.case_id,
+                outcome=outcome,
                 primary=primary,
                 secondary=secondary,
                 confidence=confidence,

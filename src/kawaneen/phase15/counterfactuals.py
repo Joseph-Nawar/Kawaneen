@@ -65,6 +65,7 @@ def candidate_answer_counterfactual(
         {
             "population_definition": "schema-parsed candidate answer decisions only",
             "candidate_count": candidate_count,
+            "candidate_answer_count": candidate_count,
             "defective_candidate_count": defective_count,
             "pre_defect_surface_rate": defective_count / candidate_count
             if candidate_count

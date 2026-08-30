@@ -79,5 +79,29 @@ def test_review_prepare_regenerates_only_when_progress_is_zero(tmp_path: Path) -
     candidate_path.write_text(json.dumps({"cases": cases}), encoding="utf-8")
     regenerated = phase15_review_prepare(tmp_path)
     assert regenerated["status"] == "regenerated"
-    packet = json.loads(Path(first["packet"]).read_text(encoding="utf-8"))
+    packet = json.loads(Path(regenerated["packet"]).read_text(encoding="utf-8"))
     assert packet["cases"][0]["pipeline_stage"] == "generation"
+
+
+def test_review_prepare_preserves_frozen_case_id_hash(tmp_path: Path) -> None:
+    from kawaneen.phase15.contracts import ReviewCase
+
+    cases = [
+        ReviewCase(
+            case_id=f"case-{i}",
+            language="ar",
+            pipeline_stage="retrieval",
+            legal_category="regulatory",
+            answerability="answerable",
+            severity="medium",
+        ).model_dump(mode="json")
+        for i in range(120)
+    ]
+    candidate_path = tmp_path / "artifacts/private/phase15_evaluation/review_candidates.json"
+    candidate_path.parent.mkdir(parents=True, exist_ok=True)
+    candidate_path.write_text(json.dumps({"cases": cases}), encoding="utf-8")
+    first = phase15_review_prepare(tmp_path)
+    first_manifest = json.loads(Path(first["manifest"]).read_text())
+    second = phase15_review_prepare(tmp_path)
+    second_manifest = json.loads(Path(second["manifest"]).read_text())
+    assert second_manifest["case_ids_sha256"] == first_manifest["case_ids_sha256"]

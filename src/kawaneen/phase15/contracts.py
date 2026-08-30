@@ -41,6 +41,12 @@ class ErrorCategory(StrEnum):
     AMBIGUOUS_QUESTION = "ambiguous question"
 
 
+class ReviewOutcome(StrEnum):
+    CONFIRMED_FAILURE = "CONFIRMED_FAILURE"
+    BORDERLINE_NO_CONFIRMED_FAILURE = "BORDERLINE_NO_CONFIRMED_FAILURE"
+    UNCERTAIN = "UNCERTAIN"
+
+
 class Phase15Model(BaseModel):
     model_config = ConfigDict(
         extra="forbid",
@@ -225,10 +231,24 @@ class GeneratorSubsetManifest(Phase15Model):
 
 class ReviewDecision(Phase15Model):
     case_id: str
-    primary: ErrorCategory
+    outcome: ReviewOutcome
+    primary: ErrorCategory | None = None
     secondary: ErrorCategory | None = None
     confidence: int | None = Field(default=None, ge=1, le=5)
     note: str | None = None
+
+    @model_validator(mode="after")
+    def validate_review_outcome(self) -> Self:
+        if self.outcome is ReviewOutcome.CONFIRMED_FAILURE and self.primary is None:
+            raise ValueError("confirmed failure requires a primary root-cause category")
+        if (
+            self.outcome is ReviewOutcome.BORDERLINE_NO_CONFIRMED_FAILURE
+            and self.primary is not None
+        ):
+            raise ValueError("borderline review outcomes cannot have a primary category")
+        if self.primary is None and self.secondary is not None:
+            raise ValueError("secondary category requires a primary category")
+        return self
 
 
 class ReviewCase(Phase15Model):

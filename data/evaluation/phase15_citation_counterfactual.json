@@ -9,7 +9,6 @@
     "status": "BLOCKED_BEFORE_SCORING_NO_TRUSTWORTHY_4BIT_LOCAL_ARTIFACT"
   },
   "candidate_answer_count": 40,
-  "candidate_answer_coverage_cost": 1.0,
   "candidate_count": 40,
   "coverage_cost": 0.725,
   "coverage_cost_by_failure": {

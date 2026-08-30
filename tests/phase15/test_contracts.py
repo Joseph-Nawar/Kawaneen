@@ -10,6 +10,7 @@ from kawaneen.phase15.contracts import (
     GeneratorSubsetManifest,
     ProvenanceLabel,
     ReviewDecision,
+    ReviewOutcome,
 )
 
 
@@ -64,13 +65,56 @@ def test_generator_subset_requires_exact_phase15_counts() -> None:
         )
 
 
-def test_review_decision_requires_primary_category() -> None:
+def test_review_decision_requires_review_outcome() -> None:
     with pytest.raises(ValidationError):
         ReviewDecision(case_id="case-1", primary=None)
 
     decision = ReviewDecision(
         case_id="case-1",
         primary=ErrorCategory.OCR_FAILURE,
+        outcome=ReviewOutcome.CONFIRMED_FAILURE,
         confidence=2,
     )
     assert decision.primary is ErrorCategory.OCR_FAILURE
+
+
+def test_confirmed_failure_requires_primary_category() -> None:
+    with pytest.raises(ValidationError):
+        ReviewDecision(
+            case_id="case-1",
+            outcome=ReviewOutcome.CONFIRMED_FAILURE,
+            primary=None,
+        )
+
+
+def test_borderline_and_uncertain_allow_null_primary() -> None:
+    borderline = ReviewDecision(
+        case_id="case-1",
+        outcome=ReviewOutcome.BORDERLINE_NO_CONFIRMED_FAILURE,
+        primary=None,
+    )
+    uncertain = ReviewDecision(
+        case_id="case-2",
+        outcome=ReviewOutcome.UNCERTAIN,
+        primary=None,
+    )
+    assert borderline.primary is None
+    assert uncertain.primary is None
+
+
+def test_borderline_rejects_failure_category() -> None:
+    with pytest.raises(ValidationError):
+        ReviewDecision(
+            case_id="case-1",
+            outcome=ReviewOutcome.BORDERLINE_NO_CONFIRMED_FAILURE,
+            primary=ErrorCategory.OCR_FAILURE,
+        )
+
+
+def test_secondary_category_requires_primary_category() -> None:
+    with pytest.raises(ValidationError):
+        ReviewDecision(
+            case_id="case-1",
+            outcome=ReviewOutcome.UNCERTAIN,
+            secondary=ErrorCategory.OCR_FAILURE,
+        )
