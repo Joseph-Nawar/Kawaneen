@@ -1,41 +1,40 @@
 {
   "ai_preclassification_cases": 120,
   "answerability_distribution": {
-    "answerable": 110,
-    "unanswerable": 10
+    "answerable": 117,
+    "unanswerable": 3
   },
   "case_count": 120,
-  "case_ids_sha256": "793cf73fc610d104cfb33ae1fac30cedcdb038a0283923332e5e0fe8517448be",
+  "case_ids_sha256": "8bc039f51344f3af47b817a5e1bbf51d4d087f49768ea5ca2b2ce3a29cd53777",
   "holdout_case_count": 0,
   "language_distribution": {
-    "ar": 51,
-    "ar-egyptian": 19,
-    "ar-en": 6,
-    "ar-gulf_saudi": 19,
-    "ar-levantine": 19,
-    "en": 6
+    "ar": 68,
+    "ar-en": 28,
+    "ar-gulf_saudi": 1,
+    "ar-levantine": 4,
+    "en": 19
   },
   "legal_category_distribution": {
-    "authority": 16,
-    "case_holding": 15,
-    "conditions": 14,
-    "deadline": 16,
-    "definition": 18,
-    "exact_provision": 21,
-    "multi_evidence": 10,
-    "unanswerable": 10
+    "authority": 9,
+    "case_holding": 21,
+    "conditions": 10,
+    "deadline": 22,
+    "definition": 21,
+    "exact_provision": 25,
+    "multi_evidence": 9,
+    "unanswerable": 3
   },
   "pipeline_stage_distribution": {
-    "dialect": 57,
-    "generation": 17,
-    "normalization": 16,
+    "dialect": 5,
+    "generation": 32,
+    "normalization": 40,
     "reranking": 2,
-    "retrieval": 28
+    "retrieval": 41
   },
   "provenance": "PHASE15_DEV",
   "schema_version": "phase15-review-v1",
   "severity_distribution": {
-    "high": 68,
-    "medium": 52
+    "high": 17,
+    "medium": 103
   }
 }

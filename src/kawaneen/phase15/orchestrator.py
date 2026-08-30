@@ -44,6 +44,7 @@ from .selection import (
 TRACKED_MANIFEST_ROOT = Path("data/manifests/evaluation")
 TRACKED_EVALUATION_ROOT = Path("data/evaluation")
 PRIVATE_ROOT = Path("artifacts/private/phase15_evaluation")
+AI_SUGGESTION_OUTPUT_LIMIT = 128
 DEFAULT_HISTORICAL_PRIVATE_ROOT = Path("../Kawaneen/artifacts/private")
 FORBIDDEN_FINAL_ARTIFACTS = (
     TRACKED_EVALUATION_ROOT / "phase15_error_analysis.json",
@@ -188,6 +189,18 @@ def phase15_review_prepare(
         )
     payload = json.loads(candidate_path.read_text(encoding="utf-8"))
     cases = tuple(ReviewCase.model_validate(item) for item in payload.get("cases", ()))
+    ai_path = root / PRIVATE_ROOT / "review/ai_suggestions.json"
+    if ai_path.is_file():
+        ai_payload = json.loads(ai_path.read_text(encoding="utf-8"))
+        ai_case_ids = {
+            str(item.get("case_id"))
+            for item in ai_payload.get("suggestions", ())
+            if isinstance(item, dict)
+        }
+        if len(ai_case_ids) == len(cases) and ai_case_ids == {case.case_id for case in cases}:
+            cases = tuple(
+                case.model_copy(update={"ai_preclassification_attempted": True}) for case in cases
+            )
     manifest = prepare_review_packet(cases, packet_path, manifest_path)
     if not progress_path.exists():
         write_json_atomic(
@@ -616,6 +629,104 @@ def phase15_generation_run(
     return result
 
 
+def _dialect_rewrite_prompt(text: str, dialect_name: str, variation: int) -> str:
+    """Return the fixed prompt used for every bounded dialect rewrite attempt."""
+
+    examples = {
+        "Egyptian Arabic": "إيه المسألتين اللي الدائرة اتحققت منهم؟",
+        "Gulf/Saudi Arabic": "وش المسألتين اللي تحققت منهم الدائرة؟",
+        "Levantine Arabic": "شو المسألتين اللي تحققت منهم الدائرة؟",
+    }
+    example = examples.get(dialect_name, "إيه المسألتين اللي الدائرة اتحققت منهم؟")
+    return (
+        f"Rewrite this MSA legal question into natural {dialect_name}. "
+        "This is a controlled paraphrase: preserve every content word, legal noun, fact, number, "
+        "and identifier exactly; only change function words, verb inflection, word order, and "
+        "dialect vocabulary. Do not summarize or substitute nouns. Output one question only. "
+        "The rewrite must be naturally different from the MSA, not merely a discourse prefix. "
+        "Use the smallest safe rewrite.\n"
+        f"Example MSA: ما المسألتان اللتان تحققت منهما الدائرة؟ {dialect_name}: {example}\n"
+        f"Variation {variation}.\nMSA: {text}"
+    )
+
+
+def _dialect_safe_retry_prompt(text: str, dialect_name: str) -> str:
+    """Use a copy-preserving retry when a free rewrite changes a legal fact."""
+
+    examples = {
+        "Egyptian Arabic": "ما المسألة التي قررتها المحكمة؟ -> إيه المسألة اللي قررتها المحكمة؟",
+        "Gulf/Saudi Arabic": "ما المسألة التي قررتها المحكمة؟ -> وش المسألة اللي قررتها المحكمة؟",
+        "Levantine Arabic": "ما المسألة التي قررتها المحكمة؟ -> شو المسألة اللي قررتها المحكمة؟",
+    }
+    example = examples.get(dialect_name, examples["Egyptian Arabic"])
+    replacements = {
+        "Egyptian Arabic": {
+            "أي محكمة": "إيه المحكمة اللي",
+            "ماذا": "إيه",
+            "ما": "إيه",
+            "أي": "أنهي",
+            "كيف": "إزاي",
+            "أين": "فين",
+            "متى": "إمتى",
+            "لماذا": "ليه",
+            "من": "مين اللي",
+            "هل": "إيه اللي",
+            "كم": "كام",
+        },
+        "Gulf/Saudi Arabic": {
+            "أي محكمة": "وش المحكمة اللي",
+            "ماذا": "وش",
+            "ما": "وش",
+            "أي": "أي",
+            "كيف": "شلون",
+            "أين": "وين",
+            "متى": "متى",
+            "لماذا": "ليش",
+            "من": "منو",
+            "هل": "وش اللي",
+            "كم": "كم",
+        },
+        "Levantine Arabic": {
+            "أي محكمة": "شو المحكمة اللي",
+            "ماذا": "شو",
+            "ما": "شو",
+            "أي": "أي",
+            "كيف": "كيف",
+            "أين": "وين",
+            "متى": "إيمتى",
+            "لماذا": "ليش",
+            "من": "مين هو اللي",
+            "هل": "شو اللي",
+            "كم": "قديش",
+        },
+    }
+    dialect_replacements = replacements.get(dialect_name, replacements["Egyptian Arabic"])
+    question_clause = text.rsplit("،", 1)[-1]
+    prefix, separator, _ = text.rpartition("،")
+    scope_instruction = (
+        f"Copy the exact text before the final comma ({prefix}،) without any change, and edit "
+        "only the final question clause. "
+        if separator
+        else "Copy the entire question exactly and edit only its question/function words. "
+    )
+    replacement = next(
+        (
+            f"replace only the question word {source} with its dialect equivalent {target}"
+            for source, target in dialect_replacements.items()
+            if re.search(rf"(?<!\w){re.escape(source)}(?!\w)", question_clause)
+        ),
+        "replace only question/function words with natural dialect equivalents",
+    )
+    return (
+        f"Rewrite the following legal question in natural {dialect_name}. {scope_instruction}"
+        "Copy the remaining text exactly "
+        "and changing only question/function words, relative words, verb inflection, or word "
+        "order. Do not change any content word, legal noun, fact, number, article/provision "
+        f"identifier, or answer scope. Do not summarize or paraphrase; {replacement}. Example: "
+        f"{example} Output only the rewritten question. MSA: {text}"
+    )
+
+
 def phase15_dialect_prepare(
     root: Path = Path("."), historical_root: Path | None = None
 ) -> dict[str, Any]:
@@ -682,23 +793,23 @@ def phase15_dialect_prepare(
         for dialect, dialect_name in dialect_instructions.items():
             variant_digest = hashlib.sha256(f"{intent_id}:{dialect}".encode()).hexdigest()[:16]
             variant_id = f"dialect-{dialect}-{variant_digest}"
-            prompt = (
-                f"/no_think\nRewrite the legal question naturally in {dialect_name}. "
-                "Output only the "
-                "question. Preserve the exact legal intent, jurisdiction, dates, numbers, and "
-                "article/provision identifiers. Do not add, remove, narrow, or broaden facts. "
-                "Keep legal nouns and identifiers close to the original, but perform a genuine "
-                "lexical or syntactic rewrite; a discourse prefix before unchanged MSA is not "
-                "acceptable. Use distinct natural wording for variation "
-                f"{int(variant_digest[:4], 16)}."
-                f"\nMSA question: {text}"
-            )
+            prompt = _dialect_rewrite_prompt(text, dialect_name, int(variant_digest[:4], 16))
             accepted = False
             transformed = ""
             for attempt in range(1, 6):
+                generation_prompt = (
+                    prompt if attempt < 4 else _dialect_safe_retry_prompt(text, dialect_name)
+                )
                 transformed = model.generate(
-                    prompt + f"\nRegeneration attempt: {attempt}. Rewrite verbs, question words, "
-                    "word order, or dialect vocabulary while preserving every identifier.",
+                    generation_prompt
+                    + (
+                        f"\nRegeneration attempt: {attempt}. Make the smallest safe rewrite: "
+                        "if unsure, copy the MSA wording and change only the interrogative or "
+                        "function words to the requested dialect. Never change a legal noun, "
+                        "proposition, fact, or scope."
+                        if attempt < 4
+                        else ""
+                    ),
                     max_new_tokens=160,
                 )
                 if transformed.startswith("```"):
@@ -707,7 +818,12 @@ def phase15_dialect_prepare(
                     f"/no_think\nCompare the MSA question and its {dialect_name} rewrite. "
                     "Return JSON only, "
                     '{"accepted":true} if the legal intent and all explicit facts are unchanged, '
-                    'otherwise {"accepted":false}. Do not reject a polite dialect phrase.\n'
+                    'otherwise {"accepted":false}. Treat هل -> إيه اللي/وش اللي/شو اللي, '
+                    "ما or ماذا -> إيه/وش/شو, أي -> أنهي/وش/شو, "
+                    "من -> مين اللي/مين هو اللي/منو, هل -> إيه اللي/وش اللي/شو اللي, "
+                    "كم -> كام/قديش, and التي -> اللي as equivalent dialect function-word "
+                    "rewrites; "
+                    "do not reject a natural dialect phrase.\n"
                     f"MSA: {text}\nRewrite: {transformed}"
                 )
                 validation_output = model.generate(validation_prompt, max_new_tokens=40)
@@ -786,10 +902,12 @@ def phase15_dialect_prepare(
             "cross_variant_duplicates": 0,
             "prefix_only_variants": 0,
             "min_normalized_edit_ratio": min(
-                float(item["normalized_edit_ratio"]) for item in generation_audit.values()
+                float(cast(float, item["normalized_edit_ratio"]))
+                for item in generation_audit.values()
             ),
             "median_normalized_edit_ratio": sorted(
-                float(item["normalized_edit_ratio"]) for item in generation_audit.values()
+                float(cast(float, item["normalized_edit_ratio"]))
+                for item in generation_audit.values()
             )[len(generation_audit) // 2],
         },
     }
@@ -1226,18 +1344,32 @@ def phase15_collect_review_candidates(
     suggestion_model = LocalOllamaInstructionModel("qwen3:4b-instruct-2507-q4_K_M")
     suggestions: list[dict[str, Any]] = []
     allowed = ", ".join(item.value for item in ErrorCategory)
-    for start in range(0, len(cases), 20):
-        batch = cases[start : start + 20]
+    # One case per request keeps the compact diagnostic response within the local
+    # model's deterministic JSON budget; it does not expose suggestions to the UI.
+    for start in range(0, len(cases)):
+        batch = cases[start : start + 1]
         compact = "\n".join(
             json.dumps(
                 {
                     "case_id": case["case_id"],
-                    "query": case.get("query_text"),
-                    "expected_evidence": case.get("evidence_text"),
                     "stage": case["pipeline_stage"],
                     "category": case["legal_category"],
                     "answerability": case["answerability"],
-                    "diagnostics": case["diagnostics"],
+                    "diagnostics": {
+                        key: case["diagnostics"].get(key)
+                        for key in (
+                            "trigger",
+                            "source",
+                            "systems",
+                            "normalization",
+                            "before_recall",
+                            "after_recall",
+                            "generator",
+                            "decision",
+                            "reason",
+                        )
+                        if key in case["diagnostics"]
+                    },
                 },
                 ensure_ascii=False,
                 sort_keys=True,
@@ -1249,7 +1381,8 @@ def phase15_collect_review_candidates(
             "This is assistance, not a human label. Return JSON only as "
             '{"suggestions":[{"case_id":"...","primary_category":"...",'
             '"secondary_category":null,"confidence":1,"rationale":"..."}]}. '
-            f"Choose primary from: {allowed}.\nCASES:\n{compact}"
+            f"Choose primary from: {allowed}. Use a rationale of at most five words.\n"
+            f"CASE:\n{compact}"
         )
         parsed: dict[str, Any] | None = None
         for attempt in range(2):
@@ -1259,7 +1392,7 @@ def phase15_collect_review_candidates(
                     + (
                         "\nRetry: return one valid suggestion for every case ID." if attempt else ""
                     ),
-                    max_new_tokens=640,
+                    max_new_tokens=AI_SUGGESTION_OUTPUT_LIMIT,
                 )
             )
             if isinstance(parsed, dict) and isinstance(parsed.get("suggestions"), list):
@@ -1276,6 +1409,7 @@ def phase15_collect_review_candidates(
             else {}
         )
         for case in batch:
+            case["ai_preclassification_attempted"] = True
             parsed = by_case_id.get(case["case_id"], {})
             try:
                 primary = ErrorCategory(str(parsed.get("primary_category")))

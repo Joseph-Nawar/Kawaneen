@@ -216,6 +216,7 @@ def run_dialect_retrieval_matrix(
     }
     dialect_output = cast(dict[str, object], output["dialects"])
     private_rankings: dict[str, dict[str, dict[str, tuple[str, ...]]]] = {}
+    metric_n_by_dialect: dict[str, int] = {}
     pooled: dict[str, dict[str, list[float]]] = {name: {} for name in base_rankings}
     for dialect, rows in variant_records_by_dialect.items():
         run_rankings = systems_for(rows)
@@ -235,9 +236,11 @@ def run_dialect_retrieval_matrix(
                 if metric in selected_metrics
             }
             system_output[system] = {
-                "n": len(rows),
+                "selected_intents": len(rows),
+                "n": len(selected_metrics.get("Recall@10", ())),
                 "dialect_minus_msa": _metric_deltas(selected_metrics, baseline_selected),
             }
+            metric_n_by_dialect.setdefault(dialect, len(selected_metrics.get("Recall@10", ())))
             for metric, values in selected_metrics.items():
                 pooled[system].setdefault(metric, []).extend(values)
         dialect_output[dialect] = system_output
@@ -248,9 +251,15 @@ def run_dialect_retrieval_matrix(
             for metric in values
         }
         pooled_output[system] = {
-            "n": sum(len(rows) for rows in variant_records_by_dialect.values()),
+            "selected_intents": sum(len(rows) for rows in variant_records_by_dialect.values()),
+            "n": len(next(iter(values.values()), ())),
             "dialect_minus_msa": _metric_deltas(values, baseline),
         }
+    output["denominators"] = {
+        "selected_base_intents": len(base_records),
+        "retrieval_metric_n_by_dialect": metric_n_by_dialect,
+        "retrieval_metric_n_pooled": len(next(iter(pooled.values()), [])),
+    }
     output["pooled"] = pooled_output
     write_json_atomic(
         roots.output_path("dialect/per_query_rankings.json"),
@@ -392,6 +401,19 @@ def local_runtime_identity() -> dict[str, str]:
     }
 
 
+def timed_result_chunk_ids(results: Sequence[Any]) -> tuple[str, ...]:
+    """Normalize bare retrieval hits and reranker ``(hit, score)`` pairs."""
+
+    chunk_ids: list[str] = []
+    for result in results:
+        hit = result[0] if isinstance(result, tuple) and result else result
+        chunk_id = getattr(hit, "chunk_id", None)
+        if not isinstance(chunk_id, str):
+            raise TypeError("latency operation returned an item without a chunk_id")
+        chunk_ids.append(chunk_id)
+    return tuple(chunk_ids)
+
+
 def run_latency_experiment(roots: Phase15InputRoots) -> dict[str, object]:
     """Measure fixed batch-1 DEV operations end-to-end on one CPU runtime class."""
 
@@ -504,12 +526,12 @@ def run_latency_experiment(roots: Phase15InputRoots) -> dict[str, object]:
         p50 = float(np.median([item.p50_ms for item in timings]))
         p95 = float(np.percentile([item.p95_ms for item in timings], 95))
         quality_rows = {
-            str(record["query_id"]): tuple(
-                hit.chunk_id for hit in cast(Sequence[Any], operation(name, index))
+            str(record["query_id"]): timed_result_chunk_ids(
+                cast(Sequence[Any], operation(name, index))
             )
             for index, record in enumerate(selected)
         }
-        quality = evaluate_dev_rankings(selected, quality_rows, chunks).metrics
+        quality = evaluate_dev_rankings(selected, quality_rows, chunks_rows).metrics
         summaries[name] = {
             "p50_ms": p50,
             "p95_ms": p95,
@@ -728,9 +750,10 @@ def run_fallback_generator(
             if "chunk_id" in qrel
         }
         evidence = {str(row["evidence_id"]): row for row in evidence_by_query[query_id]}
+        final_result = cast(dict[str, Any], item["final_result"])
         cited_ids = {
             str(citation.get("evidence_id"))
-            for claim in item["final_result"].get("claims", [])
+            for claim in final_result.get("claims", [])
             for citation in claim.get("citations", [])
         }
         cited_rows = [evidence[eid] for eid in cited_ids if eid in evidence]

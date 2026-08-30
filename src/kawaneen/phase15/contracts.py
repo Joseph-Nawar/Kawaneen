@@ -244,6 +244,7 @@ class ReviewCase(Phase15Model):
     evidence_text: str | None = None
     diagnostics: dict[str, Any] = {}
     ai_suggestion: ErrorCategory | None = None
+    ai_preclassification_attempted: bool = False
 
     @model_validator(mode="after")
     def dev_only(self) -> Self:

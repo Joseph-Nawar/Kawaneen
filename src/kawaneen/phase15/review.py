@@ -45,7 +45,10 @@ def build_review_manifest(cases: Iterable[ReviewCase]) -> dict[str, Any]:
         "legal_category_distribution": counts("legal_category"),
         "answerability_distribution": counts("answerability"),
         "severity_distribution": counts("severity"),
-        "ai_preclassification_cases": sum(case.ai_suggestion is not None for case in case_list),
+        "ai_preclassification_cases": sum(
+            case.ai_preclassification_attempted or case.ai_suggestion is not None
+            for case in case_list
+        ),
         "provenance": "PHASE15_DEV",
     }
 

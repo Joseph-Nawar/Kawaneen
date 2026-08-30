@@ -42,6 +42,15 @@ def test_packet_is_exactly_120_dev_cases_and_manifest_is_text_free(tmp_path: Pat
     assert all(not case["holdout"] for case in packet["cases"])
 
 
+def test_manifest_counts_unavailable_ai_attempts_without_assigning_categories() -> None:
+    cases = tuple(
+        case.model_copy(update={"ai_preclassification_attempted": True}) for case in _cases()
+    )
+    manifest = build_review_manifest(cases)
+    assert manifest["ai_preclassification_cases"] == 120
+    assert all(case.ai_suggestion is None for case in cases)
+
+
 def test_atomic_review_progress_resumes_and_deduplicates(tmp_path: Path) -> None:
     packet_path = tmp_path / "packet.json"
     prepare_review_packet(_cases(), packet_path, tmp_path / "manifest.json")

@@ -12,7 +12,16 @@ from kawaneen.phase15.dialect import DialectVariant, validate_variants_before_ou
 from kawaneen.phase15.embedding import EmbeddingRun, create_arabic_model_lock
 from kawaneen.phase15.generation import validate_allam_preflight
 from kawaneen.phase15.latency import measure_latency
-from kawaneen.phase15.real_experiments import FALLBACK_OUTPUT_LIMIT, normalized_embedding_texts
+from kawaneen.phase15.orchestrator import (
+    AI_SUGGESTION_OUTPUT_LIMIT,
+    _dialect_rewrite_prompt,
+    _dialect_safe_retry_prompt,
+)
+from kawaneen.phase15.real_experiments import (
+    FALLBACK_OUTPUT_LIMIT,
+    normalized_embedding_texts,
+    timed_result_chunk_ids,
+)
 from kawaneen.phase15.reranking import evaluate_reranking
 
 
@@ -139,6 +148,47 @@ def test_dialect_validator_rejects_prefix_only_rewrite() -> None:
     variants[0] = variants[0].model_copy(update={"text": "ممكن أعرف، ما هي المادة 12؟"})
     with pytest.raises(ValueError, match="prefix-only"):
         validate_variants_before_outcomes(base, variants)
+
+
+def test_dialect_prompt_protects_legal_nouns_and_requires_real_rewrite() -> None:
+    prompt = _dialect_rewrite_prompt(
+        "ما المسألتان اللتان تحققت منهما الدائرة؟", "Egyptian Arabic", 123
+    )
+    prompt_lower = prompt.lower()
+    assert "preserve every content word" in prompt_lower
+    assert "dialect vocabulary" in prompt_lower
+    assert "do not summarize" in prompt_lower
+    assert "prefix" in prompt
+    assert "smallest safe rewrite" in prompt_lower
+    assert "/no_think" not in prompt_lower
+
+
+def test_dialect_safe_retry_locks_factual_proposition() -> None:
+    prompt = _dialect_safe_retry_prompt(
+        "في نزاع عقد التسويق، ماذا قضت المحكمة؟", "Egyptian Arabic"
+    ).lower()
+    assert "copy the exact text before the final comma" in prompt
+    assert "changing only question/function words" in prompt
+    assert "replace only" in prompt
+
+
+def test_dialect_safe_retry_looks_for_interrogative_after_clause_boundary() -> None:
+    prompt = _dialect_safe_retry_prompt(
+        "وفق المادة 16 من نظام المحاكم التجارية، من يختص بنزاع تجاري؟",
+        "Gulf/Saudi Arabic",
+    )
+    assert "question word من with its dialect equivalent منو" in prompt
+
+
+def test_latency_quality_unwraps_reranker_pairs() -> None:
+    class Hit:
+        chunk_id = "chunk-1"
+
+    assert timed_result_chunk_ids((Hit(), (Hit(), 0.5))) == ("chunk-1", "chunk-1")
+
+
+def test_ai_suggestion_budget_leaves_room_for_valid_json() -> None:
+    assert AI_SUGGESTION_OUTPUT_LIMIT == 128
 
 
 def test_embedding_normalization_applies_to_each_text() -> None:
