@@ -10,7 +10,7 @@
       ],
       "effect_and_ci": "No Phase 15 re-estimation; see frozen paired intervals in the Phase 5 artifact.",
       "limitations": "Historical challenge and tracked aggregate; not a production correctness guarantee.",
-      "population": "Phase 5 150-query chunking challenge",
+      "population": "Phase 5 180-query chunking challenge",
       "primary_evidence": "legal-structure-v1 exceeded fixed-256-v1 on Recall@10, MRR@10, nDCG@10 and citation precision.",
       "provenance": "HISTORICAL_FROZEN",
       "question": "Does structure-aware chunking outperform fixed chunks for Arabic legal retrieval?",
@@ -45,13 +45,13 @@
       "artifact_refs": [
         "data/evaluation/phase15_reranking_metrics.json"
       ],
-      "effect_and_ci": "Recall@10 delta +0.0435, 95% CI [0.0000, 0.1087], 2 wins/44 ties/0 losses; MRR@10 delta +0.0101, CI [0.0000, 0.0275], 3/43/0.",
-      "limitations": "Enriched deterministic hard slice; operational retrieval gain, not legal-answer correctness.",
+      "effect_and_ci": "Recall@10 delta +0.043478, 95% CI [0.000000, 0.108696], 2 wins/44 ties/0 losses; MRR@10 delta +0.010145, CI [0.000000, 0.027536], 3/43/0; nDCG@10 delta +0.017562, CI [0.000000, 0.045177], 3/43/0; CompleteEvidenceRecall@10 delta +0.043478, CI [0.000000, 0.108696], 2/44/0.",
+      "limitations": "The 95% bootstrap intervals include zero; evidence supports a directional benefit but not a precise or robust population-wide effect. The slice is enriched and operational, not a legal-answer correctness evaluation.",
       "population": "46-query corrected Phase 15 hard DEV slice",
-      "primary_evidence": "Frozen hybrid plus BGE reranking has positive paired deltas on all four reported hard-slice metrics.",
+      "primary_evidence": "Reranking produced small positive observed effects with no measured losses on the enriched hard-query slice, but improvements occurred on only 2-3 of 46 queries.",
       "provenance": "PHASE15_DEV",
       "question": "How much does reranking improve hard legal queries?",
-      "status": "SUPPORTED"
+      "status": "PARTIALLY_SUPPORTED"
     },
     {
       "artifact_refs": [

@@ -9,7 +9,7 @@ import json
 from collections import Counter
 from collections.abc import Mapping
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 from .contracts import ErrorCategory, ReviewOutcome
 from .evidence import RESEARCH_QUESTIONS
@@ -88,7 +88,14 @@ def build_error_analysis(
     }
 
 
-def build_research_questions() -> dict[str, Any]:
+def build_research_questions(*, phase5_metrics: Mapping[str, Any]) -> dict[str, Any]:
+    challenge_value = phase5_metrics.get("challenge")
+    if not isinstance(challenge_value, Mapping):
+        raise ValueError("phase5 metrics must contain an integer challenge.query_count")
+    challenge = cast(Mapping[str, Any], challenge_value)
+    phase5_query_count = challenge.get("query_count")
+    if not isinstance(phase5_query_count, int):
+        raise ValueError("phase5 metrics must contain an integer challenge.query_count")
     refs = {
         1: ["data/evaluation/phase5_chunking_metrics.json"],
         2: [
@@ -114,7 +121,7 @@ def build_research_questions() -> dict[str, Any]:
         {
             "question": RESEARCH_QUESTIONS[0],
             "status": "SUPPORTED",
-            "population": "Phase 5 150-query chunking challenge",
+            "population": f"Phase 5 {phase5_query_count}-query chunking challenge",
             "provenance": "HISTORICAL_FROZEN",
             "primary_evidence": "legal-structure-v1 exceeded fixed-256-v1 on Recall@10, MRR@10, nDCG@10 and citation precision.",
             "effect_and_ci": "No Phase 15 re-estimation; see frozen paired intervals in the Phase 5 artifact.",
@@ -143,12 +150,12 @@ def build_research_questions() -> dict[str, Any]:
         },
         {
             "question": RESEARCH_QUESTIONS[3],
-            "status": "SUPPORTED",
+            "status": "PARTIALLY_SUPPORTED",
             "population": "46-query corrected Phase 15 hard DEV slice",
             "provenance": "PHASE15_DEV",
-            "primary_evidence": "Frozen hybrid plus BGE reranking has positive paired deltas on all four reported hard-slice metrics.",
-            "effect_and_ci": "Recall@10 delta +0.0435, 95% CI [0.0000, 0.1087], 2 wins/44 ties/0 losses; MRR@10 delta +0.0101, CI [0.0000, 0.0275], 3/43/0.",
-            "limitations": "Enriched deterministic hard slice; operational retrieval gain, not legal-answer correctness.",
+            "primary_evidence": "Reranking produced small positive observed effects with no measured losses on the enriched hard-query slice, but improvements occurred on only 2-3 of 46 queries.",
+            "effect_and_ci": "Recall@10 delta +0.043478, 95% CI [0.000000, 0.108696], 2 wins/44 ties/0 losses; MRR@10 delta +0.010145, CI [0.000000, 0.027536], 3/43/0; nDCG@10 delta +0.017562, CI [0.000000, 0.045177], 3/43/0; CompleteEvidenceRecall@10 delta +0.043478, CI [0.000000, 0.108696], 2/44/0.",
+            "limitations": "The 95% bootstrap intervals include zero; evidence supports a directional benefit but not a precise or robust population-wide effect. The slice is enriched and operational, not a legal-answer correctness evaluation.",
             "artifact_refs": refs[4],
         },
         {
@@ -193,12 +200,17 @@ def build_research_questions() -> dict[str, Any]:
 
 
 def write_final_aggregates(root: Path, audit_payload: Mapping[str, Any]) -> tuple[Path, Path]:
+    phase5_metrics = json.loads(
+        (root / "data/evaluation/phase5_chunking_metrics.json").read_text(encoding="utf-8")
+    )
     content = json.loads(
         (root / "data/evaluation/phase15_dialect_content_validity.json").read_text(encoding="utf-8")
     )
     error = build_error_analysis(audit_payload, content_audit=content)
     error_path = write_aggregate_artifact(root, "phase15_error_analysis.json", error)
     rq_path = write_aggregate_artifact(
-        root, "phase15_research_questions.json", build_research_questions()
+        root,
+        "phase15_research_questions.json",
+        build_research_questions(phase5_metrics=phase5_metrics),
     )
     return error_path, rq_path

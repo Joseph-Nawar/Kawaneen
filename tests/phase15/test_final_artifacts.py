@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 from kawaneen.phase15.contracts import ErrorCategory, ReviewOutcome
 from kawaneen.phase15.figures import build_report_figures
 from kawaneen.phase15.final_artifacts import (
@@ -63,12 +65,24 @@ def test_final_aggregate_builders_are_text_free_and_have_seven_questions(tmp_pat
     (tmp_path / "data/evaluation/phase15_dialect_content_validity.json").write_text(
         json.dumps(content), encoding="utf-8"
     )
+    authoritative_phase5 = json.loads(
+        (Path(__file__).parents[2] / "data/evaluation/phase5_chunking_metrics.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    (tmp_path / "data/evaluation/phase5_chunking_metrics.json").write_text(
+        json.dumps(authoritative_phase5), encoding="utf-8"
+    )
     error = build_error_analysis(_audit_payload(), content_audit=content)
     assert error["confirmed_failure_taxonomy"] == {ErrorCategory.LEXICAL_MISMATCH.value: 1}
     assert error["borderline_count"] == 1
-    questions = build_research_questions()
+    questions = build_research_questions(phase5_metrics=authoritative_phase5)
     assert questions["frozen_count"] == 7
     assert len(questions["research_questions"]) == 7
+    assert questions["research_questions"][0]["population"] == (
+        f"Phase 5 {authoritative_phase5['challenge']['query_count']}-query chunking challenge"
+    )
+    assert questions["research_questions"][3]["status"] == "PARTIALLY_SUPPORTED"
     error_path, question_path = write_final_aggregates(tmp_path, _audit_payload())
     assert error_path.is_file() and question_path.is_file()
 
@@ -138,3 +152,10 @@ def test_report_figures_use_only_aggregate_inputs(tmp_path: Path) -> None:
     paths = build_report_figures(tmp_path)
     assert len(paths) == 6
     assert all(path.suffix == ".svg" and path.stat().st_size > 0 for path in paths)
+
+
+def test_research_questions_require_authoritative_phase5_query_count() -> None:
+    with pytest.raises(ValueError, match="query_count"):
+        build_research_questions(phase5_metrics={})
+    with pytest.raises(ValueError, match="query_count"):
+        build_research_questions(phase5_metrics={"challenge": {"query_count": "180"}})

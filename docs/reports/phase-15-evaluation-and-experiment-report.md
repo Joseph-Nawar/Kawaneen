@@ -62,7 +62,7 @@ labels were collected.
 ## Historical evidence: Phases 3–11 and 14
 
 The Phase 3 split and Phase 4–6 artifacts establish the frozen evaluation
-context. On the Phase 5 150-query challenge, `legal-structure-v1` achieved
+context. On the Phase 5 180-query challenge, `legal-structure-v1` achieved
 Recall@10 0.7392, MRR@10 0.6916, and nDCG@10 0.6837, versus 0.7278, 0.6460,
 and 0.6394 for `fixed-256-v1`. Its citation precision at rank 1 was 0.1299
 versus 0.0363 for fixed-256. The Phase 5 decision selected
@@ -120,10 +120,16 @@ The corrected pre-registered hard rule is a deterministic OR over
 `long_query`, or `min_pre_rerank_relevant_rank_for_hard=20`. It selected 46 DEV
 queries; the earlier 19-query result is superseded for implementation mismatch.
 
-On the corrected slice, hybrid-plus-reranker versus hybrid produced Recall@10
-delta +0.0435, 95% CI [0.0000, 0.1087], with 2 wins, 44 ties, and 0 losses;
-MRR@10 delta +0.0101, CI [0.0000, 0.0275], with 3 wins, 43 ties, and 0 losses.
-The full four-metric result and rank-biserial values are in
+On the corrected slice, hybrid-plus-reranker versus hybrid produced small
+positive observed effects with no measured losses: Recall@10 delta +0.043478,
+95% CI [0.000000, 0.108696], with 2 wins, 44 ties, and 0 losses; MRR@10 delta
++0.010145, CI [0.000000, 0.027536], with 3 wins, 43 ties, and 0 losses;
+nDCG@10 delta +0.017562, CI [0.000000, 0.045177], with 3 wins, 43 ties, and 0
+losses; and CompleteEvidenceRecall@10 delta +0.043478, CI [0.000000,
+0.108696], with 2 wins, 44 ties, and 0 losses. Improvements occurred on only
+2–3 of 46 queries and the 95% bootstrap intervals include zero; therefore the
+evidence supports a directional benefit but not a precise or robust
+population-wide effect. The full result and rank-biserial values are in
 `data/evaluation/phase15_reranking_metrics.json`. This is an operational
 retrieval result on an enriched slice, not proof of legal-answer correctness.
 
@@ -262,7 +268,7 @@ limitations are recorded in `data/evaluation/phase15_research_questions.json`.
 | Structure-aware chunking versus fixed chunks | SUPPORTED |
 | Effect of light Arabic normalization | PARTIALLY_SUPPORTED |
 | Hybrid versus dense across Arabic and English | INCONCLUSIVE |
-| Hard-query reranking | SUPPORTED |
+| Hard-query reranking | PARTIALLY_SUPPORTED |
 | Dialectal robustness | INCONCLUSIVE |
 | Citation verification | SUPPORTED for measured contract defects |
 | Zero-cost local generation | PARTIALLY_SUPPORTED; the Phase 15 fallback was a negative contract result |
