@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430">
+<title>Generator outcome rates</title>
+<g fill="none" stroke="currentColor" stroke-width="1">
+<path d="M 190 340.0 H 840"/>
+<path d="M 190 90 V 340"/>
+</g>
+<text x="190" y="32" font-family="sans-serif" font-size="20">Generator outcome rates</text>
+<rect x="263.3" y="340.0" width="70.0" height="0.0" fill="currentColor" opacity="0.72"/>
+<text x="298.3" y="332.0" text-anchor="middle" font-family="sans-serif" font-size="13">0.000</text>
+<text x="298.3" y="364" text-anchor="middle" font-family="sans-serif" font-size="12">supported</text>
+<rect x="480.0" y="340.0" width="70.0" height="0.0" fill="currentColor" opacity="0.72"/>
+<text x="515.0" y="332.0" text-anchor="middle" font-family="sans-serif" font-size="13">0.000</text>
+<text x="515.0" y="364" text-anchor="middle" font-family="sans-serif" font-size="12">coverage</text>
+<rect x="696.7" y="90.0" width="70.0" height="250.0" fill="currentColor" opacity="0.72"/>
+<text x="731.7" y="82.0" text-anchor="middle" font-family="sans-serif" font-size="13">1.000</text>
+<text x="731.7" y="364" text-anchor="middle" font-family="sans-serif" font-size="12">invalid</text>
+</svg>

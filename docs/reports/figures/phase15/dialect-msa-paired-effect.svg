@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430">
+<title>Dialect minus MSA Recall@10</title>
+<g fill="none" stroke="currentColor" stroke-width="1">
+<path d="M 190 340.0 H 840"/>
+<path d="M 190 90 V 340"/>
+</g>
+<text x="190" y="32" font-family="sans-serif" font-size="20">Dialect minus MSA Recall@10</text>
+<rect x="236.2" y="340.0" width="70.0" height="0.0" fill="currentColor" opacity="0.72"/>
+<text x="271.2" y="332.0" text-anchor="middle" font-family="sans-serif" font-size="13">0.000</text>
+<text x="271.2" y="364" text-anchor="middle" font-family="sans-serif" font-size="12">Egyptian</text>
+<rect x="398.8" y="325.3" width="70.0" height="14.7" fill="currentColor" opacity="0.72"/>
+<text x="433.8" y="317.3" text-anchor="middle" font-family="sans-serif" font-size="13">0.059</text>
+<text x="433.8" y="364" text-anchor="middle" font-family="sans-serif" font-size="12">Gulf/Saudi</text>
+<rect x="561.2" y="340.0" width="70.0" height="0.0" fill="currentColor" opacity="0.72"/>
+<text x="596.2" y="332.0" text-anchor="middle" font-family="sans-serif" font-size="13">0.000</text>
+<text x="596.2" y="364" text-anchor="middle" font-family="sans-serif" font-size="12">Levantine</text>
+<rect x="723.8" y="335.3" width="70.0" height="4.7" fill="currentColor" opacity="0.72"/>
+<text x="758.8" y="327.3" text-anchor="middle" font-family="sans-serif" font-size="13">0.019</text>
+<text x="758.8" y="364" text-anchor="middle" font-family="sans-serif" font-size="12">Pooled</text>
+</svg>
