@@ -19,6 +19,9 @@ from .automated_adjudication import (
     validate_automated_adjudication,
     write_automated_audit_artifacts,
 )
+from .content_audit import PRIVATE_PATH as DIALECT_CONTENT_PRIVATE_PATH
+from .content_audit import TRACKED_FILENAME as DIALECT_CONTENT_TRACKED_FILENAME
+from .content_audit import validate_dialect_content_audit
 from .contracts import ALLAM_MODEL, ErrorCategory, ModelLock, ReviewCase
 from .counterfactuals import candidate_answer_counterfactual
 from .dialect import DialectVariant, validate_variants_before_outcomes
@@ -267,10 +270,57 @@ def phase15_finalize(root: Path = Path(".")) -> dict[str, Any]:
     )
     if len(packet.get("cases", ())) != 120:
         raise RuntimeError("phase15 finalize requires the frozen 120-case review packet")
+    registry_path = root / TRACKED_MANIFEST_ROOT / "phase15_evidence_registry.json"
+    verify_evidence_registry(root, registry_path)
+    required_experiments = (
+        "phase15_embedding_metrics.json",
+        "phase15_dialect_metrics.json",
+        "phase15_reranking_metrics.json",
+        "phase15_generator_metrics.json",
+        "phase15_citation_counterfactual.json",
+        "phase15_abstention_sensitivity.json",
+        "phase15_latency_metrics.json",
+    )
+    experiment_statuses: dict[str, str] = {}
+    for filename in required_experiments:
+        path = root / TRACKED_EVALUATION_ROOT / filename
+        if not path.is_file():
+            raise RuntimeError(f"phase15 finalize requires experiment artifact {filename}")
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        status = str(payload.get("status", ""))
+        if status not in {"RUN", "BLOCKED"}:
+            raise RuntimeError(f"phase15 finalize rejects {filename} with status {status!r}")
+        if status == "BLOCKED" and not payload.get("reason"):
+            raise RuntimeError(f"phase15 finalize requires a concrete blocker in {filename}")
+        experiment_statuses[filename] = status
+    content_path = root / TRACKED_EVALUATION_ROOT / DIALECT_CONTENT_TRACKED_FILENAME
+    content_private_path = root / DIALECT_CONTENT_PRIVATE_PATH
+    if not content_private_path.is_file():
+        raise RuntimeError("phase15 finalize requires the private dialect content audit")
+    try:
+        validate_dialect_content_audit(content_private_path, content_path)
+    except (OSError, ValueError, KeyError, TypeError) as error:
+        raise RuntimeError("phase15 finalize requires a valid dialect content audit") from error
+    final_artifacts = (
+        root / TRACKED_EVALUATION_ROOT / "phase15_error_analysis.json",
+        root / TRACKED_EVALUATION_ROOT / "phase15_research_questions.json",
+        root / Path("docs/reports/phase-15-evaluation-and-experiment-report.md"),
+    )
+    if any(not path.is_file() for path in final_artifacts):
+        raise RuntimeError("phase15 finalize requires the final error analysis, RQs, and report")
+    error_analysis = json.loads(final_artifacts[0].read_text(encoding="utf-8"))
+    if error_analysis.get("methodology_label") != "AUTOMATED_ADJUDICATION_DIAGNOSTIC":
+        raise RuntimeError("phase15 finalize requires automated diagnostic error analysis")
+    research_questions = json.loads(final_artifacts[1].read_text(encoding="utf-8"))
+    if len(research_questions.get("research_questions", ())) != 7:
+        raise RuntimeError("phase15 finalize requires exactly seven research questions")
     return {
         "status": "automated adjudication gate passed",
         "automated_adjudication": validation,
-        "final_report_created": False,
+        "experiment_statuses": experiment_statuses,
+        "final_report_created": True,
+        "human_review_required": False,
+        "human_review_progress": "not applicable; no human labels collected",
     }
 
 

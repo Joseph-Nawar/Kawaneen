@@ -14,7 +14,7 @@ import hashlib
 import json
 import platform
 import time
-from collections.abc import Mapping, Sequence
+from collections.abc import Collection, Mapping, Sequence
 from itertools import chain
 from pathlib import Path
 from typing import Any, cast
@@ -103,6 +103,147 @@ def _metric_observation_count(values: Mapping[str, Sequence[float]]) -> int:
     """Return the number of per-query observations in a metric mapping."""
 
     return len(next(iter(values.values()), ()))
+
+
+def recompute_dialect_metrics_from_persisted_rankings(
+    roots: Phase15InputRoots,
+    variants: Sequence[Mapping[str, Any]],
+    *,
+    base_intent_ids: Sequence[str],
+    excluded_variant_ids: Collection[str] = (),
+    seed: int = 20260826,
+) -> dict[str, object]:
+    """Re-aggregate existing dialect rankings after a text-only exclusion.
+
+    This function evaluates persisted rankings and qrels only.  It never loads
+    an encoder or reranker and therefore cannot create a new retrieval outcome.
+    """
+
+    records = load_dev_query_records(roots)
+    chunks_rows = load_dev_chunks(roots)
+    by_intent = {str(record.get("intent_id")): record for record in records}
+    base_records = [by_intent[str(intent_id)] for intent_id in base_intent_ids]
+    base_qids = tuple(str(record["query_id"]) for record in base_records)
+    base_rankings = {
+        "bm25": load_dev_rankings(
+            roots, "phase7_retrieval/dev/rankings/bm25__arabic-light-v1.json", base_qids
+        ),
+        "bge-m3": load_dev_rankings(
+            roots, "phase7_retrieval/dev/rankings/BAAI__bge-m3__arabic-raw-v1.json", base_qids
+        ),
+    }
+    phase8_payload = json.loads(
+        roots.private_path("phase8_retrieval/dev/reranker_evaluation.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    base_rankings["hybrid"] = {
+        qid: tuple(phase8_payload["methods"]["rrf"]["rankings"][qid][:10]) for qid in base_qids
+    }
+    base_rankings["hybrid-reranker"] = {
+        qid: tuple(phase8_payload["methods"]["rrf_reranked"]["rankings"][qid][:10])
+        for qid in base_qids
+    }
+    persisted = json.loads(
+        roots.output_path("dialect/per_query_rankings.json").read_text(encoding="utf-8")
+    )["rankings"]
+    valid_variants = [
+        dict(item) for item in variants if str(item.get("variant_id")) not in excluded_variant_ids
+    ]
+    systems = ("bm25", "bge-m3", "hybrid", "hybrid-reranker")
+    metrics = ("Recall@10", "MRR@10", "nDCG@10", "CompleteEvidenceRecall@10")
+    dialect_output: dict[str, object] = {}
+    pooled_values: dict[str, dict[str, list[float]]] = {
+        system: {metric: [] for metric in metrics} for system in systems
+    }
+    pooled_baselines: dict[str, dict[str, list[float]]] = {
+        system: {metric: [] for metric in metrics} for system in systems
+    }
+    for dialect in ("egyptian", "gulf_saudi", "levantine"):
+        rows = [item for item in valid_variants if str(item.get("dialect")) == dialect]
+        system_output: dict[str, object] = {}
+        for system in systems:
+            variant_values = {metric: [] for metric in metrics}
+            baseline_values = {metric: [] for metric in metrics}
+            scored_rows = [
+                dict(by_intent[str(item["base_intent_id"])], query_id=str(item["variant_id"]))
+                for item in rows
+                if str(item["variant_id"]) in persisted[dialect][system]
+            ]
+            variant_rank = {
+                str(row["query_id"]): tuple(persisted[dialect][system][str(row["query_id"])])
+                for row in scored_rows
+            }
+            base_rows = [
+                by_intent[str(item["base_intent_id"])]
+                for item in rows
+                if str(item["variant_id"]) in variant_rank
+            ]
+            base_rank = {
+                str(row["query_id"]): base_rankings[system][str(row["query_id"])]
+                for row in base_rows
+            }
+            variant_result = _variant_metrics(scored_rows, variant_rank, chunks_rows)
+            base_result = _variant_metrics(base_rows, base_rank, chunks_rows)
+            for metric in metrics:
+                variant_values[metric].extend(variant_result[metric])
+                baseline_values[metric].extend(base_result[metric])
+                pooled_values[system][metric].extend(variant_result[metric])
+                pooled_baselines[system][metric].extend(base_result[metric])
+            system_output[system] = {
+                "selected_intents": len(rows),
+                "n": len(variant_values["Recall@10"]),
+                "dialect_minus_msa": {
+                    metric: paired_bootstrap_delta(
+                        variant_values[metric], baseline_values[metric], seed=seed
+                    ).__dict__
+                    for metric in metrics
+                },
+            }
+        dialect_output[dialect] = system_output
+    pooled_output = {
+        system: {
+            "selected_intents": len(valid_variants),
+            "n": len(pooled_values[system]["Recall@10"]),
+            "dialect_minus_msa": {
+                metric: paired_bootstrap_delta(
+                    pooled_values[system][metric], pooled_baselines[system][metric], seed=seed
+                ).__dict__
+                for metric in metrics
+            },
+        }
+        for system in systems
+    }
+    return {
+        "status": "RUN",
+        "provenance": "PHASE15_DEV",
+        "supersedes": {
+            "status": "SUPERSEDED_INVALID_DIAGNOSTIC",
+            "reason": "content-only audit excluded one malformed concatenated variant",
+            "prior_artifact": "phase15_dialect_metrics.json before content-only audit",
+        },
+        "systems": {system: "RUN" for system in systems},
+        "model_revisions": {
+            "bge-m3": BGE_REVISION,
+            "reranker": RERANKER_REVISION,
+        },
+        "device_runtime": {
+            "bge-m3": "cpu/persisted-Phase15-ranking",
+            "reranker": "cpu/persisted-Phase15-ranking",
+        },
+        "content_audit_excluded_variant_ids": sorted(excluded_variant_ids),
+        "dialects": dialect_output,
+        "pooled": pooled_output,
+        "denominators": {
+            "selected_base_intents": len(base_records),
+            "valid_variant_count": len(valid_variants),
+            "retrieval_metric_n_by_dialect": {
+                dialect: cast(dict[str, Any], dialect_output[dialect])["bm25"]["n"]
+                for dialect in ("egyptian", "gulf_saudi", "levantine")
+            },
+            "retrieval_metric_n_pooled": len(pooled_values["bm25"]["Recall@10"]),
+        },
+    }
 
 
 def run_dialect_retrieval_matrix(

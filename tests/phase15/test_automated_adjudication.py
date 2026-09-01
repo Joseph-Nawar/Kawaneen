@@ -46,7 +46,7 @@ def test_adjudication_uses_two_passes_and_does_not_copy_ai_suggestion() -> None:
     assert result["passes"]["adjudicator"]["primary_category"] == (
         ErrorCategory.LEXICAL_MISMATCH.value
     )
-    assert "agreed" in result["critic"]
+    assert "agreed" in result["consistency_check"]
 
 
 def test_adjudication_can_be_borderline_or_uncertain_without_forced_category() -> None:
@@ -56,16 +56,13 @@ def test_adjudication_can_be_borderline_or_uncertain_without_forced_category() -
             diagnostics={"normalization": "light", "trigger": "changed top10 behavior"},
         )
     )
-    assert borderline["adjudication"] == {
-        "outcome": ReviewOutcome.BORDERLINE_NO_CONFIRMED_FAILURE.value,
-        "primary_category": None,
-        "secondary_category": None,
-        "confidence": 3,
-        "rationale": borderline["adjudication"]["rationale"],
-        "key_evidence": borderline["adjudication"]["key_evidence"],
-    }
+    assert borderline["adjudication"]["outcome"] == (
+        ReviewOutcome.BORDERLINE_NO_CONFIRMED_FAILURE.value
+    )
+    assert borderline["adjudication"]["primary_category"] is None
+    assert borderline["adjudication"]["failure_mode"] is None
 
-    uncertain = adjudicate_case(
+    contract_failure = adjudicate_case(
         _case(
             pipeline_stage="generation",
             answerability="unanswerable",
@@ -73,8 +70,28 @@ def test_adjudication_can_be_borderline_or_uncertain_without_forced_category() -
             diagnostics={"parsed_decision": "invalid", "trigger": "malformed output"},
         )
     )
-    assert uncertain["adjudication"]["outcome"] == ReviewOutcome.UNCERTAIN.value
-    assert uncertain["adjudication"]["primary_category"] is None
+    assert contract_failure["adjudication"]["outcome"] == ReviewOutcome.CONFIRMED_FAILURE.value
+    assert contract_failure["adjudication"]["primary_category"] is None
+    assert contract_failure["adjudication"]["failure_mode"] == "INVALID_GENERATION_CONTRACT"
+
+
+def test_generation_contract_failure_is_not_added_to_root_cause_taxonomy() -> None:
+    records = [
+        adjudicate_case(
+            _case(
+                case_id="contract",
+                pipeline_stage="generation",
+                diagnostics={"parsed_decision": "invalid"},
+            )
+        ),
+        adjudicate_case(_case(case_id="lexical")),
+    ]
+    summary = aggregate_automated_audit(records, audit_hash="audit", population_hash="population")
+    assert summary["outcome_distribution"][ReviewOutcome.CONFIRMED_FAILURE.value] == 2
+    assert summary["confirmed_failure_taxonomy"] == {
+        ErrorCategory.LEXICAL_MISMATCH.value: 1,
+    }
+    assert summary["non_taxonomy_failure_modes"] == {"INVALID_GENERATION_CONTRACT": 1}
 
 
 def test_aggregate_is_text_free_and_labels_workflow_agreement() -> None:
@@ -93,10 +110,35 @@ def test_aggregate_is_text_free_and_labels_workflow_agreement() -> None:
     ]
     summary = aggregate_automated_audit(cases, audit_hash="audit", population_hash="population")
     assert summary["methodology_label"] == "AUTOMATED_ADJUDICATION_DIAGNOSTIC"
-    assert summary["initial_model_vs_adjudication_workflow_agreement"]["comparable_count"] == 1
+    assert (
+        summary["initial_model_vs_rule_based_audit_category_agreement"]["comparable_category_count"]
+        == 1
+    )
     encoded = json.dumps(summary, ensure_ascii=False)
     assert "private query" not in encoded
     assert "private evidence" not in encoded
+
+
+def test_agreement_excludes_null_and_non_taxonomy_final_categories() -> None:
+    records = [
+        adjudicate_case(_case(case_id="match", ai_suggestion=ErrorCategory.LEXICAL_MISMATCH)),
+        adjudicate_case(
+            _case(
+                case_id="contract",
+                pipeline_stage="generation",
+                ai_suggestion=ErrorCategory.LEXICAL_MISMATCH,
+                diagnostics={"parsed_decision": "invalid"},
+            )
+        ),
+        adjudicate_case(_case(case_id="unavailable", ai_suggestion=None)),
+    ]
+    agreement = aggregate_automated_audit(
+        records, audit_hash="audit", population_hash="population"
+    )["initial_model_vs_rule_based_audit_category_agreement"]
+    assert agreement["comparable_category_count"] == 1
+    assert agreement["agreement_count"] == 1
+    assert agreement["agreement_rate"] == 1.0
+    assert agreement["disagreement_counts"] == {}
 
 
 def test_validate_automated_adjudication_requires_exact_frozen_audit(tmp_path: Path) -> None:

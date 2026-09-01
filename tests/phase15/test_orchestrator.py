@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 from kawaneen.phase15.orchestrator import (
     phase15_automated_adjudication,
     phase15_finalize,
@@ -132,9 +134,8 @@ def test_finalize_validates_automated_audit_without_human_progress(tmp_path: Pat
     candidate_path.write_text(json.dumps({"cases": cases}), encoding="utf-8")
     phase15_review_prepare(tmp_path)
     phase15_automated_adjudication(tmp_path)
-    result = phase15_finalize(tmp_path)
-    assert result["status"] == "automated adjudication gate passed"
-    assert result["automated_adjudication"]["case_count"] == 30
+    with pytest.raises((RuntimeError, ValueError, FileNotFoundError)):
+        phase15_finalize(tmp_path)
     progress = json.loads(
         (tmp_path / "artifacts/private/phase15_evaluation/review/review_progress.json").read_text()
     )

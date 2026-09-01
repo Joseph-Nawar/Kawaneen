@@ -3,12 +3,11 @@
   "audit_population_hash": "4fc44ab5f5284ed720421dd13ef6f866e69292b5709b753c5464afacc6bd8af9",
   "borderline_count": 7,
   "confidence_distribution": {
-    "2": 6,
     "3": 7,
     "4": 14,
-    "5": 3
+    "5": 9
   },
-  "confirmed_failure_count": 17,
+  "confirmed_failure_count": 23,
   "confirmed_failure_taxonomy": {
     "generator hallucination": 1,
     "lexical mismatch": 6,
@@ -16,20 +15,26 @@
     "semantic retrieval failure": 8
   },
   "human_labels_present": false,
-  "initial_model_vs_adjudication_workflow_agreement": {
+  "initial_model_vs_rule_based_audit_category_agreement": {
     "agreement_count": 10,
-    "agreement_rate": 0.45454545454545453,
-    "comparable_count": 22
+    "agreement_rate": 0.6666666666666666,
+    "comparable_category_count": 15,
+    "disagreement_counts": {
+      "missing source -> semantic retrieval failure": 1,
+      "semantic retrieval failure -> lexical mismatch": 4
+    }
   },
   "methodology_label": "AUTOMATED_ADJUDICATION_DIAGNOSTIC",
+  "non_taxonomy_failure_modes": {
+    "INVALID_GENERATION_CONTRACT": 6
+  },
   "outcome_distribution": {
     "BORDERLINE_NO_CONFIRMED_FAILURE": 7,
-    "CONFIRMED_FAILURE": 17,
-    "UNCERTAIN": 6
+    "CONFIRMED_FAILURE": 23
   },
   "population_hash": "8bc039f51344f3af47b817a5e1bbf51d4d087f49768ea5ca2b2ce3a29cd53777",
   "prior_ai_unavailable_count": 8,
   "provenance": "PHASE15_DEV",
   "schema_version": "phase15-automated-audit-summary-v1",
-  "uncertain_count": 6
+  "uncertain_count": 0
 }

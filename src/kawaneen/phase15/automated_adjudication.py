@@ -64,6 +64,17 @@ def _classification(case: ReviewCase) -> tuple[ReviewOutcome, ErrorCategory | No
         )
 
     if stage == "generation":
+        if (
+            diagnostics.get("parsed_decision") == "invalid"
+            or diagnostics.get("reason") == "INVALID_GENERATION"
+            or diagnostics.get("generation_failure_mode") == "INVALID_OR_MALFORMED_OUTPUT"
+        ):
+            return (
+                ReviewOutcome.CONFIRMED_FAILURE,
+                None,
+                5,
+                "The persisted DEV output violates the frozen generation response contract.",
+            )
         if answerability == "unanswerable" and diagnostics.get("decision") == "answer":
             return (
                 ReviewOutcome.CONFIRMED_FAILURE,
@@ -164,8 +175,10 @@ def _classification(case: ReviewCase) -> tuple[ReviewOutcome, ErrorCategory | No
     )
 
 
-def _critic(case: ReviewCase) -> tuple[ReviewOutcome, ErrorCategory | None, int, str | None]:
-    """Independently inspect evidence for an earlier or unsupported cause."""
+def _consistency_check(
+    case: ReviewCase,
+) -> tuple[ReviewOutcome, ErrorCategory | None, int, str | None]:
+    """Repeat the frozen rules as a deterministic consistency check."""
 
     diagnostics = case.diagnostics
     stage = _text(case.pipeline_stage)
@@ -182,6 +195,12 @@ def _critic(case: ReviewCase) -> tuple[ReviewOutcome, ErrorCategory | None, int,
     ):
         return ReviewOutcome.CONFIRMED_FAILURE, ErrorCategory.GENERATOR_HALLUCINATION, 5, None
     if stage == "generation":
+        if (
+            diagnostics.get("parsed_decision") == "invalid"
+            or diagnostics.get("reason") == "INVALID_GENERATION"
+            or diagnostics.get("generation_failure_mode") == "INVALID_OR_MALFORMED_OUTPUT"
+        ):
+            return ReviewOutcome.CONFIRMED_FAILURE, None, 5, None
         return ReviewOutcome.UNCERTAIN, None, 2, None
     if stage == "normalization":
         return ReviewOutcome.BORDERLINE_NO_CONFIRMED_FAILURE, None, 3, None
@@ -205,8 +224,8 @@ def adjudicate_case(case: ReviewCase) -> dict[str, Any]:
     """Create one private, evidence-bearing two-pass adjudication record."""
 
     proposal, proposal_category, proposal_confidence, rationale = _classification(case)
-    critic_outcome, critic_category, critic_confidence, concern = _critic(case)
-    agreed = proposal is critic_outcome and proposal_category is critic_category
+    check_outcome, check_category, check_confidence, concern = _consistency_check(case)
+    agreed = proposal is check_outcome and proposal_category is check_category
 
     if agreed:
         outcome, category, confidence = proposal, proposal_category, proposal_confidence
@@ -214,12 +233,13 @@ def adjudicate_case(case: ReviewCase) -> dict[str, Any]:
         outcome, category, confidence = (
             ReviewOutcome.UNCERTAIN,
             None,
-            min(proposal_confidence, critic_confidence),
+            min(proposal_confidence, check_confidence),
         )
         rationale = (
-            "The adjudicator and critic passes disagree, so the reconciled outcome is UNCERTAIN."
+            "The deterministic evidence-rule passes disagree, so the reconciled "
+            "outcome is UNCERTAIN."
         )
-        concern = concern or "adjudicator and critic passes disagreed"
+        concern = concern or "deterministic evidence-rule passes disagreed"
 
     evidence = _evidence_fragments(case.evidence_text)
     key_evidence = [f"expected evidence: {fragment}" for fragment in evidence]
@@ -229,6 +249,11 @@ def adjudicate_case(case: ReviewCase) -> dict[str, Any]:
         key_evidence.append(f"diagnostic trigger: {case.diagnostics['trigger']}")
 
     prior_category = case.ai_suggestion.value if case.ai_suggestion is not None else None
+    failure_mode = (
+        "INVALID_GENERATION_CONTRACT"
+        if outcome is ReviewOutcome.CONFIRMED_FAILURE and category is None
+        else None
+    )
     return {
         "case_id": case.case_id,
         "pipeline_stage": case.pipeline_stage,
@@ -248,13 +273,23 @@ def adjudicate_case(case: ReviewCase) -> dict[str, Any]:
             "adjudicator": {
                 "outcome": proposal.value,
                 "primary_category": proposal_category.value if proposal_category else None,
+                "failure_mode": (
+                    "INVALID_GENERATION_CONTRACT"
+                    if proposal is ReviewOutcome.CONFIRMED_FAILURE and proposal_category is None
+                    else None
+                ),
                 "confidence": proposal_confidence,
                 "rationale": rationale,
             },
-            "critic": {
-                "outcome": critic_outcome.value,
-                "primary_category": critic_category.value if critic_category else None,
-                "confidence": critic_confidence,
+            "consistency_check": {
+                "outcome": check_outcome.value,
+                "primary_category": check_category.value if check_category else None,
+                "failure_mode": (
+                    "INVALID_GENERATION_CONTRACT"
+                    if check_outcome is ReviewOutcome.CONFIRMED_FAILURE and check_category is None
+                    else None
+                ),
+                "confidence": check_confidence,
                 "concern": concern,
             },
         },
@@ -262,11 +297,12 @@ def adjudicate_case(case: ReviewCase) -> dict[str, Any]:
             "outcome": outcome.value,
             "primary_category": category.value if category else None,
             "secondary_category": None,
+            "failure_mode": failure_mode,
             "confidence": confidence,
             "rationale": rationale,
             "key_evidence": key_evidence,
         },
-        "critic": {"agreed": agreed, "concern": concern},
+        "consistency_check": {"agreed": agreed, "concern": concern},
     }
 
 
@@ -300,8 +336,8 @@ def build_automated_adjudication(
                 "adjudication was performed."
             ),
             "workflow": (
-                "fixed local deterministic evidence workflow with independent adjudicator "
-                "and critic passes"
+                "two-pass deterministic rule-based diagnostic adjudication with a second "
+                "consistency-check pass"
             ),
             "primary_rule": (
                 "earliest demonstrable root cause; UNCERTAIN when evidence is insufficient"
@@ -323,12 +359,24 @@ def aggregate_automated_audit(
         for record in records
         if record["adjudication"]["outcome"] == ReviewOutcome.CONFIRMED_FAILURE.value
     )
-    taxonomy = Counter(str(record["adjudication"]["primary_category"]) for record in confirmed)
+    taxonomy = Counter(
+        str(record["adjudication"]["primary_category"])
+        for record in confirmed
+        if record["adjudication"].get("primary_category") is not None
+    )
+    failure_modes = Counter(
+        str(record["adjudication"]["failure_mode"])
+        for record in confirmed
+        if record["adjudication"].get("failure_mode") is not None
+    )
     confidence = Counter(str(record["adjudication"]["confidence"]) for record in records)
     comparable = tuple(
         record
         for record in records
-        if record["prior_ai_preclassification"]["status"] == "available"
+        if (
+            record["prior_ai_preclassification"]["status"] == "available"
+            and record["adjudication"].get("primary_category") in VALID_CATEGORIES
+        )
     )
     agreement = sum(
         record["prior_ai_preclassification"]["category"]
@@ -351,10 +399,22 @@ def aggregate_automated_audit(
         "borderline_count": outcomes.get(ReviewOutcome.BORDERLINE_NO_CONFIRMED_FAILURE.value, 0),
         "uncertain_count": outcomes.get(ReviewOutcome.UNCERTAIN.value, 0),
         "confidence_distribution": dict(sorted(confidence.items())),
-        "initial_model_vs_adjudication_workflow_agreement": {
-            "comparable_count": len(comparable),
+        "non_taxonomy_failure_modes": dict(sorted(failure_modes.items())),
+        "initial_model_vs_rule_based_audit_category_agreement": {
+            "comparable_category_count": len(comparable),
             "agreement_count": agreement,
             "agreement_rate": agreement / len(comparable) if comparable else None,
+            "disagreement_counts": dict(
+                sorted(
+                    Counter(
+                        f"{record['prior_ai_preclassification']['category']} -> "
+                        f"{record['adjudication']['primary_category']}"
+                        for record in comparable
+                        if record["prior_ai_preclassification"]["category"]
+                        != record["adjudication"]["primary_category"]
+                    ).items()
+                )
+            ),
         },
         "prior_ai_unavailable_count": ai_unavailable,
         "human_labels_present": False,
@@ -392,8 +452,25 @@ def validate_automated_adjudication(
             raise ValueError("automated adjudication contains an invalid outcome")
         if category is not None and category not in VALID_CATEGORIES:
             raise ValueError("automated adjudication contains an invalid root-cause category")
-        if outcome == ReviewOutcome.CONFIRMED_FAILURE.value and category is None:
-            raise ValueError("confirmed automated failure requires a primary category")
+        failure_mode = adjudication.get("failure_mode")
+        if failure_mode not in {None, "INVALID_GENERATION_CONTRACT"}:
+            raise ValueError("automated adjudication contains an invalid failure mode")
+        if (
+            outcome == ReviewOutcome.CONFIRMED_FAILURE.value
+            and category is None
+            and failure_mode != "INVALID_GENERATION_CONTRACT"
+        ):
+            raise ValueError(
+                "confirmed automated failure requires a primary category or contract mode"
+            )
+        if (
+            outcome == ReviewOutcome.CONFIRMED_FAILURE.value
+            and category is not None
+            and failure_mode is not None
+        ):
+            raise ValueError("taxonomy failure cannot carry a non-taxonomy failure mode")
+        if outcome != ReviewOutcome.CONFIRMED_FAILURE.value and failure_mode is not None:
+            raise ValueError("non-confirmed automated outcome cannot have a failure mode")
         if outcome != ReviewOutcome.CONFIRMED_FAILURE.value and category is not None:
             raise ValueError("non-confirmed automated outcome cannot have a primary category")
         if not isinstance(adjudication.get("confidence"), int) or not (
