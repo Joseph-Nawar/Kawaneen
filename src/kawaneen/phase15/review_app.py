@@ -4,8 +4,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from .contracts import ErrorCategory, ReviewDecision, ReviewOutcome
-from .review import ReviewStore, default_review_paths
+from kawaneen.phase15.contracts import ErrorCategory, ReviewDecision, ReviewOutcome
+from kawaneen.phase15.review import ReviewStore, default_review_paths
 
 
 def main() -> None:
