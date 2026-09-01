@@ -112,6 +112,7 @@ from kawaneen.parsing.benchmark import preflight_pdfs, qualification_status
 from kawaneen.parsing.diagnostics import diagnose_docling
 from kawaneen.phase15.orchestrator import (
     phase15_abstention,
+    phase15_automated_adjudication,
     phase15_counterfactuals,
     phase15_dialect_evaluate,
     phase15_dialect_prepare,
@@ -576,6 +577,7 @@ def build_parser() -> argparse.ArgumentParser:
         "latency",
         "review-prepare",
         "review-status",
+        "automated-adjudication",
         "finalize",
     )
     phase15_help = {
@@ -593,7 +595,10 @@ def build_parser() -> argparse.ArgumentParser:
         "latency": "run the fixed batch-1 latency-quality protocol",
         "review-prepare": "prepare the private 120-case review packet",
         "review-status": "show private human-review progress",
-        "finalize": "finalize only after the human review gate",
+        "automated-adjudication": (
+            "write the frozen 30-case automated audit and text-free aggregate"
+        ),
+        "finalize": "validate the automated adjudication gate without creating the final report",
     }
     for command in phase15_commands:
         phase15_subparsers.add_parser(command, help=phase15_help[command])
@@ -815,6 +820,8 @@ def main(argv: list[str] | None = None) -> int:
                 result = phase15_review_prepare(Path("."), args.historical_input_root)
             elif args.phase15_command == "review-status":
                 result = phase15_review_status()
+            elif args.phase15_command == "automated-adjudication":
+                result = phase15_automated_adjudication()
             elif args.phase15_command == "finalize":
                 result = phase15_finalize()
             elif args.phase15_command == "generation-preflight":

@@ -13,6 +13,12 @@ from difflib import SequenceMatcher
 from pathlib import Path
 from typing import Any, cast
 
+from .automated_adjudication import (
+    AUTOMATED_ADJUDICATION_PATH,
+    AUTOMATED_AUDIT_SUMMARY_PATH,
+    validate_automated_adjudication,
+    write_automated_audit_artifacts,
+)
 from .contracts import ALLAM_MODEL, ErrorCategory, ModelLock, ReviewCase
 from .counterfactuals import candidate_answer_counterfactual
 from .dialect import DialectVariant, validate_variants_before_outcomes
@@ -242,13 +248,55 @@ def phase15_review_status(root: Path = Path(".")) -> dict[str, Any]:
 
 
 def phase15_finalize(root: Path = Path(".")) -> dict[str, Any]:
-    packet_path, progress_path, _manifest_path = default_review_paths(root)
+    packet_path, progress_path, manifest_path = default_review_paths(root)
     audit_manifest_path = default_audit_manifest_path(root)
     if not packet_path.is_file():
         raise RuntimeError("phase15 finalize requires the private 120-case review packet")
-    store = ReviewStore(packet_path, progress_path, audit_manifest_path)
-    store.require_finalize_ready()
-    raise RuntimeError("phase15 final report is intentionally disabled at the Phase 15 human gate")
+    packet = json.loads(packet_path.read_text(encoding="utf-8"))
+    audit_manifest = json.loads(audit_manifest_path.read_text(encoding="utf-8"))
+    population_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    expected_ids = set(
+        ReviewStore(packet_path, progress_path, audit_manifest_path).audit_case_ids()
+    )
+    validation = validate_automated_adjudication(
+        root / AUTOMATED_ADJUDICATION_PATH,
+        root / AUTOMATED_AUDIT_SUMMARY_PATH,
+        expected_case_ids=expected_ids,
+        expected_population_hash=str(population_manifest["case_ids_sha256"]),
+        expected_audit_hash=str(audit_manifest["case_ids_sha256"]),
+    )
+    if len(packet.get("cases", ())) != 120:
+        raise RuntimeError("phase15 finalize requires the frozen 120-case review packet")
+    return {
+        "status": "automated adjudication gate passed",
+        "automated_adjudication": validation,
+        "final_report_created": False,
+    }
+
+
+def phase15_automated_adjudication(root: Path = Path(".")) -> dict[str, Any]:
+    """Write the private two-pass audit and its text-free tracked aggregate."""
+
+    packet_path, _progress_path, manifest_path = default_review_paths(root)
+    audit_manifest_path = default_audit_manifest_path(root)
+    packet = json.loads(packet_path.read_text(encoding="utf-8"))
+    cases = tuple(ReviewCase.model_validate(item) for item in packet.get("cases", ()))
+    audit_manifest = json.loads(audit_manifest_path.read_text(encoding="utf-8"))
+    audit_ids = {str(case_id) for case_id in audit_manifest.get("case_ids", ())}
+    audit_cases = tuple(case for case in cases if case.case_id in audit_ids)
+    population_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    private_path, aggregate_path = write_automated_audit_artifacts(
+        audit_cases,
+        root=root,
+        population_hash=str(population_manifest["case_ids_sha256"]),
+        audit_hash=str(audit_manifest["case_ids_sha256"]),
+    )
+    return {
+        "status": "automated adjudication written",
+        "case_count": len(audit_cases),
+        "private_path": private_path.as_posix(),
+        "aggregate_path": aggregate_path.as_posix(),
+    }
 
 
 def phase15_unavailable_experiment(root: Path, experiment: str) -> dict[str, Any]:

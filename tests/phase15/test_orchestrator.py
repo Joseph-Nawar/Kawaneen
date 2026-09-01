@@ -4,6 +4,8 @@ import json
 from pathlib import Path
 
 from kawaneen.phase15.orchestrator import (
+    phase15_automated_adjudication,
+    phase15_finalize,
     phase15_freeze,
     phase15_model_lock,
     phase15_plan,
@@ -106,3 +108,34 @@ def test_review_prepare_preserves_frozen_case_id_hash(tmp_path: Path) -> None:
     second = phase15_review_prepare(tmp_path)
     second_manifest = json.loads(Path(second["manifest"]).read_text())
     assert second_manifest["case_ids_sha256"] == first_manifest["case_ids_sha256"]
+
+
+def test_finalize_validates_automated_audit_without_human_progress(tmp_path: Path) -> None:
+    from kawaneen.phase15.contracts import ReviewCase
+
+    cases = [
+        ReviewCase(
+            case_id=f"case-{i}",
+            language="ar",
+            pipeline_stage="retrieval",
+            legal_category="regulatory",
+            answerability="answerable",
+            severity="medium",
+            query_text=f"query {i}",
+            evidence_text=f"evidence {i}",
+            diagnostics={"system": "bm25", "relevant_rank": None},
+        ).model_dump(mode="json")
+        for i in range(120)
+    ]
+    candidate_path = tmp_path / "artifacts/private/phase15_evaluation/review_candidates.json"
+    candidate_path.parent.mkdir(parents=True, exist_ok=True)
+    candidate_path.write_text(json.dumps({"cases": cases}), encoding="utf-8")
+    phase15_review_prepare(tmp_path)
+    phase15_automated_adjudication(tmp_path)
+    result = phase15_finalize(tmp_path)
+    assert result["status"] == "automated adjudication gate passed"
+    assert result["automated_adjudication"]["case_count"] == 30
+    progress = json.loads(
+        (tmp_path / "artifacts/private/phase15_evaluation/review/review_progress.json").read_text()
+    )
+    assert progress["decisions"] == {}

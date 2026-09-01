@@ -1,4 +1,4 @@
-"""Private 120-case packet and frozen 30-case human audit store."""
+"""Private 120-case packet and frozen 30-case audit store."""
 
 from __future__ import annotations
 
@@ -130,7 +130,7 @@ def build_human_audit_manifest(
         return dict(sorted(Counter(str(getattr(case, field)) for case in selected).items()))
 
     return {
-        "schema_version": "phase15-human-audit-v1",
+        "schema_version": "phase15-audit-selection-v2",
         "count": HUMAN_AUDIT_CASE_COUNT,
         "case_ids": [case.case_id for case in selected],
         "case_ids_sha256": _case_id_digest(case.case_id for case in selected),
@@ -153,7 +153,7 @@ def build_human_audit_manifest(
             )
         ),
         "provenance": "PHASE15_DEV",
-        "selection_type": "PRE_SELECTED_INDEPENDENT_HUMAN_AUDIT",
+        "selection_type": "PRE_SELECTED_AUTOMATED_ADJUDICATION_AUDIT",
     }
 
 
