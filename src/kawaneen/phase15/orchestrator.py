@@ -32,7 +32,13 @@ from .inputs import (
 from .local_models import LocalOllamaInstructionModel, parse_json_object
 from .reporting import metric_status_artifact, write_aggregate_artifact
 from .reranking import evaluate_reranking, freeze_hard_query_rule, select_hard_queries
-from .review import ReviewStore, default_review_paths, prepare_review_packet
+from .review import (
+    ReviewStore,
+    default_audit_manifest_path,
+    default_review_paths,
+    prepare_review_packet,
+    write_human_audit_manifest,
+)
 from .runner import summarize_ranking_runs
 from .selection import (
     ReviewCandidate,
@@ -165,23 +171,23 @@ def phase15_review_prepare(
     root: Path = Path("."), historical_root: Path | None = None
 ) -> dict[str, Any]:
     packet_path, progress_path, manifest_path = default_review_paths(root)
+    audit_manifest_path = default_audit_manifest_path(root)
     candidate_path = root / PRIVATE_ROOT / "review_candidates.json"
-    was_prepared = packet_path.exists()
-    if historical_root is not None or not candidate_path.is_file():
-        phase15_collect_review_candidates(root, historical_root)
-    if packet_path.exists() and not candidate_path.is_file():
+    if packet_path.exists():
+        packet_payload = json.loads(packet_path.read_text(encoding="utf-8"))
+        packet_cases = tuple(
+            ReviewCase.model_validate(item) for item in packet_payload.get("cases", ())
+        )
+        audit_manifest = write_human_audit_manifest(packet_cases, audit_manifest_path)
         return {
             "status": "already prepared",
             "manifest": manifest_path.as_posix(),
             "packet": packet_path.as_posix(),
+            "audit_manifest": audit_manifest_path.as_posix(),
+            "audit_case_count": audit_manifest["count"],
         }
-    if packet_path.exists() and progress_path.is_file():
-        reviewed = ReviewStore(packet_path, progress_path).reviewed_count()
-        if reviewed:
-            raise RuntimeError(
-                "cannot regenerate the Phase 15 review packet after human decisions exist"
-            )
-        progress_path.unlink()
+    if historical_root is not None or not candidate_path.is_file():
+        phase15_collect_review_candidates(root, historical_root)
     if not candidate_path.is_file():
         raise RuntimeError(
             "cannot prepare review packet: private DEV review_candidates.json is missing; "
@@ -202,40 +208,45 @@ def phase15_review_prepare(
                 case.model_copy(update={"ai_preclassification_attempted": True}) for case in cases
             )
     manifest = prepare_review_packet(cases, packet_path, manifest_path)
+    audit_manifest = write_human_audit_manifest(cases, audit_manifest_path)
     if not progress_path.exists():
         write_json_atomic(
             progress_path,
             {"schema_version": "phase15-review-progress-v2", "decisions": {}},
         )
     return {
-        "status": "regenerated" if was_prepared else "prepared",
+        "status": "prepared",
         "manifest": manifest_path.as_posix(),
         "packet": packet_path.as_posix(),
         "progress": progress_path.as_posix(),
         "case_count": manifest["case_count"],
+        "audit_manifest": audit_manifest_path.as_posix(),
+        "audit_case_count": audit_manifest["count"],
     }
 
 
 def phase15_review_status(root: Path = Path(".")) -> dict[str, Any]:
     packet_path, progress_path, manifest_path = default_review_paths(root)
+    audit_manifest_path = default_audit_manifest_path(root)
     if not packet_path.is_file():
         return {
             "packet_present": False,
             "reviewed": 0,
-            "total": 120,
-            "progress": "0 / 120",
+            "total": 30,
+            "progress": "0 / 30",
             "packet_path": packet_path.as_posix(),
             "progress_path": progress_path.as_posix(),
             "manifest_path": manifest_path.as_posix(),
         }
-    return ReviewStore(packet_path, progress_path).status()
+    return ReviewStore(packet_path, progress_path, audit_manifest_path).status()
 
 
 def phase15_finalize(root: Path = Path(".")) -> dict[str, Any]:
     packet_path, progress_path, _manifest_path = default_review_paths(root)
+    audit_manifest_path = default_audit_manifest_path(root)
     if not packet_path.is_file():
         raise RuntimeError("phase15 finalize requires the private 120-case review packet")
-    store = ReviewStore(packet_path, progress_path)
+    store = ReviewStore(packet_path, progress_path, audit_manifest_path)
     store.require_finalize_ready()
     raise RuntimeError("phase15 final report is intentionally disabled at the Phase 15 human gate")
 

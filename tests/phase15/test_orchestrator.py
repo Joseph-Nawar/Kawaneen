@@ -56,7 +56,7 @@ def test_fallback_lock_uses_permissive_arabic_candidate(tmp_path: Path) -> None:
     assert lock["fallback_preregistered_before_results"]["license"] == "apache-2.0"
 
 
-def test_review_prepare_regenerates_only_when_progress_is_zero(tmp_path: Path) -> None:
+def test_review_prepare_does_not_regenerate_a_frozen_packet(tmp_path: Path) -> None:
     from kawaneen.phase15.contracts import ReviewCase
 
     cases = [
@@ -75,12 +75,13 @@ def test_review_prepare_regenerates_only_when_progress_is_zero(tmp_path: Path) -
     candidate_path.write_text(json.dumps({"cases": cases}), encoding="utf-8")
     first = phase15_review_prepare(tmp_path)
     assert first["status"] == "prepared"
+    first_packet = json.loads(Path(first["packet"]).read_text())
     cases[0]["pipeline_stage"] = "generation"
     candidate_path.write_text(json.dumps({"cases": cases}), encoding="utf-8")
-    regenerated = phase15_review_prepare(tmp_path)
-    assert regenerated["status"] == "regenerated"
-    packet = json.loads(Path(regenerated["packet"]).read_text(encoding="utf-8"))
-    assert packet["cases"][0]["pipeline_stage"] == "generation"
+    prepared = phase15_review_prepare(tmp_path)
+    assert prepared["status"] == "already prepared"
+    packet = json.loads(Path(prepared["packet"]).read_text(encoding="utf-8"))
+    assert packet == first_packet
 
 
 def test_review_prepare_preserves_frozen_case_id_hash(tmp_path: Path) -> None:

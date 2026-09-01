@@ -5,7 +5,11 @@ from __future__ import annotations
 from pathlib import Path
 
 from kawaneen.phase15.contracts import ErrorCategory, ReviewDecision, ReviewOutcome
-from kawaneen.phase15.review import ReviewStore, default_review_paths
+from kawaneen.phase15.review import (
+    ReviewStore,
+    default_audit_manifest_path,
+    default_review_paths,
+)
 
 
 def main() -> None:
@@ -14,14 +18,15 @@ def main() -> None:
 
     st.set_page_config(page_title="Kawaneen Phase 15 review", layout="wide")
     packet_path, progress_path, _manifest_path = default_review_paths(Path.cwd())
+    audit_manifest_path = default_audit_manifest_path(Path.cwd())
     if not packet_path.is_file():
         st.error(f"Review packet is missing: {packet_path}")
         st.stop()
-    store = ReviewStore(packet_path, progress_path)
-    cases = store.cases()
+    store = ReviewStore(packet_path, progress_path, audit_manifest_path)
+    cases = store.audit_cases()
     status = store.status()
     st.title("Phase 15 diagnostic review")
-    st.caption(f"Progress: {status['progress']}")
+    st.caption(f"Human audit progress: {status['progress']}")
 
     case_ids = [case.case_id for case in cases]
     selected_id = st.selectbox("Case", case_ids, index=0)
