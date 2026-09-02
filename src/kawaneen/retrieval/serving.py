@@ -11,6 +11,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Protocol, cast
 
+from kawaneen.observability.tracing import NoOpObserver, TraceObserver
 from kawaneen.retrieval.hybrid.contracts import FusedCandidate, FusionConfig, SourceHit
 from kawaneen.retrieval.hybrid.pipeline import rerank_for_serving, retrieve_and_fuse
 from kawaneen.retrieval.models import RetrievalChunk
@@ -67,6 +68,11 @@ class HybridServingRetriever:
         reranker: Reranker,
         fusion_config: FusionConfig,
         metadata: Mapping[str, Mapping[str, str | None]] | None = None,
+        observer: TraceObserver | None = None,
+        reranker_model_id: str = "unknown",
+        reranker_model_revision: str = "unknown",
+        reranker_scoring_contract: str = "raw-logit-v1",
+        reranker_serving_depth: int = 8,
     ) -> None:
         self.chunks = chunks
         self.sparse_search = sparse_search
@@ -74,20 +80,70 @@ class HybridServingRetriever:
         self.reranker = reranker
         self.fusion_config = fusion_config
         self.metadata = metadata or {}
+        self.observer = observer or NoOpObserver()
+        self.reranker_model_id = reranker_model_id
+        self.reranker_model_revision = reranker_model_revision
+        self.reranker_scoring_contract = reranker_scoring_contract
+        self.reranker_serving_depth = reranker_serving_depth
 
     def search(self, query: str, limit: int = 8) -> ServingRetrievalResult:
         if not 1 <= limit <= 8:
             raise ValueError("serving retrieval limit must be between 1 and 8")
-        candidates = retrieve_and_fuse(
-            query,
-            sparse_search=self.sparse_search,
-            dense_search=self.dense_search,
-            config=self.fusion_config,
-        )
-        scores = self.reranker(query, candidates)
-        if any(candidate.chunk_id not in scores for candidate in candidates):
-            raise ValueError("reranker did not score every fused candidate")
-        ranked = rerank_for_serving(candidates, scores)
+        with self.observer.span(
+            "retrieval.first_stage",
+            "RETRIEVER",
+            {
+                "sparse_top_k": self.fusion_config.sparse_top_k,
+                "dense_top_k": self.fusion_config.dense_top_k,
+                "rrf_k": self.fusion_config.rrf_k,
+                "sparse_weight": self.fusion_config.sparse_weight,
+                "dense_weight": self.fusion_config.dense_weight,
+                "candidate_count": self.fusion_config.candidate_k,
+            },
+        ) as first_stage:
+            candidates = retrieve_and_fuse(
+                query,
+                sparse_search=self.sparse_search,
+                dense_search=self.dense_search,
+                config=self.fusion_config,
+            )
+            first_stage.set_outputs(
+                {"ordered_fused_candidate_ids": [candidate.chunk_id for candidate in candidates]}
+            )
+        with self.observer.span(
+            "retrieval.rerank",
+            "RERANKER",
+            {
+                "model_id": self.reranker_model_id,
+                "model_revision": self.reranker_model_revision,
+                "scoring_contract": self.reranker_scoring_contract,
+                "candidate_count": len(candidates),
+                "serving_depth": self.reranker_serving_depth,
+                "requested_limit": limit,
+            },
+        ) as rerank_span:
+            scores = self.reranker(query, candidates)
+            if any(candidate.chunk_id not in scores for candidate in candidates):
+                raise ValueError("reranker did not score every fused candidate")
+            scored = [
+                (candidate.chunk_id, float(scores[candidate.chunk_id]), candidate.fused_rank)
+                for candidate in candidates
+            ]
+            scored.sort(key=lambda item: (-item[1], item[2], item[0]))
+            ranked = rerank_for_serving(candidates, scores)
+            rerank_span.set_outputs(
+                {
+                    "scores": [
+                        {
+                            "chunk_id": chunk_id,
+                            "score": score,
+                            "prior_fused_rank": prior_rank,
+                        }
+                        for chunk_id, score, prior_rank in scored
+                    ],
+                    "returned_chunk_ids": [item.chunk_id for item in ranked[:limit]],
+                }
+            )
         candidate_by_id = {candidate.chunk_id: candidate for candidate in candidates}
         evidence = tuple(
             self._evidence(candidate_by_id[item.chunk_id], item.score, rank)

@@ -23,6 +23,10 @@ class Settings(BaseSettings):
     log_format: LogFormat = "console"
     data_directory: Path = Path("data")
     artifacts_directory: Path = Path("artifacts")
+    observability_enabled: bool = False
+    mlflow_tracking_uri: str = "http://127.0.0.1:5000"
+    mlflow_serving_experiment: str = "kawaneen-serving"
+    mlflow_repro_experiment: str = "kawaneen-reproducibility"
 
     @field_validator("environment", "log_format", mode="before")
     @classmethod

@@ -22,6 +22,7 @@ from kawaneen.api.runtime import ExpectedAssetUnavailable
 from kawaneen.core.config import Settings
 from kawaneen.extraction.provider import ExtractionProvider
 from kawaneen.grounding.contracts import GeneratedDraft
+from kawaneen.observability.tracing import TraceObserver
 from kawaneen.retrieval.bm25 import BM25Index
 from kawaneen.retrieval.dense_models import BGEM3Adapter, DenseModelAdapter
 from kawaneen.retrieval.hybrid.contracts import FusedCandidate, FusionConfig, RerankerConfig
@@ -251,6 +252,7 @@ def build_serving_retrieval(
     *,
     dense_adapter: DenseModelAdapter | None = None,
     reranker_adapter: BGERerankerAdapter | None = None,
+    observer: TraceObserver | None = None,
 ) -> ServingRetrievalBundle:
     """Build sparse+dense retrieval and a locked raw-logit reranker."""
 
@@ -312,6 +314,11 @@ def build_serving_retrieval(
         dense_search=dense_search,
         reranker=score,
         fusion_config=configuration.fusion,
+        observer=observer,
+        reranker_model_id=configuration.reranker.model_id,
+        reranker_model_revision=configuration.reranker.model_revision,
+        reranker_scoring_contract=configuration.reranker.scoring_contract,
+        reranker_serving_depth=configuration.reranker.serving_depth,
     )
 
     def initialize() -> None:
