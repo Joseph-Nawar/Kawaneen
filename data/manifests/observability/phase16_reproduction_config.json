@@ -1,0 +1,59 @@
+{
+  "schema_version": "phase16-reproduction-config-v1",
+  "results": [
+    {
+      "result_id": "phase5_fixed256_ndcg10",
+      "metric": "nDCG@10",
+      "population": "Phase 5 fixed-256-v1 retrieval evaluation",
+      "provenance": "tracked Phase 5 chunking metrics",
+      "source_artifact": "data/evaluation/phase5_chunking_metrics.json",
+      "source_sha256": "c2285894c4e036a9e9d2dc92bd07033b56ea06ca1f479e478182818a88ccf00a",
+      "value_path": ["retrieval_metrics", "fixed-256-v1", "ndcg_at_10"]
+    },
+    {
+      "result_id": "phase5_structure_ndcg10",
+      "metric": "nDCG@10",
+      "population": "Phase 5 legal-structure-v1 retrieval evaluation",
+      "provenance": "tracked Phase 5 chunking metrics",
+      "source_artifact": "data/evaluation/phase5_chunking_metrics.json",
+      "source_sha256": "c2285894c4e036a9e9d2dc92bd07033b56ea06ca1f479e478182818a88ccf00a",
+      "value_path": ["retrieval_metrics", "legal-structure-v1", "ndcg_at_10"]
+    },
+    {
+      "result_id": "phase15_arabic_vs_bge_recall10_delta",
+      "metric": "Recall@10 delta",
+      "population": "Phase 15 Arabic retrieval comparison",
+      "provenance": "tracked Phase 15 embedding metrics",
+      "source_artifact": "data/evaluation/phase15_embedding_metrics.json",
+      "source_sha256": "6400b8fd8ac59b1b049752dfc06e563c648071fafc4669ab52be484ef8ea610a",
+      "value_path": ["arabic_retrieval", "paired_model_comparisons", "arabic-retrieval-raw_vs_bge_m3_raw", "Recall@10", "delta"]
+    },
+    {
+      "result_id": "phase15_reranker_recall10_delta",
+      "metric": "Recall@10 delta",
+      "population": "Phase 15 reranker evaluation",
+      "provenance": "tracked Phase 15 reranking metrics",
+      "source_artifact": "data/evaluation/phase15_reranking_metrics.json",
+      "source_sha256": "5571d9e513927a57e1869ac6b9f64b09d48bc82d8aab2357aa62fff12ffc7a9a",
+      "value_path": ["metrics", "Recall@10", "delta"]
+    },
+    {
+      "result_id": "phase15_citation_defect_reduction",
+      "metric": "absolute risk reduction",
+      "population": "Phase 15 citation verification counterfactual",
+      "provenance": "tracked Phase 15 citation counterfactual",
+      "source_artifact": "data/evaluation/phase15_citation_counterfactual.json",
+      "source_sha256": "c55f53dd86c62153a8ea18d09ad7b1510a35940b09f9837373ed133fca410790",
+      "value_path": ["absolute_risk_reduction"]
+    },
+    {
+      "result_id": "phase15_fallback_invalid_generation_rate",
+      "metric": "invalid generation rate",
+      "population": "Phase 15 fallback generator evaluation",
+      "provenance": "tracked Phase 15 generator metrics",
+      "source_artifact": "data/evaluation/phase15_generator_metrics.json",
+      "source_sha256": "4cef2de020a28b89924f8fde370fe3fad0294748649f0187d7ff8efbf39e6f52",
+      "value_path": ["metrics", "invalid_generation_rate", "value"]
+    }
+  ]
+}

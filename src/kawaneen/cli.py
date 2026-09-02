@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 from pathlib import Path
@@ -108,6 +109,8 @@ from kawaneen.normalization.orchestrator import (
     run_phase4_experiment,
 )
 from kawaneen.normalization.sensitivity import run_sensitivity_validation
+from kawaneen.observability.identity import verify_tracked_serving_identity
+from kawaneen.observability.reproducibility import reproduce_results
 from kawaneen.parsing.benchmark import preflight_pdfs, qualification_status
 from kawaneen.parsing.diagnostics import diagnose_docling
 from kawaneen.phase15.orchestrator import (
@@ -602,6 +605,16 @@ def build_parser() -> argparse.ArgumentParser:
     }
     for command in phase15_commands:
         phase15_subparsers.add_parser(command, help=phase15_help[command])
+    phase16_parser = subparsers.add_parser(
+        "phase16", help="Phase 16 observability and public reproducibility"
+    )
+    phase16_subparsers = phase16_parser.add_subparsers(dest="phase16_command", required=True)
+    phase16_subparsers.add_parser("identity", help="verify the tracked serving identity")
+    reproduce_parser = phase16_subparsers.add_parser(
+        "reproduce", help="reconstruct the tracked public result table"
+    )
+    reproduce_parser.add_argument("--mlflow", action="store_true")
+    phase16_subparsers.add_parser("verify", help="verify identity and result reproduction")
     return parser
 
 
@@ -847,6 +860,48 @@ def main(argv: list[str] | None = None) -> int:
             print(json.dumps(result, ensure_ascii=False, sort_keys=True))
         except (OSError, PermissionError, ValueError, RuntimeError) as exc:
             print(f"Phase 15 operation failed: {exc}", file=sys.stderr)
+            return 1
+    elif args.command == "phase16":
+        try:
+            root = Path(".")
+            identity_path = root / "data/manifests/observability/phase16_serving_identity.json"
+            if args.phase16_command == "identity":
+                identity = verify_tracked_serving_identity(root / "data", identity_path)
+                print(json.dumps({"configuration_version": identity.configuration_version}))
+            elif args.phase16_command == "reproduce":
+                identity = verify_tracked_serving_identity(root / "data", identity_path)
+                report = reproduce_results(
+                    root,
+                    output_path=root / "artifacts/observability/reproduced_results.csv",
+                    mlflow=args.mlflow,
+                )
+                print(f"serving configuration_version: {identity.configuration_version}")
+                print(f"reproduction config SHA256: {report.reproduction_config_sha256}")
+                print(f"source artifacts verified {len(report.rows)}/{len(report.rows)}")
+                print(f"rows reproduced {len(report.rows)}/6")
+                print(f"expected table SHA256: {hashlib.sha256(report.expected_csv).hexdigest()}")
+                print(f"actual table SHA256: {report.table_sha256}")
+                print("PASS")
+                for row in report.rows:
+                    print(f"{row.result_id}: {row.value}")
+            else:
+                identity = verify_tracked_serving_identity(root / "data", identity_path)
+                report = reproduce_results(
+                    root, output_path=root / "artifacts/observability/reproduced_results.csv"
+                )
+                print(
+                    json.dumps(
+                        {
+                            "configuration_version": identity.configuration_version,
+                            "rows": len(report.rows),
+                            "table_sha256": report.table_sha256,
+                            "status": "PASS",
+                        },
+                        sort_keys=True,
+                    )
+                )
+        except (OSError, PermissionError, ValueError, RuntimeError) as exc:
+            print(f"Phase 16 operation failed: {exc}", file=sys.stderr)
             return 1
     elif args.command == "retrieval":
         try:
