@@ -14,24 +14,19 @@ import json
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass
 from pathlib import Path
-from typing import cast
-
-import numpy as np
+from typing import TYPE_CHECKING, cast
 
 from kawaneen.api.runtime import ExpectedAssetUnavailable
 from kawaneen.core.config import Settings
-from kawaneen.extraction.provider import ExtractionProvider
-from kawaneen.grounding.contracts import GeneratedDraft
 from kawaneen.observability.tracing import TraceObserver
-from kawaneen.retrieval.bm25 import BM25Index
-from kawaneen.retrieval.dense_models import BGEM3Adapter, DenseModelAdapter
 from kawaneen.retrieval.hybrid.contracts import FusedCandidate, FusionConfig, RerankerConfig
-from kawaneen.retrieval.hybrid.reranker import BGERerankerAdapter
-from kawaneen.retrieval.serving import (
-    HybridServingRetriever,
-    load_serving_chunks,
-)
-from kawaneen.retrieval.vector_index import NumpyExactIndex
+
+if TYPE_CHECKING:
+    from kawaneen.extraction.provider import ExtractionProvider
+    from kawaneen.grounding.contracts import GeneratedDraft
+    from kawaneen.retrieval.dense_models import DenseModelAdapter
+    from kawaneen.retrieval.hybrid.reranker import BGERerankerAdapter
+    from kawaneen.retrieval.serving import HybridServingRetriever
 
 
 def _object(path: Path) -> dict[str, object]:
@@ -255,6 +250,14 @@ def build_serving_retrieval(
     observer: TraceObserver | None = None,
 ) -> ServingRetrievalBundle:
     """Build sparse+dense retrieval and a locked raw-logit reranker."""
+
+    import numpy as np
+
+    from kawaneen.retrieval.bm25 import BM25Index
+    from kawaneen.retrieval.dense_models import BGEM3Adapter
+    from kawaneen.retrieval.hybrid.reranker import BGERerankerAdapter
+    from kawaneen.retrieval.serving import HybridServingRetriever, load_serving_chunks
+    from kawaneen.retrieval.vector_index import NumpyExactIndex
 
     private = settings.artifacts_directory / "private" / "phase7_retrieval"
     chunks = load_serving_chunks(private / "corpus" / "chunks.jsonl")

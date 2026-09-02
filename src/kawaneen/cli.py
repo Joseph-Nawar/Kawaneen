@@ -132,36 +132,75 @@ from kawaneen.phase15.orchestrator import (
     phase15_synthesize,
     phase15_unavailable_experiment,
 )
-from kawaneen.retrieval.hybrid.finalization import finalize_phase8_holdout
-from kawaneen.retrieval.hybrid.orchestration import (
-    finalize_phase8_dev_selection,
-    phase8_holdout,
-    phase8_status,
-    rerank_dev,
-    run_dev_fusion,
-)
-from kawaneen.retrieval.orchestrator import (
-    build_final_report,
-    build_retrieval_corpus,
-    cache_status,
-    dense_sanity_audit,
-    encode_corpus,
-    evaluate_dev,
-    evaluate_holdout,
-    freeze_dev_selection,
-    real_model_smoke,
-    recover_holdout_artifacts,
-    retrieval_plan,
-    retrieval_report,
-    retrieval_smoke,
-    verify_holdout_readiness,
-)
 from kawaneen.sources.registry import (
     RegistryValidationError,
     format_summary,
     load_registry,
     summarize_registry,
 )
+
+
+def _retrieval_command_not_loaded(*args: object, **kwargs: object) -> object:
+    del args, kwargs
+    raise RuntimeError("retrieval command dependencies were not loaded")
+
+
+# Keep the command symbols patchable for the CLI unit tests without importing
+# retrieval's optional numerical/model stack during Phase 16 startup.
+build_final_report = _retrieval_command_not_loaded
+build_retrieval_corpus = _retrieval_command_not_loaded
+cache_status = _retrieval_command_not_loaded
+dense_sanity_audit = _retrieval_command_not_loaded
+encode_corpus = _retrieval_command_not_loaded
+evaluate_dev = _retrieval_command_not_loaded
+evaluate_holdout = _retrieval_command_not_loaded
+finalize_phase8_dev_selection = _retrieval_command_not_loaded
+finalize_phase8_holdout = _retrieval_command_not_loaded
+freeze_dev_selection = _retrieval_command_not_loaded
+phase8_holdout = _retrieval_command_not_loaded
+phase8_status = _retrieval_command_not_loaded
+real_model_smoke = _retrieval_command_not_loaded
+recover_holdout_artifacts = _retrieval_command_not_loaded
+rerank_dev = _retrieval_command_not_loaded
+retrieval_plan = _retrieval_command_not_loaded
+retrieval_report = _retrieval_command_not_loaded
+retrieval_smoke = _retrieval_command_not_loaded
+run_dev_fusion = _retrieval_command_not_loaded
+verify_holdout_readiness = _retrieval_command_not_loaded
+
+
+def _load_retrieval_command_dependencies() -> None:
+    """Load retrieval/model dependencies only for retrieval commands."""
+
+    from kawaneen.retrieval import orchestrator as retrieval_module
+    from kawaneen.retrieval.hybrid import finalization as finalization_module
+    from kawaneen.retrieval.hybrid import orchestration as hybrid_module
+
+    loaded = {
+        "build_final_report": retrieval_module.build_final_report,
+        "build_retrieval_corpus": retrieval_module.build_retrieval_corpus,
+        "cache_status": retrieval_module.cache_status,
+        "dense_sanity_audit": retrieval_module.dense_sanity_audit,
+        "encode_corpus": retrieval_module.encode_corpus,
+        "evaluate_dev": retrieval_module.evaluate_dev,
+        "evaluate_holdout": retrieval_module.evaluate_holdout,
+        "finalize_phase8_dev_selection": hybrid_module.finalize_phase8_dev_selection,
+        "finalize_phase8_holdout": finalization_module.finalize_phase8_holdout,
+        "freeze_dev_selection": retrieval_module.freeze_dev_selection,
+        "phase8_holdout": hybrid_module.phase8_holdout,
+        "phase8_status": hybrid_module.phase8_status,
+        "real_model_smoke": retrieval_module.real_model_smoke,
+        "recover_holdout_artifacts": retrieval_module.recover_holdout_artifacts,
+        "rerank_dev": hybrid_module.rerank_dev,
+        "retrieval_plan": retrieval_module.retrieval_plan,
+        "retrieval_report": retrieval_module.retrieval_report,
+        "retrieval_smoke": retrieval_module.retrieval_smoke,
+        "run_dev_fusion": hybrid_module.run_dev_fusion,
+        "verify_holdout_readiness": retrieval_module.verify_holdout_readiness,
+    }
+    for name, function in loaded.items():
+        if globals()[name] is _retrieval_command_not_loaded:
+            globals()[name] = function
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -620,6 +659,8 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
+    if args.command == "retrieval":
+        _load_retrieval_command_dependencies()
     if args.command == "doctor":
         print("Kawaneen foundation: ready")
     elif args.command == "api":
@@ -877,7 +918,10 @@ def main(argv: list[str] | None = None) -> int:
                 )
                 print(f"serving configuration_version: {identity.configuration_version}")
                 print(f"reproduction config SHA256: {report.reproduction_config_sha256}")
-                print(f"source artifacts verified {len(report.rows)}/{len(report.rows)}")
+                print(
+                    f"source artifacts verified {report.unique_source_artifact_count}/"
+                    f"{report.unique_source_artifact_count}"
+                )
                 print(f"rows reproduced {len(report.rows)}/6")
                 print(f"expected table SHA256: {hashlib.sha256(report.expected_csv).hexdigest()}")
                 print(f"actual table SHA256: {report.table_sha256}")

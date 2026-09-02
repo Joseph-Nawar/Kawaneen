@@ -8,6 +8,7 @@ import importlib
 import json
 import math
 import platform
+import re
 from dataclasses import dataclass
 from io import StringIO
 from pathlib import Path
@@ -15,6 +16,8 @@ from typing import Any, cast
 
 DEFAULT_REPRODUCTION_CONFIG = Path("data/manifests/observability/phase16_reproduction_config.json")
 DEFAULT_EXPECTED_TABLE = Path("data/evaluation/phase16_reported_results.csv")
+REPRODUCTION_SCHEMA_VERSION = "phase16-reproduction-config-v1"
+SOURCE_SHA256_PATTERN = re.compile(r"[0-9a-f]{64}")
 CSV_COLUMNS = (
     "result_id",
     "metric",
@@ -67,6 +70,10 @@ class ReproductionReport:
     table_sha256: str
     reproduction_config_sha256: str
 
+    @property
+    def unique_source_artifact_count(self) -> int:
+        return len({row.source_artifact for row in self.rows})
+
 
 def load_reproduction_config(path: Path) -> ReproductionConfig:
     try:
@@ -76,26 +83,50 @@ def load_reproduction_config(path: Path) -> ReproductionConfig:
             f"reproduction config is unavailable or invalid: {path}"
         ) from error
     raw = _mapping(raw_value, "reproduction config")
+    if raw.get("schema_version") != REPRODUCTION_SCHEMA_VERSION:
+        raise ReproducibilityError(f"schema_version must be {REPRODUCTION_SCHEMA_VERSION}")
     definitions = raw.get("results")
     if not isinstance(definitions, list):
         raise ReproducibilityError("reproduction config results must be an array")
+    definitions = cast(list[object], definitions)
+    if len(definitions) != 6:
+        raise ReproducibilityError("reproduction config must contain exactly six results")
     result: list[ResultDefinition] = []
-    for index, value in enumerate(cast(list[object], definitions), start=1):
+    result_ids: set[str] = set()
+    for index, value in enumerate(definitions, start=1):
         item = _mapping(value, f"result definition {index}")
+        result_id = _required_string(item.get("result_id"), "result_id")
+        if result_id in result_ids:
+            raise ReproducibilityError("result_id values must be unique")
+        result_ids.add(result_id)
         path_value = item.get("value_path")
-        if not isinstance(path_value, list) or any(
-            not isinstance(key, str) or not key for key in cast(list[object], path_value)
-        ):
+        if not isinstance(path_value, list):
             raise ReproducibilityError(f"result definition {index} value_path must be object keys")
+        path_value = cast(list[object], path_value)
+        if any(not isinstance(key, str) or not key for key in path_value):
+            raise ReproducibilityError(f"result definition {index} value_path must be object keys")
+        source_artifact = _required_string(item.get("source_artifact"), "source_artifact")
+        source_path = Path(source_artifact.replace("\\", "/"))
+        if source_path.is_absolute() or ".." in source_path.parts:
+            raise ReproducibilityError(
+                "source_artifact must be a relative public path without '..'"
+            )
+        if not source_artifact.startswith("data/evaluation/"):
+            raise ReproducibilityError(
+                "source_artifact must reference a tracked public data/evaluation path"
+            )
+        source_sha256 = _required_string(item.get("source_sha256"), "source_sha256")
+        if SOURCE_SHA256_PATTERN.fullmatch(source_sha256) is None:
+            raise ReproducibilityError("source_sha256 must be 64 lowercase hex characters")
         result.append(
             ResultDefinition(
-                result_id=_required_string(item.get("result_id"), "result_id"),
+                result_id=result_id,
                 metric=_required_string(item.get("metric"), "metric"),
                 population=_required_string(item.get("population"), "population"),
                 provenance=_required_string(item.get("provenance"), "provenance"),
-                source_artifact=_required_string(item.get("source_artifact"), "source_artifact"),
-                source_sha256=_required_string(item.get("source_sha256"), "source_sha256"),
-                value_path=tuple(cast(str, key) for key in cast(list[object], path_value)),
+                source_artifact=source_artifact,
+                source_sha256=source_sha256,
+                value_path=tuple(cast(str, key) for key in path_value),
             )
         )
     return ReproductionConfig(tuple(result))
@@ -230,7 +261,7 @@ def _log_reproduction_run(
                 "serving_configuration_version": identity.configuration_version,
                 "reproduction_config_sha256": report.reproduction_config_sha256,
                 "result_table_sha256": report.table_sha256,
-                "source_artifact_count": len(report.rows),
+                "source_artifact_count": report.unique_source_artifact_count,
                 "git_commit": _git_commit(root),
                 "python_version": platform.python_version(),
                 "mlflow_version": mlflow_module.__version__,
@@ -273,6 +304,7 @@ def _number_text(value: int | float) -> str:
 __all__ = [
     "DEFAULT_EXPECTED_TABLE",
     "DEFAULT_REPRODUCTION_CONFIG",
+    "REPRODUCTION_SCHEMA_VERSION",
     "ReproducibilityError",
     "ReproductionConfig",
     "ReproductionReport",

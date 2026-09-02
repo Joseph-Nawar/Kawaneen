@@ -260,6 +260,75 @@ def test_mlflow_observer_uses_manual_spans_and_isolates_write_failures(
     assert True
 
 
+def test_domain_exception_is_sanitized_before_mlflow_receives_it(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from kawaneen.observability import tracing
+
+    sentinels = ("raw-query", "raw-evidence", "raw-answer")
+    events: list[object] = []
+
+    class FakeLiveSpan:
+        def set_attributes(self, values: object) -> None:
+            events.append(("attributes", values))
+
+        def set_status(self, status: object) -> None:
+            events.append(("status", status))
+
+        def record_exception(self, error: BaseException) -> None:
+            events.append(("record_exception", type(error).__name__, str(error)))
+
+    class FakeContext:
+        def __enter__(self) -> FakeLiveSpan:
+            return FakeLiveSpan()
+
+        def __exit__(self, exc_type: object, exc: BaseException | None, tb: object) -> bool:
+            events.append(("context_exit", exc_type, exc, tb))
+            return False
+
+    class FakeMlflow:
+        class entities:
+            class SpanType:
+                CHAIN = "CHAIN"
+
+        def set_tracking_uri(self, uri: str) -> None:
+            return None
+
+        def set_experiment(self, name: str) -> None:
+            return None
+
+        def MlflowClient(self, tracking_uri: str) -> object:
+            return type(
+                "FakeClient",
+                (),
+                {"get_experiment_by_name": lambda self, name: object()},
+            )()
+
+        def start_span(self, **kwargs: object) -> FakeContext:
+            return FakeContext()
+
+    monkeypatch.setattr(tracing, "_import_mlflow", lambda: FakeMlflow())
+    observer = create_observer(
+        Settings(_env_file=None, observability_enabled=True), ServingIdentity.build(ROOT / "data")
+    )
+    error = RuntimeError(" ".join(sentinels))
+
+    with pytest.raises(RuntimeError) as raised, observer.span("failing", "CHAIN", {}):
+        raise error
+
+    assert raised.value is error
+    serialized = repr(events)
+    assert all(sentinel not in serialized for sentinel in sentinels)
+    assert any(event[0] == "status" and event[1] == "ERROR" for event in events)
+    assert any(
+        event[0] == "attributes"
+        and event[1] == {"error.occurred": True, "error.type": "RuntimeError"}
+        for event in events
+    )
+    assert not any(event[0] == "record_exception" for event in events)
+    assert ("context_exit", None, None, None) in events
+
+
 def test_answer_span_records_policy_abstention_and_not_run_stages() -> None:
     from kawaneen.generation.serving import ServingAnswerer
 
@@ -346,9 +415,7 @@ def test_successful_answer_has_complete_stage_statuses() -> None:
     ).answer("query sentinel")
 
     assert result.answerable is True
-    assert observer.spans[-2].outputs == [
-        {"status": "generated", "decision": "answer", "claim_count": 0}
-    ]
+    assert observer.spans[-2].outputs == [{"status": "generated", "claim_count": 0}]
     assert observer.spans[-1].outputs[0]["status"] == "passed"
     assert observer.spans[-2].attributes == {
         "provider": "ollama",
@@ -387,7 +454,7 @@ def test_model_abstention_marks_generation_and_verification_not_run() -> None:
     ).answer("query sentinel")
 
     assert result.abstention_reason == "MODEL_ABSTENTION"
-    assert observer.spans[-2].outputs == [{"status": "not_run_model_abstention"}]
+    assert observer.spans[-2].outputs == [{"status": "model_abstention"}]
     assert observer.spans[-1].outputs == [{"status": "not_run_model_abstention"}]
 
 
@@ -402,6 +469,39 @@ def test_invalid_generation_marks_generation_invalid_and_verification_not_run() 
     assert result.abstention_reason == "INVALID_GENERATION"
     assert observer.spans[-2].outputs == [{"status": "invalid_generation"}]
     assert observer.spans[-1].outputs == [{"status": "not_run_invalid_generation"}]
+
+
+def test_context_span_records_input_chunk_ids_without_context_text() -> None:
+    observer = RecordingObserver()
+    answerer = _answerer_for_trace(
+        observer,
+        generator=lambda query, context: GeneratedDraft(answer_text="answer", claims=()),
+        verifier=lambda context, draft: VerificationResult(
+            valid_citations=(),
+            invalid_citations=(),
+            unsupported_claims=(),
+            structurally_valid=True,
+            should_abstain=False,
+        ),
+    )
+    answerer.context_builder = lambda query, retrieval: type(
+        "ContextFixture",
+        (),
+        {
+            "input_chunk_ids": ("chunk-1", "chunk-2"),
+            "units": (),
+            "blocks": (),
+            "evidence": (),
+            "omissions": (),
+            "token_count": 2,
+            "max_context_tokens": 100,
+        },
+    )()
+
+    answerer.answer("query sentinel")
+
+    assert observer.spans[0].outputs[0]["input_chunk_ids"] == ["chunk-1", "chunk-2"]
+    assert "query sentinel" not in repr(observer.spans)
 
 
 def test_citation_verification_failure_is_failed_closed() -> None:

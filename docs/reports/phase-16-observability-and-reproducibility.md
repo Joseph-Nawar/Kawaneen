@@ -54,13 +54,20 @@ answerability policy version.
 Retrieval spans carry first-stage parameters, ordered fused chunk IDs, every
 reranker score with prior fused rank, final returned IDs, and requested limit.
 Answer spans carry context counts, the authoritative answerability decision,
-generation status, and citation-verification counts/status. Extraction carries
-mode, capability status, and available provider/model metadata.
+the input chunk IDs used to assemble context, generation status, and
+citation-verification counts/status. A generator abstention is recorded as
+`model_abstention`; downstream citation verification is separately recorded as
+`not_run_model_abstention`. A non-`None` generated draft is recorded as
+`generated` without inferring an answer decision. Extraction carries mode,
+capability status, and available provider/model metadata.
 
 No raw user query, query hash, retrieved legal text, generated answer, quoted
 citation text, extraction input, or extraction output is sent to MLflow. The
 privacy regression test serializes all observer-created attributes, inputs, and
-outputs and checks for sentinel raw content.
+outputs and checks for sentinel raw content. Domain exceptions are propagated
+unchanged to callers, but MLflow receives only `error.occurred=true`,
+`error.type`, and `ERROR` status; exception messages, traceback objects, and
+original exception objects are never forwarded to MLflow.
 
 ## Authority and local MLflow
 
@@ -104,8 +111,11 @@ kawaneen phase16 reproduce --mlflow
 ```
 
 It logs the serving configuration version, reproduction-config/table hashes,
-source count, Git/Python/MLflow versions, six stable metrics, and only the
-public reproduction config and CSV.
+unique source-artifact count (5), row count (6), Git/Python/MLflow versions,
+six stable metrics, and only the public reproduction config and CSV. The
+loader requires the exact Phase 16 schema, exactly six unique result IDs,
+lowercase 64-character source hashes, and relative public tracked source
+paths.
 
 ## Six reproduced results
 
@@ -146,6 +156,11 @@ The implementation includes focused identity, tracing/privacy, branch-status,
 API, and reproduction tests. The recorded local smoke used MLflow 3.15.2 with
 a synthetic request: the client observed a trace with request ID
 `smoke-req`, configuration identity `3fcd52f794ca6402c5d1d6f8be3a2aa9487ea79ac8ccd967392be3304638c83c`,
-and nested `retrieval.first_stage`. The supplemental reproduction run created
-the `kawaneen-reproducibility` experiment with six metrics and the two public
-artifacts. Public CI must not depend on a running MLflow server.
+and nested `retrieval.first_stage` (trace
+`tr-3cc1f19be79b3fd58ae4314622dc7066`). A separate failing-sentinel smoke
+(trace `tr-7b1b6c1cbdd8fb84ed6dfcbba4f3084b`) verifies that the original
+exception identity is preserved, MLflow records `ERROR` and `RuntimeError`,
+and the query/evidence/answer sentinels are absent from the stored trace. The
+supplemental reproduction run (`bba5c85d64474293bcff588cf4cd001a`) created the
+`kawaneen-reproducibility` experiment with six metrics, source count 5, and the
+two public artifacts. Public CI must not depend on a running MLflow server.

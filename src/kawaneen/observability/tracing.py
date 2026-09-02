@@ -81,7 +81,9 @@ class _MlflowSpan:
         context = cast(Any, self._context)
         if context is not None:
             try:
-                context.__exit__(exc_type, exc, tb)
+                # Finalize MLflow without forwarding the domain exception. The
+                # wrapper returns False below so Kawaneen still propagates it.
+                context.__exit__(None, None, None)
             except Exception as error:
                 self._warn("could not finish MLflow span", error)
         return False
@@ -95,14 +97,11 @@ class _MlflowSpan:
     def record_exception(self, error: BaseException) -> None:
         if self._span is None:
             return
-        try:
-            record = getattr(self._span, "record_exception", None)
-            if callable(record):
-                record(error)
-            else:
-                self._span.set_attributes({"error.type": type(error).__name__})
-        except Exception as telemetry_error:
-            self._warn("could not record MLflow span exception", telemetry_error)
+        self._call(
+            "set_attributes",
+            {"error.occurred": True, "error.type": type(error).__name__},
+        )
+        self._call("set_status", "ERROR")
 
     def _call(self, method_name: str, value: object) -> None:
         if self._span is None:

@@ -263,12 +263,11 @@ class ServingAnswerer:
                     span.set_outputs({"status": "invalid_generation"})
                     raise
                 if draft is None:
-                    span.set_outputs({"status": "not_run_model_abstention"})
+                    span.set_outputs({"status": "model_abstention"})
                 else:
                     span.set_outputs(
                         {
                             "status": "generated",
-                            "decision": "answer",
                             "claim_count": len(draft.claims),
                         }
                     )
@@ -329,8 +328,10 @@ class ServingAnswerer:
 
 
 def _context_counts(context: object) -> dict[str, object]:
+    input_chunk_ids = tuple(getattr(context, "input_chunk_ids", ()))
     return {
-        "input_chunk_count": len(getattr(context, "input_chunk_ids", ())),
+        "input_chunk_ids": list(input_chunk_ids),
+        "input_chunk_count": len(input_chunk_ids),
         "context_unit_count": len(getattr(context, "units", ())),
         "context_block_count": len(getattr(context, "blocks", ())),
         "context_evidence_count": len(getattr(context, "evidence", ())),
