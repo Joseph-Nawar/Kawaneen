@@ -111,8 +111,8 @@ kawaneen phase16 reproduce --mlflow
 ```
 
 It logs the serving configuration version, reproduction-config/table hashes,
-unique source-artifact count (5), row count (6), Git/Python/MLflow versions,
-six stable metrics, and only the public reproduction config and CSV. The
+unique source-artifact count (5), six reproduced metrics, Git/Python/MLflow
+versions, and only the public reproduction config and CSV. The
 loader requires the exact Phase 16 schema, exactly six unique result IDs,
 lowercase 64-character source hashes, and relative public tracked source
 paths.
