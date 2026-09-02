@@ -1,0 +1,37 @@
+{
+  "schema": "phase17-demo-qualification-v1",
+  "provenance": "PHASE17_DEV",
+  "qualification_scope": "local_constrained_not_huggingface_host",
+  "publication_status": "NOT_PUBLISHED_USER_APPROVAL_REQUIRED",
+  "architecture": "arm64",
+  "operating_system": "macOS-26.4-arm64-arm-64bit",
+  "cpu_limit": "2 CPUs requested when containerized",
+  "memory_limit": "12 GB requested when containerized",
+  "container_image_digest": null,
+  "model": {
+    "id": "intfloat/multilingual-e5-small",
+    "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3"
+  },
+  "reranker": {
+    "enabled": true,
+    "decision": "DEMO_RERANKER_ENABLED_TOP4",
+    "model_id": "BAAI/bge-reranker-v2-m3",
+    "revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+    "depth": 4
+  },
+  "timings_ms": {
+    "search_p50": 278.501,
+    "search_p95": 429.959,
+    "answer_p50": 270.375,
+    "answer_p95": 286.057
+  },
+  "memory_mb": {
+    "idle_rss": null,
+    "peak_rss": 1920.797
+  },
+  "image_size_bytes": null,
+  "fixed_query_count": 20,
+  "fixed_query_errors": 0,
+  "qualification_decision": "HF_SPACE_RESOURCE_QUALIFIED",
+  "qualification_note": "Measurements are local and are not Hugging Face host performance claims."
+}

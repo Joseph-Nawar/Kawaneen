@@ -16,6 +16,23 @@ make check
 
 See [the API guide](docs/api.md), [development.md](docs/development.md), and [the Phase 12 report](docs/reports/phase-12-api-report.md) for the serving contract and verification record.
 
+## Deployment
+
+The full local profile is the authoritative frozen system:
+
+```bash
+KAWANEEN_HOST_ARTIFACTS_DIR=/absolute/path/to/artifacts docker compose up
+```
+
+It requires the documented local/private Phase 7–11 serving assets; a fresh
+clone does not contain the full legal corpus or private model artifacts. The
+small public profile is a synthetic, retrieval-first bundle with no LLM and is
+prepared for a Hugging Face Docker Space but remains unpublished until explicit
+approval. See [full local deployment](docs/deployment/full-local.md), [public
+demo](docs/deployment/public-demo.md), [API examples](docs/deployment/api-examples.md),
+the [Phase 17 diagram](docs/architecture/phase17-deployment.mmd), and the [demo
+script](docs/demo/three-minute-script.md).
+
 ## Public reproduction and observed local API
 
 The repository is authoritative for the six reported aggregate results. Rebuild

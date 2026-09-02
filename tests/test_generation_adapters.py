@@ -149,6 +149,16 @@ def test_ollama_rejects_non_immutable_digest_at_construction() -> None:
         )
 
 
+def test_ollama_accepts_compose_service_hostname() -> None:
+    generator = OllamaGenerator(
+        endpoint="http://ollama:11434/api/generate",
+        model="qwen3:4b-instruct-2507-q4_K_M",
+        immutable_digest="sha256:" + "a" * 64,
+    )
+
+    assert generator.identity_endpoint == "http://ollama:11434"
+
+
 def test_transformers_loading_is_lazy_and_revision_locked() -> None:
     candidate = ModelCandidate(
         name="test",

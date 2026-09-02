@@ -37,6 +37,9 @@ retrieval = [
     "faiss-cpu>=1.9,<2; platform_machine != 'arm64' or sys_platform != 'darwin'",
     "sentence-transformers>=3.3,<6",
 ]
+deployment = [
+    "qdrant-client>=1.12,<2",
+]
 ui = [
     "httpx>=0.28,<1",
     "pypdf>=5,<6",
@@ -142,6 +145,8 @@ omit = [
     "src/kawaneen/phase15/reranking.py",
     "src/kawaneen/phase15/review_app.py",
     "src/kawaneen/phase15/runner.py",
+    # Explicit local deployment qualification is an operator-run measurement command.
+    "src/kawaneen/deployment/qualification.py",
 ]
 
 [tool.pyright]

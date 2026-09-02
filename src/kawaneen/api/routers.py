@@ -8,7 +8,7 @@ from __future__ import annotations
 import asyncio
 import time
 from collections.abc import Callable
-from typing import Any
+from typing import Any, cast
 
 from fastapi import APIRouter, Depends, Query, Request
 from fastapi.responses import JSONResponse
@@ -36,10 +36,13 @@ from kawaneen.api.dependencies import get_container
 from kawaneen.api.errors import (
     document_not_found,
     model_unavailable,
+    rate_limited,
     request_timeout,
+    request_too_large,
     service_unavailable,
 )
 from kawaneen.api.runtime import ServiceContainer
+from kawaneen.demo.limits import DemoRequestLimiter
 from kawaneen.extraction.serving import ModelUnavailableError
 from kawaneen.generation.serving import (
     GenerationModelUnavailableError,
@@ -75,16 +78,20 @@ def build_router(
         if service is None or not container.component_ready("retrieval"):
             raise service_unavailable("retrieval service is not ready")
         started = time.perf_counter()
-        result = await _run_with_timeout(
-            lambda: _observed_search(
-                container,
-                _request_id(raw_request),
-                request.query,
-                request.jurisdiction,
-                request.limit,
-            ),
-            search_timeout,
-        )
+        demo_guard = _demo_enter(container, request.query, "query")
+        try:
+            result = await _run_with_timeout(
+                lambda: _observed_search(
+                    container,
+                    _request_id(raw_request),
+                    request.query,
+                    request.jurisdiction,
+                    _demo_limit(container, request.limit),
+                ),
+                search_timeout,
+            )
+        finally:
+            _demo_exit(demo_guard)
         return SearchResponse(
             request_id=_request_id(raw_request),
             jurisdiction=request.jurisdiction,
@@ -109,6 +116,7 @@ def build_router(
         if service is None or not container.component_ready("answer"):
             raise service_unavailable("answer service is not ready")
         started = time.perf_counter()
+        demo_guard = _demo_enter(container, request.query, "query")
         try:
             result = await _run_with_timeout(
                 lambda: _observed_answer(
@@ -122,6 +130,8 @@ def build_router(
             )
         except GenerationModelUnavailableError as error:
             raise model_unavailable() from error
+        finally:
+            _demo_exit(demo_guard)
         return AnswerResponse(
             request_id=_request_id(raw_request),
             jurisdiction=request.jurisdiction,
@@ -151,6 +161,7 @@ def build_router(
         if request.mode.value == "hybrid" and not container.component_ready("extraction_hybrid"):
             raise model_unavailable()
         started = time.perf_counter()
+        demo_guard = _demo_enter(container, request.text, "extraction")
         try:
             result = await _run_with_timeout(
                 lambda: _observed_extract(
@@ -165,6 +176,8 @@ def build_router(
             )
         except ModelUnavailableError as error:
             raise model_unavailable() from error
+        finally:
+            _demo_exit(demo_guard)
         return ExtractionResponse(
             request_id=_request_id(raw_request),
             result=result.result,
@@ -283,6 +296,34 @@ def _request_id(request: Request) -> str:
     return str(getattr(request.state, "request_id", "missing-request-id"))
 
 
+def _demo_enter(container: ServiceContainer, value: str, kind: str) -> DemoRequestLimiter | None:
+    guard = container.demo_guard if container.public_demo else None
+    if guard is None:
+        return None
+    typed_guard = cast(DemoRequestLimiter, guard)
+    try:
+        if kind == "query":
+            typed_guard.validate_query(value)
+        else:
+            typed_guard.validate_extraction(value)
+        typed_guard.acquire()
+    except ValueError as error:
+        raise request_too_large() from error
+    except RuntimeError as error:
+        raise rate_limited(str(error)) from error
+    return typed_guard
+
+
+def _demo_exit(guard: DemoRequestLimiter | None) -> None:
+    if guard is not None:
+        guard.release()
+
+
+def _demo_limit(container: ServiceContainer, limit: int) -> int:
+    guard = container.demo_guard if container.public_demo else None
+    return cast(DemoRequestLimiter, guard).result_limit(limit) if guard is not None else limit
+
+
 def _call_answer(service: object, query: str) -> Any:
     method = getattr(service, "answer", None)
     return method(query) if callable(method) else service(query)  # type: ignore[operator]
@@ -351,6 +392,7 @@ def _evidence(item: Any) -> Any:
         page=item.page,
         source_url=item.source_url,
         score=item.score,
+        score_type=item.score_type,
         provenance=item.provenance,
     )
 
@@ -365,6 +407,7 @@ def _summary(item: Any) -> RetrievalSummary:
         top_score=item.top_score,
         hit_count=item.hit_count,
         returned_count=item.returned_count,
+        score_type=item.score_type,
     )
 
 

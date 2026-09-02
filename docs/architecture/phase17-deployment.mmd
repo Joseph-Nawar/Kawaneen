@@ -1,0 +1,28 @@
+flowchart LR
+  subgraph FULL["FULL LOCAL · authoritative frozen system"]
+    BrowserF[Browser] --> UIF[kawaneen-ui :8501]
+    UIF --> APIF[kawaneen-api :8000]
+    APIF --> BM25F[BM25]
+    APIF --> QF[Qdrant exact dense search]
+    APIF --> RF[Frozen BGE reranker]
+    APIF --> OF[Ollama · Qwen3 4B Stage-D]
+    OF --> VF[Verifier]
+    APIF --> MLF[MLflow · Phase 16 traces]
+    QI[qdrant-init] --> QF
+    OI[ollama-init] --> OF
+    PA[(Private frozen serving assets)] -. read-only .-> APIF
+  end
+
+  subgraph DEMO["PUBLIC DEMO · reduced and synthetic"]
+    BrowserD[Browser] --> UID[Streamlit :7860]
+    UID --> APID[FastAPI :8000 loopback]
+    APID --> BM25D[BM25]
+    APID --> E5[Precomputed E5-small vectors / NumPy exact search]
+    APID --> RD[Optional qualified reranker · top 4]
+    BM25D --> ED[Deterministic exact evidence response]
+    E5 --> ED
+    RD --> ED
+    CorpusD[(Synthetic KAWANEEN_DEMO corpus)] --> BM25D
+    CorpusD --> E5
+    NoLLM[No LLM · no Qdrant · no MLflow · no Ollama] -.-> ED
+  end

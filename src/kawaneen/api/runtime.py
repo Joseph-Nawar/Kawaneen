@@ -67,10 +67,14 @@ class ServiceContainer:
         component_initializers: Mapping[str, ComponentInitializer] | None = None,
         observer: TraceObserver | None = None,
         observability_identity: ServingIdentity | None = None,
+        public_demo: bool = False,
+        demo_guard: object | None = None,
     ) -> None:
         self.settings = settings or Settings()
         self.observer = observer or NoOpObserver()
         self.observability_identity = observability_identity
+        self.public_demo = public_demo
+        self.demo_guard = demo_guard
         self._observer_supplied = observer is not None
         self.retriever = retriever
         self.answerer = answerer

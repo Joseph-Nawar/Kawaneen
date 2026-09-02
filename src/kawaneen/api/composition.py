@@ -145,7 +145,7 @@ def build_stage_d_generation(settings: Settings) -> ServingGenerationBundle:
         / "qwen-ollama-model-lock.json"
     )
     provider = OllamaGenerator(
-        endpoint="http://127.0.0.1:11434/api/generate",
+        endpoint=f"{settings.ollama_url.rstrip('/')}/api/generate",
         model=identity.model,
         immutable_digest=identity.digest,
         local_lock_path=lock_path,
@@ -199,7 +199,7 @@ def build_hybrid_extraction(settings: Settings) -> ServingExtractionBundle:
         / "qwen-ollama-model-lock.json"
     )
     provider = OllamaExtractionProvider(
-        endpoint="http://127.0.0.1:11434/api/generate",
+        endpoint=f"{settings.ollama_url.rstrip('/')}/api/generate",
         model=model,
         immutable_digest=digest,
         local_lock_path=lock_path,
@@ -256,6 +256,7 @@ def build_serving_retrieval(
     from kawaneen.retrieval.bm25 import BM25Index
     from kawaneen.retrieval.dense_models import BGEM3Adapter
     from kawaneen.retrieval.hybrid.reranker import BGERerankerAdapter
+    from kawaneen.retrieval.qdrant_bootstrap import collection_name_for
     from kawaneen.retrieval.serving import HybridServingRetriever, load_serving_chunks
     from kawaneen.retrieval.vector_index import NumpyExactIndex
 
@@ -276,7 +277,19 @@ def build_serving_retrieval(
     dense_ids = tuple(cast(str, item) for item in ids_value)
     if len(dense_ids) != len(chunks) or set(dense_ids) != set(chunks):
         raise ValueError("frozen dense retrieval IDs do not match the serving corpus")
-    dense_index = NumpyExactIndex.build(vectors, dense_ids)
+    if settings.dense_index_backend == "qdrant":
+        from qdrant_client import QdrantClient
+
+        from kawaneen.retrieval.qdrant_index import QdrantExactIndex
+
+        dense_index = QdrantExactIndex.build(
+            client=QdrantClient(url=settings.qdrant_url),
+            collection_name=collection_name_for(configuration.corpus_hash),
+            vectors=vectors,
+            chunk_ids=dense_ids,
+        )
+    else:
+        dense_index = NumpyExactIndex.build(vectors, dense_ids)
     dense = dense_adapter or BGEM3Adapter(revision=configuration.dense_model_revision)
     if dense.embedding_dimension and dense.embedding_dimension != vectors.shape[1]:
         raise ValueError("dense model dimension does not match the frozen index")

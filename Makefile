@@ -1,4 +1,4 @@
-.PHONY: help install install-observability format lint typecheck test test-unit test-integration test-regression test-model-regression test-e2e test-e2e-private test-public test-private check doctor api-serve api-serve-observed mlflow-serve ui-serve ui-demo phase16-identity phase16-reproduce phase16-verify sources-validate sources-summary data-plan data-acquire-alarb data-import-arabiccr data-verify data-audit data-audit-statutory data-manifest data-status data-rebuild-auto data-rebuild corpus-plan corpus-build corpus-validate corpus-inventory corpus-statutory-status corpus-duplicate-diagnostics corpus-gaps parsing-preflight parsing-benchmark parsing-diagnose normalization-plan normalization-run normalization-validate normalization-sensitivity chunking-plan chunking-build chunking-experiment chunking-validate evaluation-plan evaluation-build-draft evaluation-build-draft-v3 evaluation-build-draft-v4 evaluation-build-draft-v5 evaluation-build-final-candidate evaluation-export-review evaluation-import-review evaluation-validate evaluation-freeze evaluation-freeze-ai-reviewed evaluation-stats extraction-status extraction-prepare extraction-validate extraction-deterministic phase15-plan phase15-freeze phase15-synthesize phase15-embedding phase15-dialect phase15-reranking phase15-generation-preflight phase15-generation phase15-counterfactuals phase15-latency phase15-review-prepare phase15-review phase15-review-status phase15-finalize clean
+.PHONY: help install install-observability format lint typecheck test test-unit test-integration test-regression test-model-regression test-e2e test-e2e-private test-public test-private check doctor api-serve api-serve-observed mlflow-serve ui-serve ui-demo phase16-identity phase16-reproduce phase16-verify phase17-qdrant-parity phase17-space-bundle phase17-demo-qualify phase17-verify sources-validate sources-summary data-plan data-acquire-alarb data-import-arabiccr data-verify data-audit data-audit-statutory data-manifest data-status data-rebuild-auto data-rebuild corpus-plan corpus-build corpus-validate corpus-inventory corpus-statutory-status corpus-duplicate-diagnostics corpus-gaps parsing-preflight parsing-benchmark parsing-diagnose normalization-plan normalization-run normalization-validate normalization-sensitivity chunking-plan chunking-build chunking-experiment chunking-validate evaluation-plan evaluation-build-draft evaluation-build-draft-v3 evaluation-build-draft-v4 evaluation-build-draft-v5 evaluation-build-final-candidate evaluation-export-review evaluation-import-review evaluation-validate evaluation-freeze evaluation-freeze-ai-reviewed evaluation-stats extraction-status extraction-prepare extraction-validate extraction-deterministic phase15-plan phase15-freeze phase15-synthesize phase15-embedding phase15-dialect phase15-reranking phase15-generation-preflight phase15-generation phase15-counterfactuals phase15-latency phase15-review-prepare phase15-review phase15-review-status phase15-finalize clean
 
 help:
 	@printf '%s\n' 'Kawaneen development commands:'
@@ -26,6 +26,10 @@ help:
 	@printf '%s\n' '  make phase16-verify  verify identity and public result reproduction'
 	@printf '%s\n' '  make ui-serve   uv run streamlit run src/kawaneen/ui/app.py'
 	@printf '%s\n' '  make ui-demo    KAWANEEN_UI_MODE=demo uv run streamlit run src/kawaneen/ui/app.py'
+	@printf '%s\n' '  make phase17-qdrant-parity  run the DEV-only NumPy/Qdrant exact parity gate'
+	@printf '%s\n' '  make phase17-space-bundle   export the ignored public Space bundle'
+	@printf '%s\n' '  make phase17-demo-qualify   run the local public-demo qualification'
+	@printf '%s\n' '  make phase17-verify         run Phase 17 structural verification'
 	@printf '%s\n' '  make sources-validate  uv run kawaneen sources validate'
 	@printf '%s\n' '  make sources-summary   uv run kawaneen sources summary'
 	@printf '%s\n' '  make data-plan         uv run kawaneen data plan'
@@ -155,6 +159,22 @@ ui-serve:
 
 ui-demo:
 	KAWANEEN_UI_MODE=demo uv run streamlit run src/kawaneen/ui/app.py
+
+phase17-qdrant-parity:
+	uv run python scripts/phase17_qdrant_parity.py
+
+phase17-space-bundle:
+	uv run python scripts/phase17_space_bundle.py
+
+phase17-demo-qualify:
+	uv run python scripts/phase17_demo_qualify.py
+
+phase17-verify:
+	uv run ruff format --check .
+	uv run ruff check .
+	uv run pyright
+	uv run pytest tests/test_phase17_*.py tests/test_retrieval_qdrant.py tests/test_qdrant_bootstrap.py --no-cov
+	docker compose config
 
 sources-validate:
 	uv run kawaneen sources validate

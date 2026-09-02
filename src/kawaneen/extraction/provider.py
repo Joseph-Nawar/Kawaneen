@@ -22,6 +22,7 @@ from kawaneen.generation.ollama import (
     extract_ollama_response_text,
     inspect_ollama_model,
     load_local_model_lock,
+    validate_ollama_endpoint,
 )
 
 QWEN_HF_ID = "Qwen/Qwen3-4B-Instruct-2507"
@@ -69,13 +70,9 @@ class OllamaExtractionProvider:
         local_lock_path: Path = LOCAL_OLLAMA_LOCK_PATH,
         prompt_template_version: str = HYBRID_PROMPT_TEMPLATE_VERSION,
     ) -> None:
-        from urllib.parse import urlparse
-
-        parsed = urlparse(endpoint)
-        if parsed.scheme != "http" or parsed.hostname not in {"localhost", "127.0.0.1", "::1"}:
-            raise ValueError("Ollama endpoint must be localhost HTTP")
+        scheme, netloc = validate_ollama_endpoint(endpoint)
         self.endpoint = endpoint
-        self.identity_endpoint = f"{parsed.scheme}://{parsed.netloc}"
+        self.identity_endpoint = f"{scheme}://{netloc}"
         self.model = model
         self.immutable_digest = immutable_digest
         self.transport = transport or UrllibOllamaTransport(timeout_seconds=30.0)

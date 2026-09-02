@@ -1,0 +1,131 @@
+name: kawaneen
+
+services:
+  kawaneen-api:
+    build:
+      context: .
+      dockerfile: docker/full/Dockerfile
+    command: ["uvicorn", "kawaneen.api.app:create_app", "--factory", "--host", "0.0.0.0", "--port", "8000"]
+    environment:
+      KAWANEEN_DATA_DIRECTORY: /app/data
+      KAWANEEN_ARTIFACTS_DIRECTORY: /app/artifacts
+      KAWANEEN_DENSE_INDEX_BACKEND: qdrant
+      KAWANEEN_QDRANT_URL: http://qdrant:6333
+      KAWANEEN_OLLAMA_URL: http://ollama:11434
+      KAWANEEN_OBSERVABILITY_ENABLED: "true"
+      KAWANEEN_MLFLOW_TRACKING_URI: http://mlflow:5000
+    volumes:
+      - ${KAWANEEN_HOST_ARTIFACTS_DIR:-./artifacts}:/app/artifacts:ro
+      - huggingface_cache:/opt/huggingface
+    ports:
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      qdrant-init:
+        condition: service_completed_successfully
+      ollama-init:
+        condition: service_completed_successfully
+      mlflow:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/v1/health', timeout=3)"]
+      interval: 5s
+      timeout: 5s
+      retries: 24
+      start_period: 15s
+
+  kawaneen-ui:
+    build:
+      context: .
+      dockerfile: docker/ui/Dockerfile
+    command: ["streamlit", "run", "src/kawaneen/ui/app.py", "--server.address", "0.0.0.0", "--server.port", "8501", "--server.headless", "true"]
+    environment:
+      KAWANEEN_UI_MODE: live
+      KAWANEEN_API_URL: http://kawaneen-api:8000
+    ports:
+      - "127.0.0.1:8501:8501"
+    depends_on:
+      kawaneen-api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8501/_stcore/health', timeout=3)"]
+      interval: 5s
+      timeout: 5s
+      retries: 24
+      start_period: 15s
+
+  qdrant:
+    image: qdrant/qdrant:v1.15.4
+    volumes:
+      - qdrant_storage:/qdrant/storage
+    ports:
+      - "127.0.0.1:6333:6333"
+    healthcheck:
+      test: ["CMD-SHELL", "timeout 3 bash -c '</dev/tcp/127.0.0.1/6333'"]
+      interval: 5s
+      timeout: 5s
+      retries: 24
+
+  qdrant-init:
+    build:
+      context: .
+      dockerfile: docker/full/Dockerfile
+    command: ["python", "/app/docker/qdrant-init.py"]
+    environment:
+      KAWANEEN_DATA_DIRECTORY: /app/data
+      KAWANEEN_ARTIFACTS_DIRECTORY: /app/artifacts
+      KAWANEEN_QDRANT_URL: http://qdrant:6333
+    volumes:
+      - ${KAWANEEN_HOST_ARTIFACTS_DIR:-./artifacts}:/app/artifacts:ro
+    depends_on:
+      qdrant:
+        condition: service_healthy
+
+  mlflow:
+    build:
+      context: .
+      dockerfile: docker/full/Dockerfile
+    command: ["mlflow", "server", "--host", "0.0.0.0", "--port", "5000", "--backend-store-uri", "sqlite:////mlflow/state/mlflow.db", "--default-artifact-root", "/mlflow/artifacts", "--allowed-hosts", "*"]
+    volumes:
+      - mlflow_data:/mlflow
+    ports:
+      - "127.0.0.1:5000:5000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:5000/health', timeout=3)"]
+      interval: 5s
+      timeout: 5s
+      retries: 24
+      start_period: 15s
+
+  ollama:
+    image: ollama/ollama:0.11.10
+    volumes:
+      - ollama_models:/root/.ollama
+    ports:
+      - "127.0.0.1:11434:11434"
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 10s
+      retries: 30
+      start_period: 20s
+
+  ollama-init:
+    build:
+      context: .
+      dockerfile: docker/full/Dockerfile
+    command: ["python", "/app/docker/ollama-init.py"]
+    environment:
+      KAWANEEN_DATA_DIRECTORY: /app/data
+      KAWANEEN_ARTIFACTS_DIRECTORY: /app/artifacts
+      KAWANEEN_OLLAMA_URL: http://ollama:11434
+    volumes:
+      - ${KAWANEEN_HOST_ARTIFACTS_DIR:-./artifacts}:/app/artifacts:ro
+    depends_on:
+      ollama:
+        condition: service_healthy
+
+volumes:
+  huggingface_cache:
+  qdrant_storage:
+  mlflow_data:
+  ollama_models:

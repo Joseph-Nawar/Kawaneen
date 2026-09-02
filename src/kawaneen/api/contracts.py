@@ -73,12 +73,12 @@ class Evidence(ApiModel):
     page: str | None = None
     source_url: str | None = None
     score: float
-    score_type: Literal["reranker_raw_logit"] = "reranker_raw_logit"
+    score_type: Literal["reranker_raw_logit", "rrf_score"] = "reranker_raw_logit"
     provenance: Literal["sparse-only", "dense-only", "both"] | None = None
 
 
 class RetrievalSummary(ApiModel):
-    strategy: Literal["hybrid_reranked"] = "hybrid_reranked"
+    strategy: Literal["hybrid_reranked", "demo_retrieval_first"] = "hybrid_reranked"
     sparse_top_k: int = 50
     dense_top_k: int = 50
     fused_candidate_count: int = 20
@@ -86,7 +86,7 @@ class RetrievalSummary(ApiModel):
     top_score: float | None = None
     hit_count: int = Field(ge=0, le=20)
     returned_count: int = Field(ge=0, le=8)
-    score_type: Literal["reranker_raw_logit"] = "reranker_raw_logit"
+    score_type: Literal["reranker_raw_logit", "rrf_score"] = "reranker_raw_logit"
 
 
 class SearchResponse(ApiModel):
@@ -192,6 +192,7 @@ ErrorCode = Literal[
     "SERVICE_UNAVAILABLE",
     "MODEL_UNAVAILABLE",
     "REQUEST_TIMEOUT",
+    "RATE_LIMITED",
     "INTERNAL_ERROR",
 ]
 
