@@ -76,7 +76,14 @@ def build_router(
             raise service_unavailable("retrieval service is not ready")
         started = time.perf_counter()
         result = await _run_with_timeout(
-            lambda: callable_retriever(service)(request.query, request.limit), search_timeout
+            lambda: _observed_search(
+                container,
+                _request_id(raw_request),
+                request.query,
+                request.jurisdiction,
+                request.limit,
+            ),
+            search_timeout,
         )
         return SearchResponse(
             request_id=_request_id(raw_request),
@@ -104,7 +111,14 @@ def build_router(
         started = time.perf_counter()
         try:
             result = await _run_with_timeout(
-                lambda: _call_answer(service, request.query), answer_timeout
+                lambda: _observed_answer(
+                    container,
+                    _request_id(raw_request),
+                    request.query,
+                    request.jurisdiction,
+                    service,
+                ),
+                answer_timeout,
             )
         except GenerationModelUnavailableError as error:
             raise model_unavailable() from error
@@ -139,7 +153,15 @@ def build_router(
         started = time.perf_counter()
         try:
             result = await _run_with_timeout(
-                lambda: service.extract(request.text, mode=request.mode.value), extract_timeout
+                lambda: _observed_extract(
+                    container,
+                    _request_id(raw_request),
+                    request.text,
+                    request.mode.value,
+                    request.jurisdiction,
+                    service,
+                ),
+                extract_timeout,
             )
         except ModelUnavailableError as error:
             raise model_unavailable() from error
@@ -264,6 +286,56 @@ def _request_id(request: Request) -> str:
 def _call_answer(service: object, query: str) -> Any:
     method = getattr(service, "answer", None)
     return method(query) if callable(method) else service(query)  # type: ignore[operator]
+
+
+def _observed_search(
+    container: ServiceContainer, request_id: str, query: str, jurisdiction: str, limit: int
+) -> Any:
+    with container.root_trace(
+        "search",
+        request_id,
+        {
+            "query_character_count": len(query),
+            "jurisdiction": jurisdiction,
+            "requested_limit": limit,
+        },
+    ):
+        return callable_retriever(container.retriever)(query, limit)
+
+
+def _observed_answer(
+    container: ServiceContainer,
+    request_id: str,
+    query: str,
+    jurisdiction: str,
+    service: object,
+) -> Any:
+    with container.root_trace(
+        "answer",
+        request_id,
+        {"query_character_count": len(query), "jurisdiction": jurisdiction},
+    ):
+        return _call_answer(service, query)
+
+
+def _observed_extract(
+    container: ServiceContainer,
+    request_id: str,
+    text: str,
+    mode: str,
+    jurisdiction: str,
+    service: object,
+) -> Any:
+    with container.root_trace(
+        "extract",
+        request_id,
+        {
+            "input_character_count": len(text),
+            "jurisdiction": jurisdiction,
+            "extraction_mode": mode,
+        },
+    ):
+        return service.extract(text, mode=mode)  # type: ignore[union-attr]
 
 
 def _evidence(item: Any) -> Any:

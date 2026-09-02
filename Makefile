@@ -1,8 +1,9 @@
-.PHONY: help install format lint typecheck test test-unit test-integration test-regression test-model-regression test-e2e test-e2e-private test-public test-private check doctor api-serve ui-serve ui-demo sources-validate sources-summary data-plan data-acquire-alarb data-import-arabiccr data-verify data-audit data-audit-statutory data-manifest data-status data-rebuild-auto data-rebuild corpus-plan corpus-build corpus-validate corpus-inventory corpus-statutory-status corpus-duplicate-diagnostics corpus-gaps parsing-preflight parsing-benchmark parsing-diagnose normalization-plan normalization-run normalization-validate normalization-sensitivity chunking-plan chunking-build chunking-experiment chunking-validate evaluation-plan evaluation-build-draft evaluation-build-draft-v3 evaluation-build-draft-v4 evaluation-build-draft-v5 evaluation-build-final-candidate evaluation-export-review evaluation-import-review evaluation-validate evaluation-freeze evaluation-freeze-ai-reviewed evaluation-stats extraction-status extraction-prepare extraction-validate extraction-deterministic phase15-plan phase15-freeze phase15-synthesize phase15-embedding phase15-dialect phase15-reranking phase15-generation-preflight phase15-generation phase15-counterfactuals phase15-latency phase15-review-prepare phase15-review phase15-review-status phase15-finalize clean
+.PHONY: help install install-observability format lint typecheck test test-unit test-integration test-regression test-model-regression test-e2e test-e2e-private test-public test-private check doctor api-serve api-serve-observed mlflow-serve ui-serve ui-demo phase16-identity phase16-reproduce phase16-verify sources-validate sources-summary data-plan data-acquire-alarb data-import-arabiccr data-verify data-audit data-audit-statutory data-manifest data-status data-rebuild-auto data-rebuild corpus-plan corpus-build corpus-validate corpus-inventory corpus-statutory-status corpus-duplicate-diagnostics corpus-gaps parsing-preflight parsing-benchmark parsing-diagnose normalization-plan normalization-run normalization-validate normalization-sensitivity chunking-plan chunking-build chunking-experiment chunking-validate evaluation-plan evaluation-build-draft evaluation-build-draft-v3 evaluation-build-draft-v4 evaluation-build-draft-v5 evaluation-build-final-candidate evaluation-export-review evaluation-import-review evaluation-validate evaluation-freeze evaluation-freeze-ai-reviewed evaluation-stats extraction-status extraction-prepare extraction-validate extraction-deterministic phase15-plan phase15-freeze phase15-synthesize phase15-embedding phase15-dialect phase15-reranking phase15-generation-preflight phase15-generation phase15-counterfactuals phase15-latency phase15-review-prepare phase15-review phase15-review-status phase15-finalize clean
 
 help:
 	@printf '%s\n' 'Kawaneen development commands:'
 	@printf '%s\n' '  make install   uv sync --locked --dev --extra ui'
+	@printf '%s\n' '  make install-observability  uv sync --locked --dev --extra ui --group observability'
 	@printf '%s\n' '  make format    uv run ruff format .'
 	@printf '%s\n' '  make lint      uv run ruff check .'
 	@printf '%s\n' '  make typecheck uv run pyright'
@@ -18,6 +19,11 @@ help:
 	@printf '%s\n' '  make check     format check, lint, typecheck, tests'
 	@printf '%s\n' '  make doctor    uv run kawaneen doctor'
 	@printf '%s\n' '  make api-serve uv run kawaneen api serve'
+	@printf '%s\n' '  make api-serve-observed  KAWANEEN_OBSERVABILITY_ENABLED=true KAWANEEN_MLFLOW_TRACKING_URI=http://127.0.0.1:5000 uv run kawaneen api serve'
+	@printf '%s\n' '  make mlflow-serve  start local loopback MLflow with SQLite storage'
+	@printf '%s\n' '  make phase16-identity  verify the tracked serving identity'
+	@printf '%s\n' '  make phase16-reproduce  reconstruct the public result table'
+	@printf '%s\n' '  make phase16-verify  verify identity and public result reproduction'
 	@printf '%s\n' '  make ui-serve   uv run streamlit run src/kawaneen/ui/app.py'
 	@printf '%s\n' '  make ui-demo    KAWANEEN_UI_MODE=demo uv run streamlit run src/kawaneen/ui/app.py'
 	@printf '%s\n' '  make sources-validate  uv run kawaneen sources validate'
@@ -124,6 +130,25 @@ doctor:
 
 api-serve:
 	uv run kawaneen api serve
+
+install-observability:
+	uv sync --locked --dev --extra ui --group observability
+
+mlflow-serve:
+	mkdir -p artifacts/observability/mlartifacts
+	uv run mlflow server --host 127.0.0.1 --port 5000 --backend-store-uri sqlite:///artifacts/observability/mlflow.db --default-artifact-root artifacts/observability/mlartifacts
+
+api-serve-observed:
+	KAWANEEN_OBSERVABILITY_ENABLED=true KAWANEEN_MLFLOW_TRACKING_URI=http://127.0.0.1:5000 uv run kawaneen api serve
+
+phase16-identity:
+	uv run kawaneen phase16 identity
+
+phase16-reproduce:
+	uv run kawaneen phase16 reproduce
+
+phase16-verify:
+	uv run kawaneen phase16 verify
 
 ui-serve:
 	uv run streamlit run src/kawaneen/ui/app.py

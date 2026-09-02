@@ -8,6 +8,13 @@ from dataclasses import dataclass
 
 from kawaneen.core.config import Settings
 from kawaneen.extraction.serving import ServingExtractor
+from kawaneen.observability.identity import ServingIdentity
+from kawaneen.observability.tracing import (
+    NoOpObserver,
+    TraceObserver,
+    create_observer,
+    root_attributes,
+)
 
 
 class ExpectedAssetUnavailable(RuntimeError):
@@ -58,8 +65,13 @@ class ServiceContainer:
         capabilities: Callable[[], object] | Sequence[ModelSnapshot] = (),
         settings: Settings | None = None,
         component_initializers: Mapping[str, ComponentInitializer] | None = None,
+        observer: TraceObserver | None = None,
+        observability_identity: ServingIdentity | None = None,
     ) -> None:
         self.settings = settings or Settings()
+        self.observer = observer or NoOpObserver()
+        self.observability_identity = observability_identity
+        self._observer_supplied = observer is not None
         self.retriever = retriever
         self.answerer = answerer
         self.extractor = extractor
@@ -92,6 +104,9 @@ class ServiceContainer:
     def initialize(self) -> None:
         if self._initialized:
             return
+        if self.settings.observability_enabled and not self._observer_supplied:
+            self.observability_identity = ServingIdentity.build(self.settings.data_directory)
+            self.observer = create_observer(self.settings, self.observability_identity)
         if self._initializer is not None:
             try:
                 self._initializer()
@@ -114,6 +129,24 @@ class ServiceContainer:
         self._initialized = True
         self._closed = False
         self.initialization_count += 1
+
+    def root_trace(
+        self,
+        operation: str,
+        request_id: str,
+        metadata: Mapping[str, object] | None = None,
+    ):
+        if self.observability_identity is None:
+            return self.observer.root(f"kawaneen.{operation}", {})
+        return self.observer.root(
+            f"kawaneen.{operation}",
+            root_attributes(
+                self.observability_identity,
+                request_id=request_id,
+                operation=operation,
+                metadata=metadata,
+            ),
+        )
 
     def close(self) -> None:
         if not self._initialized or self._closed:
@@ -153,6 +186,11 @@ def build_default_container(settings: Settings | None = None) -> ServiceContaine
     """Compose the real serving boundary, degrading only absent local assets."""
 
     effective_settings = settings or Settings()
+    observability_identity = None
+    observer: TraceObserver | None = None
+    if effective_settings.observability_enabled:
+        observability_identity = ServingIdentity.build(effective_settings.data_directory)
+        observer = create_observer(effective_settings, observability_identity)
     from kawaneen.api.composition import (
         build_hybrid_extraction,
         build_serving_retrieval,
@@ -185,7 +223,12 @@ def build_default_container(settings: Settings | None = None) -> ServiceContaine
     retrieval_bundle = None
     if configuration is not None:
         with suppress(ExpectedAssetUnavailable, FileNotFoundError):
-            retrieval_bundle = build_serving_retrieval(effective_settings, configuration)
+            if observer is None:
+                retrieval_bundle = build_serving_retrieval(effective_settings, configuration)
+            else:
+                retrieval_bundle = build_serving_retrieval(
+                    effective_settings, configuration, observer=observer
+                )
 
     resolver = None
     if corpus is not None and retrieval_bundle is not None:
@@ -234,6 +277,22 @@ def build_default_container(settings: Settings | None = None) -> ServiceContaine
             generator=lambda query, context: generation_bundle.generator(query, context),
             source_registry=source_registry,
             structural_roles=structural_roles,
+            observer=observer,
+            generator_provider=observability_identity.generator.provider
+            if observability_identity is not None
+            else None,
+            generator_model=observability_identity.generator.model
+            if observability_identity is not None
+            else None,
+            generator_revision=observability_identity.generator.revision
+            if observability_identity is not None
+            else None,
+            prompt_template_version=observability_identity.prompt.template_version
+            if observability_identity is not None
+            else None,
+            prompt_version_hash=observability_identity.prompt.version_hash
+            if observability_identity is not None
+            else None,
         )
 
     hybrid_bundle = None
@@ -359,12 +418,20 @@ def build_default_container(settings: Settings | None = None) -> ServiceContaine
     container = ServiceContainer(
         retriever=retrieval_bundle.retriever if retrieval_bundle is not None else None,
         answerer=answerer,
-        extractor=ServingExtractor(provider=hybrid_bundle.provider if hybrid_bundle else None),
+        extractor=ServingExtractor(
+            provider=hybrid_bundle.provider if hybrid_bundle else None,
+            observer=observer,
+            provider_name=hybrid_bundle.provider_name if hybrid_bundle else None,
+            model=hybrid_bundle.model if hybrid_bundle else None,
+            revision=hybrid_bundle.revision if hybrid_bundle else None,
+        ),
         corpus=corpus,
         components=components,
         model_metadata=tuple(model_metadata),
         settings=effective_settings,
         component_initializers=initializers,
+        observer=observer,
+        observability_identity=observability_identity,
     )
     return container
 

@@ -16,6 +16,30 @@ make check
 
 See [the API guide](docs/api.md), [development.md](docs/development.md), and [the Phase 12 report](docs/reports/phase-12-api-report.md) for the serving contract and verification record.
 
+## Public reproduction and observed local API
+
+The repository is authoritative for the six reported aggregate results. Rebuild
+and verify the table without private data, model caches, network access, or
+MLflow:
+
+```bash
+uv sync --locked --dev
+make phase16-reproduce
+```
+
+For opt-in local MLflow request traces:
+
+```bash
+make install-observability
+make mlflow-serve
+# in another terminal
+make api-serve-observed
+```
+
+MLflow storage is local and ignored. Raw queries, legal text, answers, and
+extraction text are never traced. Full raw-data experiment reruns require the
+corresponding private/local evaluation assets.
+
 Testing layers and the public synthetic harness are documented in
 [docs/testing.md](docs/testing.md). Run `make test-regression` for the hermetic
 behavior lock or `make test-e2e` for the Docker Compose E2E harness.
