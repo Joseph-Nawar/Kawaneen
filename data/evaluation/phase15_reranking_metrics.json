@@ -1,0 +1,79 @@
+{
+  "hard_query_count": 46,
+  "hard_query_ids_sha256": "bdce20193aafd12cacfe99ec27460c4f813fe64b8e0d4b7cb821a1854c925eab",
+  "hard_query_rule": {
+    "authority": true,
+    "cross_language": true,
+    "deadline": true,
+    "exact_provision": true,
+    "long_query": true,
+    "min_pre_rerank_relevant_rank_for_hard": 20,
+    "multi_evidence": true
+  },
+  "metrics": {
+    "CompleteEvidenceRecall@10": {
+      "ci95": [
+        0.0,
+        0.10869565217391304
+      ],
+      "confidence": 0.95,
+      "delta": 0.043478260869565216,
+      "losses": 0,
+      "rank_biserial": 0.043478260869565216,
+      "replicates": 2000,
+      "seed": 20260826,
+      "ties": 44,
+      "wins": 2
+    },
+    "MRR@10": {
+      "ci95": [
+        0.0,
+        0.02753623188405797
+      ],
+      "confidence": 0.95,
+      "delta": 0.010144927536231885,
+      "losses": 0,
+      "rank_biserial": 0.06521739130434782,
+      "replicates": 2000,
+      "seed": 20260826,
+      "ties": 43,
+      "wins": 3
+    },
+    "Recall@10": {
+      "ci95": [
+        0.0,
+        0.10869565217391304
+      ],
+      "confidence": 0.95,
+      "delta": 0.043478260869565216,
+      "losses": 0,
+      "rank_biserial": 0.043478260869565216,
+      "replicates": 2000,
+      "seed": 20260826,
+      "ties": 44,
+      "wins": 2
+    },
+    "nDCG@10": {
+      "ci95": [
+        0.0,
+        0.045176731579038606
+      ],
+      "confidence": 0.95,
+      "delta": 0.01756206744063087,
+      "losses": 0,
+      "rank_biserial": 0.06521739130434782,
+      "replicates": 2000,
+      "seed": 20260826,
+      "ties": 43,
+      "wins": 3
+    }
+  },
+  "provenance": "PHASE15_DEV",
+  "seed": 20260826,
+  "status": "RUN",
+  "supersedes": {
+    "hard_query_count": 19,
+    "reason": "prior selector omitted four enabled categorical hard-query criteria",
+    "status": "SUPERSEDED_INVALID_DIAGNOSTIC"
+  }
+}

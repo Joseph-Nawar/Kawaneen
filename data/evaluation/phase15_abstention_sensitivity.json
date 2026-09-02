@@ -1,0 +1,60 @@
+{
+  "gates": {
+    "bottom10": {
+      "coverage": 0.8936170212765957,
+      "derived_without_relevance_labels": true,
+      "quality": {
+        "CompleteEvidenceRecall@10": 0.29365079365079366,
+        "MRR@10": 0.23162320483749055,
+        "Recall@10": 0.2896825396825397,
+        "nDCG@10": 0.2386266640596798
+      },
+      "retained_count": 126,
+      "threshold": 0.3275248408317566
+    },
+    "bottom25": {
+      "coverage": 0.7446808510638298,
+      "derived_without_relevance_labels": true,
+      "quality": {
+        "CompleteEvidenceRecall@10": 0.2857142857142857,
+        "MRR@10": 0.21413832199546487,
+        "Recall@10": 0.28095238095238095,
+        "nDCG@10": 0.2240303653558822
+      },
+      "retained_count": 105,
+      "threshold": 0.8356379866600037
+    },
+    "bottom50": {
+      "coverage": 0.49645390070921985,
+      "derived_without_relevance_labels": true,
+      "quality": {
+        "CompleteEvidenceRecall@10": 0.2857142857142857,
+        "MRR@10": 0.2144047619047619,
+        "Recall@10": 0.29285714285714287,
+        "nDCG@10": 0.22941321822089772
+      },
+      "retained_count": 70,
+      "threshold": 0.9614129662513733
+    },
+    "none": {
+      "coverage": 1.0,
+      "derived_without_relevance_labels": true,
+      "quality": {
+        "CompleteEvidenceRecall@10": 0.2624113475177305,
+        "MRR@10": 0.2069824383654171,
+        "Recall@10": 0.25886524822695034,
+        "nDCG@10": 0.21324084873418195
+      },
+      "retained_count": 141,
+      "threshold": null
+    }
+  },
+  "method": "uncalibrated score-gate sensitivity analysis",
+  "production_stage_d_unchanged": true,
+  "provenance": "PHASE15_DEV",
+  "quality_source": "phase8 methods.rrf_reranked.per_query",
+  "score_count": 141,
+  "score_ordering": "scores[i] corresponds to ranked_chunk_ids[i], verified from the Phase-8 DEV writer contract",
+  "score_source": "phase8_retrieval/rerank/query-*.json final reranked rank-1 scores",
+  "status": "RUN"
+}

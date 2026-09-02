@@ -1,0 +1,97 @@
+{
+  "frozen_count": 7,
+  "human_gold_present": false,
+  "methodology_label": "PHASE15_SYNTHESIS_WITH_AUTOMATED_ADJUDICATION_DIAGNOSTIC",
+  "provenance": "HISTORICAL_FROZEN and PHASE15_DEV",
+  "research_questions": [
+    {
+      "artifact_refs": [
+        "data/evaluation/phase5_chunking_metrics.json"
+      ],
+      "effect_and_ci": "No Phase 15 re-estimation; see frozen paired intervals in the Phase 5 artifact.",
+      "limitations": "Historical challenge and tracked aggregate; not a production correctness guarantee.",
+      "population": "Phase 5 180-query chunking challenge",
+      "primary_evidence": "legal-structure-v1 exceeded fixed-256-v1 on Recall@10, MRR@10, nDCG@10 and citation precision.",
+      "provenance": "HISTORICAL_FROZEN",
+      "question": "Does structure-aware chunking outperform fixed chunks for Arabic legal retrieval?",
+      "status": "SUPPORTED"
+    },
+    {
+      "artifact_refs": [
+        "data/evaluation/phase4_normalization_metrics.json",
+        "data/evaluation/phase15_embedding_metrics.json"
+      ],
+      "effect_and_ci": "Arabic-Retrieval raw versus BGE-M3 raw Recall@10 delta +0.0461, 95% CI [-0.0106, 0.1028]; raw versus light/aggressive paired deltas are negative on Recall@10.",
+      "limitations": "Effects differ by corpus/model and are DEV-only; no normalization policy promotion follows.",
+      "population": "Phase 4 normalization challenge plus 141-query Phase 15 embedding DEV",
+      "primary_evidence": "Phase 4 raw/light/aggressive aggregates are identical; Arabic-Retrieval raw Recall@10 is 0.1418 versus 0.1241 light and 0.1206 aggressive.",
+      "provenance": "HISTORICAL_FROZEN and PHASE15_DEV",
+      "question": "How much does light Arabic normalization affect lexical and dense retrieval?",
+      "status": "PARTIALLY_SUPPORTED"
+    },
+    {
+      "artifact_refs": [
+        "data/evaluation/phase8_dev_fusion_metrics.json"
+      ],
+      "effect_and_ci": "Aggregate RRF MRR@10 0.1410 versus dense 0.0620; no unsupported language-specific CI is asserted.",
+      "limitations": "Language-stratified hybrid evidence is insufficient for the exact wording of the question.",
+      "population": "Phase 8 DEV fusion evaluation",
+      "primary_evidence": "RRF improves aggregate MRR@10 and nDCG@10 over dense-only, but the frozen question requires a demonstrated Arabic-and-English claim and tracked aggregate does not establish that language-stratified comparison.",
+      "provenance": "HISTORICAL_FROZEN",
+      "question": "Does hybrid retrieval outperform dense-only retrieval across Arabic and English queries?",
+      "status": "INCONCLUSIVE"
+    },
+    {
+      "artifact_refs": [
+        "data/evaluation/phase15_reranking_metrics.json"
+      ],
+      "effect_and_ci": "Recall@10 delta +0.043478, 95% CI [0.000000, 0.108696], 2 wins/44 ties/0 losses; MRR@10 delta +0.010145, CI [0.000000, 0.027536], 3/43/0; nDCG@10 delta +0.017562, CI [0.000000, 0.045177], 3/43/0; CompleteEvidenceRecall@10 delta +0.043478, CI [0.000000, 0.108696], 2/44/0.",
+      "limitations": "The 95% bootstrap intervals include zero; evidence supports a directional benefit but not a precise or robust population-wide effect. The slice is enriched and operational, not a legal-answer correctness evaluation.",
+      "population": "46-query corrected Phase 15 hard DEV slice",
+      "primary_evidence": "Reranking produced small positive observed effects with no measured losses on the enriched hard-query slice, but improvements occurred on only 2-3 of 46 queries.",
+      "provenance": "PHASE15_DEV",
+      "question": "How much does reranking improve hard legal queries?",
+      "status": "PARTIALLY_SUPPORTED"
+    },
+    {
+      "artifact_refs": [
+        "data/evaluation/phase15_dialect_metrics.json",
+        "data/evaluation/phase15_dialect_content_validity.json"
+      ],
+      "effect_and_ci": "See valid-pair bootstrap intervals by dialect/system; one malformed Gulf/Saudi concatenation was excluded before analysis.",
+      "limitations": "AI-generated/AI-validated perturbations, unequal effective counts, and no human dialect validation.",
+      "population": "59 content-valid AI-generated dialect variants paired to MSA controls; 53 answerable metric pairs pooled",
+      "primary_evidence": "Effects are small and mixed: pooled hybrid Recall@10 +0.0189, reranked +0.0377, while pooled BGE MRR@10 is -0.0031; dialect text is diagnostic, not human dialect gold.",
+      "provenance": "PHASE15_DEV",
+      "question": "How robust is retrieval to dialectal paraphrasing?",
+      "status": "INCONCLUSIVE"
+    },
+    {
+      "artifact_refs": [
+        "data/evaluation/phase15_citation_counterfactual.json",
+        "data/evaluation/phase10_qwen_stage_d_metrics.json"
+      ],
+      "effect_and_ci": "Pre 29/40=0.725; post 0/40=0.0; absolute paired reduction 0.725, 95% CI [0.575, 0.850], 29 discordant pairs.",
+      "limitations": "Measures citation/verification contract defects only, not substantive legal correctness or verifier completeness.",
+      "population": "40 persisted Phase 10 DEV candidate answers",
+      "primary_evidence": "The verifier exposed 29 independently evidenced contract defects before surfacing and zero after verification.",
+      "provenance": "PHASE15_DEV",
+      "question": "Can citation verification meaningfully reduce unsupported answers?",
+      "status": "SUPPORTED"
+    },
+    {
+      "artifact_refs": [
+        "data/evaluation/phase15_generator_metrics.json",
+        "data/evaluation/phase10_qwen_stage_d_metrics.json"
+      ],
+      "effect_and_ci": "Phase 15 matched population is 31 gold-present answerable, 30 gold-absent answerable, and 19 explicit unanswerable; no ALLaM score exists because it was blocked before scoring.",
+      "limitations": "Enriched DEV subset, fallback contract failure, ALLaM blocked, and no claim of production model promotion.",
+      "population": "Historical Stage-D DEV plus enriched Phase 15 matched-80 generator subset",
+      "primary_evidence": "Historical Stage-D produced 13 supported answers with 0.1368 supported precision and 0.9474 unanswerable abstention recall; the locked 1.5B Arabic fallback produced 80/80 invalid generations under the frozen contract.",
+      "provenance": "HISTORICAL_FROZEN and PHASE15_DEV",
+      "question": "How accurately can a zero-cost local model answer from Arabic legal evidence?",
+      "status": "PARTIALLY_SUPPORTED"
+    }
+  ],
+  "schema_version": "phase15-research-questions-v1"
+}

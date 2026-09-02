@@ -1,0 +1,971 @@
+{
+  "content_audit_excluded_variant_ids": [
+    "dialect-gulf_saudi-3c9a92757a1c555d"
+  ],
+  "content_validity_audit": "data/evaluation/phase15_dialect_content_validity.json",
+  "denominators": {
+    "retrieval_metric_n_by_dialect": {
+      "egyptian": 18,
+      "gulf_saudi": 17,
+      "levantine": 18
+    },
+    "retrieval_metric_n_pooled": 53,
+    "selected_base_intents": 20,
+    "valid_variant_count": 59
+  },
+  "device_runtime": {
+    "bge-m3": "cpu/persisted-Phase15-ranking",
+    "reranker": "cpu/persisted-Phase15-ranking"
+  },
+  "dialects": {
+    "egyptian": {
+      "bge-m3": {
+        "dialect_minus_msa": {
+          "CompleteEvidenceRecall@10": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "confidence": 0.95,
+            "delta": 0.0,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 18,
+            "wins": 0
+          },
+          "MRR@10": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "confidence": 0.95,
+            "delta": 0.0,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 18,
+            "wins": 0
+          },
+          "Recall@10": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "confidence": 0.95,
+            "delta": 0.0,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 18,
+            "wins": 0
+          },
+          "nDCG@10": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "confidence": 0.95,
+            "delta": 0.0,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 18,
+            "wins": 0
+          }
+        },
+        "n": 18,
+        "selected_intents": 20
+      },
+      "bm25": {
+        "dialect_minus_msa": {
+          "CompleteEvidenceRecall@10": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "confidence": 0.95,
+            "delta": 0.0,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 18,
+            "wins": 0
+          },
+          "MRR@10": {
+            "ci95": [
+              0.0,
+              0.005555555555555559
+            ],
+            "confidence": 0.95,
+            "delta": 0.001851851851851853,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 17,
+            "wins": 1
+          },
+          "Recall@10": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "confidence": 0.95,
+            "delta": 0.0,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 18,
+            "wins": 0
+          },
+          "nDCG@10": {
+            "ci95": [
+              0.0,
+              0.005107603354419908
+            ],
+            "confidence": 0.95,
+            "delta": 0.0017025344514733027,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 17,
+            "wins": 1
+          }
+        },
+        "n": 18,
+        "selected_intents": 20
+      },
+      "hybrid": {
+        "dialect_minus_msa": {
+          "CompleteEvidenceRecall@10": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "confidence": 0.95,
+            "delta": 0.0,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 18,
+            "wins": 0
+          },
+          "MRR@10": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "confidence": 0.95,
+            "delta": 0.0,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 18,
+            "wins": 0
+          },
+          "Recall@10": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "confidence": 0.95,
+            "delta": 0.0,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 18,
+            "wins": 0
+          },
+          "nDCG@10": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "confidence": 0.95,
+            "delta": 0.0,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 18,
+            "wins": 0
+          }
+        },
+        "n": 18,
+        "selected_intents": 20
+      },
+      "hybrid-reranker": {
+        "dialect_minus_msa": {
+          "CompleteEvidenceRecall@10": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "confidence": 0.95,
+            "delta": 0.0,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 18,
+            "wins": 0
+          },
+          "MRR@10": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "confidence": 0.95,
+            "delta": 0.0,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 18,
+            "wins": 0
+          },
+          "Recall@10": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "confidence": 0.95,
+            "delta": 0.0,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 18,
+            "wins": 0
+          },
+          "nDCG@10": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "confidence": 0.95,
+            "delta": 0.0,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 18,
+            "wins": 0
+          }
+        },
+        "n": 18,
+        "selected_intents": 20
+      }
+    },
+    "gulf_saudi": {
+      "bge-m3": {
+        "dialect_minus_msa": {
+          "CompleteEvidenceRecall@10": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "confidence": 0.95,
+            "delta": 0.0,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 17,
+            "wins": 0
+          },
+          "MRR@10": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "confidence": 0.95,
+            "delta": 0.0,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 17,
+            "wins": 0
+          },
+          "Recall@10": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "confidence": 0.95,
+            "delta": 0.0,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 17,
+            "wins": 0
+          },
+          "nDCG@10": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "confidence": 0.95,
+            "delta": 0.0,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 17,
+            "wins": 0
+          }
+        },
+        "n": 17,
+        "selected_intents": 19
+      },
+      "bm25": {
+        "dialect_minus_msa": {
+          "CompleteEvidenceRecall@10": {
+            "ci95": [
+              0.0,
+              0.17647058823529413
+            ],
+            "confidence": 0.95,
+            "delta": 0.058823529411764705,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 16,
+            "wins": 1
+          },
+          "MRR@10": {
+            "ci95": [
+              0.0,
+              0.0196078431372549
+            ],
+            "confidence": 0.95,
+            "delta": 0.0065359477124183,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 16,
+            "wins": 1
+          },
+          "Recall@10": {
+            "ci95": [
+              0.0,
+              0.17647058823529413
+            ],
+            "confidence": 0.95,
+            "delta": 0.058823529411764705,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 16,
+            "wins": 1
+          },
+          "nDCG@10": {
+            "ci95": [
+              0.0,
+              0.053122940411290794
+            ],
+            "confidence": 0.95,
+            "delta": 0.0177076468037636,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 16,
+            "wins": 1
+          }
+        },
+        "n": 17,
+        "selected_intents": 19
+      },
+      "hybrid": {
+        "dialect_minus_msa": {
+          "CompleteEvidenceRecall@10": {
+            "ci95": [
+              0.0,
+              0.17647058823529413
+            ],
+            "confidence": 0.95,
+            "delta": 0.058823529411764705,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 16,
+            "wins": 1
+          },
+          "MRR@10": {
+            "ci95": [
+              0.0,
+              0.0196078431372549
+            ],
+            "confidence": 0.95,
+            "delta": 0.0065359477124183,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 16,
+            "wins": 1
+          },
+          "Recall@10": {
+            "ci95": [
+              0.0,
+              0.17647058823529413
+            ],
+            "confidence": 0.95,
+            "delta": 0.058823529411764705,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 16,
+            "wins": 1
+          },
+          "nDCG@10": {
+            "ci95": [
+              0.0,
+              0.053122940411290794
+            ],
+            "confidence": 0.95,
+            "delta": 0.0177076468037636,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 16,
+            "wins": 1
+          }
+        },
+        "n": 17,
+        "selected_intents": 19
+      },
+      "hybrid-reranker": {
+        "dialect_minus_msa": {
+          "CompleteEvidenceRecall@10": {
+            "ci95": [
+              0.0,
+              0.17647058823529413
+            ],
+            "confidence": 0.95,
+            "delta": 0.058823529411764705,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 16,
+            "wins": 1
+          },
+          "MRR@10": {
+            "ci95": [
+              0.0,
+              0.017647058823529415
+            ],
+            "confidence": 0.95,
+            "delta": 0.0058823529411764705,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 16,
+            "wins": 1
+          },
+          "Recall@10": {
+            "ci95": [
+              0.0,
+              0.17647058823529413
+            ],
+            "confidence": 0.95,
+            "delta": 0.058823529411764705,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 16,
+            "wins": 1
+          },
+          "nDCG@10": {
+            "ci95": [
+              0.0,
+              0.05101143993845079
+            ],
+            "confidence": 0.95,
+            "delta": 0.01700381331281693,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 16,
+            "wins": 1
+          }
+        },
+        "n": 17,
+        "selected_intents": 19
+      }
+    },
+    "levantine": {
+      "bge-m3": {
+        "dialect_minus_msa": {
+          "CompleteEvidenceRecall@10": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "confidence": 0.95,
+            "delta": 0.0,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 18,
+            "wins": 0
+          },
+          "MRR@10": {
+            "ci95": [
+              -0.027777777777777776,
+              0.0
+            ],
+            "confidence": 0.95,
+            "delta": -0.009259259259259259,
+            "losses": 1,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 17,
+            "wins": 0
+          },
+          "Recall@10": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "confidence": 0.95,
+            "delta": 0.0,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 18,
+            "wins": 0
+          },
+          "nDCG@10": {
+            "ci95": [
+              -0.023965468815329637,
+              0.0
+            ],
+            "confidence": 0.95,
+            "delta": -0.007988489605109879,
+            "losses": 1,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 17,
+            "wins": 0
+          }
+        },
+        "n": 18,
+        "selected_intents": 20
+      },
+      "bm25": {
+        "dialect_minus_msa": {
+          "CompleteEvidenceRecall@10": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "confidence": 0.95,
+            "delta": 0.0,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 18,
+            "wins": 0
+          },
+          "MRR@10": {
+            "ci95": [
+              -0.041666666666666664,
+              0.003703703703703706
+            ],
+            "confidence": 0.95,
+            "delta": -0.012037037037037035,
+            "losses": 1,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 16,
+            "wins": 1
+          },
+          "Recall@10": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "confidence": 0.95,
+            "delta": 0.0,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 18,
+            "wins": 0
+          },
+          "nDCG@10": {
+            "ci95": [
+              -0.033375532583010716,
+              0.0034050689029466053
+            ],
+            "confidence": 0.95,
+            "delta": -0.009422643076196937,
+            "losses": 1,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 16,
+            "wins": 1
+          }
+        },
+        "n": 18,
+        "selected_intents": 20
+      },
+      "hybrid": {
+        "dialect_minus_msa": {
+          "CompleteEvidenceRecall@10": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "confidence": 0.95,
+            "delta": 0.0,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 18,
+            "wins": 0
+          },
+          "MRR@10": {
+            "ci95": [
+              -0.08333333333333333,
+              0.08333333333333333
+            ],
+            "confidence": 0.95,
+            "delta": 0.0,
+            "losses": 1,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 16,
+            "wins": 1
+          },
+          "Recall@10": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "confidence": 0.95,
+            "delta": 0.0,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 18,
+            "wins": 0
+          },
+          "nDCG@10": {
+            "ci95": [
+              -0.06151170773809042,
+              0.06151170773809042
+            ],
+            "confidence": 0.95,
+            "delta": 0.0,
+            "losses": 1,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 16,
+            "wins": 1
+          }
+        },
+        "n": 18,
+        "selected_intents": 20
+      },
+      "hybrid-reranker": {
+        "dialect_minus_msa": {
+          "CompleteEvidenceRecall@10": {
+            "ci95": [
+              0.0,
+              0.16666666666666666
+            ],
+            "confidence": 0.95,
+            "delta": 0.05555555555555555,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 17,
+            "wins": 1
+          },
+          "MRR@10": {
+            "ci95": [
+              -0.05555555555555555,
+              0.018452380952380585
+            ],
+            "confidence": 0.95,
+            "delta": -0.013359788359788361,
+            "losses": 2,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 15,
+            "wins": 1
+          },
+          "Recall@10": {
+            "ci95": [
+              0.0,
+              0.16666666666666666
+            ],
+            "confidence": 0.95,
+            "delta": 0.05555555555555555,
+            "losses": 0,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 17,
+            "wins": 1
+          },
+          "nDCG@10": {
+            "ci95": [
+              -0.04578709441057254,
+              0.05312090273117492
+            ],
+            "confidence": 0.95,
+            "delta": 0.0008215008906136997,
+            "losses": 2,
+            "replicates": 2000,
+            "seed": 20260826,
+            "ties": 15,
+            "wins": 1
+          }
+        },
+        "n": 18,
+        "selected_intents": 20
+      }
+    }
+  },
+  "effective_analysis_note": "Existing persisted rankings re-aggregated after content-only exclusion; no retrieval scoring rerun.",
+  "model_revisions": {
+    "bge-m3": "5617a9f61b028005a4858fdac845db406aefb181",
+    "reranker": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e"
+  },
+  "pooled": {
+    "bge-m3": {
+      "dialect_minus_msa": {
+        "CompleteEvidenceRecall@10": {
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "confidence": 0.95,
+          "delta": 0.0,
+          "losses": 0,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 53,
+          "wins": 0
+        },
+        "MRR@10": {
+          "ci95": [
+            -0.009433962264150943,
+            0.0
+          ],
+          "confidence": 0.95,
+          "delta": -0.003144654088050314,
+          "losses": 1,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 52,
+          "wins": 0
+        },
+        "Recall@10": {
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "confidence": 0.95,
+          "delta": 0.0,
+          "losses": 0,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 53,
+          "wins": 0
+        },
+        "nDCG@10": {
+          "ci95": [
+            -0.008139215824074217,
+            0.0
+          ],
+          "confidence": 0.95,
+          "delta": -0.002713071941358072,
+          "losses": 1,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 52,
+          "wins": 0
+        }
+      },
+      "n": 53,
+      "selected_intents": 59
+    },
+    "bm25": {
+      "dialect_minus_msa": {
+        "CompleteEvidenceRecall@10": {
+          "ci95": [
+            0.0,
+            0.05660377358490566
+          ],
+          "confidence": 0.95,
+          "delta": 0.018867924528301886,
+          "losses": 0,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 52,
+          "wins": 1
+        },
+        "MRR@10": {
+          "ci95": [
+            -0.013522012578616353,
+            0.007547169811320755
+          ],
+          "confidence": 0.95,
+          "delta": -0.0013626834381551356,
+          "losses": 1,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 49,
+          "wins": 3
+        },
+        "Recall@10": {
+          "ci95": [
+            0.0,
+            0.05660377358490566
+          ],
+          "confidence": 0.95,
+          "delta": 0.018867924528301886,
+          "losses": 0,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 52,
+          "wins": 1
+        },
+        "nDCG@10": {
+          "ci95": [
+            -0.010178648042285925,
+            0.01819587221216948
+          ],
+          "confidence": 0.95,
+          "delta": 0.0030578875550746373,
+          "losses": 1,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 49,
+          "wins": 3
+        }
+      },
+      "n": 53,
+      "selected_intents": 59
+    },
+    "hybrid": {
+      "dialect_minus_msa": {
+        "CompleteEvidenceRecall@10": {
+          "ci95": [
+            0.0,
+            0.05660377358490566
+          ],
+          "confidence": 0.95,
+          "delta": 0.018867924528301886,
+          "losses": 0,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 52,
+          "wins": 1
+        },
+        "MRR@10": {
+          "ci95": [
+            -0.02620545073375262,
+            0.030398322851153042
+          ],
+          "confidence": 0.95,
+          "delta": 0.0020964360587002093,
+          "losses": 1,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 50,
+          "wins": 2
+        },
+        "Recall@10": {
+          "ci95": [
+            0.0,
+            0.05660377358490566
+          ],
+          "confidence": 0.95,
+          "delta": 0.018867924528301886,
+          "losses": 0,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 52,
+          "wins": 1
+        },
+        "nDCG@10": {
+          "ci95": [
+            -0.015210957426823522,
+            0.026570579904709603
+          ],
+          "confidence": 0.95,
+          "delta": 0.0056798112389430415,
+          "losses": 1,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 50,
+          "wins": 2
+        }
+      },
+      "n": 53,
+      "selected_intents": 59
+    },
+    "hybrid-reranker": {
+      "dialect_minus_msa": {
+        "CompleteEvidenceRecall@10": {
+          "ci95": [
+            0.0,
+            0.09433962264150944
+          ],
+          "confidence": 0.95,
+          "delta": 0.03773584905660377,
+          "losses": 0,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 51,
+          "wins": 2
+        },
+        "MRR@10": {
+          "ci95": [
+            -0.018867924528301886,
+            0.009167789757412382
+          ],
+          "confidence": 0.95,
+          "delta": -0.0026504941599281226,
+          "losses": 2,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 49,
+          "wins": 2
+        },
+        "Recall@10": {
+          "ci95": [
+            0.0,
+            0.09433962264150944
+          ],
+          "confidence": 0.95,
+          "delta": 0.03773584905660377,
+          "losses": 0,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 51,
+          "wins": 2
+        },
+        "nDCG@10": {
+          "ci95": [
+            -0.012020615747256103,
+            0.028376339950259472
+          ],
+          "confidence": 0.95,
+          "delta": 0.005733053629225178,
+          "losses": 2,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 49,
+          "wins": 2
+        }
+      },
+      "n": 53,
+      "selected_intents": 59
+    }
+  },
+  "provenance": "PHASE15_DEV",
+  "status": "RUN",
+  "systems": {
+    "bge-m3": "RUN",
+    "bm25": "RUN",
+    "hybrid": "RUN",
+    "hybrid-reranker": "RUN"
+  }
+}

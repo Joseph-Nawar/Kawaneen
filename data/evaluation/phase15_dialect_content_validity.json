@@ -1,0 +1,20 @@
+{
+  "base_text_available_to_audit": false,
+  "effective_retrieval_pair_count": 59,
+  "identifier_contract_source": "existing pre-outcome dialect validator",
+  "invalid_count": 1,
+  "invalid_reasons": {
+    "multiple_paraphrases_or_concatenation": 1
+  },
+  "methodology_label": "PHASE15_DEV_CONTENT_ONLY_DIALECT_AUDIT",
+  "outcome_independent": true,
+  "schema_version": "phase15-dialect-content-validity-v1",
+  "total_count": 60,
+  "valid_count": 59,
+  "valid_count_by_dialect": {
+    "egyptian": 20,
+    "gulf_saudi": 19,
+    "levantine": 20
+  },
+  "valid_variant_ids_sha256": "5b7705c67a0a880cebba4084dfbe5f10b63bedf93ff97de192f5445bbf3d9cc2"
+}

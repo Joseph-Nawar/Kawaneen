@@ -1,0 +1,96 @@
+{
+  "alLaM": {
+    "status": "BLOCKED_BEFORE_SCORING_NO_TRUSTWORTHY_4BIT_LOCAL_ARTIFACT"
+  },
+  "context_contract": "Phase10 qwen-ollama-stage-c ContextPack rendered by frozen Stage-C quote registry",
+  "latency": {
+    "p50_ms": 2203.7363544986874,
+    "p95_ms": 2763.693825000155,
+    "samples": 80
+  },
+  "matched_80": {
+    "answerable_gold_absent": 30,
+    "answerable_gold_present": 31,
+    "explicit_unanswerable": 19
+  },
+  "metrics": {
+    "CompleteGoldEvidenceUse": {
+      "denominator": 31,
+      "numerator": 0,
+      "value": 0.0
+    },
+    "FalseAbstentionRate": {
+      "denominator": 31,
+      "numerator": 0,
+      "value": 0.0
+    },
+    "FalseAnswerRate": {
+      "denominator": 19,
+      "numerator": 0,
+      "value": 0.0
+    },
+    "GoldCitationHitRate": {
+      "denominator": 0,
+      "numerator": 0,
+      "value": null
+    },
+    "SupportedAnswerCoverage": {
+      "denominator": 61,
+      "numerator": 0,
+      "value": 0.0
+    },
+    "SupportedAnswerPrecision": {
+      "denominator": 0,
+      "numerator": 0,
+      "value": null
+    },
+    "UnanswerableAbstentionRecall": {
+      "denominator": 19,
+      "numerator": 0,
+      "value": 0.0
+    },
+    "ValidCitationRate": {
+      "denominator": 0,
+      "numerator": 0,
+      "value": null
+    },
+    "invalid_generation_rate": {
+      "denominator": 80,
+      "numerator": 80,
+      "value": 1.0
+    },
+    "successful_verified_answer_count": 0
+  },
+  "model": {
+    "context_limit": 4096,
+    "device": "mps",
+    "disk_footprint_bytes": 3103349403,
+    "dtype": "bfloat16",
+    "license": "apache-2.0",
+    "model_id": "abdelrahman-alkhodary/qwen2.5-1.5b-arabic-instruct",
+    "output_limit": 512,
+    "revision": "06d27020b3ac3d9058b7eebded9754c8e10fa6bd",
+    "runtime": "transformers",
+    "snapshot_sha256": "c02e79f4144941896a07db8b8975eec52fd7886e6d7950c91513aa6f5c223ac3"
+  },
+  "outcome_counts": {
+    "invalid_generation": 80,
+    "parsed_abstain": 0,
+    "parsed_answer": 0,
+    "verified_abstain": 0,
+    "verified_answer": 0
+  },
+  "private_results": "artifacts/private/phase15_evaluation/generator/fallback",
+  "provenance": "PHASE15_DEV",
+  "qwen3_and_extractive": {
+    "extractive": "persisted Phase10 output contract",
+    "fingerprint_contract": "Phase10 stage-c context pack and frozen query IDs",
+    "qwen3_model_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+    "status": "REUSED_HISTORICAL_FROZEN"
+  },
+  "runtime_audit_artifact": "data/evaluation/phase15_runtime_audit.json",
+  "same_context_blocks_required": true,
+  "same_ids_and_context_blocks": true,
+  "status": "RUN",
+  "verification_failures": {}
+}

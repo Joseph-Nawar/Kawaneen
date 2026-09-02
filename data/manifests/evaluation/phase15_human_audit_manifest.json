@@ -1,0 +1,86 @@
+{
+  "ai_state_distribution": {
+    "successful": 22,
+    "unavailable": 8
+  },
+  "answerability_distribution": {
+    "answerable": 27,
+    "unanswerable": 3
+  },
+  "case_ids": [
+    "phase15-dev-query-5ce26179f1d0e598568d5ba5-bm25-miss",
+    "phase15-dev-query-6081104304c4d99deb8d733f-bm25-miss",
+    "phase15-dev-query-6ebc32dd7a959695cc5eedca-bm25-miss",
+    "phase15-dev-query-8c7802c945388988728c72c5-bm25-miss",
+    "phase15-dev-query-3e5a5300adb4e1ea2b909ea0-hybrid-reranked-miss",
+    "phase15-dev-query-8d0423f7717eeac246695f4a-bge-miss",
+    "phase15-dev-query-49ffc69edbb1476bbf38a733-bge-miss",
+    "phase15-dev-query-b3f219d5d18fb4075ac17cf1-hybrid-miss",
+    "phase15-dev-query-f70eb066d08d61910b07bae6-normalization-light",
+    "phase15-dev-query-f6051bd336a9ca83d76b23e8-normalization-aggressive",
+    "phase15-dev-query-7f9080f2c7ba0df290f0d311-normalization-aggressive",
+    "phase15-dev-query-6ebc32dd7a959695cc5eedca-normalization-light",
+    "phase15-dev-query-3397cd1e6e085d8041df3abb-normalization-aggressive",
+    "phase15-dev-query-3e5a5300adb4e1ea2b909ea0-normalization-light",
+    "phase15-dev-query-76df5a4edd15951c4e5070cc-normalization-aggressive",
+    "phase15-dev-query-438a0ae47729328717b0a575-fallback-generation",
+    "phase15-dev-query-37df3789ce16ccf38240e6b6-generation",
+    "phase15-dev-query-8c07573e06a74ec0c2b78e8e-fallback-generation",
+    "phase15-dev-query-f70eb066d08d61910b07bae6-fallback-generation",
+    "phase15-dev-query-09a1e4746c36f472cec80899-generation",
+    "phase15-dev-query-7f9080f2c7ba0df290f0d311-generation",
+    "phase15-dev-query-c86229129a3d04d02e9dc64c-fallback-generation",
+    "phase15-dialect-levantine-a011d317b1dba801",
+    "phase15-dialect-gulf_saudi-3c9a92757a1c555d",
+    "phase15-dialect-levantine-01d8defce01c250c",
+    "phase15-dialect-levantine-5f03dfc06c98dddd",
+    "phase15-dev-query-ca035ac49b6029f7410ee764-reranker-worsened",
+    "phase15-dev-query-c6722cb2516130f3844d88d4-reranker-worsened",
+    "phase15-dialect-levantine-e7ac15c6f6b2f1db",
+    "phase15-dev-query-652c678330eb7b5617cdd234-bm25-miss"
+  ],
+  "case_ids_sha256": "4fc44ab5f5284ed720421dd13ef6f866e69292b5709b753c5464afacc6bd8af9",
+  "count": 30,
+  "holdout_case_count": 0,
+  "language_distribution": {
+    "ar": 18,
+    "ar-en": 3,
+    "ar-gulf_saudi": 1,
+    "ar-levantine": 4,
+    "en": 4
+  },
+  "legal_category_distribution": {
+    "authority": 2,
+    "case_holding": 5,
+    "conditions": 2,
+    "deadline": 1,
+    "definition": 3,
+    "exact_provision": 5,
+    "multi_evidence": 9,
+    "unanswerable": 3
+  },
+  "pipeline_stage_distribution": {
+    "dialect": 5,
+    "generation": 7,
+    "normalization": 7,
+    "reranking": 2,
+    "retrieval": 9
+  },
+  "pipeline_stage_targets": {
+    "dialect": 4,
+    "generation": 7,
+    "normalization": 7,
+    "reranking": 2,
+    "retrieval": 8
+  },
+  "population_case_count": 120,
+  "population_case_ids_sha256": "8bc039f51344f3af47b817a5e1bbf51d4d087f49768ea5ca2b2ce3a29cd53777",
+  "provenance": "PHASE15_DEV",
+  "schema_version": "phase15-audit-selection-v2",
+  "selection_seed": 20260826,
+  "selection_type": "PRE_SELECTED_AUTOMATED_ADJUDICATION_AUDIT",
+  "severity_distribution": {
+    "high": 17,
+    "medium": 13
+  }
+}

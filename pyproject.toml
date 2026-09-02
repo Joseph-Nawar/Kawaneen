@@ -127,6 +127,18 @@ omit = [
     "src/kawaneen/extraction/readiness.py",
     "src/kawaneen/extraction/stage_b1_evaluation.py",
     "src/kawaneen/extraction/stage_b2_holdout_evaluation.py",
+    # Phase 15 DEV-only model/private experiment runners and local reviewer.
+    "src/kawaneen/phase15/counterfactuals.py",
+    "src/kawaneen/phase15/dialect.py",
+    "src/kawaneen/phase15/embedding.py",
+    "src/kawaneen/phase15/generation.py",
+    "src/kawaneen/phase15/inputs.py",
+    "src/kawaneen/phase15/local_models.py",
+    "src/kawaneen/phase15/orchestrator.py",
+    "src/kawaneen/phase15/real_experiments.py",
+    "src/kawaneen/phase15/reranking.py",
+    "src/kawaneen/phase15/review_app.py",
+    "src/kawaneen/phase15/runner.py",
 ]
 
 [tool.pyright]

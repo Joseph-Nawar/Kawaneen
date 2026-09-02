@@ -1,0 +1,17 @@
+{
+  "model_runtime_observations": {
+    "context_limit": 4096,
+    "device": "mps",
+    "disk_footprint_bytes": 3103349403,
+    "dtype": "bfloat16",
+    "license": "apache-2.0",
+    "model_id": "abdelrahman-alkhodary/qwen2.5-1.5b-arabic-instruct",
+    "output_limit": 512,
+    "revision": "06d27020b3ac3d9058b7eebded9754c8e10fa6bd",
+    "runtime": "transformers",
+    "snapshot_sha256": "c02e79f4144941896a07db8b8975eec52fd7886e6d7950c91513aa6f5c223ac3"
+  },
+  "preflight_and_post_run_observations_are_not_preregistration": true,
+  "provenance": "PHASE15_DEV",
+  "status": "RUN"
+}

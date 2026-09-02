@@ -1,0 +1,723 @@
+{
+  "arabic_retrieval": {
+    "corpus_indexes": {
+      "arabic-retrieval-aggressive": {
+        "normalization": "arabic-aggressive-v1",
+        "path": "artifacts/private/phase15_evaluation/embedding/arabic_corpus_vectors_aggressive.npy",
+        "row_count": 124311
+      },
+      "arabic-retrieval-light": {
+        "normalization": "arabic-light-v1",
+        "path": "artifacts/private/phase15_evaluation/embedding/arabic_corpus_vectors_light.npy",
+        "row_count": 124311
+      },
+      "arabic-retrieval-raw": {
+        "normalization": "arabic-raw-v1",
+        "path": "artifacts/private/phase15_evaluation/embedding/arabic_corpus_vectors_raw.npy",
+        "row_count": 124311
+      }
+    },
+    "corpus_normalization_is_symmetric": true,
+    "device_runtime": "cpu/sentence-transformers",
+    "model_id": "omarelshehy/Arabic-Retrieval-v1.0",
+    "paired_deltas": {
+      "arabic-retrieval-aggressive": {
+        "CompleteEvidenceRecall@10": {
+          "ci95": [
+            -0.04964539007092199,
+            0.0
+          ],
+          "confidence": 0.95,
+          "delta": -0.02127659574468085,
+          "losses": 3,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 138,
+          "wins": 0
+        },
+        "CompleteEvidenceRecall@5": {
+          "ci95": [
+            -0.02127659574468085,
+            0.0425531914893617
+          ],
+          "confidence": 0.95,
+          "delta": 0.0070921985815602835,
+          "losses": 2,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 136,
+          "wins": 3
+        },
+        "MRR@10": {
+          "ci95": [
+            -0.03733725937183383,
+            0.014467662951705481
+          ],
+          "confidence": 0.95,
+          "delta": -0.010933806146572102,
+          "losses": 9,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 127,
+          "wins": 5
+        },
+        "Recall@1": {
+          "ci95": [
+            -0.03546099290780142,
+            0.01773049645390071
+          ],
+          "confidence": 0.95,
+          "delta": -0.0070921985815602835,
+          "losses": 3,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 136,
+          "wins": 2
+        },
+        "Recall@10": {
+          "ci95": [
+            -0.04609929078014184,
+            -0.0035460992907801418
+          ],
+          "confidence": 0.95,
+          "delta": -0.02127659574468085,
+          "losses": 4,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 137,
+          "wins": 0
+        },
+        "Recall@5": {
+          "ci95": [
+            -0.028368794326241134,
+            0.028457446808510155
+          ],
+          "confidence": 0.95,
+          "delta": 0.0,
+          "losses": 3,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 135,
+          "wins": 3
+        },
+        "nDCG@10": {
+          "ci95": [
+            -0.03276954277106269,
+            0.005372543140398892
+          ],
+          "confidence": 0.95,
+          "delta": -0.012876968763152715,
+          "losses": 9,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 127,
+          "wins": 5
+        }
+      },
+      "arabic-retrieval-light": {
+        "CompleteEvidenceRecall@10": {
+          "ci95": [
+            -0.03546099290780142,
+            0.0
+          ],
+          "confidence": 0.95,
+          "delta": -0.014184397163120567,
+          "losses": 2,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 139,
+          "wins": 0
+        },
+        "CompleteEvidenceRecall@5": {
+          "ci95": [
+            -0.028368794326241134,
+            0.028368794326241134
+          ],
+          "confidence": 0.95,
+          "delta": 0.0,
+          "losses": 2,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 137,
+          "wins": 2
+        },
+        "MRR@10": {
+          "ci95": [
+            -0.022234535066981875,
+            0.014692389958347398
+          ],
+          "confidence": 0.95,
+          "delta": -0.0031520882584712365,
+          "losses": 6,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 131,
+          "wins": 4
+        },
+        "Recall@1": {
+          "ci95": [
+            -0.02127659574468085,
+            0.02127659574468085
+          ],
+          "confidence": 0.95,
+          "delta": 0.0,
+          "losses": 1,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 139,
+          "wins": 1
+        },
+        "Recall@10": {
+          "ci95": [
+            -0.0425531914893617,
+            0.0
+          ],
+          "confidence": 0.95,
+          "delta": -0.01773049645390071,
+          "losses": 3,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 138,
+          "wins": 0
+        },
+        "Recall@5": {
+          "ci95": [
+            -0.028368794326241134,
+            0.02127659574468085
+          ],
+          "confidence": 0.95,
+          "delta": -0.0035460992907801418,
+          "losses": 2,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 137,
+          "wins": 2
+        },
+        "nDCG@10": {
+          "ci95": [
+            -0.02526605634315808,
+            0.0074263525439255094
+          ],
+          "confidence": 0.95,
+          "delta": -0.0074427576320249015,
+          "losses": 6,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 131,
+          "wins": 4
+        }
+      }
+    },
+    "paired_model_comparisons": {
+      "arabic-retrieval-raw_vs_bge_m3_raw": {
+        "CompleteEvidenceRecall@10": {
+          "ci95": [
+            -0.014184397163120567,
+            0.10638297872340426
+          ],
+          "confidence": 0.95,
+          "delta": 0.0425531914893617,
+          "losses": 6,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 123,
+          "wins": 12
+        },
+        "CompleteEvidenceRecall@5": {
+          "ci95": [
+            -0.028368794326241134,
+            0.07092198581560284
+          ],
+          "confidence": 0.95,
+          "delta": 0.02127659574468085,
+          "losses": 5,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 128,
+          "wins": 8
+        },
+        "MRR@10": {
+          "ci95": [
+            -0.0004749240121580509,
+            0.08363137453562984
+          ],
+          "confidence": 0.95,
+          "delta": 0.040949003714961164,
+          "losses": 7,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 115,
+          "wins": 19
+        },
+        "Recall@1": {
+          "ci95": [
+            -0.0070921985815602835,
+            0.0673758865248227
+          ],
+          "confidence": 0.95,
+          "delta": 0.028368794326241134,
+          "losses": 2,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 132,
+          "wins": 7
+        },
+        "Recall@10": {
+          "ci95": [
+            -0.010638297872340425,
+            0.10283687943262411
+          ],
+          "confidence": 0.95,
+          "delta": 0.04609929078014184,
+          "losses": 6,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 120,
+          "wins": 15
+        },
+        "Recall@5": {
+          "ci95": [
+            -0.01773049645390071,
+            0.07446808510638298
+          ],
+          "confidence": 0.95,
+          "delta": 0.028368794326241134,
+          "losses": 5,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 126,
+          "wins": 10
+        },
+        "nDCG@10": {
+          "ci95": [
+            -0.0024152131142819193,
+            0.07825143204969125
+          ],
+          "confidence": 0.95,
+          "delta": 0.037461225799747276,
+          "losses": 7,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 115,
+          "wins": 19
+        }
+      },
+      "arabic-retrieval-raw_vs_e5_raw": {
+        "CompleteEvidenceRecall@10": {
+          "ci95": [
+            -0.02127659574468085,
+            0.12056737588652482
+          ],
+          "confidence": 0.95,
+          "delta": 0.04964539007092199,
+          "losses": 10,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 114,
+          "wins": 17
+        },
+        "CompleteEvidenceRecall@5": {
+          "ci95": [
+            -0.014184397163120567,
+            0.11347517730496454
+          ],
+          "confidence": 0.95,
+          "delta": 0.04964539007092199,
+          "losses": 7,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 120,
+          "wins": 14
+        },
+        "MRR@10": {
+          "ci95": [
+            0.028934059439378594,
+            0.1203214004277834
+          ],
+          "confidence": 0.95,
+          "delta": 0.07219126421254081,
+          "losses": 10,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 110,
+          "wins": 21
+        },
+        "Recall@1": {
+          "ci95": [
+            0.024822695035460994,
+            0.09929078014184398
+          ],
+          "confidence": 0.95,
+          "delta": 0.06028368794326241,
+          "losses": 0,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 131,
+          "wins": 10
+        },
+        "Recall@10": {
+          "ci95": [
+            -0.01773049645390071,
+            0.11356382978723356
+          ],
+          "confidence": 0.95,
+          "delta": 0.04964539007092199,
+          "losses": 9,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 113,
+          "wins": 19
+        },
+        "Recall@5": {
+          "ci95": [
+            -0.014184397163120567,
+            0.10638297872340426
+          ],
+          "confidence": 0.95,
+          "delta": 0.04609929078014184,
+          "losses": 7,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 119,
+          "wins": 15
+        },
+        "nDCG@10": {
+          "ci95": [
+            0.01743008321411367,
+            0.10888168038753082
+          ],
+          "confidence": 0.95,
+          "delta": 0.06001730643799529,
+          "losses": 10,
+          "replicates": 2000,
+          "seed": 20260826,
+          "ties": 110,
+          "wins": 21
+        }
+      }
+    },
+    "provenance": "PHASE15_DEV",
+    "revision": "899f6e1b765915a72d5e4ace6bb2b221715550d8",
+    "status": "RUN",
+    "systems": {
+      "BGE-M3-raw": {
+        "CompleteEvidenceRecall@10": {
+          "mean": 0.10638297872340426,
+          "n": 141
+        },
+        "CompleteEvidenceRecall@5": {
+          "mean": 0.09219858156028368,
+          "n": 141
+        },
+        "MRR@10": {
+          "mean": 0.061955420466058765,
+          "n": 141
+        },
+        "Recall@1": {
+          "mean": 0.03900709219858156,
+          "n": 141
+        },
+        "Recall@10": {
+          "mean": 0.09574468085106383,
+          "n": 141
+        },
+        "Recall@5": {
+          "mean": 0.08156028368794327,
+          "n": 141
+        },
+        "nDCG@10": {
+          "mean": 0.06713099780908378,
+          "n": 141
+        }
+      },
+      "E5-raw": {
+        "CompleteEvidenceRecall@10": {
+          "mean": 0.09929078014184398,
+          "n": 141
+        },
+        "CompleteEvidenceRecall@5": {
+          "mean": 0.06382978723404255,
+          "n": 141
+        },
+        "MRR@10": {
+          "mean": 0.03071315996847912,
+          "n": 141
+        },
+        "Recall@1": {
+          "mean": 0.0070921985815602835,
+          "n": 141
+        },
+        "Recall@10": {
+          "mean": 0.09219858156028368,
+          "n": 141
+        },
+        "Recall@5": {
+          "mean": 0.06382978723404255,
+          "n": 141
+        },
+        "nDCG@10": {
+          "mean": 0.04457491717083577,
+          "n": 141
+        }
+      },
+      "arabic-retrieval-aggressive": {
+        "CompleteEvidenceRecall@10": {
+          "mean": 0.1276595744680851,
+          "n": 141
+        },
+        "CompleteEvidenceRecall@5": {
+          "mean": 0.12056737588652482,
+          "n": 141
+        },
+        "MRR@10": {
+          "mean": 0.09197061803444782,
+          "n": 141
+        },
+        "Recall@1": {
+          "mean": 0.06028368794326241,
+          "n": 141
+        },
+        "Recall@10": {
+          "mean": 0.12056737588652482,
+          "n": 141
+        },
+        "Recall@5": {
+          "mean": 0.1099290780141844,
+          "n": 141
+        },
+        "nDCG@10": {
+          "mean": 0.09171525484567834,
+          "n": 141
+        }
+      },
+      "arabic-retrieval-light": {
+        "CompleteEvidenceRecall@10": {
+          "mean": 0.1347517730496454,
+          "n": 141
+        },
+        "CompleteEvidenceRecall@5": {
+          "mean": 0.11347517730496454,
+          "n": 141
+        },
+        "MRR@10": {
+          "mean": 0.09975233592254869,
+          "n": 141
+        },
+        "Recall@1": {
+          "mean": 0.0673758865248227,
+          "n": 141
+        },
+        "Recall@10": {
+          "mean": 0.12411347517730496,
+          "n": 141
+        },
+        "Recall@5": {
+          "mean": 0.10638297872340426,
+          "n": 141
+        },
+        "nDCG@10": {
+          "mean": 0.09714946597680615,
+          "n": 141
+        }
+      },
+      "arabic-retrieval-raw": {
+        "CompleteEvidenceRecall@10": {
+          "mean": 0.14893617021276595,
+          "n": 141
+        },
+        "CompleteEvidenceRecall@5": {
+          "mean": 0.11347517730496454,
+          "n": 141
+        },
+        "MRR@10": {
+          "mean": 0.10290442418101993,
+          "n": 141
+        },
+        "Recall@1": {
+          "mean": 0.0673758865248227,
+          "n": 141
+        },
+        "Recall@10": {
+          "mean": 0.14184397163120568,
+          "n": 141
+        },
+        "Recall@5": {
+          "mean": 0.1099290780141844,
+          "n": 141
+        },
+        "nDCG@10": {
+          "mean": 0.10459222360883105,
+          "n": 141
+        }
+      }
+    }
+  },
+  "baseline": "bge-m3",
+  "bootstrap_replicates": 2000,
+  "device_runtime": {
+    "bge-m3": "cpu/frozen-phase7-ranking",
+    "multilingual-e5-small": "cpu/frozen-phase7-ranking"
+  },
+  "paired_deltas": {
+    "multilingual-e5-small-vs-bge-m3": {
+      "CompleteEvidenceRecall@10": {
+        "ci95": [
+          -0.06382978723404255,
+          0.04964539007092199
+        ],
+        "confidence": 0.95,
+        "delta": -0.0070921985815602835,
+        "losses": 9,
+        "replicates": 2000,
+        "seed": 20260826,
+        "ties": 124,
+        "wins": 8
+      },
+      "CompleteEvidenceRecall@5": {
+        "ci95": [
+          -0.09219858156028368,
+          0.028546099290779173
+        ],
+        "confidence": 0.95,
+        "delta": -0.028368794326241134,
+        "losses": 11,
+        "replicates": 2000,
+        "seed": 20260826,
+        "ties": 123,
+        "wins": 7
+      },
+      "MRR@10": {
+        "ci95": [
+          -0.0664827479455139,
+          0.00015063886074523553
+        ],
+        "confidence": 0.95,
+        "delta": -0.031242260497579645,
+        "losses": 13,
+        "replicates": 2000,
+        "seed": 20260826,
+        "ties": 119,
+        "wins": 9
+      },
+      "Recall@1": {
+        "ci95": [
+          -0.06028368794326241,
+          -0.0070921985815602835
+        ],
+        "confidence": 0.95,
+        "delta": -0.031914893617021274,
+        "losses": 5,
+        "replicates": 2000,
+        "seed": 20260826,
+        "ties": 136,
+        "wins": 0
+      },
+      "Recall@10": {
+        "ci95": [
+          -0.06028368794326241,
+          0.05319148936170213
+        ],
+        "confidence": 0.95,
+        "delta": -0.0035460992907801418,
+        "losses": 9,
+        "replicates": 2000,
+        "seed": 20260826,
+        "ties": 124,
+        "wins": 8
+      },
+      "Recall@5": {
+        "ci95": [
+          -0.07446808510638298,
+          0.03900709219858156
+        ],
+        "confidence": 0.95,
+        "delta": -0.01773049645390071,
+        "losses": 10,
+        "replicates": 2000,
+        "seed": 20260826,
+        "ties": 124,
+        "wins": 7
+      },
+      "nDCG@10": {
+        "ci95": [
+          -0.060921588752333077,
+          0.011516778506971382
+        ],
+        "confidence": 0.95,
+        "delta": -0.022556080638248016,
+        "losses": 13,
+        "replicates": 2000,
+        "seed": 20260826,
+        "ties": 119,
+        "wins": 9
+      }
+    }
+  },
+  "provenance": "PHASE15_DEV",
+  "seed": 20260826,
+  "status": "RUN",
+  "systems": {
+    "bge-m3": {
+      "CompleteEvidenceRecall@10": {
+        "mean": 0.10638297872340426,
+        "n": 141
+      },
+      "CompleteEvidenceRecall@5": {
+        "mean": 0.09219858156028368,
+        "n": 141
+      },
+      "MRR@10": {
+        "mean": 0.061955420466058765,
+        "n": 141
+      },
+      "Recall@1": {
+        "mean": 0.03900709219858156,
+        "n": 141
+      },
+      "Recall@10": {
+        "mean": 0.09574468085106383,
+        "n": 141
+      },
+      "Recall@5": {
+        "mean": 0.08156028368794327,
+        "n": 141
+      },
+      "nDCG@10": {
+        "mean": 0.06713099780908378,
+        "n": 141
+      },
+      "status": "RUN"
+    },
+    "multilingual-e5-small": {
+      "CompleteEvidenceRecall@10": {
+        "mean": 0.09929078014184398,
+        "n": 141
+      },
+      "CompleteEvidenceRecall@5": {
+        "mean": 0.06382978723404255,
+        "n": 141
+      },
+      "MRR@10": {
+        "mean": 0.03071315996847912,
+        "n": 141
+      },
+      "Recall@1": {
+        "mean": 0.0070921985815602835,
+        "n": 141
+      },
+      "Recall@10": {
+        "mean": 0.09219858156028368,
+        "n": 141
+      },
+      "Recall@5": {
+        "mean": 0.06382978723404255,
+        "n": 141
+      },
+      "nDCG@10": {
+        "mean": 0.04457491717083577,
+        "n": 141
+      },
+      "status": "RUN"
+    }
+  }
+}

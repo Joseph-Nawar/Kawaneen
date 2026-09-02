@@ -1,0 +1,58 @@
+{
+  "absolute_risk_reduction": 0.725,
+  "absolute_risk_reduction_ci95": [
+    0.575,
+    0.85
+  ],
+  "allam": {
+    "counterfactual_scoring_started": false,
+    "status": "BLOCKED_BEFORE_SCORING_NO_TRUSTWORTHY_4BIT_LOCAL_ARTIFACT"
+  },
+  "candidate_answer_count": 40,
+  "candidate_count": 40,
+  "coverage_cost": 0.725,
+  "coverage_cost_by_failure": {
+    "clearly_unsupported_support_rejected": {
+      "count": 18,
+      "rate_of_candidate_answers": 0.45
+    },
+    "other_verification_failures": {
+      "count": 1,
+      "rate_of_candidate_answers": 0.025
+    },
+    "quotation_contract_failures": {
+      "count": 10,
+      "rate_of_candidate_answers": 0.25
+    }
+  },
+  "defect_counts": {
+    "other_verification_failure": 1,
+    "quotation_or_invalid_citation": 10,
+    "semantic_support_rejection": 18
+  },
+  "defective_candidate_count": 29,
+  "discordant_pairs": {
+    "before_negative_after_positive": 0,
+    "before_positive_after_negative": 29
+  },
+  "n": 40,
+  "operational_definition": {
+    "population": "raw JSON records whose decision is answer",
+    "post_verification": "same defective candidate actually surfaced as verified answer",
+    "pre_verification": "all schema-parsed candidate answer decisions; defect is independently identified from persisted verifier/failure evidence"
+  },
+  "population_definition": "schema-parsed candidate answer decisions only",
+  "post_defect_surface_rate": 0.0,
+  "post_unsafe_acceptance": 0.0,
+  "pre_defect_surface_rate": 0.725,
+  "pre_unsafe_acceptance": 0.725,
+  "provenance": "PHASE15_DEV",
+  "rejection_outcome_taxonomy": {
+    "INVALID_GENERATION": 29
+  },
+  "relative_risk_reduction": 1.0,
+  "retained_non_defective_candidate_count": 11,
+  "seed": 20260826,
+  "stage": "phase10-qwen-persisted-dev",
+  "status": "RUN"
+}
