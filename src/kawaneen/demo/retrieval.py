@@ -84,16 +84,33 @@ class DemoRetriever:
         self.sparse = BM25Index.build(corpus.chunks.values(), "arabic-raw-v1")
         self.dense = NumpyExactIndex.build(corpus.vectors, tuple(corpus.chunks))
         self.query_encoder = query_encoder
+        self.dense_adapter = (
+            None if query_encoder is not None else E5SmallAdapter(revision=MODEL_REVISION)
+        )
         self.reranker = reranker
+        self._initialized = False
+
+    def initialize(self) -> None:
+        if self._initialized:
+            return
+        if self.dense_adapter is not None:
+            self.dense_adapter.preload()
+        preload = getattr(self.reranker, "preload", None)
+        if callable(preload):
+            preload()
+        self._initialized = True
 
     def search(self, query: str, limit: int = 5) -> ServingRetrievalResult:
         limit = min(max(1, limit), 5)
         sparse = tuple(
-            SourceHit(hit.chunk_id, hit.score) for hit in self.sparse.search(query, top_k=12)
+            SourceHit(hit.chunk_id, hit.score)
+            for hit in self.sparse.search(query, top_k=12)
+            if hit.score > 0
         )
         if self.query_encoder is None:
-            adapter = E5SmallAdapter(revision=MODEL_REVISION)
-            vector = adapter.encode_queries((query,), batch_size=1)[0]
+            if self.dense_adapter is None:
+                raise RuntimeError("demo dense adapter is not configured")
+            vector = self.dense_adapter.encode_queries((query,), batch_size=1)[0]
         else:
             vector = np.asarray(self.query_encoder(query), dtype=np.float32)
         dense = tuple(
@@ -118,23 +135,26 @@ class DemoRetriever:
                     strict=True,
                 )
             }
-            ranked_candidates = tuple(
+            head = tuple(
                 sorted(
-                    candidates,
+                    candidates[:reranker_depth],
                     key=lambda item: (
-                        -reranker_scores.get(item.chunk_id, item.fused_score),
+                        -reranker_scores[item.chunk_id],
                         item.fused_rank,
                         item.chunk_id,
                     ),
                 )
             )
-            score_type = "reranker_raw_logit"
+            ranked_candidates = head + candidates[reranker_depth:]
+            score_type = "mixed" if reranker_depth < len(candidates) else "reranker_raw_logit"
         evidence = tuple(
             self._evidence(
                 item,
                 rank,
                 score=reranker_scores.get(item.chunk_id, item.fused_score),
-                score_type=score_type,
+                score_type=(
+                    "reranker_raw_logit" if item.chunk_id in reranker_scores else "rrf_score"
+                ),
             )
             for rank, item in enumerate(ranked_candidates[:limit], 1)
         )

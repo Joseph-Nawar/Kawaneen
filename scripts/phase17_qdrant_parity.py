@@ -1,33 +1,25 @@
 from __future__ import annotations
 
+import hashlib
 import json
-import os
 from pathlib import Path
-
-import numpy as np
 
 from kawaneen.api.composition import load_frozen_serving_configuration
 from kawaneen.core.config import Settings
-from kawaneen.retrieval.qdrant_bootstrap import collection_name_for, load_qdrant_seed
+from kawaneen.phase15.inputs import Phase15InputRoots, load_dev_query_records
+from kawaneen.retrieval.dense_models import BGEM3Adapter
+from kawaneen.retrieval.qdrant_bootstrap import (
+    collection_name_for,
+    load_qdrant_seed,
+    seed_qdrant_collection,
+)
 from kawaneen.retrieval.qdrant_index import QdrantExactIndex
-from kawaneen.retrieval.qdrant_parity import compare_dense_indexes
+from kawaneen.retrieval.qdrant_parity import compare_dense_indexes, select_dev_query_records
 from kawaneen.retrieval.vector_index import NumpyExactIndex
 
 
 def main() -> None:
-    """Run parity with an explicit precomputed DEV query-vector file.
-
-    The query vectors are intentionally supplied out-of-band because the
-    tracked repository contains no private query text. The caller must point
-    this command at a DEV-only .npy matrix and matching stable ID JSON.
-    """
-    vector_path = os.environ.get("KAWANEEN_PHASE17_DEV_QUERY_VECTORS")
-    ids_path = os.environ.get("KAWANEEN_PHASE17_DEV_QUERY_IDS")
-    if not vector_path or not ids_path:
-        raise SystemExit(
-            "set KAWANEEN_PHASE17_DEV_QUERY_VECTORS and "
-            "KAWANEEN_PHASE17_DEV_QUERY_IDS to DEV-only local inputs"
-        )
+    """Run exact parity over a stable sample of the existing Phase 8 DEV queries."""
     try:
         from qdrant_client import QdrantClient
     except ImportError as error:
@@ -41,26 +33,43 @@ def main() -> None:
         expected_model_revision=configuration.dense_model_revision,
     )
     numpy_index = NumpyExactIndex.build(seed.vectors, seed.chunk_ids)
+    client = QdrantClient(url=settings.qdrant_url)
+    seed_qdrant_collection(client, seed)
     qdrant_index = QdrantExactIndex.build(
-        client=QdrantClient(url=settings.qdrant_url),
+        client=client,
         collection_name=collection_name_for(configuration.corpus_hash),
         vectors=seed.vectors,
         chunk_ids=seed.chunk_ids,
     )
-    queries = np.asarray(np.load(Path(vector_path), allow_pickle=False), dtype=np.float32)
-    ids = json.loads(Path(ids_path).read_text(encoding="utf-8"))
-    if not isinstance(ids, list) or len(ids) != len(queries):
-        raise SystemExit("DEV query vector and ID counts do not match")
+    roots = Phase15InputRoots(
+        historical_private_root=settings.artifacts_directory / "private",
+        output_root=Path("."),
+    )
+    selected = select_dev_query_records(load_dev_query_records(roots), sample_count=20)
+    adapter = BGEM3Adapter(revision=configuration.dense_model_revision)
+    vectors = adapter.encode_queries(
+        tuple(str(record["query_text"]) for record in selected), batch_size=1
+    )
     result = compare_dense_indexes(
         numpy_index=numpy_index,
         qdrant_index=qdrant_index,
-        queries=tuple(zip((str(item) for item in ids), queries, strict=True)),
+        queries=tuple(
+            (str(record["query_id"]), vector)
+            for record, vector in zip(selected, vectors, strict=True)
+        ),
+        sample_count=20,
+        top_k=50,
     )
     result.update(
         {
             "corpus_hash": configuration.corpus_hash,
-            "model_id": configuration.dense_model_id,
-            "model_revision": configuration.dense_model_revision,
+            "bge_model_id": adapter.model_id,
+            "bge_model_revision": adapter.revision,
+            "qdrant_exact": True,
+            "selection_rule": "sha256(query_id) ascending over split=dev, first 20",
+            "query_id_hash": hashlib.sha256(
+                "\n".join(str(record["query_id"]) for record in selected).encode("utf-8")
+            ).hexdigest(),
         }
     )
     output = Path("data/evaluation/phase17_qdrant_parity.json")

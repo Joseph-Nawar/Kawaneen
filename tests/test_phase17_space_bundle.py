@@ -30,4 +30,7 @@ def test_space_entrypoint_has_one_public_port_and_no_sidecar_services() -> None:
     assert "7860" in dockerfile
     assert "127.0.0.1:8000" in entrypoint
     assert "streamlit" in entrypoint
+    assert "HF_HUB_OFFLINE" in dockerfile
+    assert "614241f622f53c4eeff9890bdc4f31cfecc418b3" in dockerfile
+    assert "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e" in dockerfile
     assert all(name not in entrypoint.lower() for name in ("qdrant", "mlflow", "ollama"))

@@ -9,14 +9,20 @@ from urllib.request import Request, urlopen
 from kawaneen.generation.ollama import normalize_sha256_digest
 
 
-def request(base: str, path: str, payload: dict[str, object] | None = None) -> object:
+def request(
+    base: str,
+    path: str,
+    payload: dict[str, object] | None = None,
+    *,
+    timeout: float = 10,
+) -> object:
     body = None if payload is None else json.dumps(payload).encode()
     headers = {} if body is None else {"Content-Type": "application/json"}
     with urlopen(
         Request(
             base.rstrip("/") + path, data=body, headers=headers, method="POST" if body else "GET"
         ),
-        timeout=10,
+        timeout=timeout,
     ) as response:
         return json.loads(response.read().decode())
 
@@ -47,7 +53,7 @@ def main() -> None:
     tags = request(base, "/api/tags")
     installed = next((item for item in tags.get("models", []) if item.get("name") == model), None)
     if installed is None:
-        request(base, "/api/pull", {"name": model, "stream": False})
+        request(base, "/api/pull", {"name": model, "stream": False}, timeout=1800)
         tags = request(base, "/api/tags")
         installed = next(
             (item for item in tags.get("models", []) if item.get("name") == model), None

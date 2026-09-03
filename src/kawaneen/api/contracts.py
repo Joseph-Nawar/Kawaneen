@@ -86,7 +86,7 @@ class RetrievalSummary(ApiModel):
     top_score: float | None = None
     hit_count: int = Field(ge=0, le=20)
     returned_count: int = Field(ge=0, le=8)
-    score_type: Literal["reranker_raw_logit", "rrf_score"] = "reranker_raw_logit"
+    score_type: Literal["reranker_raw_logit", "rrf_score", "mixed"] = "reranker_raw_logit"
 
 
 class SearchResponse(ApiModel):

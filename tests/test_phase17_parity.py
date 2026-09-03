@@ -25,3 +25,18 @@ def test_parity_gate_compares_ids_order_and_score_tolerance() -> None:
     assert result["sample_count"] == 2
     assert result["pass"] is True
     assert result["mismatched_query_count"] == 0
+
+
+def test_parity_selection_is_fixed_to_dev_ids_before_results() -> None:
+    from kawaneen.retrieval.qdrant_parity import select_dev_query_records
+
+    records = tuple(
+        {"query_id": f"q-{index}", "split": "dev" if index != 3 else "holdout"}
+        for index in range(25)
+    )
+
+    selected = select_dev_query_records(records, sample_count=20)
+
+    assert len(selected) == 20
+    assert all(item["split"] == "dev" for item in selected)
+    assert selected == select_dev_query_records(records, sample_count=20)

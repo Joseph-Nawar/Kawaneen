@@ -22,4 +22,3 @@ data/ocr-models
 data/benchmarks/private
 data/.cache
 deploy/hf-space/build
-tests

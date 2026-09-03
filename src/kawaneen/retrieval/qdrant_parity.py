@@ -1,9 +1,30 @@
 from __future__ import annotations
 
-from collections.abc import Sequence
+import hashlib
+from collections.abc import Mapping, Sequence
 from typing import Any
 
 import numpy as np
+
+
+def select_dev_query_records(
+    records: Sequence[Mapping[str, object]], *, sample_count: int = 20
+) -> tuple[Mapping[str, object], ...]:
+    """Select stable DEV records by ID hash, without consulting parity results."""
+
+    dev = tuple(
+        record
+        for record in records
+        if str(record.get("split", "")).lower() == "dev" and isinstance(record.get("query_id"), str)
+    )
+    if len(dev) < sample_count:
+        raise ValueError("fewer than the requested number of DEV queries are available")
+    return tuple(
+        sorted(
+            dev,
+            key=lambda record: hashlib.sha256(str(record["query_id"]).encode("utf-8")).hexdigest(),
+        )[:sample_count]
+    )
 
 
 def compare_dense_indexes(
@@ -53,4 +74,4 @@ def compare_dense_indexes(
     }
 
 
-__all__ = ["compare_dense_indexes"]
+__all__ = ["compare_dense_indexes", "select_dev_query_records"]

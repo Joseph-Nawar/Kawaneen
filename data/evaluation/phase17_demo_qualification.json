@@ -7,7 +7,10 @@
   "operating_system": "macOS-26.4-arm64-arm-64bit",
   "cpu_limit": "2 CPUs requested when containerized",
   "memory_limit": "12 GB requested when containerized",
-  "container_image_digest": null,
+  "container_platform": "linux/arm64",
+  "startup_time_ms": 3724.386,
+  "container_image_id": "sha256:d64eb0ce760747a7ff2944142ab054d0b994d4014fadb9ee643a33a60790c452",
+  "container_image_digest": "sha256:d64eb0ce760747a7ff2944142ab054d0b994d4014fadb9ee643a33a60790c452",
   "model": {
     "id": "intfloat/multilingual-e5-small",
     "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3"
@@ -20,16 +23,16 @@
     "depth": 4
   },
   "timings_ms": {
-    "search_p50": 278.501,
-    "search_p95": 429.959,
-    "answer_p50": 270.375,
-    "answer_p95": 286.057
+    "search_p50": 3401.638,
+    "search_p95": 3606.333,
+    "answer_p50": 3439.861,
+    "answer_p95": 3591.365
   },
   "memory_mb": {
-    "idle_rss": null,
-    "peak_rss": 1920.797
+    "idle_rss": 977.043,
+    "peak_rss": 1074.902
   },
-  "image_size_bytes": null,
+  "image_size_bytes": 2150251370,
   "fixed_query_count": 20,
   "fixed_query_errors": 0,
   "qualification_decision": "HF_SPACE_RESOURCE_QUALIFIED",

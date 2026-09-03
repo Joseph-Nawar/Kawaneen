@@ -119,6 +119,11 @@ def test_seed_qdrant_collection_creates_and_reuses_owned_collection(tmp_path: Pa
             assert wait is True
             self.points = points
 
+        def delete_collection(self, collection_name: str) -> None:
+            assert collection_name == seed.collection_name
+            self.info = None
+            self.points = []
+
         def count(self, *, collection_name: str, exact: bool) -> object:
             assert collection_name == seed.collection_name
             assert exact is True
@@ -135,4 +140,6 @@ def test_seed_qdrant_collection_creates_and_reuses_owned_collection(tmp_path: Pa
     client = Client()
     assert seed_qdrant_collection(client, seed) == seed.collection_name
     assert len(client.points) == 2
+    assert seed_qdrant_collection(client, seed) == seed.collection_name
+    client.points = []
     assert seed_qdrant_collection(client, seed) == seed.collection_name

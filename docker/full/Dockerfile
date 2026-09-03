@@ -13,6 +13,7 @@ RUN python -m pip install --no-cache-dir -r /app/docker/full/requirements.txt
 COPY pyproject.toml README.md LICENSE /app/
 COPY src /app/src
 COPY data /app/data
+COPY configs /app/configs
 RUN python -m pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cpu torch torchvision
 RUN python -m pip install --no-cache-dir "transformers==4.57.6" "sentence-transformers==5.7.0"
 RUN python -m pip install --no-cache-dir ".[retrieval,ui]"

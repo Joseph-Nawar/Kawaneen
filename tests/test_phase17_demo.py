@@ -6,10 +6,10 @@ from pathlib import Path
 import numpy as np
 
 
-def _write_demo(root: Path) -> None:
+def _write_demo(root: Path, *, count: int = 3) -> None:
     (root / "corpus").mkdir(parents=True)
     rows = []
-    for index in range(3):
+    for index in range(count):
         rows.append(
             json.dumps(
                 {
@@ -35,11 +35,12 @@ def _write_demo(root: Path) -> None:
             )
         )
     (root / "corpus" / "chunks.jsonl").write_text("\n".join(rows) + "\n", encoding="utf-8")
-    (root / "ids.json").write_text(json.dumps([f"demo-{i}" for i in range(3)]), encoding="utf-8")
-    vectors = np.zeros((3, 384), dtype=np.float32)
-    vectors[0, 0] = 1.0
-    vectors[1, 1] = 1.0
-    vectors[2, :2] = np.asarray([2**-0.5, 2**-0.5], dtype=np.float32)
+    (root / "ids.json").write_text(
+        json.dumps([f"demo-{i}" for i in range(count)]), encoding="utf-8"
+    )
+    vectors = np.zeros((count, 384), dtype=np.float32)
+    for index in range(count):
+        vectors[index, index] = 1.0
     np.save(root / "vectors.npy", vectors)
     import hashlib
 
@@ -55,7 +56,7 @@ def _write_demo(root: Path) -> None:
         "formatting_contract": "e5-query-passage-v1",
         "normalization": "l2-float32",
         "embedding_dimension": 384,
-        "vector_count": 3,
+        "vector_count": count,
         "redistribution": "Project-created synthetic demonstration data; freely redistributable.",
     }
     (root / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
@@ -121,6 +122,43 @@ def test_demo_retrieval_can_rerank_only_the_top_four_candidates(tmp_path: Path) 
     assert all(item.score_type == "reranker_raw_logit" for item in result.evidence)
 
 
+def test_demo_reranker_keeps_negative_logit_tail_after_reranked_head(tmp_path: Path) -> None:
+    from kawaneen.demo.corpus import load_demo_corpus
+    from kawaneen.demo.retrieval import DemoRetriever
+
+    root = tmp_path / "demo"
+    _write_demo(root, count=8)
+
+    class Reranker:
+        def score_pairs(
+            self, pairs: tuple[tuple[str, str], ...], *, batch_size: int
+        ) -> tuple[float, ...]:
+            assert len(pairs) == 4
+            return (-4.0, -3.0, -2.0, -1.0)
+
+    result = DemoRetriever(
+        load_demo_corpus(root),
+        query_encoder=lambda text: np.pad(np.asarray([1, 0], dtype=np.float32), (0, 382)),
+        reranker=Reranker(),  # type: ignore[arg-type]
+    ).search("مدة", limit=8)
+
+    assert [item.chunk_id for item in result.evidence] == [
+        "demo-3",
+        "demo-2",
+        "demo-1",
+        "demo-0",
+        "demo-4",
+    ]
+    assert [item.score_type for item in result.evidence] == [
+        "reranker_raw_logit",
+        "reranker_raw_logit",
+        "reranker_raw_logit",
+        "reranker_raw_logit",
+        "rrf_score",
+    ]
+    assert result.summary.score_type == "mixed"
+
+
 def test_demo_answerer_is_deterministic_and_has_no_generator() -> None:
     from kawaneen.demo.runtime import DemoAnswerer
 
@@ -162,3 +200,47 @@ def test_demo_answerer_is_deterministic_and_has_no_generator() -> None:
     assert first.answer == "هذا مقتطف اصطناعي."
     assert first.citations[0].quoted_text == first.answer
     assert not hasattr(answerer, "generator")
+
+
+def test_demo_answerer_abstains_without_positive_lexical_support(tmp_path: Path) -> None:
+    from kawaneen.demo.corpus import load_demo_corpus
+    from kawaneen.demo.retrieval import DemoRetriever
+    from kawaneen.demo.runtime import DemoAnswerer
+
+    root = tmp_path / "demo"
+    _write_demo(root)
+    answerer = DemoAnswerer(
+        DemoRetriever(
+            load_demo_corpus(root),
+            query_encoder=lambda text: np.pad(np.asarray([1, 0], dtype=np.float32), (0, 382)),
+        )
+    )
+
+    supported = answerer.answer("مدة تجريبية")
+    unrelated = answerer.answer("ما هي إجراءات الطقس في المريخ؟")
+
+    assert supported.answerable is True
+    assert supported.answer in {item.text for item in supported.retrieval.evidence}
+    assert unrelated.answerable is False
+    assert unrelated.answer is None
+    assert unrelated.abstention_reason == "INSUFFICIENT_DEMO_EVIDENCE"
+
+
+def test_demo_retriever_owns_one_e5_adapter_and_preloads_it(tmp_path: Path) -> None:
+    from kawaneen.demo.corpus import load_demo_corpus
+    from kawaneen.demo.retrieval import DemoRetriever
+
+    root = tmp_path / "demo"
+    _write_demo(root)
+    retriever = DemoRetriever(load_demo_corpus(root))
+    calls: list[str] = []
+    retriever.dense_adapter = type(
+        "Adapter",
+        (),
+        {"preload": lambda self: calls.append("preload")},
+    )()
+
+    retriever.initialize()
+    retriever.initialize()
+
+    assert calls == ["preload"]

@@ -23,7 +23,10 @@ class DemoAnswerer:
 
     def answer(self, query: str) -> ServingAnswerResult:
         result = self.retriever.search(query, 5)
-        if not result.evidence:
+        if not result.evidence or getattr(result.evidence[0], "provenance", "both") not in {
+            "both",
+            "sparse-only",
+        }:
             return ServingAnswerResult(False, None, "INSUFFICIENT_DEMO_EVIDENCE", (), result)
         evidence = result.evidence[0]
         citation = VerifiedCitation(
@@ -80,17 +83,48 @@ def create_demo_container(
             use_reranker,
         ),
     )
+
+    def initialize_demo_models() -> tuple[ModelSnapshot, ...]:
+        retriever.initialize()
+        return (
+            ModelSnapshot(
+                "retrieval-dense",
+                "huggingface",
+                "intfloat/multilingual-e5-small",
+                cast(str, corpus.manifest["model_revision"]),
+                True,
+                True,
+            ),
+            ModelSnapshot(
+                "retrieval-reranker",
+                "huggingface",
+                RERANKER_MODEL_ID if use_reranker else None,
+                RERANKER_REVISION if use_reranker else None,
+                use_reranker,
+                use_reranker,
+            ),
+        )
+
     return ServiceContainer(
         retriever=retriever,
         answerer=answerer,
         extractor=ServingExtractor(observer=NoOpObserver()),
         corpus=None,
-        components=components,
+        components=tuple(
+            ComponentReadiness(
+                item.name,
+                False if item.name == "retrieval" else item.ready,
+                item.required,
+                "demo models are not initialized" if item.name == "retrieval" else item.detail,
+            )
+            for item in components
+        ),
         model_metadata=models,
         settings=Settings(),
         observer=NoOpObserver(),
         public_demo=True,
         demo_guard=DemoRequestLimiter(rate_limit=request_rate_limit),
+        component_initializers={"retrieval": initialize_demo_models},
     )
 
 

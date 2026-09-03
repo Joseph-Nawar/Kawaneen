@@ -14,6 +14,8 @@ import numpy as np
 from kawaneen.retrieval.serving import load_serving_chunks
 from kawaneen.retrieval.vector_index import validate_normalized_vectors
 
+_UPSERT_BATCH_SIZE = 256
+
 _SHA256 = re.compile(r"^[0-9a-f]{64}$")
 
 
@@ -101,7 +103,7 @@ def _collection_matches(client: Any, seed: QdrantSeed) -> bool:
         config = info.config.params.vectors
         count = client.count(collection_name=seed.collection_name, exact=True).count
         points, _ = client.scroll(collection_name=seed.collection_name, limit=1, with_payload=True)
-    except (AttributeError, RuntimeError, ValueError):
+    except Exception:
         return False
     size = getattr(config, "size", None)
     distance = str(getattr(config, "distance", "")).lower()
@@ -139,19 +141,23 @@ def seed_qdrant_collection(client: Any, seed: QdrantSeed) -> str:
             hnsw_config=models.HnswConfigDiff(m=0),
         ),
     )
-    points = [
-        models.PointStruct(
-            id=index,
-            vector=vector.tolist(),
-            payload={
-                "chunk_id": chunk_id,
-                "corpus_hash": seed.corpus_hash,
-                "model_revision": seed.model_revision,
-            },
-        )
-        for index, (chunk_id, vector) in enumerate(zip(seed.chunk_ids, seed.vectors, strict=True))
-    ]
-    client.upsert(collection_name=seed.collection_name, points=points, wait=True)
+    for start in range(0, len(seed.chunk_ids), _UPSERT_BATCH_SIZE):
+        stop = min(start + _UPSERT_BATCH_SIZE, len(seed.chunk_ids))
+        points = [
+            models.PointStruct(
+                id=index,
+                vector=vector.tolist(),
+                payload={
+                    "chunk_id": chunk_id,
+                    "corpus_hash": seed.corpus_hash,
+                    "model_revision": seed.model_revision,
+                },
+            )
+            for index, (chunk_id, vector) in enumerate(
+                zip(seed.chunk_ids[start:stop], seed.vectors[start:stop], strict=True), start=start
+            )
+        ]
+        client.upsert(collection_name=seed.collection_name, points=points, wait=True)
     return seed.collection_name
 
 
