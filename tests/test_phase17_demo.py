@@ -226,6 +226,46 @@ def test_demo_answerer_abstains_without_positive_lexical_support(tmp_path: Path)
     assert unrelated.abstention_reason == "INSUFFICIENT_DEMO_EVIDENCE"
 
 
+def test_public_demo_api_uses_demo_jurisdiction_without_sa_synthetic_mismatch(
+    tmp_path: Path,
+) -> None:
+    from fastapi.testclient import TestClient
+
+    from kawaneen.demo.runtime import create_demo_app
+
+    root = tmp_path / "demo"
+    _write_demo(root)
+
+    def encoder(text: str) -> np.ndarray:
+        del text
+        return np.pad(np.asarray([1, 0], dtype=np.float32), (0, 382))
+
+    with TestClient(
+        create_demo_app(root=root, query_encoder=encoder, use_reranker=False)
+    ) as client:
+        search = client.post(
+            "/v1/search",
+            json={"query": "مدة تجريبية", "limit": 1},
+        )
+        answer = client.post("/v1/answer", json={"query": "مدة تجريبية", "jurisdiction": "SA"})
+        extraction = client.post(
+            "/v1/extract",
+            json={
+                "text": "يلتزم الطرف بالسداد خلال ثلاثين يوماً.",
+                "jurisdiction": "KAWANEEN_DEMO",
+                "mode": "deterministic",
+            },
+        )
+
+    assert search.status_code == 200
+    assert search.json()["jurisdiction"] == "KAWANEEN_DEMO"
+    assert search.json()["results"][0]["document_id"].startswith("demo-")
+    assert answer.status_code == 200
+    assert answer.json()["jurisdiction"] == "KAWANEEN_DEMO"
+    assert extraction.status_code == 200
+    assert extraction.json()["result"]["jurisdiction"] == "KAWANEEN_DEMO"
+
+
 def test_demo_retriever_owns_one_e5_adapter_and_preloads_it(tmp_path: Path) -> None:
     from kawaneen.demo.corpus import load_demo_corpus
     from kawaneen.demo.retrieval import DemoRetriever

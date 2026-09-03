@@ -27,3 +27,11 @@ verified Stage-D answer. The public profile returns `strategy:
 "demo_retrieval_first"`, `score_type: "rrf_score"`, and an answer that is an
 exact synthetic evidence passage; it never invokes a generator. Errors use
 the normal `{ "error": { "code", "message" }, "request_id" }` envelope.
+
+For the public synthetic profile, use `KAWANEEN_DEMO` instead of `SA`:
+
+```bash
+curl -fsS -X POST "$BASE/v1/search" \
+  -H 'Content-Type: application/json' \
+  -d '{"query":"ما هي مدة الاعتراض؟","jurisdiction":"KAWANEEN_DEMO","limit":5}'
+```

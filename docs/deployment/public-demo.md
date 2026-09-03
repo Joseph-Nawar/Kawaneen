@@ -16,6 +16,10 @@ insufficient match abstains rather than fabricating a legal conclusion. The
 banner says `PUBLIC DEMO PROFILE`, and the live UI uses the FastAPI service;
 the old fixture-only UI mode is not silently substituted.
 
+The public-demo API profile sends and returns the closed jurisdiction value
+`KAWANEEN_DEMO` for search, answer, and extraction requests. It never presents
+synthetic evidence as Saudi (`SA`) material.
+
 ## Build the unpublished bundle
 
 ```bash

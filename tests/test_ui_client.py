@@ -56,6 +56,27 @@ def test_client_validates_successful_phase12_response() -> None:
     assert result.retrieval.score_type == "reranker_raw_logit"
 
 
+def test_client_sends_closed_public_demo_jurisdiction() -> None:
+    from kawaneen.core.jurisdiction import Jurisdiction
+
+    seen: list[object] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        seen.append(request.read())
+        return httpx.Response(200, json={**_search_payload(), "jurisdiction": "KAWANEEN_DEMO"})
+
+    client = HttpUiClient(
+        "http://api.test",
+        jurisdiction=Jurisdiction.KAWANEEN_DEMO,
+        transport=httpx.MockTransport(handler),
+    )
+    result = client.search("مدة الاعتراض", limit=4)
+
+    assert result.jurisdiction == "KAWANEEN_DEMO"
+    assert b'"jurisdiction":"KAWANEEN_DEMO"' in seen[0]
+    client.close()
+
+
 def test_client_maps_safe_api_error_without_exposing_payload() -> None:
     def handler(_: httpx.Request) -> httpx.Response:
         return httpx.Response(

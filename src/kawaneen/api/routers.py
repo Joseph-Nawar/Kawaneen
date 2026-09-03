@@ -42,6 +42,7 @@ from kawaneen.api.errors import (
     service_unavailable,
 )
 from kawaneen.api.runtime import ServiceContainer
+from kawaneen.core.jurisdiction import Jurisdiction
 from kawaneen.demo.limits import DemoRequestLimiter
 from kawaneen.extraction.serving import ModelUnavailableError
 from kawaneen.generation.serving import (
@@ -77,6 +78,7 @@ def build_router(
         service = container.retriever
         if service is None or not container.component_ready("retrieval"):
             raise service_unavailable("retrieval service is not ready")
+        jurisdiction = _effective_jurisdiction(container, request.jurisdiction)
         started = time.perf_counter()
         demo_guard = _demo_enter(container, request.query, "query")
         try:
@@ -85,7 +87,7 @@ def build_router(
                     container,
                     _request_id(raw_request),
                     request.query,
-                    request.jurisdiction,
+                    jurisdiction,
                     _demo_limit(container, request.limit),
                 ),
                 search_timeout,
@@ -94,7 +96,7 @@ def build_router(
             _demo_exit(demo_guard)
         return SearchResponse(
             request_id=_request_id(raw_request),
-            jurisdiction=request.jurisdiction,
+            jurisdiction=jurisdiction,
             results=tuple(_evidence(item) for item in result.evidence),
             retrieval=_summary(result.summary),
             latency_ms=(time.perf_counter() - started) * 1000,
@@ -115,6 +117,7 @@ def build_router(
         service = container.answerer
         if service is None or not container.component_ready("answer"):
             raise service_unavailable("answer service is not ready")
+        jurisdiction = _effective_jurisdiction(container, request.jurisdiction)
         started = time.perf_counter()
         demo_guard = _demo_enter(container, request.query, "query")
         try:
@@ -123,7 +126,7 @@ def build_router(
                     container,
                     _request_id(raw_request),
                     request.query,
-                    request.jurisdiction,
+                    jurisdiction,
                     service,
                 ),
                 answer_timeout,
@@ -134,7 +137,7 @@ def build_router(
             _demo_exit(demo_guard)
         return AnswerResponse(
             request_id=_request_id(raw_request),
-            jurisdiction=request.jurisdiction,
+            jurisdiction=jurisdiction,
             answerable=result.answerable,
             answer=result.answer,
             abstention_reason=result.abstention_reason,
@@ -160,6 +163,7 @@ def build_router(
             raise service_unavailable("extraction service is not ready")
         if request.mode.value == "hybrid" and not container.component_ready("extraction_hybrid"):
             raise model_unavailable()
+        jurisdiction = _effective_jurisdiction(container, request.jurisdiction)
         started = time.perf_counter()
         demo_guard = _demo_enter(container, request.text, "extraction")
         try:
@@ -169,7 +173,7 @@ def build_router(
                     _request_id(raw_request),
                     request.text,
                     request.mode.value,
-                    request.jurisdiction,
+                    jurisdiction,
                     service,
                 ),
                 extract_timeout,
@@ -296,6 +300,10 @@ def _request_id(request: Request) -> str:
     return str(getattr(request.state, "request_id", "missing-request-id"))
 
 
+def _effective_jurisdiction(container: ServiceContainer, requested: Jurisdiction) -> Jurisdiction:
+    return Jurisdiction.KAWANEEN_DEMO if container.public_demo else requested
+
+
 def _demo_enter(container: ServiceContainer, value: str, kind: str) -> DemoRequestLimiter | None:
     guard = container.demo_guard if container.public_demo else None
     if guard is None:
@@ -376,7 +384,7 @@ def _observed_extract(
             "extraction_mode": mode,
         },
     ):
-        return service.extract(text, mode=mode)  # type: ignore[union-attr]
+        return service.extract(text, mode=mode, jurisdiction=jurisdiction)  # type: ignore[union-attr]
 
 
 def _evidence(item: Any) -> Any:

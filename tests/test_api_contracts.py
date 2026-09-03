@@ -17,14 +17,26 @@ def test_search_request_is_strict_and_bounded() -> None:
         SearchRequest(query="x" * 2001, jurisdiction="SA")
     with pytest.raises(ValidationError):
         SearchRequest(query="x", jurisdiction="EG")
+    from kawaneen.api.contracts import AnswerRequest
+
+    with pytest.raises(ValidationError):
+        AnswerRequest(query="x", jurisdiction="EG")
+
+    assert SearchRequest(query="x").jurisdiction == "SA"
+    assert SearchRequest(query="x", jurisdiction="KAWANEEN_DEMO").jurisdiction == "KAWANEEN_DEMO"
 
 
 def test_extract_request_has_mode_and_text_limit() -> None:
     from kawaneen.api.contracts import ExtractionMode, ExtractRequest
 
     assert ExtractRequest(text="نص", jurisdiction="SA").mode is ExtractionMode.HYBRID
+    assert ExtractRequest(text="نص").jurisdiction == "SA"
+    assert ExtractRequest(text="نص", jurisdiction="KAWANEEN_DEMO").jurisdiction == "KAWANEEN_DEMO"
     with pytest.raises(ValidationError):
         ExtractRequest(text="x" * 20_001, jurisdiction="SA")
+
+    with pytest.raises(ValidationError):
+        ExtractRequest(text="نص", jurisdiction="EG")
 
 
 def test_request_id_accepts_safe_values_only() -> None:
@@ -52,7 +64,14 @@ def test_error_envelope_is_strict() -> None:
 
 
 def test_search_and_answer_responses_expose_frozen_retrieval_contract() -> None:
-    from kawaneen.api.contracts import AnswerResponse, Evidence, RetrievalSummary, SearchResponse
+    from kawaneen.api.contracts import (
+        AnswerRequest,
+        AnswerResponse,
+        Evidence,
+        RetrievalSummary,
+        SearchRequest,
+        SearchResponse,
+    )
 
     summary = RetrievalSummary(
         strategy="hybrid_reranked",
@@ -82,3 +101,6 @@ def test_search_and_answer_responses_expose_frozen_retrieval_contract() -> None:
     assert search.retrieval.top_score is None
     assert search.retrieval.hit_count == 0
     assert Evidence.model_fields["score_type"].default == "reranker_raw_logit"
+
+    assert SearchRequest.model_validate({"query": "x", "jurisdiction": "KAWANEEN_DEMO"})
+    assert AnswerRequest.model_validate({"query": "x", "jurisdiction": "KAWANEEN_DEMO"})
