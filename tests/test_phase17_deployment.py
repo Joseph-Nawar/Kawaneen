@@ -18,6 +18,7 @@ def test_full_compose_has_required_services_and_loopback_ports() -> None:
         "ollama",
         "qdrant-init",
         "ollama-init",
+        "hf-model-init",
     }
     assert "127.0.0.1:8000:8000" in services["kawaneen-api"]["ports"]
     assert "127.0.0.1:8501:8501" in services["kawaneen-ui"]["ports"]
@@ -36,6 +37,11 @@ def test_full_compose_uses_health_ordering_and_read_only_external_artifacts() ->
     assert any("/app/artifacts:ro" in mount for mount in api["volumes"])
     assert services["qdrant-init"]["depends_on"]["qdrant"]["condition"] == "service_healthy"
     assert services["ollama-init"]["depends_on"]["ollama"]["condition"] == "service_healthy"
+    assert services["hf-model-init"]["environment"]["HF_HOME"] == "/opt/huggingface"
+    assert "huggingface_cache:/opt/huggingface" in services["hf-model-init"]["volumes"]
+    assert services["kawaneen-api"]["depends_on"]["hf-model-init"]["condition"] == (
+        "service_completed_successfully"
+    )
     assert services["kawaneen-api"]["depends_on"]["qdrant-init"]["condition"] == (
         "service_completed_successfully"
     )
