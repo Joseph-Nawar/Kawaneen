@@ -7,6 +7,8 @@ import streamlit as st
 from kawaneen.api.contracts import ExtractionResponse
 from kawaneen.ui.client import UiApiError
 from kawaneen.ui.components import (
+    render_finding_record,
+    render_findings_summary,
     render_mode_note,
     render_page_intro,
     render_product_header,
@@ -33,7 +35,13 @@ def render() -> None:
     if state.settings.public_demo:
         source_modes = ["Paste text"]
         st.caption("Public demo accepts pasted text only; file uploads are disabled.")
-    source_mode = st.selectbox("Source mode", source_modes)
+    source_col, mode_col = st.columns(2)
+    with source_col:
+        source_mode = st.selectbox("Source mode", source_modes)
+    mode_options = ["Deterministic"] if state.settings.public_demo else ["Deterministic", "Hybrid"]
+    with mode_col:
+        mode_label = st.selectbox("Extraction mode", mode_options, key="extraction_mode_select")
+    mode = "hybrid" if mode_label == "Hybrid" else "deterministic"
     source_text = ""
     if source_mode == "Paste text":
         source_text = st.text_area(
@@ -90,9 +98,6 @@ def render() -> None:
             source_text = st.session_state.get("corpus_source_text", source_text)
         except UiApiError as error:
             st.error(error.message)
-    mode_options = ["Deterministic"] if state.settings.public_demo else ["Deterministic", "Hybrid"]
-    mode_label = st.selectbox("Extraction mode", mode_options, key="extraction_mode_select")
-    mode = "hybrid" if mode_label == "Hybrid" else "deterministic"
     if st.button("Extract"):
         if not source_text.strip():
             st.error("Provide source text before extracting.")
@@ -124,28 +129,28 @@ def render() -> None:
     for segment_id, response in results:
         result = response.result
         with st.expander(f"{segment_id} · {result.configuration}", expanded=True):
-            cards = st.columns(6)
-            cards[0].metric("Obligations", len(result.obligations))
-            cards[1].metric("Deadlines", len(result.deadlines))
-            cards[2].metric("Regulated entities", len(result.regulated_entities))
-            cards[3].metric("Exceptions", len(result.exceptions))
-            cards[4].metric("Prohibitions", len(result.prohibitions))
-            cards[5].metric("Permissions", len(result.permissions))
+            render_findings_summary(
+                {
+                    "obligations": len(result.obligations),
+                    "deadlines": len(result.deadlines),
+                    "regulated_entities": len(result.regulated_entities),
+                    "exceptions": len(result.exceptions),
+                    "prohibitions": len(result.prohibitions),
+                    "permissions": len(result.permissions),
+                }
+            )
             rows = extract_presentation_rows(segment_id, response)
             for row in rows:
                 field = row["field"]
                 value = row["value"]
-                if field == "summary" or field == "source":
-                    st.json({str(field): value})
-                elif field in {"obligation", "rule"}:
-                    st.markdown(f"**{str(field).title()}**")
-                    st.json(value)
-                elif field == "deadline":
-                    st.markdown("**Deadline · exact extracted span**")
-                    st.json(value)
-                elif field in {"regulated_entity", "exception"}:
-                    st.markdown(f"**{str(field).replace('_', ' ').title()}**")
-                    st.write(value)
+                if field == "summary":
+                    with st.expander("Technical extraction summary"):
+                        st.json({str(field): value})
+                elif field == "source":
+                    with st.expander("Source provenance"):
+                        st.json({str(field): value})
+                else:
+                    render_finding_record(str(field), value)
     st.download_button(
         "Download JSON", extraction_json(results), "kawaneen-extraction.json", "application/json"
     )

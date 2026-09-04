@@ -29,9 +29,13 @@ def render() -> None:
         "Ranked evidence with jurisdiction and provenance kept visible.",
     )
     with st.form("search_form"):
-        query = st.text_input(
-            "Search query", placeholder="مثال: ما هي مدة الاعتراض؟", key="search_query"
-        )
+        query_col, action_col = st.columns([5, 1])
+        with query_col:
+            query = st.text_input(
+                "Search query", placeholder="مثال: ما هي مدة الاعتراض؟", key="search_query"
+            )
+        with action_col:
+            submitted = st.form_submit_button("Search")
         left, right = st.columns(2)
         with left:
             st.selectbox(
@@ -44,7 +48,6 @@ def render() -> None:
             )
         with right:
             limit = st.slider("Result limit", min_value=1, max_value=8, value=5)
-        submitted = st.form_submit_button("Search")
     if submitted:
         if not query.strip():
             st.error("Enter a legal question or search term.")
@@ -66,8 +69,8 @@ def render() -> None:
         return
     st.markdown("### Ranked evidence")
     st.caption(
-        f"{response.retrieval.returned_count} results · {response.latency_ms:.0f} ms API latency · "
-        f"scope: jurisdiction {'KAWANEEN_DEMO' if state.settings.public_demo else 'SA'}"
+        f"{response.retrieval.returned_count} results · {response.latency_ms:.0f} ms · "
+        f"{'KAWANEEN_DEMO' if state.settings.public_demo else 'SA'}"
     )
     with st.expander("Refine returned evidence", expanded=False):
         refinement = st.text_input(
@@ -92,7 +95,7 @@ def render() -> None:
         results = tuple(item for item in results if refinement.casefold() in item.text.casefold())
         st.caption("Refine returned evidence · original ranking preserved · not a new API search")
     if not results:
-        st.warning("No returned evidence matches this refinement.")
+        st.info("No supporting evidence was returned for this refinement.")
     for evidence in results:
         render_evidence_card(evidence, original_query)
     with st.expander("Evidence inspector"):

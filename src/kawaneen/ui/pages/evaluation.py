@@ -12,6 +12,7 @@ from kawaneen.ui.components import (
     render_page_intro,
     render_product_header,
     render_status_gate,
+    render_status_strip,
 )
 from kawaneen.ui.config import UiMode
 from kawaneen.ui.evaluation import (
@@ -42,16 +43,28 @@ def render() -> None:
     )
     root = Path(__file__).resolve().parents[4]
     snapshot = build_evaluation_snapshot(root)
-    st.markdown("### Dashboard at a glance")
-    glance = st.columns(4)
-    glance[0].metric("Mode", "Demo data" if state.status_label == "Demo data" else "Live API")
-    glance[1].metric("Retrieval", "Phase 8 frozen")
-    glance[2].metric("Generation", "Phase 10 tracked")
-    glance[3].metric("Extraction", "Protected")
-    st.caption("A compact portfolio summary; detailed tracked metrics and provenance follow below.")
+    st.markdown("### System status")
+    serving_status = (
+        "Public demo"
+        if state.settings.public_demo
+        else "Live"
+        if state.active_mode is UiMode.LIVE
+        else "Fixture demo"
+    )
+    render_status_strip(
+        (
+            ("Mode", "Demo data" if state.status_label == "Demo data" else "Live API"),
+            ("Retrieval", "Phase 8 frozen"),
+            ("Generation", "Phase 10 tracked"),
+            ("Extraction", "Protected"),
+            ("Serving", serving_status),
+        )
+    )
+    st.caption("Detailed tracked metrics, scope labels, and provenance follow below.")
     retrieval_rows = common_retrieval_comparison(snapshot)
     if retrieval_rows:
-        st.markdown("### Tracked retrieval comparison")
+        st.markdown("### Key measured evidence")
+        st.markdown("#### Tracked retrieval comparison")
         st.caption("Common tracked metrics and splits only; values are not rerun in this UI.")
         chart_data: dict[str, list[float]] = {}
         for row in retrieval_rows:
@@ -93,15 +106,15 @@ def render() -> None:
                 )
     except Exception:
         st.warning("Model readiness could not be loaded from the current API session.")
-    st.markdown("### Frozen retrieval architecture")
-    st.caption("BM25 + BGE-M3 → weighted RRF (1.0 / 0.25) → BGE reranker → top 8")
     st.markdown("### Retrieval")
+    st.markdown("#### Frozen retrieval architecture")
+    st.caption("BM25 + BGE-M3 → weighted RRF (1.0 / 0.25) → BGE reranker → top 8")
     st.caption("Frozen Phase 8 architecture/configuration. DEV and holdout remain separate labels.")
     st.dataframe(list(retrieval_rows), width="stretch", hide_index=True)
     st.markdown("### Phase 8 selected improvement deltas")
     st.dataframe(snapshot.retrieval["selected_deltas"], width="stretch", hide_index=True)
-    st.markdown("### Generation · DEV / independently AI-reviewed, not human-gold")
-    generation_cols = st.columns(5)
+    st.markdown("### Generation")
+    st.caption("DEV / independently AI-reviewed, not human-gold")
     labels = (
         ("Valid citations", "ValidCitationRate"),
         ("Claim coverage", "ClaimCitationCoverage"),
@@ -109,12 +122,14 @@ def render() -> None:
         ("False-answer rate", "FalseAnswerRate"),
         ("Invalid generation", "invalid_generation_rate"),
     )
-    for column, (label, key) in zip(generation_cols, labels, strict=True):
-        with column:
-            st.metric(label, f"{snapshot.generation[key]:.3f}")
-    st.markdown("### Extraction · protected HOLDOUT summary")
+    st.dataframe(
+        [{"metric": label, "value": f"{snapshot.generation[key]:.3f}"} for label, key in labels],
+        width="stretch",
+        hide_index=True,
+    )
+    st.markdown("### Extraction")
+    st.caption("Protected HOLDOUT summary")
     st.caption(snapshot.extraction["scope_note"])
-    extraction_cols = st.columns(7)
     extraction_metrics = (
         ("Completion", "completion"),
         ("Micro precision", "micro_precision"),
@@ -124,11 +139,17 @@ def render() -> None:
         ("Provenance", "provenance_completeness"),
         ("Full-rule exact F1", "full_rule_exact_f1"),
     )
-    for column, (label, key) in zip(extraction_cols, extraction_metrics, strict=True):
-        with column:
-            st.metric(label, f"{snapshot.extraction[key]:.3f}")
+    st.dataframe(
+        [
+            {"metric": label, "value": f"{snapshot.extraction[key]:.3f}"}
+            for label, key in extraction_metrics
+        ],
+        width="stretch",
+        hide_index=True,
+    )
     st.bar_chart(snapshot.extraction["error_taxonomy"], horizontal=True)
-    st.markdown("### Live session latency — not a benchmark")
+    st.markdown("### Session latency")
+    st.markdown("Live session latency — not a benchmark")
     st.caption("Endpoint families: Search · Answer · Extract")
     summaries = aggregate_latency_by_operation(
         {

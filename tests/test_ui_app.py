@@ -50,6 +50,7 @@ def test_main_configures_and_runs_the_four_page_navigation(monkeypatch) -> None:
         "Extract",
         "Evaluation",
     ]
+    assert all(not getattr(page, "icon", None) for page in fake.pages)
     assert fake.navigation_result.ran is True
 
 
@@ -61,13 +62,13 @@ def test_demo_search_page_renders_evidence_and_supports_english_query(monkeypatc
     monkeypatch.setenv("KAWANEEN_UI_MODE", "demo")
     app = _run()
 
-    assert app.title[0].value == "Search"
+    assert any("<h1>Search</h1>" in item.proto.body for item in app.get("html"))
     assert any("demo data" in item.value.lower() for item in app.info)
 
     app.text_input[0].set_value("appeal deadline")
     app.button[0].click().run()
 
-    assert any("Employment Procedures Regulation" in item.value for item in app.caption)
+    assert any("Employment Procedures Regulation" in item.proto.body for item in app.get("html"))
 
 
 def test_demo_ask_page_renders_grounded_answer_and_abstention(monkeypatch) -> None:
