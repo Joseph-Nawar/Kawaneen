@@ -39,47 +39,60 @@ Cover these behaviors with temporary tracked-style Phase-8 manifests and a fake 
 def test_bootstrap_passes_frozen_dense_and_reranker_identities(tmp_path, monkeypatch):
     calls = []
     make_frozen_data(tmp_path / "data")
+
     def download(**kwargs):
         calls.append(kwargs)
         snapshot = tmp_path / "cache" / kwargs["repo_id"].replace("/", "--")
         snapshot.mkdir(parents=True)
         (snapshot / "config.json").write_text("{}", encoding="utf-8")
         return str(snapshot)
-    result = load_hf_bootstrap_module().bootstrap_models(tmp_path / "data", tmp_path / "cache", download)
+
+    result = load_hf_bootstrap_module().bootstrap_models(
+        tmp_path / "data", tmp_path / "cache", download
+    )
     assert [(call["repo_id"], call["revision"]) for call in calls] == [
         ("BAAI/bge-m3", "b" * 40),
         ("BAAI/bge-reranker-v2-m3", "r" * 40),
     ]
     assert all(snapshot.path.is_dir() for snapshot in result)
 
+
 def test_bootstrap_is_idempotent_and_does_not_force_download(tmp_path):
     calls = []
     make_frozen_data(tmp_path / "data")
+
     def download(**kwargs):
         calls.append(kwargs)
         path = tmp_path / "cache" / str(len(calls))
         path.mkdir(parents=True)
         (path / "config.json").write_text("{}", encoding="utf-8")
         return path
+
     module = load_hf_bootstrap_module()
     module.bootstrap_models(tmp_path / "data", tmp_path / "cache", download)
     module.bootstrap_models(tmp_path / "data", tmp_path / "cache", download)
     assert all(call["local_files_only"] is False for call in calls)
     assert all("force_download" not in call for call in calls)
 
+
 def test_bootstrap_propagates_download_failure(tmp_path):
     make_frozen_data(tmp_path / "data")
+
     def download(**kwargs):
         raise RuntimeError("offline frozen revision")
+
     with pytest.raises(RuntimeError, match="offline frozen revision"):
         load_hf_bootstrap_module().bootstrap_models(tmp_path / "data", tmp_path / "cache", download)
 
+
 def test_bootstrap_rejects_snapshot_without_metadata(tmp_path):
     make_frozen_data(tmp_path / "data")
+
     def download(**kwargs):
         path = tmp_path / "cache" / "empty"
         path.mkdir(parents=True)
         return path
+
     with pytest.raises(RuntimeError, match="metadata"):
         load_hf_bootstrap_module().bootstrap_models(tmp_path / "data", tmp_path / "cache", download)
 ```
@@ -116,8 +129,15 @@ models = (
     (configuration.reranker.model_id, configuration.reranker.model_revision),
 )
 for model_id, revision in models:
-    path = Path(snapshot_downloader(repo_id=model_id, revision=revision, cache_dir=cache_directory, local_files_only=False))
-    if not path.is_dir() or not any((path / name).is_file() for name in ("config.json", "config.yaml", "tokenizer.json", "tokenizer_config.json")):
+    path = Path(
+        snapshot_downloader(
+            repo_id=model_id, revision=revision, cache_dir=cache_directory, local_files_only=False
+        )
+    )
+    if not path.is_dir() or not any(
+        (path / name).is_file()
+        for name in ("config.json", "config.yaml", "tokenizer.json", "tokenizer_config.json")
+    ):
         raise RuntimeError(f"frozen snapshot metadata is missing for {model_id} {revision}")
 ```
 

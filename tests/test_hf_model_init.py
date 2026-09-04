@@ -7,7 +7,6 @@ from types import ModuleType
 
 import pytest
 
-
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -37,7 +36,9 @@ def test_bootstrap_passes_exact_frozen_dense_and_reranker_identities(tmp_path: P
         model_id = str(kwargs["repo_id"])
         return _write_snapshot(tmp_path / "cache" / model_id.replace("/", "--"))
 
-    result = load_hf_bootstrap_module().bootstrap_models(REPO_ROOT / "data", tmp_path / "cache", download)
+    result = load_hf_bootstrap_module().bootstrap_models(
+        REPO_ROOT / "data", tmp_path / "cache", download
+    )
 
     assert [(call["repo_id"], call["revision"]) for call in calls] == [
         ("BAAI/bge-m3", "5617a9f61b028005a4858fdac845db406aefb181"),
@@ -72,12 +73,18 @@ def test_bootstrap_propagates_download_failure(tmp_path: Path) -> None:
         raise RuntimeError("frozen revision unavailable")
 
     with pytest.raises(RuntimeError, match="frozen revision unavailable"):
-        load_hf_bootstrap_module().bootstrap_models(REPO_ROOT / "data", tmp_path / "cache", download)
+        load_hf_bootstrap_module().bootstrap_models(
+            REPO_ROOT / "data", tmp_path / "cache", download
+        )
 
 
 def test_bootstrap_rejects_snapshot_without_model_metadata(tmp_path: Path) -> None:
     def download(**kwargs: object) -> Path:
-        return _write_snapshot(tmp_path / "cache" / str(kwargs["repo_id"]).replace("/", "--"), metadata=False)
+        return _write_snapshot(
+            tmp_path / "cache" / str(kwargs["repo_id"]).replace("/", "--"), metadata=False
+        )
 
     with pytest.raises(RuntimeError, match="metadata"):
-        load_hf_bootstrap_module().bootstrap_models(REPO_ROOT / "data", tmp_path / "cache", download)
+        load_hf_bootstrap_module().bootstrap_models(
+            REPO_ROOT / "data", tmp_path / "cache", download
+        )

@@ -61,20 +61,24 @@ Use `docker compose down -v` only when intentionally removing named Qdrant,
 MLflow, and Ollama state. The Compose E2E file is a deterministic test harness
 and is not the full deployment profile.
 
-## Verification limitation
+## Verification record
 
-On 2026-09-03, the verification Docker engine reported `8,319,504,384` bytes
-of memory (approximately 7.75 GiB), not the claimed 12 GiB allocation. A
-full-stack success at 12 GiB therefore cannot be claimed from this host. The
-configured external artifact mount also did not contain the required private
-Phase 7 corpus/vector seed or Phase 10 Ollama lock, so `qdrant-init` and
-`ollama-init` failed closed before the API and UI could start. The Ollama
-container itself had the frozen model tag and digest cached, and MLflow became
-healthy after pinning AnyIO to the repository lock.
+On 2026-09-04, the Apple-Silicon verification Docker engine reported
+`12,526,370,816` bytes of memory (approximately 11.66 GiB). With the complete
+private artifact root mounted read-only, the full frozen Compose stack was
+successfully verified. `hf-model-init` completed the exact frozen BGE-M3 and
+BGE reranker snapshots before API startup, including repair of an existing
+partial reranker cache. This is a tested local observation, not a universal
+hardware requirement.
 
-An earlier run with the complete private artifact root on the same reported
-memory allocation OOM-killed `kawaneen-api` with exit 137 during startup while
-loading the frozen retrieval models; the kernel reported approximately 5.7 GiB
-of API anonymous RSS. No precision, architecture, or frozen model setting was
-changed to work around that limitation. A 12 GiB recommendation remains
-untested here.
+The earlier 2026-09-03 run with approximately 7.75 GiB
+(`8,319,504,384` bytes) OOM-killed `kawaneen-api` with exit 137 during startup
+while loading the frozen retrieval models; the kernel reported approximately
+5.7 GiB of API anonymous RSS. No precision, architecture, or frozen model
+setting was changed to work around that limitation.
+
+The initial 2026-09-03 configured-artifact attempt also lacked the required
+private Phase 7 seed and Phase 10 Ollama lock, so its init jobs failed closed
+before the API and UI could start. The Ollama container itself had the frozen
+model tag and digest cached, and MLflow became healthy after pinning AnyIO to
+the repository lock.
