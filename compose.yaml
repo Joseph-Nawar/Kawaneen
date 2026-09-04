@@ -20,6 +20,8 @@ services:
     ports:
       - "127.0.0.1:8000:8000"
     depends_on:
+      hf-model-init:
+        condition: service_completed_successfully
       qdrant-init:
         condition: service_completed_successfully
       ollama-init:
@@ -79,6 +81,17 @@ services:
     depends_on:
       qdrant:
         condition: service_healthy
+
+  hf-model-init:
+    build:
+      context: .
+      dockerfile: docker/full/Dockerfile
+    command: ["python", "/app/docker/hf-model-init.py"]
+    environment:
+      KAWANEEN_DATA_DIRECTORY: /app/data
+      HF_HOME: /opt/huggingface
+    volumes:
+      - huggingface_cache:/opt/huggingface
 
   mlflow:
     build:
