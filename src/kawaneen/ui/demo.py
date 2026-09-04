@@ -22,7 +22,7 @@ class DemoClient(UiClient):
         if english:
             payload = {
                 "request_id": "demo-search-en",
-                "jurisdiction": "SA",
+                "jurisdiction": "KAWANEEN_DEMO",
                 "results": [
                     {
                         "chunk_id": "demo-en-1",
@@ -42,7 +42,7 @@ class DemoClient(UiClient):
         else:
             payload = {
                 "request_id": "demo-search-ar",
-                "jurisdiction": "SA",
+                "jurisdiction": "KAWANEEN_DEMO",
                 "results": [
                     {
                         "chunk_id": "demo-ar-1",
@@ -99,7 +99,7 @@ class DemoClient(UiClient):
             return AnswerResponse.model_validate(
                 {
                     "request_id": "demo-answer-abstention",
-                    "jurisdiction": "SA",
+                    "jurisdiction": "KAWANEEN_DEMO",
                     "answerable": False,
                     "answer": None,
                     "abstention_reason": "The available evidence cannot establish a case outcome.",
@@ -114,7 +114,7 @@ class DemoClient(UiClient):
         return AnswerResponse.model_validate(
             {
                 "request_id": "demo-answer-grounded",
-                "jurisdiction": "SA",
+                "jurisdiction": "KAWANEEN_DEMO",
                 "answerable": True,
                 "answer": evidence.text,
                 "abstention_reason": None,
@@ -146,14 +146,14 @@ class DemoClient(UiClient):
                 "document_id": "demo-employment",
                 "title": "Employment Procedures Regulation",
                 "source_id": "synthetic-demo",
-                "jurisdiction": "SA",
+                "jurisdiction": "KAWANEEN_DEMO",
                 "unit_count": 2,
             },
             {
                 "document_id": "demo-procedure",
                 "title": "لائحة الإجراءات التجريبية",
                 "source_id": "synthetic-demo",
-                "jurisdiction": "SA",
+                "jurisdiction": "KAWANEEN_DEMO",
                 "unit_count": 2,
             },
         ]
@@ -181,7 +181,7 @@ class DemoClient(UiClient):
                     "document_id": document_id,
                     "title": title,
                     "source_id": "synthetic-demo",
-                    "jurisdiction": "SA",
+                    "jurisdiction": "KAWANEEN_DEMO",
                     "unit_count": 2,
                 },
                 "units": [

@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
+from kawaneen.core.jurisdiction import Jurisdiction
 from kawaneen.corpus.models import SourceProvenance
 from kawaneen.extraction.contracts import ExtractionResult
 from kawaneen.extraction.deterministic import run_deterministic
@@ -41,7 +42,11 @@ class ServingExtractor:
         self.revision = revision
 
     def extract(
-        self, text: str, *, mode: Literal["deterministic", "hybrid"] = "hybrid"
+        self,
+        text: str,
+        *,
+        mode: Literal["deterministic", "hybrid"] = "hybrid",
+        jurisdiction: Jurisdiction = Jurisdiction.SA,
     ) -> ServingExtractionResponse:
         with self.observer.span(
             "extraction",
@@ -71,6 +76,7 @@ class ServingExtractor:
                     source_field="text",
                     split="api",
                 ),
+                jurisdiction=jurisdiction,
             )
             if mode == "deterministic":
                 response = ServingExtractionResponse(base, "operational_candidates")

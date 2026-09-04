@@ -29,7 +29,11 @@ def render() -> None:
         "Extract",
         "Turn bounded legal text into traceable candidates and normative structure.",
     )
-    source_mode = st.selectbox("Source mode", ["Paste text", "Upload document", "Corpus document"])
+    source_modes = ["Paste text", "Upload document", "Corpus document"]
+    if state.settings.public_demo:
+        source_modes = ["Paste text"]
+        st.caption("Public demo accepts pasted text only; file uploads are disabled.")
+    source_mode = st.selectbox("Source mode", source_modes)
     source_text = ""
     if source_mode == "Paste text":
         source_text = st.text_area(
@@ -86,9 +90,8 @@ def render() -> None:
             source_text = st.session_state.get("corpus_source_text", source_text)
         except UiApiError as error:
             st.error(error.message)
-    mode_label = st.selectbox(
-        "Extraction mode", ["Deterministic", "Hybrid"], key="extraction_mode_select"
-    )
+    mode_options = ["Deterministic"] if state.settings.public_demo else ["Deterministic", "Hybrid"]
+    mode_label = st.selectbox("Extraction mode", mode_options, key="extraction_mode_select")
     mode = "hybrid" if mode_label == "Hybrid" else "deterministic"
     if st.button("Extract"):
         if not source_text.strip():

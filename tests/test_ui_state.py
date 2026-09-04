@@ -108,6 +108,31 @@ def test_auto_context_keeps_live_client_when_health_is_unavailable(monkeypatch) 
     assert session.resolution.requires_demo_activation is True
 
 
+def test_public_demo_live_context_uses_demo_jurisdiction(monkeypatch) -> None:
+    fake = _StreamlitState()
+    monkeypatch.setattr(state_module, "st", fake)
+    monkeypatch.setattr(
+        state_module.UiSettings,
+        "from_env",
+        classmethod(lambda cls, env=None: UiSettings(mode=UiMode.LIVE, public_demo=True)),
+    )
+    seen: dict[str, object] = {}
+
+    class Client:
+        def __init__(self, *_: object, **kwargs: object) -> None:
+            seen.update(kwargs)
+
+        def health(self):
+            return type("Health", (), {"status": "ready"})()
+
+    monkeypatch.setattr(state_module, "HttpUiClient", Client)
+
+    _client, session = get_context()
+
+    assert seen["jurisdiction"] == "KAWANEEN_DEMO"
+    assert session.active_mode is UiMode.LIVE
+
+
 def test_visual_qa_state_seeds_only_synthetic_demo_search(monkeypatch) -> None:
     fake = _StreamlitState()
     fake.query_params = {"kawaneen_demo_state": "search_arabic"}

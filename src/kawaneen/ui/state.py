@@ -9,6 +9,7 @@ from typing import cast
 
 import streamlit as st
 
+from kawaneen.core.jurisdiction import Jurisdiction
 from kawaneen.ui.client import HttpUiClient, UiApiError, UiClient
 from kawaneen.ui.config import HealthProbe, ModeResolution, UiMode, UiSettings, resolve_mode
 from kawaneen.ui.demo import DemoClient
@@ -62,7 +63,11 @@ def get_context() -> tuple[UiClient, UiSessionState]:
         client: UiClient = DemoClient()
         resolution = ModeResolution(UiMode.DEMO, "Demo data", "Synthetic fixtures are active.")
     else:
-        live_client = HttpUiClient(settings.api_url, timeout=settings.timeout_seconds)
+        live_client = HttpUiClient(
+            settings.api_url,
+            timeout=settings.timeout_seconds,
+            jurisdiction=(Jurisdiction.KAWANEEN_DEMO if settings.public_demo else Jurisdiction.SA),
+        )
         try:
             health = live_client.health()
             probe = HealthProbe(True, health.status == "ready")

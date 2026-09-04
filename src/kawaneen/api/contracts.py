@@ -7,15 +7,12 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
+from kawaneen.core.jurisdiction import Jurisdiction
 from kawaneen.extraction.contracts import ExtractionResult
 
 
 class ApiModel(BaseModel):
     model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
-
-
-class Jurisdiction(StrEnum):
-    SA = "SA"
 
 
 class ExtractionMode(StrEnum):
@@ -25,7 +22,7 @@ class ExtractionMode(StrEnum):
 
 class SearchRequest(ApiModel):
     query: str = Field(min_length=1, max_length=2_000, examples=["ما هي مدة الاعتراض؟"])
-    jurisdiction: Literal["SA"] = Field(default="SA", examples=["SA"])
+    jurisdiction: Jurisdiction = Field(default=Jurisdiction.SA, examples=["SA"])
     limit: int = Field(default=8, ge=1, le=8, examples=[8])
 
     @field_validator("query")
@@ -38,7 +35,7 @@ class SearchRequest(ApiModel):
 
 class AnswerRequest(ApiModel):
     query: str = Field(min_length=1, max_length=2_000, examples=["ما هي مدة الاعتراض؟"])
-    jurisdiction: Literal["SA"] = "SA"
+    jurisdiction: Jurisdiction = Jurisdiction.SA
 
     @field_validator("query")
     @classmethod
@@ -52,7 +49,7 @@ class ExtractRequest(ApiModel):
     text: str = Field(
         min_length=1, max_length=20_000, examples=["يلتزم الطرف بالسداد خلال ثلاثين يوماً."]
     )
-    jurisdiction: Literal["SA"] = "SA"
+    jurisdiction: Jurisdiction = Jurisdiction.SA
     mode: ExtractionMode = ExtractionMode.HYBRID
 
     @field_validator("text")
@@ -73,12 +70,12 @@ class Evidence(ApiModel):
     page: str | None = None
     source_url: str | None = None
     score: float
-    score_type: Literal["reranker_raw_logit"] = "reranker_raw_logit"
+    score_type: Literal["reranker_raw_logit", "rrf_score"] = "reranker_raw_logit"
     provenance: Literal["sparse-only", "dense-only", "both"] | None = None
 
 
 class RetrievalSummary(ApiModel):
-    strategy: Literal["hybrid_reranked"] = "hybrid_reranked"
+    strategy: Literal["hybrid_reranked", "demo_retrieval_first"] = "hybrid_reranked"
     sparse_top_k: int = 50
     dense_top_k: int = 50
     fused_candidate_count: int = 20
@@ -86,12 +83,12 @@ class RetrievalSummary(ApiModel):
     top_score: float | None = None
     hit_count: int = Field(ge=0, le=20)
     returned_count: int = Field(ge=0, le=8)
-    score_type: Literal["reranker_raw_logit"] = "reranker_raw_logit"
+    score_type: Literal["reranker_raw_logit", "rrf_score", "mixed"] = "reranker_raw_logit"
 
 
 class SearchResponse(ApiModel):
     request_id: str = Field(min_length=1, max_length=128)
-    jurisdiction: Literal["SA"] = "SA"
+    jurisdiction: Jurisdiction = Jurisdiction.SA
     results: tuple[Evidence, ...]
     retrieval: RetrievalSummary
     latency_ms: float = Field(ge=0)
@@ -110,7 +107,7 @@ class Citation(ApiModel):
 
 class AnswerResponse(ApiModel):
     request_id: str = Field(min_length=1, max_length=128)
-    jurisdiction: Literal["SA"] = "SA"
+    jurisdiction: Jurisdiction = Jurisdiction.SA
     answerable: bool
     answer: str | None = None
     abstention_reason: str | None = None
@@ -192,6 +189,7 @@ ErrorCode = Literal[
     "SERVICE_UNAVAILABLE",
     "MODEL_UNAVAILABLE",
     "REQUEST_TIMEOUT",
+    "RATE_LIMITED",
     "INTERNAL_ERROR",
 ]
 

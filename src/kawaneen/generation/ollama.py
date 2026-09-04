@@ -192,14 +192,21 @@ def normalize_sha256_digest(value: object) -> str:
     raise ValueError("Ollama model digest must be a full SHA-256 digest")
 
 
+def validate_ollama_endpoint(endpoint: str) -> tuple[str, str]:
+    """Validate an HTTP Ollama endpoint and return its scheme and network location."""
+
+    parsed = urlparse(endpoint)
+    if parsed.scheme != "http" or not parsed.hostname:
+        raise ValueError("Ollama endpoint must be an HTTP URL with a hostname")
+    return parsed.scheme, parsed.netloc
+
+
 def inspect_ollama_model(
     endpoint: str,
     expected_model: str,
     transport: OllamaTransport,
 ) -> OllamaModelIdentity:
-    parsed = urlparse(endpoint)
-    if parsed.scheme != "http" or parsed.hostname not in {"localhost", "127.0.0.1", "::1"}:
-        raise ValueError("Ollama endpoint must be localhost HTTP")
+    validate_ollama_endpoint(endpoint)
     response = transport.get_json(endpoint.rstrip("/") + "/api/tags")
     if not isinstance(response, Mapping):
         raise ValueError("Ollama tags response is not an object")
@@ -250,9 +257,7 @@ class OllamaGenerator:
         stage_c: bool = False,
         stage_d: bool = False,
     ) -> None:
-        parsed = urlparse(endpoint)
-        if parsed.scheme != "http" or parsed.hostname not in {"localhost", "127.0.0.1", "::1"}:
-            raise ValueError("Ollama endpoint must be localhost HTTP")
+        scheme, netloc = validate_ollama_endpoint(endpoint)
         if not model.strip():
             raise ValueError("Ollama model must not be blank")
         if (
@@ -274,7 +279,7 @@ class OllamaGenerator:
         self.stage_d = stage_d
         if sum((self.stage_b, self.stage_c, self.stage_d)) > 1:
             raise ValueError("Ollama generator cannot target multiple experiment stages")
-        self.identity_endpoint = f"{parsed.scheme}://{parsed.netloc}"
+        self.identity_endpoint = f"{scheme}://{netloc}"
         self.last_raw_response: str | None = None
         self.last_telemetry: dict[str, object] = {}
 

@@ -19,6 +19,7 @@ class UiSettings:
     mode: UiMode = UiMode.AUTO
     api_url: str = "http://127.0.0.1:8000"
     timeout_seconds: float = 65.0
+    public_demo: bool = False
 
     @classmethod
     def from_env(cls, values: Mapping[str, str] | None = None) -> UiSettings:
@@ -32,7 +33,13 @@ class UiSettings:
             timeout = max(1.0, min(float(source.get("KAWANEEN_UI_TIMEOUT", "65")), 120.0))
         except ValueError:
             timeout = cls.timeout_seconds
-        return cls(mode=mode, api_url=api_url, timeout_seconds=timeout)
+        public_demo = source.get("KAWANEEN_UI_PUBLIC_DEMO", "false").lower() in {
+            "1",
+            "true",
+            "yes",
+            "on",
+        }
+        return cls(mode=mode, api_url=api_url, timeout_seconds=timeout, public_demo=public_demo)
 
 
 @dataclass(frozen=True)

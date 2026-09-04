@@ -37,6 +37,11 @@ def render_product_header(state: UiSessionState) -> None:
         </div>
         """,
     )
+    if state.settings.public_demo:
+        st.warning(
+            "PUBLIC DEMO PROFILE · Synthetic curated corpus · Reduced retrieval configuration · "
+            "No generative legal answer · Not real legislation · Not legal advice"
+        )
 
 
 def render_page_intro(eyebrow: str, title: str, description: str) -> None:
@@ -108,6 +113,12 @@ def render_citation_card(citation: Citation) -> None:
 
 
 def render_mode_note(state: UiSessionState) -> None:
+    if state.settings.public_demo:
+        st.info(
+            "PUBLIC DEMO PROFILE · Query limit 500 characters · Evidence limit 5 · "
+            "Extraction limit 8,000 characters · One concurrent request"
+        )
+        return
     if state.active_mode is UiMode.DEMO:
         st.info(
             "DEMO DATA · Synthetic Arabic and English fixtures are active; "

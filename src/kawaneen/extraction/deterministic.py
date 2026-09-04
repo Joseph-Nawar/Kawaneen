@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 
+from kawaneen.core.jurisdiction import Jurisdiction
 from kawaneen.corpus.models import SourceProvenance
 from kawaneen.extraction.candidates import build_candidate_registry
 from kawaneen.extraction.contracts import (
@@ -22,6 +23,7 @@ def run_deterministic(
     document_id: str,
     source_provenance: SourceProvenance,
     issuing_authority: str | None = None,
+    jurisdiction: Jurisdiction = Jurisdiction.SA,
 ) -> ExtractionResult:
     registry = build_candidate_registry(
         canonical_text,
@@ -47,7 +49,7 @@ def run_deterministic(
         schema_version="phase11-extraction-v1",
         extractor_version="deterministic-v1",
         configuration="deterministic-v1",
-        jurisdiction="SA",
+        jurisdiction=jurisdiction,
         source_provenance=source_provenance,
         source_fingerprint=hashlib.sha256(canonical_text.encode("utf-8")).hexdigest(),
         issuing_authority=issuing_authority,

@@ -12,6 +12,7 @@ ErrorCode = Literal[
     "SERVICE_UNAVAILABLE",
     "MODEL_UNAVAILABLE",
     "REQUEST_TIMEOUT",
+    "RATE_LIMITED",
     "INTERNAL_ERROR",
 ]
 
@@ -45,3 +46,7 @@ def request_too_large() -> ApiException:
 
 def request_timeout() -> ApiException:
     return ApiException("REQUEST_TIMEOUT", "request timed out", 504)
+
+
+def rate_limited(message: str = "public demo request limit exceeded") -> ApiException:
+    return ApiException("RATE_LIMITED", message, 429)

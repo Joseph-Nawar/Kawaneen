@@ -1,0 +1,15 @@
+{
+  "synthetic": true,
+  "jurisdiction": "KAWANEEN_DEMO",
+  "corpus_sha256": "a9198e165c176e3bdb45bc7e09fd5db21ff6b999d320a66b0f3494e0aa1185a6",
+  "embedding_sha256": "34c703b2e8c86fdffb6606342415682b63459dd42849acb60603507d1f791ba0",
+  "model_id": "intfloat/multilingual-e5-small",
+  "model_revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+  "formatting_contract": "e5-query-passage-v1",
+  "normalization": "l2-float32",
+  "embedding_dimension": 384,
+  "vector_count": 64,
+  "creation_command": "SentenceTransformer(intfloat/multilingual-e5-small@614241f6), passage prefix, normalize_embeddings=True, dtype=float32",
+  "redistribution": "Project-created synthetic demonstration data; freely redistributable.",
+  "status_note": "Synthetic demonstration content only; not real legislation, not Saudi law, and not legal advice."
+}

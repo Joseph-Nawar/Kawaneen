@@ -19,6 +19,7 @@ from kawaneen.api.contracts import (
     ModelsResponse,
     SearchResponse,
 )
+from kawaneen.core.jurisdiction import Jurisdiction
 
 _ResponseT = TypeVar("_ResponseT", bound=BaseModel)
 
@@ -58,27 +59,35 @@ class HttpUiClient:
         *,
         timeout: float = 65.0,
         transport: httpx.BaseTransport | None = None,
+        jurisdiction: Jurisdiction = Jurisdiction.SA,
     ) -> None:
         self._client = httpx.Client(
             base_url=base_url.rstrip("/"),
             timeout=httpx.Timeout(timeout),
             transport=transport,
         )
+        self._jurisdiction = jurisdiction
 
     def close(self) -> None:
         self._client.close()
 
     def search(self, query: str, limit: int = 8) -> SearchResponse:
         return self._post(
-            "/v1/search", {"query": query, "jurisdiction": "SA", "limit": limit}, SearchResponse
+            "/v1/search",
+            {"query": query, "jurisdiction": self._jurisdiction, "limit": limit},
+            SearchResponse,
         )
 
     def answer(self, query: str) -> AnswerResponse:
-        return self._post("/v1/answer", {"query": query, "jurisdiction": "SA"}, AnswerResponse)
+        return self._post(
+            "/v1/answer", {"query": query, "jurisdiction": self._jurisdiction}, AnswerResponse
+        )
 
     def extract(self, text: str, mode: str = "deterministic") -> ExtractionResponse:
         return self._post(
-            "/v1/extract", {"text": text, "jurisdiction": "SA", "mode": mode}, ExtractionResponse
+            "/v1/extract",
+            {"text": text, "jurisdiction": self._jurisdiction, "mode": mode},
+            ExtractionResponse,
         )
 
     def list_documents(self, offset: int = 0, limit: int = 20) -> DocumentPage:

@@ -27,6 +27,9 @@ class Settings(BaseSettings):
     mlflow_tracking_uri: str = "http://127.0.0.1:5000"
     mlflow_serving_experiment: str = "kawaneen-serving"
     mlflow_repro_experiment: str = "kawaneen-reproducibility"
+    ollama_url: str = "http://127.0.0.1:11434"
+    qdrant_url: str = "http://127.0.0.1:6333"
+    dense_index_backend: Literal["numpy", "qdrant"] = "numpy"
 
     @field_validator("environment", "log_format", mode="before")
     @classmethod

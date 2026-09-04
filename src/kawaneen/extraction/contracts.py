@@ -8,6 +8,7 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from kawaneen.core.jurisdiction import Jurisdiction
 from kawaneen.corpus.models import SourceProvenance
 
 
@@ -198,7 +199,7 @@ class ExtractionResult(ExtractionModel):
     schema_version: Literal["phase11-extraction-v1"]
     extractor_version: str = Field(min_length=1)
     configuration: Literal["deterministic-v1", "hybrid-qwen-v1"]
-    jurisdiction: Literal["SA"]
+    jurisdiction: Jurisdiction
     source_provenance: SourceProvenance
     source_fingerprint: str = Field(pattern=r"^[0-9a-f]{64}$")
     issuing_authority: str | None = None

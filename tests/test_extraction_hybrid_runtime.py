@@ -27,6 +27,17 @@ from kawaneen.extraction.orchestration import (
 from kawaneen.extraction.provider import MockExtractionProvider
 
 
+def test_ollama_extraction_provider_accepts_compose_service_hostname() -> None:
+    from kawaneen.extraction.provider import OllamaExtractionProvider
+
+    provider = OllamaExtractionProvider(
+        endpoint="http://ollama:11434/api/generate",
+        local_lock_path=Path("missing-lock.json"),
+    )
+
+    assert provider.identity_endpoint == "http://ollama:11434"
+
+
 class _TimeoutProvider:
     def __init__(self) -> None:
         self.calls = 0

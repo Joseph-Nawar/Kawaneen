@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 
 from kawaneen.api.contracts import ExtractionResponse
+from kawaneen.core.jurisdiction import Jurisdiction
 from kawaneen.corpus.models import SourceProvenance
 from kawaneen.extraction.contracts import (
     CandidateRegistry,
@@ -35,7 +36,7 @@ def extraction_response(text: str, mode: str) -> ExtractionResponse:
         schema_version="phase11-extraction-v1",
         extractor_version="synthetic-demo",
         configuration="hybrid-qwen-v1" if mode == "hybrid" else "deterministic-v1",
-        jurisdiction="SA",
+        jurisdiction=Jurisdiction.KAWANEEN_DEMO,
         source_provenance=SourceProvenance(
             source_id="synthetic-demo",
             source_version="phase13",

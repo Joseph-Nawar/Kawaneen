@@ -1,0 +1,18 @@
+{
+  "schema": "phase17-qdrant-parity-v1",
+  "provenance": "PHASE17_DEV",
+  "holdout_used": false,
+  "sample_count": 20,
+  "top_k": 50,
+  "pass": true,
+  "mismatched_query_count": 0,
+  "max_score_error": 1.429977416478323e-07,
+  "numpy_backend": "NumpyExactIndex",
+  "qdrant_mode": "exact",
+  "corpus_hash": "290d7a91e5f435778e782b76284a9797fb7f5ae261380f0a923b56224e530daa",
+  "bge_model_id": "BAAI/bge-m3",
+  "bge_model_revision": "5617a9f61b028005a4858fdac845db406aefb181",
+  "qdrant_exact": true,
+  "selection_rule": "sha256(query_id) ascending over split=dev, first 20",
+  "query_id_hash": "fad9bfb0e3689e64fd4699c431237fc7e4e0be94ed8358df60bb529cb5d946d8"
+}

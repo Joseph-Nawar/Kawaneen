@@ -26,7 +26,7 @@ def render() -> None:
     render_page_intro(
         "Evidence workspace",
         "Search",
-        "Ranked legal evidence for Saudi Arabia, with scope and provenance kept visible.",
+        "Ranked evidence with jurisdiction and provenance kept visible.",
     )
     with st.form("search_form"):
         query = st.text_input(
@@ -34,7 +34,14 @@ def render() -> None:
         )
         left, right = st.columns(2)
         with left:
-            st.selectbox("Jurisdiction", ["Saudi Arabia · SA"])
+            st.selectbox(
+                "Jurisdiction",
+                [
+                    "Kawaneen synthetic demo · KAWANEEN_DEMO"
+                    if state.settings.public_demo
+                    else "Saudi Arabia · SA"
+                ],
+            )
         with right:
             limit = st.slider("Result limit", min_value=1, max_value=8, value=5)
         submitted = st.form_submit_button("Search")
@@ -60,7 +67,7 @@ def render() -> None:
     st.markdown("### Ranked evidence")
     st.caption(
         f"{response.retrieval.returned_count} results · {response.latency_ms:.0f} ms API latency · "
-        "scope: jurisdiction SA"
+        f"scope: jurisdiction {'KAWANEEN_DEMO' if state.settings.public_demo else 'SA'}"
     )
     with st.expander("Refine returned evidence", expanded=False):
         refinement = st.text_input(
