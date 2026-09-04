@@ -12,8 +12,9 @@ the serving boundary, retrieval and grounding stack, deterministic extraction,
 synthetic public demo, evaluation harnesses, reproducibility records, and
 deployment documentation.
 
-**Status:** Portfolio project: complete · Live public demo: prepared and
-qualified, not yet published
+**Status:** Engineering & research roadmap complete · Portfolio closeout:
+demo video pending · Live public demo: prepared and qualified, not yet
+published
 
 [![CI](https://github.com/Joseph-Nawar/Kawaneen/actions/workflows/ci.yml/badge.svg)](https://github.com/Joseph-Nawar/Kawaneen/actions/workflows/ci.yml)
 [![Python 3.11–3.12](https://img.shields.io/badge/python-3.11%E2%80%933.12-blue)](pyproject.toml)
