@@ -22,7 +22,7 @@ from kawaneen.ui.uploads import extract_text, segment_text, validate_upload
 
 def render() -> None:
     client, state = get_context()
-    render_product_header(state)
+    render_product_header(state, active_page="Extract")
     if not render_status_gate(state):
         return
     render_mode_note(state)

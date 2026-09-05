@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+from collections.abc import Iterator
+from contextlib import contextmanager
+
 from kawaneen.ui.config import ModeResolution, UiMode, UiSettings
 from kawaneen.ui.state import UiSessionState
 
@@ -9,8 +12,24 @@ class _HeaderStreamlit:
         self.html_blocks: list[str] = []
         self.warnings: list[str] = []
 
+    def __enter__(self) -> _HeaderStreamlit:
+        return self
+
+    def __exit__(self, *_: object) -> None:
+        return None
+
     def html(self, body: str) -> None:
         self.html_blocks.append(body)
+
+    @contextmanager
+    def container(self, **_: object) -> Iterator[_HeaderStreamlit]:
+        yield self
+
+    def columns(self, count: int, **_: object) -> list[_HeaderStreamlit]:
+        return [self for _ in range(count)]
+
+    def page_link(self, *_: object, **__: object) -> None:
+        return None
 
     def warning(self, message: str) -> None:
         self.warnings.append(message)

@@ -13,7 +13,8 @@ def main() -> None:
         st.Page("pages/extract.py", title="Extract", url_path="extract"),
         st.Page("pages/evaluation.py", title="Evaluation", url_path="evaluation"),
     ]
-    st.navigation(pages, position="top").run()
+    navigation = st.navigation(pages, position="hidden")
+    navigation.run()
 
 
 if __name__ == "__main__":

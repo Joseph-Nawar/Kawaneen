@@ -25,7 +25,7 @@ from kawaneen.ui.state import get_context
 
 def render() -> None:
     client, state = get_context()
-    render_product_header(state)
+    render_product_header(state, active_page="Evaluation")
     if not render_status_gate(state):
         return
     render_mode_note(state)
@@ -66,13 +66,6 @@ def render() -> None:
         st.markdown("### Key measured evidence")
         st.markdown("#### Tracked retrieval comparison")
         st.caption("Common tracked metrics and splits only; values are not rerun in this UI.")
-        chart_data: dict[str, list[float]] = {}
-        for row in retrieval_rows:
-            label = f"{row['split']} · {row['model']} · {row['metric']}"
-            value = row["value"]
-            if isinstance(value, (int, float)):
-                chart_data[label] = [float(value)]
-        st.bar_chart(chart_data, horizontal=True)
     capability_heading = (
         "Model capability snapshot" if state.active_mode is UiMode.DEMO else "Live API readiness"
     )

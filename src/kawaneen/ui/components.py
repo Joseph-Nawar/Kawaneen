@@ -14,8 +14,24 @@ from kawaneen.ui.formatting import highlight_literal, text_direction
 from kawaneen.ui.state import UiSessionState, activate_demo_mode
 from kawaneen.ui.styles import inject_css
 
+_PRODUCT_NAVIGATION = (
+    ("pages/search.py", "Search"),
+    ("pages/ask.py", "Ask"),
+    ("pages/extract.py", "Extract"),
+    ("pages/evaluation.py", "Evaluation"),
+)
 
-def render_product_header(state: UiSessionState) -> None:
+
+def render_product_navigation(active_page: str | None = None) -> None:
+    with st.container(key="kw-product-navigation"):
+        columns = st.columns(len(_PRODUCT_NAVIGATION), gap="small", vertical_alignment="center")
+        for column, (path, label) in zip(columns, _PRODUCT_NAVIGATION, strict=True):
+            with column:
+                visible_label = f"{label} (current)" if label == active_page else label
+                st.page_link(path, label=visible_label, width="stretch")
+
+
+def render_product_header(state: UiSessionState, active_page: str | None = None) -> None:
     inject_css()
     status_class = (
         "demo"
@@ -41,6 +57,7 @@ def render_product_header(state: UiSessionState) -> None:
         </div>
         """,
     )
+    render_product_navigation(active_page)
     if state.settings.public_demo:
         st.html(
             """

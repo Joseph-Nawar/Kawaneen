@@ -19,7 +19,7 @@ from kawaneen.ui.state import get_context
 
 def render() -> None:
     client, state = get_context()
-    render_product_header(state)
+    render_product_header(state, active_page="Search")
     if not render_status_gate(state):
         return
     render_mode_note(state)

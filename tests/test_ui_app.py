@@ -18,10 +18,24 @@ class _Navigation:
         self.ran = True
 
 
+class _Column:
+    def __enter__(self) -> _Column:
+        return self
+
+    def __exit__(self, *_: object) -> None:
+        return None
+
+
+class _Container(_Column):
+    pass
+
+
 class _AppStreamlit:
     def __init__(self) -> None:
         self.config: dict[str, object] = {}
         self.pages: list[object] = []
+        self.page_links: list[tuple[object, str | None]] = []
+        self.navigation_position: str | None = None
         self.navigation_result = _Navigation()
 
     def set_page_config(self, **kwargs: object) -> None:
@@ -32,8 +46,19 @@ class _AppStreamlit:
         self.pages.append(page)
         return page
 
-    def navigation(self, pages: list[object], **_: object) -> _Navigation:
+    def columns(self, spec: int | list[int], **_: object) -> list[_Column]:
+        count = spec if isinstance(spec, int) else len(spec)
+        return [_Column() for _ in range(count)]
+
+    def container(self, **_: object) -> _Container:
+        return _Container()
+
+    def page_link(self, page: object, *, label: str | None = None, **_: object) -> None:
+        self.page_links.append((page, label))
+
+    def navigation(self, pages: list[object], **kwargs: object) -> _Navigation:
         assert pages == self.pages
+        self.navigation_position = str(kwargs["position"])
         return self.navigation_result
 
 
@@ -52,6 +77,31 @@ def test_main_configures_and_runs_the_four_page_navigation(monkeypatch) -> None:
     ]
     assert all(not getattr(page, "icon", None) for page in fake.pages)
     assert fake.navigation_result.ran is True
+
+
+def test_main_hides_builtin_navigation(monkeypatch) -> None:
+    fake = _AppStreamlit()
+    monkeypatch.setattr(app, "st", fake)
+
+    app.main()
+
+    assert fake.navigation_position == "hidden"
+
+
+def test_product_navigation_uses_existing_page_paths_and_labels(monkeypatch) -> None:
+    import kawaneen.ui.components as components
+
+    fake = _AppStreamlit()
+    monkeypatch.setattr(components, "st", fake)
+
+    components.render_product_navigation("Search")
+
+    assert fake.page_links == [
+        ("pages/search.py", "Search (current)"),
+        ("pages/ask.py", "Ask"),
+        ("pages/extract.py", "Extract"),
+        ("pages/evaluation.py", "Evaluation"),
+    ]
 
 
 def _run() -> AppTest:

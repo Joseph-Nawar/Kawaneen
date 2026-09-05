@@ -28,13 +28,22 @@ def inject_css() -> None:
         .block-container { max-width:1440px; padding:1.25rem clamp(1.5rem, 4vw, 3.5rem) 4rem; }
         [data-testid="stHeader"] { background:var(--kw-canvas); box-shadow:none; }
         [data-testid="stToolbar"] { visibility:hidden; height:0; }
-        [data-testid="stNavigation"] { border-bottom:1px solid var(--kw-line); }
-        [data-testid="stTopNavLinkContainer"], [data-testid="stTopNavLink"] {
-          visibility:visible !important;
-        }
         [data-testid="stPageLink-NavLink"] { color:var(--kw-ink); }
+        [data-testid="stPageLink-NavLink"] {
+          align-items:center; border-bottom:2px solid transparent; border-radius:0;
+          display:flex; justify-content:center; min-height:2.35rem; padding:.45rem .6rem;
+        }
+        [data-testid="stPageLink-NavLink"]:hover {
+          background:#eef5f3; color:var(--kw-teal);
+        }
         [data-testid="stPageLink-NavLink"][aria-current="page"] {
-          border-bottom:2px solid var(--kw-teal); color:var(--kw-teal); font-weight:700;
+          background:#eef5f3; border-bottom:2px solid var(--kw-teal); color:var(--kw-teal);
+          font-weight:700;
+        }
+        .st-key-kw-product-navigation {
+          align-self:flex-start; background:var(--kw-canvas);
+          border-bottom:1px solid var(--kw-line);
+          position:sticky; top:60px; z-index:1000000;
         }
         .block-container h1 { color:var(--kw-ink); font-size:2.35rem !important;
           letter-spacing:-.025em; line-height:1.15; margin:.65rem 0 .25rem !important; }
