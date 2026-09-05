@@ -97,11 +97,12 @@ def test_product_navigation_uses_existing_page_paths_and_labels(monkeypatch) -> 
     components.render_product_navigation("Search")
 
     assert fake.page_links == [
-        ("pages/search.py", "Search (current)"),
+        ("pages/search.py", "Search"),
         ("pages/ask.py", "Ask"),
         ("pages/extract.py", "Extract"),
         ("pages/evaluation.py", "Evaluation"),
     ]
+    assert all("(current)" not in label for _, label in fake.page_links if label is not None)
 
 
 def _run() -> AppTest:

@@ -27,8 +27,7 @@ def render_product_navigation(active_page: str | None = None) -> None:
         columns = st.columns(len(_PRODUCT_NAVIGATION), gap="small", vertical_alignment="center")
         for column, (path, label) in zip(columns, _PRODUCT_NAVIGATION, strict=True):
             with column:
-                visible_label = f"{label} (current)" if label == active_page else label
-                st.page_link(path, label=visible_label, width="stretch")
+                st.page_link(path, label=label, width="stretch")
 
 
 def render_product_header(state: UiSessionState, active_page: str | None = None) -> None:
