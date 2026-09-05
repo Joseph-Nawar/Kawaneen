@@ -1,15 +1,78 @@
 # Three-minute Kawaneen demo script
 
-Use the public demo UI with `KAWANEEN_UI_MODE=live`,
-`KAWANEEN_UI_PUBLIC_DEMO=true`, and the demo FastAPI service. The script is
-exactly 3:00; all text shown is fictional and synthetic.
+This is a one-pass recording plan for the real finished project. Use the full
+local profile for the architecture/deployment claim and a safe DEV view only
+when its evidence is approved for local recording. Use the public synthetic
+profile for every public-facing data view unless the recording is strictly
+local and the private corpus is intentionally visible. Treat the public
+profile as a local synthetic recording profile; do not imply a live deployment.
 
-| Time | Narration | Screen/action | Expected visible result |
+## Before recording
+
+### Full local profile (local-only evidence)
+
+Keep the private artifact root outside Git and mount it read-only:
+
+```bash
+export KAWANEEN_HOST_ARTIFACTS_DIR=/absolute/path/to/private-artifacts
+docker compose up --build
+```
+
+Use a representative approved DEV query/evidence view, never HOLDOUT. Do not
+show private paths, raw source text beyond what is necessary, credentials, or
+personal notifications. The exact full-local runbook is
+[`docs/deployment/full-local.md`](../deployment/full-local.md).
+
+### Public synthetic profile (preferred for sharing)
+
+The synthetic UI/API profile is fictional and has no generator:
+
+```bash
+make phase17-space-bundle
+
+# terminal 1: synthetic FastAPI service
+uv run uvicorn kawaneen.demo.runtime:create_demo_app --factory \
+  --host 127.0.0.1 --port 8000
+
+# terminal 2: local public-demo UI
+KAWANEEN_UI_MODE=live KAWANEEN_UI_PUBLIC_DEMO=true \
+  KAWANEEN_API_URL=http://127.0.0.1:8000 \
+  uv run streamlit run src/kawaneen/ui/app.py
+```
+
+For the actual prepared container, build/run the ignored bundle according to
+the generated manifest. End on the persistent `PUBLIC DEMO` banner.
+
+## Exact 3:00 recording
+
+| Time | Narration | Screen/action | Required visible result |
 | --- | --- | --- | --- |
-| 0:00–0:25 | “Kawaneen makes Arabic legal research inspectable: retrieve evidence, preserve source identity, and abstain when evidence is insufficient.” | Open the landing/search screen. Point to the `PUBLIC DEMO PROFILE` banner. | Banner states synthetic corpus, reduced retrieval, no generative answer, not legislation, not advice. |
-| 0:25–0:50 | “The full local profile uses the frozen BGE hybrid stack, exact Qdrant search, Ollama Stage-D, verifier, and MLflow. This public profile removes private data and generation.” | Show `docs/architecture/phase17-deployment.mmd` or its rendered Mermaid preview. | Both deployment profiles and the no-LLM/no-Qdrant/no-MLflow/no-Ollama demo boundary are visible. |
-| 0:50–1:25 | “Search is retrieval-first. I’ll ask a fictional question about returns.” | Search: `ما هي مدة الإرجاع؟`; click Search; open one evidence card. | Up to five ranked passages from `KAWANEEN_DEMO`, with RRF metadata and exact synthetic disclaimer. |
-| 1:25–1:55 | “Ask does not invent a legal conclusion. It presents the exact top passage with a citation.” | Open Ask; enter `ما هي مدة إشعار العقد؟`; click Ask; expand the citation. | Answer is an exact synthetic passage, with `KAWANEEN_DEMO` source identity and no model-generated prose. |
-| 1:55–2:15 | “Extraction stays deterministic and bounded.” | Open Extract; confirm only Paste text; paste `يلتزم الطرف بالسداد خلال ثلاثين يوماً.`; click Extract. | Candidate/deadline span appears; upload and Hybrid options are absent; limits are visible. |
-| 2:15–2:40 | “The evaluation view separates tracked evidence from live latency and keeps negative findings visible.” | Open Evaluation. | Tracked aggregate cards/links are shown; the Phase 15 fallback-generation failure is not hidden. |
-| 2:40–3:00 | “The full stack runs with `docker compose up`; the demo exports deterministically and remains unpublished until approval. This is evidence-first research infrastructure, not legal advice.” | Show terminal with `make phase17-space-bundle` and the full-local docs; finish on banner. | Export manifest and publication gate are visible; end on synthetic/not-advice disclaimer. |
+| 0:00–0:20 | “Kawaneen makes Arabic legal research inspectable: retrieve evidence, preserve source identity, and abstain when evidence is insufficient.” | Open the product landing/search view. | Project name, Arabic legal-intelligence purpose, and evidence-first framing. |
+| 0:20–0:40 | “The full local profile combines BM25, dense retrieval, reranking, grounded generation, citation verification, and MLflow traces. The public profile removes private data and generation.” | Show the rendered `docs/architecture/phase17-deployment.mmd` diagram or a clean editor preview. | Both profiles; demo boundary clearly says synthetic, no LLM, no Qdrant, no MLflow, no Ollama. |
+| 0:40–1:10 | “Search is the first inspection step. I’ll ask a fictional question about returns.” | On the public profile, search `ما هي مدة الإرجاع؟`; open one result. On a local full profile, use only an approved DEV query. | Ranked evidence, result count, `KAWANEEN_DEMO` scope, document/source identity, exact passage, and provenance/chunk identity; no private or HOLDOUT text in a shared recording. |
+| 1:10–1:40 | “Ask is grounded in retrieved evidence and can abstain. It does not turn unsupported text into a confident legal conclusion.” | Public profile: ask `ما هي مدة إشعار العقد؟`; show the numbered citation such as `01 · <document title>` and expand `Inspect citation 1`. Full profile: show retrieval → context → verified citation if locally approved. | Exact synthetic passage for public mode, or verified local citation; show the boundary/disclaimer. |
+| 1:40–2:00 | “Extraction stays deterministic and bounded.” | Public profile: paste `يلتزم الطرف بالسداد خلال ثلاثين يوماً.` into Extract and run it. | Candidate/deadline span; upload and hybrid controls absent in public mode; limits visible. |
+| 2:00–2:25 | “The evaluation record keeps measured evidence, scope, and limitations visible.” | Open Evaluation; show the tracked metrics and scope labels, retrieval evidence, Generation and Extraction sections, and technical provenance. If mentioning the 80/80 fallback-generator failure, briefly show the README or the Phase 15 report where it is explicitly documented. | Tracked metrics, scope labels, retrieval evidence, generation/extraction sections, and provenance are visible; any negative fallback result is shown from its documented source, not implied to be a new Evaluation-page surface. |
+| 2:25–2:45 | “The full system is reproducible locally with Docker Compose, while MLflow remains optional and local.” | Show a clean terminal with `docker compose up`/the full-local runbook, then `make phase16-verify`. | Deployment command, tracked identity/result reconstruction, and no secret/private path. |
+| 2:45–3:00 | “The public demo is synthetic and unpublished. This is evidence-first research infrastructure, not legal advice.” | Show `make phase17-space-bundle`, its publication gate, then finish on the public-demo banner. | `NOT_PUBLISHED_USER_APPROVAL_REQUIRED`, synthetic/not-Saudi/not-advice disclaimer. |
+
+## Recording constraints
+
+- Record at 1080p where possible, 720p minimum; keep text readable.
+- Do not show notifications, personal windows, private paths, secrets, raw
+  customer/legal material, or HOLDOUT content.
+- Use public synthetic data for public-facing interactions; do not expose the
+  private corpus or imply a live deployment.
+- Do not make a legal-advice claim.
+- No copyrighted background music is required.
+- The target file is `docs/demo/kawaneen-demo.mp4`.
+- If `ffmpeg` is available, compress a valid recording with:
+
+```bash
+ffmpeg -i input.mp4 -vf "scale=-2:1080" -c:v libx264 -preset medium -crf 25 \
+  -c:a aac -b:a 128k -movflags +faststart docs/demo/kawaneen-demo.mp4
+```
+
+If the source is already 720p, replace `scale=-2:1080` with
+`scale=-2:720`. Keep the final file below GitHub’s normal per-file limit and
+inspect its duration, streams, resolution, and size before adding it.

@@ -30,6 +30,10 @@ class FakeStreamlit:
     def expander(self, _: str, **__: object) -> Iterator[FakeStreamlit]:
         yield self
 
+    @contextmanager
+    def container(self, **__: object) -> Iterator[FakeStreamlit]:
+        yield self
+
     def columns(self, count: int | list[int], **__: object) -> list[FakeStreamlit]:
         return [self for _ in range(count if isinstance(count, int) else len(count))]
 

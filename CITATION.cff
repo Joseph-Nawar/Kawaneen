@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+title: "Kawaneen"
+message: "If you use Kawaneen, please cite this repository."
+type: software
+authors:
+  - family-names: "Nawar"
+    given-names: "Joseph"
+repository-code: "https://github.com/Joseph-Nawar/Kawaneen"
+url: "https://github.com/Joseph-Nawar/Kawaneen"
+abstract: "An evaluated Arabic legal intelligence platform for hybrid retrieval, citation-grounded QA, structured extraction, and safe abstention."
+license: MIT
+version: "0.1.0"
+date-released: "2026-09-04"
