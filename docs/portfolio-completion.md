@@ -2,8 +2,7 @@
 
 This maps the original roadmap completion criteria to exact repository
 evidence. `COMPLETE` means the artifact exists and is tracked or reproducibly
-documented. The video remains a deliberate manual checkpoint until a real MP4
-is supplied.
+documented.
 
 | Criterion | Status | Evidence |
 | --- | --- | --- |
@@ -29,11 +28,12 @@ is supplied.
 | Model card | COMPLETE | `docs/model-card.md` |
 | Dataset card | COMPLETE | `docs/dataset-card.md` |
 | Limitations and safety documentation | COMPLETE | `docs/safety-and-limitations.md` |
-| Demo video | MANUAL VIDEO PENDING | `docs/demo/three-minute-script.md`, `docs/demo/shot-list.md`; target `docs/demo/kawaneen-demo.mp4` does not yet exist |
+| Demo video | COMPLETE | `docs/demo/kawaneen-demo.mp4`, `docs/demo/kawaneen-demo-poster.png`, `docs/demo/kawaneen-demo-metadata.md`; independently inspected and linked from `README.md` |
 | Professional README | COMPLETE | `README.md` |
 
-The project must not be called fully portfolio-complete until the real video
-exists, is inspected, and is linked from the README.
+Portfolio closeout is complete: the real video exists, has been independently
+inspected, and is linked from the README. The public profile remains synthetic
+and unpublished.
 
 ## Optional future action
 

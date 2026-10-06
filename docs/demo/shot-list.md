@@ -1,5 +1,10 @@
 # Kawaneen demo shot list
 
+> Final portfolio relationship: The tracked final portfolio film is the
+> approximately 72-second edited demo at `docs/demo/kawaneen-demo.mp4`. This
+> document remains an extended/manual walkthrough reference and production
+> history; it is not a description of the exact final edit.
+
 The shot list matches the [three-minute script](three-minute-script.md) and is
 intended for one clean recording pass.
 
@@ -13,13 +18,17 @@ intended for one clean recording pass.
    technical details in the main shot. If showing the full system locally, use
    an approved DEV query only.
 4. **1:10–1:40 — grounded ask:** public profile query `ما هي مدة إشعار العقد؟`;
-   show a numbered citation such as `01 · <document title>`, expand `Inspect
-   citation 1`, and show the exact quote. For a local full-system shot, show
-   retrieval, evidence, answerability, and citation verification without
-   exposing unnecessary private source text.
+   show the grounded answer and citation card with document/article/page/quote
+   plus the public-demo boundary. Canonical inspection is unavailable in the
+   reduced public synthetic profile and must not be presented as succeeding.
+   For a local full-system shot, show retrieval, evidence, answerability, and
+   citation verification without exposing unnecessary private source text.
 5. **1:40–2:00 — extraction:** paste
-   `يلتزم الطرف بالسداد خلال ثلاثين يوماً.`; show deterministic candidate/span,
-   disabled public upload/hybrid options, and the input limit.
+   `يلتزم الطرف بالسداد خلال ثلاثين يوماً.`; show the deterministic backend
+   candidate `ثلاثين يوماً`, temporal candidate, normalized value `30 days`, and
+   the empty semantic deadline field. The current public UI does not expose the
+   raw candidate registry; keep disabled public upload/hybrid options and the
+   input limit visible.
 6. **2:00–2:25 — evaluation:** show tracked metrics, scope labels, retrieval
    evidence, Generation and Extraction sections, and technical provenance.
    If mentioning the 80/80 1.5B fallback-generator failure, briefly show the
@@ -34,6 +43,6 @@ intended for one clean recording pass.
 Use public synthetic data for public-facing interactions. Do not show private
 corpus text, HOLDOUT, credentials, raw MLflow databases, personal
 notifications, or a nonexistent live URL; do not imply a live deployment or
-make a legal-advice claim. The video is not complete
-until the real file exists at `docs/demo/kawaneen-demo.mp4` and has been
-validated.
+make a legal-advice claim. The tracked final portfolio film is complete and
+validated at `docs/demo/kawaneen-demo.mp4`; this list remains extended/manual
+recording history rather than the exact final edit.

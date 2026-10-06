@@ -12,9 +12,8 @@ the serving boundary, retrieval and grounding stack, deterministic extraction,
 synthetic public demo, evaluation harnesses, reproducibility records, and
 deployment documentation.
 
-**Status:** Engineering & research roadmap complete · Portfolio closeout:
-demo video pending · Live public demo: prepared and qualified, not yet
-published
+**Status:** Engineering & research roadmap complete · Portfolio closeout complete ·
+Live public demo prepared and qualified, not yet published
 
 [![CI](https://github.com/Joseph-Nawar/Kawaneen/actions/workflows/ci.yml/badge.svg)](https://github.com/Joseph-Nawar/Kawaneen/actions/workflows/ci.yml)
 [![Python 3.11–3.12](https://img.shields.io/badge/python-3.11%E2%80%933.12-blue)](pyproject.toml)
@@ -81,10 +80,19 @@ Existing synthetic UI screenshots are available for [Search](docs/assets/ui/sear
 [Evaluation](docs/assets/ui/evaluation.png). They contain no private or
 production legal data.
 
-**Demo video — recording pending.** The exact one-pass plan is in the [three-minute
-script](docs/demo/three-minute-script.md) and [shot list](docs/demo/shot-list.md).
-The eventual file belongs at `docs/demo/kawaneen-demo.mp4`; no live video URL is
-claimed here.
+**Portfolio demo — complete.**
+
+[![Watch the Kawaneen demo](docs/demo/kawaneen-demo-poster.png)](docs/demo/kawaneen-demo.mp4)
+
+[Watch the 72-second portfolio demo](docs/demo/kawaneen-demo.mp4). The
+approximately 72-second edited film covers Search, evidence provenance,
+grounded Ask/citation, genuine abstention, deterministic extraction-candidate
+behavior, the full-local versus public-demo architecture, measured Phase 15
+citation-verification evidence, and the reproducibility/engineering stack.
+It uses synthetic/public-demo material only and does not demonstrate real
+Saudi-law correctness or provide legal advice. The public profile is prepared
+and qualified, not claimed to be publicly hosted. See the [demo metadata](docs/demo/kawaneen-demo-metadata.md)
+for render and safety provenance.
 
 ## Run it locally
 

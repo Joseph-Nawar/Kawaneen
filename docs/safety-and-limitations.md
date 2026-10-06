@@ -115,6 +115,6 @@ and independent verification against the governing authority.
 ## Public status
 
 The repository has a qualified local synthetic-demo profile, but no live
-deployment is claimed and no Hugging Face Space has been published. The only
-remaining intentionally manual portfolio action is recording and validating
-the real three-minute demo video; Hugging Face publication remains optional.
+deployment is claimed and no Hugging Face Space has been published. The
+approximately 72-second portfolio film is tracked and validated at
+`docs/demo/kawaneen-demo.mp4`; Hugging Face publication remains optional.

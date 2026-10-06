@@ -1,5 +1,10 @@
 # Three-minute Kawaneen demo script
 
+> Final portfolio relationship: The tracked final portfolio film is the
+> approximately 72-second edited demo at `docs/demo/kawaneen-demo.mp4`. This
+> document remains an extended/manual walkthrough reference and production
+> history; it is not a description of the exact final edit.
+
 This is a one-pass recording plan for the real finished project. Use the full
 local profile for the architecture/deployment claim and a safe DEV view only
 when its evidence is approved for local recording. Use the public synthetic
@@ -50,8 +55,8 @@ the generated manifest. End on the persistent `PUBLIC DEMO` banner.
 | 0:00–0:20 | “Kawaneen makes Arabic legal research inspectable: retrieve evidence, preserve source identity, and abstain when evidence is insufficient.” | Open the product landing/search view. | Project name, Arabic legal-intelligence purpose, and evidence-first framing. |
 | 0:20–0:40 | “The full local profile combines BM25, dense retrieval, reranking, grounded generation, citation verification, and MLflow traces. The public profile removes private data and generation.” | Show the rendered `docs/architecture/phase17-deployment.mmd` diagram or a clean editor preview. | Both profiles; demo boundary clearly says synthetic, no LLM, no Qdrant, no MLflow, no Ollama. |
 | 0:40–1:10 | “Search is the first inspection step. I’ll ask a fictional question about returns.” | On the public profile, search `ما هي مدة الإرجاع؟`; open one result. On a local full profile, use only an approved DEV query. | Ranked evidence, result count, `KAWANEEN_DEMO` scope, document/source identity, exact passage, and provenance/chunk identity; no private or HOLDOUT text in a shared recording. |
-| 1:10–1:40 | “Ask is grounded in retrieved evidence and can abstain. It does not turn unsupported text into a confident legal conclusion.” | Public profile: ask `ما هي مدة إشعار العقد؟`; show the numbered citation such as `01 · <document title>` and expand `Inspect citation 1`. Full profile: show retrieval → context → verified citation if locally approved. | Exact synthetic passage for public mode, or verified local citation; show the boundary/disclaimer. |
-| 1:40–2:00 | “Extraction stays deterministic and bounded.” | Public profile: paste `يلتزم الطرف بالسداد خلال ثلاثين يوماً.` into Extract and run it. | Candidate/deadline span; upload and hybrid controls absent in public mode; limits visible. |
+| 1:10–1:40 | “Ask is grounded in retrieved evidence and can abstain. It does not turn unsupported text into a confident legal conclusion.” | Public profile: ask `ما هي مدة إشعار العقد؟`; show the grounded answer and citation card with document, article, page, quote, and the public-demo boundary. Canonical inspection is unavailable in the reduced public synthetic profile and must not be presented as succeeding. Full profile: show retrieval → context → verified citation if locally approved. | Exact synthetic passage for public mode, or verified local citation; show the boundary/disclaimer. |
+| 1:40–2:00 | “Extraction stays deterministic and bounded.” | Public profile: paste `يلتزم الطرف بالسداد خلال ثلاثين يوماً.` into Extract and run it. | Deterministic backend candidate `ثلاثين يوماً`, temporal candidate, normalized value `30 days`, and an empty semantic deadline field; the current public UI does not expose the raw candidate registry. |
 | 2:00–2:25 | “The evaluation record keeps measured evidence, scope, and limitations visible.” | Open Evaluation; show the tracked metrics and scope labels, retrieval evidence, Generation and Extraction sections, and technical provenance. If mentioning the 80/80 fallback-generator failure, briefly show the README or the Phase 15 report where it is explicitly documented. | Tracked metrics, scope labels, retrieval evidence, generation/extraction sections, and provenance are visible; any negative fallback result is shown from its documented source, not implied to be a new Evaluation-page surface. |
 | 2:25–2:45 | “The full system is reproducible locally with Docker Compose, while MLflow remains optional and local.” | Show a clean terminal with `docker compose up`/the full-local runbook, then `make phase16-verify`. | Deployment command, tracked identity/result reconstruction, and no secret/private path. |
 | 2:45–3:00 | “The public demo is synthetic and unpublished. This is evidence-first research infrastructure, not legal advice.” | Show `make phase17-space-bundle`, its publication gate, then finish on the public-demo banner. | `NOT_PUBLISHED_USER_APPROVAL_REQUIRED`, synthetic/not-Saudi/not-advice disclaimer. |
@@ -64,8 +69,8 @@ the generated manifest. End on the persistent `PUBLIC DEMO` banner.
 - Use public synthetic data for public-facing interactions; do not expose the
   private corpus or imply a live deployment.
 - Do not make a legal-advice claim.
-- No copyrighted background music is required.
-- The target file is `docs/demo/kawaneen-demo.mp4`.
+- The final edited film uses licensed background music; this manual recording plan does not require adding new music.
+- The tracked final portfolio file is `docs/demo/kawaneen-demo.mp4`; inspect that file for the exact final edit.
 - If `ffmpeg` is available, compress a valid recording with:
 
 ```bash
