@@ -1,0 +1,55 @@
+{
+  "schema_version": "portfolio-mlflow-evidence-v1",
+  "export_timestamp_utc": "2026-09-04T00:00:00Z",
+  "export_scope": "safe_text_only_existing_phase16_phase17_evidence",
+  "source_of_truth": {
+    "serving_identity": "data/manifests/observability/phase16_serving_identity.json",
+    "reproduction_config": "data/manifests/observability/phase16_reproduction_config.json",
+    "result_table": "data/evaluation/phase16_reported_results.csv",
+    "result_table_sha256": "eb86dcd4896c3c5ceb12e0b5b236760cddd2910d0ad6e847fdb6c1dd7d71c78d",
+    "source_artifact_count": 5
+  },
+  "serving": {
+    "configuration_version": "3fcd52f794ca6402c5d1d6f8be3a2aa9487ea79ac8ccd967392be3304638c83c",
+    "corpus_version": "290d7a91e5f435778e782b76284a9797fb7f5ae261380f0a923b56224e530daa",
+    "embedding": {"model_id": "BAAI/bge-m3", "revision": "5617a9f61b028005a4858fdac845db406aefb181"},
+    "retrieval_strategy": "hybrid_reranked",
+    "reranker": {"model_id": "BAAI/bge-reranker-v2-m3", "revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e"},
+    "prompt_template_version": "phase10-stage-d-prompt-template-v1",
+    "prompt_version_hash": "4e5fccb56222c0310136e4a3446ccfffb2af412bc2b6c73f6262fae4320c180c",
+    "answerability_policy_version": "phase10-stage-d-answerability-policy-v1",
+    "answerability_policy_hash": "8c990acd4d983da61baf3b8d72a4150f6f9f75b30dbf0b57ef18660fc84930e0"
+  },
+  "reproduction_run": {
+    "experiment": "kawaneen-reproducibility",
+    "run_name": "phase16-public-reproduction",
+    "run_id": "bba5c85d64474293bcff588cf4cd001a",
+    "status": "FINISHED",
+    "source_artifact_count": 5,
+    "artifact_names": ["phase16_reproduction_config.json", "phase16_reported_results.csv"],
+    "metric_names": ["phase5_fixed256_ndcg10", "phase5_structure_ndcg10", "phase15_arabic_vs_bge_recall10_delta", "phase15_reranker_recall10_delta", "phase15_citation_defect_reduction", "phase15_fallback_invalid_generation_rate"],
+    "metrics": {
+      "phase5_fixed256_ndcg10": 0.6394436819923248,
+      "phase5_structure_ndcg10": 0.683666296657345,
+      "phase15_arabic_vs_bge_recall10_delta": 0.04609929078014184,
+      "phase15_reranker_recall10_delta": 0.043478260869565216,
+      "phase15_citation_defect_reduction": 0.725,
+      "phase15_fallback_invalid_generation_rate": 1.0
+    }
+  },
+  "trace_evidence": [
+    {"trace_id": "tr-3cc1f19be79b3fd58ae4314622dc7066", "operation": "kawaneen.search", "status": "observed", "stage_names": ["retrieval.first_stage", "retrieval.rerank"], "latency_export": "not_exported_environment_dependent"},
+    {"trace_id": "tr-7b1b6c1cbdd8fb84ed6dfcbba4f3084b", "operation": "failure_sentinel_smoke", "status": "ERROR_recorded_without_user_content", "stage_names": ["retrieval.first_stage"], "latency_export": "not_exported_environment_dependent"}
+  ],
+  "privacy": {
+    "raw_query_text": false,
+    "query_hash": false,
+    "legal_evidence_text": false,
+    "generated_answer_text": false,
+    "extracted_document_text": false,
+    "private_paths": false,
+    "credentials": false,
+    "stack_traces": false,
+    "mlflow_database": false
+  }
+}

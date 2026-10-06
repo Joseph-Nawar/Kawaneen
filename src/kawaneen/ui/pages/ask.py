@@ -22,7 +22,7 @@ from kawaneen.ui.state import get_context
 
 def render() -> None:
     client, state = get_context()
-    render_product_header(state)
+    render_product_header(state, active_page="Ask")
     if not render_status_gate(state):
         return
     render_mode_note(state)
@@ -59,7 +59,7 @@ def render() -> None:
         elif response.answerable and response.answer:
             direction = text_direction(response.answer)
             answer_html = (
-                f'<div class="kw-surface kw-{direction}" style="line-height:1.9">'
+                f'<div class="kw-surface kw-answer-pane kw-{direction}" style="line-height:1.9">'
                 f"{html.escape(response.answer)}</div>"
             )
             st.html(answer_html)
@@ -68,22 +68,22 @@ def render() -> None:
                 response.abstention_reason or "The available evidence was insufficient."
             )
             abstention_html = (
-                '<div class="kw-surface" style="border-color:#e4bf87;'
-                'background:#fff7e8"><strong>Grounded answer not issued</strong>'
+                '<div class="kw-abstention"><strong>ANSWER NOT ISSUED</strong>'
+                '<div class="kw-meta" style="margin-top:.35rem">Grounded answer not issued.</div>'
                 f'<div style="margin-top:.5rem">{reason}</div>'
                 '<div class="kw-meta" style="margin-top:.6rem">'
                 "Abstention is an intentional safety decision.</div></div>"
             )
             st.html(abstention_html)
     with evidence_col:
-        st.markdown("### Evidence rail")
+        st.markdown("### Verified evidence")
         if response is None:
             st.caption("Verified quotes and source metadata will appear here.")
         else:
             if not response.citations:
                 st.caption("No verified citation was issued.")
             for index, citation in enumerate(response.citations, start=1):
-                render_citation_card(citation)
+                render_citation_card(citation, index)
                 with st.expander(f"Inspect citation {index}"):
                     try:
                         detail = client.get_document(citation.document_id)
